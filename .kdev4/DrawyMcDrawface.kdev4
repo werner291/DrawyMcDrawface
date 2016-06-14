@@ -1,0 +1,44 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x01\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x1e\x00D\x00r\x00a\x00w\x00y\x00M\x00c\x00D\x00r\x00a\x00w\x00f\x00a\x00c\x00e)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index=0
+ProjectRootRelative=./
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=file:///home/werner/workspace/DrawyMcDrawface/build
+Build Type=Debug
+CMake Binary=file:///usr/bin/cmake
+Environment Profile=
+Extra Arguments=
+Install Directory=file:///usr/local
+
+[Defines And Includes][Compiler]
+Name=GCC
+Path=gcc
+Type=GCC
+
+[Launch]
+Launch Configurations=Launch Configuration 0
+
+[Launch][Launch Configuration 0]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=New Compiled Binary Launcher
+Type=Native Application
+
+[Launch][Launch Configuration 0][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=
+Executable=file:///home/werner/workspace/DrawyMcDrawface/
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Project Target=DrawyMcDrawface,DrawyMcDrawface
+Use External Terminal=false
+Working Directory=file:///home/werner/workspace/DrawyMcDrawface
+isExecutable=false
+
+[SourceFileTemplates]
+LastUsedTemplate=/home/werner/.kde/share/apps/kdevfiletemplates/template_descriptions/cpp_basic.desktop
