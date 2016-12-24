@@ -22,8 +22,14 @@
 
 #include <OGRE/Ogre.h>
 
-#include "SceneContainer.h"
+#include "SceneComputer.h"
 
+/**
+ * Renderer:
+ * 
+ * Turn the computed concrete scene from the SceneComputer
+ * into something Ogre understands.
+ */
 class Renderer
 {
   
@@ -40,14 +46,13 @@ Ogre::RenderWindow* mRenderWindow;
 Ogre::SceneManager* mSceneMgr;
 Ogre::Camera* mCamera;
 Ogre::Viewport* vp;
-    SceneContainer sceneBuilder;
+  
+  SceneComputer sceneBuilder;
   
   void startOgre();
   
-  
-
 public:
-    Renderer(SceneContainer& container);
+    Renderer(SceneComputer& container);
     
     void startRendering();
     

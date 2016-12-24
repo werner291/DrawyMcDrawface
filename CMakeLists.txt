@@ -35,8 +35,8 @@ set(SOURCE_FILES
         src/Renderer.h
         src/SceneComputer.cpp
         src/SceneComputer.h
-        src/SceneContainer.cpp 
-        src/SceneContainer.h)
+        src/SceneModel.cpp 
+        src/SceneModel.h src/SyntaxNetLink.cpp src/SyntaxNetLink.h)
 
 find_package(OGRE REQUIRED)
 

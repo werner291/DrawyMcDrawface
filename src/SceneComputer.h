@@ -20,8 +20,12 @@
 #ifndef SCENECOMPUTER_H
 #define SCENECOMPUTER_H
 
+#include <OGRE/Ogre.h>
+
+#include "SceneModel.h"
+
 /**
- * The element in the pipeline between the SceneContainer
+ * The element in the pipeline between the SceneModel
  * and the Renderer.
  * 
  * It turns the "constrains" and "Entity Definitions"
@@ -30,8 +34,19 @@
  */
 class SceneComputer
 {
+  
+  std::default_random_engine rando;
+  
+  SceneModel& definition;
+  
+  std::vector<Ogre::AxisAlignedBox> occupiedSpace;
+  
 public:
-    SceneComputer();
+    SceneComputer(SceneModel& defintion);
+    
+    void compute(const std::string& toDraw, Ogre::SceneManager* mSceneMgr);
+    
+    void processEntity(EntityPtr entModel, Ogre::SceneManager* mSceneMgr);
 };
 
 #endif // SCENECOMPUTER_H

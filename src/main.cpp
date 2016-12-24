@@ -7,7 +7,7 @@
 
 #include "ParseTree.h"
 #include "Interpreter.h"
-#include "SceneContainer.h"
+#include "SceneModel.h"
 #include "Renderer.h"
 
 #include <thread>
@@ -24,13 +24,15 @@ int main(int argc, char** argv)
 
     std::cout << "----------------" << std::endl;
     
-    SceneContainer scene;
+    SceneModel scene;
+    
+    SceneComputer sceneComputer(scene);
 
     Interpreter interp(scene);
 
     interp.interpretParsed(tree);
     
-    Renderer renderer(scene);
+    Renderer renderer(sceneComputer);
     
     renderer.startRendering();
     

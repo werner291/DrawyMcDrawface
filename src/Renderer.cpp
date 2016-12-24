@@ -17,9 +17,13 @@
  *
  */
 
+
+#include <thread>
+#include <chrono>
+
 #include "Renderer.h"
 
-Renderer::Renderer(SceneContainer& container)
+Renderer::Renderer(SceneComputer& container)
   : sceneBuilder(container)
 {
   
@@ -62,24 +66,8 @@ void Renderer::startOgre()
 void Renderer::startRendering()
 {
   
-  for (const Entity& ent : sceneBuilder.entities) {
-      
-      Ogre::SceneManager::PrefabType pfType;
-      
-      if (ent.isSubOf("cube")
-      
-      // Create a prefab cube
-    Ogre::Entity *planeEnt = mSceneMgr->createEntity( Ogre::SceneManager::PT_CUBE);
-
-        // Give the plane a texture
-        planeEnt->setMaterialName("DefaultWhite");
-
-        // Attach the 2 new entities to the root of the scene
-        mSceneMgr->getRootSceneNode()
-		 ->createChildSceneNode(ent.position)
-		 ->attachObject(planeEnt);
-    }
-    
+  sceneBuilder.compute("Current Scene", mSceneMgr);
+  
     mSceneMgr->setAmbientLight(Ogre::ColourValue(0, .5, 0));
 
     Ogre::Light* light = mSceneMgr->createLight("MainLight");
@@ -92,7 +80,7 @@ void Renderer::startRendering()
 
         if(mRenderWindow->isClosed()) break;
 
-        if(!mRoot->renderOneFrame()) return 1;
+        if(!mRoot->renderOneFrame()) break;
 
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }

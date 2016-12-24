@@ -10,15 +10,15 @@
 
 #include <string>
 #include "ParseTree.h"
-#include "SceneContainer.h"
+#include "SceneModel.h"
 
 class Interpreter
 {
 
-    SceneContainer& sceneContainer;
+    SceneModel& sceneContainer;
 
 public:
-    Interpreter(SceneContainer& sceneContainer);
+    Interpreter(SceneModel& sceneContainer);
     virtual ~Interpreter();
 
     bool interpretParsed(const ParseTree& parsetree);

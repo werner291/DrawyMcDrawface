@@ -8,7 +8,7 @@
 #include "Interpreter.h"
 #include <boost/algorithm/string/predicate.hpp>
 
-Interpreter::Interpreter(SceneContainer& sceneContainer)
+Interpreter::Interpreter(SceneModel& sceneContainer)
     : sceneContainer(sceneContainer) {
     // TODO Auto-generated constructor stub
 
@@ -119,7 +119,9 @@ bool Interpreter::interpretParsed(const ParseTree& parsetree) {
 
         for (int i = 0; i < number; ++i)
 	{
-	  bool result =  sceneContainer.createEntity(name);
+	  EntityPtr newEnt = sceneContainer.createEntity(name);
+	  
+	  sceneContainer.addEntityToGroup(newEnt->getName(), "Current Scene");
 	}
     }
 

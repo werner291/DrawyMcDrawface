@@ -40,5 +40,8 @@ Use External Terminal=false
 Working Directory=file:///home/werner/workspace/DrawyMcDrawface
 isExecutable=false
 
+[Project]
+VersionControlSupport=kdevgit
+
 [SourceFileTemplates]
 LastUsedTemplate=/home/werner/.kde/share/apps/kdevfiletemplates/template_descriptions/cpp_basic.desktop

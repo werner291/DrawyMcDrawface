@@ -19,7 +19,98 @@
 
 #include "SceneComputer.h"
 
-SceneComputer::SceneComputer()
+SceneComputer::SceneComputer(SceneModel& defintion)
+    :definition(defintion)
 {
+    definition.createEntity("primitive", "cube");
+    definition.createEntity("primitive", "cylinder");
+
+    definition.createEntity("primitive", "Current Scene");
+}
+
+void SceneComputer::compute(const std::string& toDraw, Ogre::SceneManager* mSceneMgr)
+{
+    EntityPtr ent = definition.getEntity(toDraw).lock();
+
+    for (WeakEntityPtr subEnt : ent->getSubEntities())
+    {
+        processEntity(subEnt.lock(), mSceneMgr);
+    }
+}
+
+void SceneComputer::processEntity(EntityPtr entModel, Ogre::SceneManager* mSceneMgr)
+{
+
+    Ogre::SceneManager::PrefabType pfType;
+
+    // Determine shape
+    if (entModel->findAncestor("cube").lock().get() != nullptr)
+    {
+        pfType = Ogre::SceneManager::PT_CUBE;
+        std::cout << "Creating cube ";
+    }
+    else
+    {
+        pfType = Ogre::SceneManager::PT_SPHERE;
+        std::cout << "Creating sphere ";
+    }
+
+    // Create a prefab cube
+    Ogre::Entity *planeEnt = mSceneMgr->createEntity(pfType);
+
+    // Give the plane a texture
+    planeEnt->setMaterialName("DefaultGray");
+
+    // Determine position (moving other entities if needed)
+
+    float radius = planeEnt->getBoundingRadius();
+    std::uniform_real_distribution< float > positionGen(-radius,radius);
+
+    Ogre::Vector3 pos;
+    Ogre::AxisAlignedBox candidateBounds;
+    bool placed = true;
+
+    do
+    {
+        pos = Ogre::Vector3(positionGen(rando),positionGen(rando),positionGen(rando));
+        placed = true;
+
+        candidateBounds = Ogre::AxisAlignedBox(
+            Ogre::Vector3(pos - planeEnt->getBoundingRadius()),
+            Ogre::Vector3(pos + planeEnt->getBoundingRadius())
+        );
+
+        std::cout << "Candidate: " << candidateBounds << std::endl;
+
+        for (Ogre::AxisAlignedBox otherBox : occupiedSpace)
+        {
+            if (otherBox.intersects(candidateBounds))
+            {
+                std::cout << "Intersect found: " << otherBox << " - " << radius << std::endl;
+                placed = false;
+                radius *= 1.1;
+                positionGen = std::uniform_real_distribution< float >(-radius,radius);
+                break;;
+            }
+            else
+            {
+                std::cout << "Clear." << std::endl;
+            }
+        }
+
+    }
+    while (!placed);
+    
+    occupiedSpace.push_back(candidateBounds);
+
+    Ogre::SceneNode* node = mSceneMgr->getRootSceneNode()
+                            ->createChildSceneNode(pos);
+
+    // Attach the 2 new entities to the root of the scene
+
+    node->attachObject(planeEnt);
+
+    std::cout << node->getPosition() << std::endl;
+
 
 }
