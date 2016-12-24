@@ -16,6 +16,17 @@
       <sourceFolder url="file://$MODULE_DIR$/src/ParseTree.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Interpreter.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/ParseTreeTest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/gtest.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/src/gmock-all.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/src/gmock_main.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/src/gtest_main.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/src/gtest-all.cc" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/test/googletest/googletest/cmake/internal_utils.cmake" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">

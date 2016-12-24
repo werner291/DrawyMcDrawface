@@ -43,3 +43,5 @@ find_package(OGRE REQUIRED)
 add_executable(DrawyMcDrawface ${SOURCE_FILES})
 
 target_link_libraries(DrawyMcDrawface ${OGRE_LIBRARIES})
+
+add_subdirectory(test)

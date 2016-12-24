@@ -19,7 +19,8 @@ class SyntaxNetLink {
             throw std::runtime_error("String contains illegal or unsafe characters: " + english);
         }
 
-        system("docker run 799d90a4425b bash -c \"echo '"+english+"' | syntaxnet/demo.sh\"");
+        // TODO isn't it beautiful?
+        system(("docker run 799d90a4425b bash -c \"echo '"+english+"' | syntaxnet/demo.sh\"").c_str());
     }
 
 };
