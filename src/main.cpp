@@ -5,33 +5,46 @@
  *      Author: werner
  */
 
-#include "ParseTree.h"
-#include "Interpreter.h"
-#include "SceneModel.h"
-#include "Renderer.h"
-
 #include <thread>
-#include <chrono>
+#include <memory>
+
+#include "ParseTree.h"
+#include "AbstractSceneModel.h"
+#include "Interpreter.h"
+#include "Renderer.h"
+#include "askUser.h"
+
+using namespace std;
+
+void showScene(std::shared_ptr<AbstractSceneModel> scene);
 
 int main(int argc, char** argv) {
-    
-    SceneModel scene;
+
+    shared_ptr<AbstractSceneModel> scene = make_shared<AbstractSceneModel>();
     Knowledge knowl;
 
-    std::string line;
+    string line;
 
-    while (std::getline(std::cin, line)) {
+    while (getline(cin, line)) {
         auto results = interpret(line, scene, knowl, true);
 
-        std::cout << "Interpreted: " << std::endl;
+        cout << "Interpreted: " << endl;
 
         for (auto stmt: results) {
-            std::cout << stmt->describe() << std::endl;
+            cout << stmt->describe() << endl;
         }
 
         if (results.empty()) {
-            std::cout << "Unable to interpret. Guess I'm too stupid." << std::endl;
+            cout << "Unable to interpret. Guess I'm too stupid." << endl;
         }
+
+        if (askUserYesNo("Is this correct?")) {
+            for (auto cmd : results) {
+                cmd->apply();
+            }
+        }
+
+        showScene(scene);
     }
     
     //Renderer renderer(sceneComputer);
@@ -43,4 +56,10 @@ int main(int argc, char** argv) {
     ////////////////////
 
     return 0;
+}
+
+void showScene(std::shared_ptr<AbstractSceneModel> scene) {
+    cout << "The scene currently looks like: " << endl;
+
+    cout << *scene << endl;
 }

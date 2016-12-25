@@ -1,0 +1,71 @@
+//
+// Created by werner on 25-12-16.
+//
+
+#ifndef DRAWYMCDRAWFACE_SCENERULE_H
+#define DRAWYMCDRAWFACE_SCENERULE_H
+
+#include <string>
+#include <sstream>
+#include "AbstractSceneModel.h"
+
+/**
+ * An action to be applied on an AbstractSceneModel.
+ *
+ * It follows a Command design pattern.
+ *
+ * Most commands are revertible.
+ */
+class SceneCommand {
+
+protected:
+    // Reference to the scene on which this statement is applied
+    std::weak_ptr<AbstractSceneModel> scene;
+private:
+
+    // Whether this command has been applied or not.
+    bool applied = false;
+
+public:
+    SceneCommand(const std::weak_ptr<AbstractSceneModel> &scene);
+
+    virtual std::string describe() = 0;
+
+    void apply();
+
+    void revert();
+
+    virtual void onApply() = 0;
+
+    virtual void onRevert();
+};
+
+class CreateEntityRule : public SceneCommand {
+
+public:
+    // String describing what to create
+    std::string what;
+
+    // After applying, stores the entity that was created
+    WeakEntityPtr created;
+
+    // How many entities to create
+    int number = 1;
+
+
+    CreateEntityRule(const std::weak_ptr<AbstractSceneModel> &scene);
+
+    std::string describe();
+
+    void onApply();
+
+    //void onRevert() override {
+    // TODO implement
+    //    scene.lock()->deleteEntity(created);
+    //    created.reset(nullptr);
+    //}
+
+
+};
+
+#endif //DRAWYMCDRAWFACE_SCENERULE_H

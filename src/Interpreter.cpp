@@ -5,9 +5,9 @@
  *      Author: werner
  */
 
+#include "SceneCommand.h"
 #include "Interpreter.h"
 #include "SyntaxNetLink.h"
-#include "SceneStatement.h"
 
 int interpretInteger(const std::string &text) ;
 
@@ -17,13 +17,16 @@ bool isCreationVerb(const SentencePart &part);
 
 int findNumber(const SentencePart& pPart);
 
-void creationRuleForObject(std::vector<std::shared_ptr<SceneStatement>> &statements, const SentencePart& obj);
+void creationRuleForObject(std::vector<std::shared_ptr<SceneCommand>> &statements,
+                           std::shared_ptr<AbstractSceneModel> scene,
+                           const SentencePart &obj);
 
-std::vector<std::shared_ptr<SceneStatement> > interpret(const std::string &toInterpret, const SceneModel &currentScene,
-                                                        Knowledge &knowledge,
-                                                        bool allowLearning) {
+std::vector<std::shared_ptr<SceneCommand> > interpret(const std::string &toInterpret,
+                                                      std::shared_ptr<AbstractSceneModel> scene,
+                                                      Knowledge &knowledge,
+                                                      bool allowLearning) {
 
-    std::vector<std::shared_ptr<SceneStatement> > statements;
+    std::vector<std::shared_ptr<SceneCommand> > statements;
 
     SyntaxNetLink linky;
 
@@ -31,24 +34,31 @@ std::vector<std::shared_ptr<SceneStatement> > interpret(const std::string &toInt
 
     const SentencePart& rootWord = tree.getRootWord();
 
-    if (isCreationVerb(rootWord)) {
-        // This is a command in the form of "Create a cube"
+    if (rootWord.getNature() != "VB" || isCreationVerb(rootWord)) {
+        // This is a command in the form of "Create a cube", or simply "a cube"
 
-        const SentencePart* obj = rootWord.dfsFind([](const SentencePart& part){return part.getNature() == "NN" || part.getNature() == "NNS";});
+        const SentencePart *obj = rootWord.dfsFind([](const SentencePart &part) {
+            return part.getNature() == "NN" || part.getNature() == "NNS";
+        });
 
         if (obj == nullptr) {
             throw std::runtime_error("Cannot find object to create.");
         }
 
-        creationRuleForObject(statements, *obj);
-
+        creationRuleForObject(statements, scene, *obj);
     }
 
     return statements;
 }
 
-void creationRuleForObject(std::vector<std::shared_ptr<SceneStatement>> &statements, const SentencePart& obj) {
-    std::shared_ptr<CreateEntityRule> createStmt = std::make_shared<CreateEntityRule>();
+/**
+ * Generate a creation command for the object(s) described in this sentence part.
+ */
+void creationRuleForObject(std::vector<std::shared_ptr<SceneCommand>> &statements,
+                           std::shared_ptr<AbstractSceneModel> scene,
+                           const SentencePart &obj) {
+
+    std::shared_ptr<CreateEntityRule> createStmt = std::make_shared<CreateEntityRule>(scene);
 
     if (obj.getNature() == "NNS") {
             // Plural
@@ -67,11 +77,12 @@ void creationRuleForObject(std::vector<std::shared_ptr<SceneStatement>> &stateme
         if (itr->getRole() == "cc") {
             if (itr->getRootWord() != "and") {
                 // This is an "or" or "while", don't know how to handle those yet!
-                throw std::runtime_error("I don't know how to handle coordinating conjunction " + itr->getRootWord() + " yet, sorry!");
+                throw std::runtime_error("I don't know how to handle coordinating conjunction "
+                                         + itr->getRootWord() + " yet, sorry!");
             }
 
             // Add separate creation rules for the conjuncts as well.
-            creationRuleForObject(statements, *(++itr));
+            creationRuleForObject(statements, scene, *(++itr));
         }
     }
 }
@@ -104,7 +115,7 @@ bool isCreationVerb(const SentencePart &part) {
 
 int interpretInteger(const std::string &text) {
     char *p;
-    int result = strtol(text.c_str(), &p, 10);
+    int result = (int) strtol(text.c_str(), &p, 10);
 
     return result;
 }

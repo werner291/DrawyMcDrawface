@@ -32,13 +32,15 @@ set(SOURCE_FILES
         src/ParseTree.h 
         src/Renderer.cpp
         src/Renderer.h
-        src/SceneComputer.cpp
-        src/SceneComputer.h
-        src/SceneModel.cpp 
-        src/SceneModel.h
+        #src/SceneComputer.cpp
+        #src/SceneComputer.h
+        src/askUser.cpp
+        src/askUser.h
+        src/AbstractSceneModel.cpp
+        src/AbstractSceneModel.h
         src/SyntaxNetLink.cpp
         src/SyntaxNetLink.h
-        src/SceneStatement.cpp)
+        src/SceneCommand.cpp)
 
 find_package(OGRE REQUIRED)
 

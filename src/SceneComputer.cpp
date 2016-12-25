@@ -19,23 +19,13 @@
 
 #include "SceneComputer.h"
 
-SceneComputer::SceneComputer(SceneModel& defintion)
+SceneComputer::SceneComputer(AbstractSceneModel &defintion)
     :definition(defintion)
 {
     definition.createEntity("primitive", "cube");
     definition.createEntity("primitive", "cylinder");
 
     definition.createEntity("primitive", "Current Scene");
-}
-
-void SceneComputer::compute(const std::string& toDraw, Ogre::SceneManager* mSceneMgr)
-{
-    EntityPtr ent = definition.getEntity(toDraw).lock();
-
-    for (WeakEntityPtr subEnt : ent->getSubEntities())
-    {
-        processEntity(subEnt.lock(), mSceneMgr);
-    }
 }
 
 void SceneComputer::processEntity(EntityPtr entModel, Ogre::SceneManager* mSceneMgr)

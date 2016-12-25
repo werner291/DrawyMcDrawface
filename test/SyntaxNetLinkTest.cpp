@@ -28,21 +28,6 @@ TEST(ParserLinkTest, simpleTest2) {
 
     ASSERT_EQ(parsed.getRootWord().getRole(), "ROOT");
 
-    ASSERT_EQ(parsed.getRootWord().getNature(), "VB");
-
-}
-
-TEST(ParserLinkTest, simpleTestGardenPath) {
-
-    SyntaxNetLink linky;
-
-    ParseTree parsed = linky.parse("The old man the boat");
-
-    // Check whether the root word was parsed correctly
-    ASSERT_EQ(parsed.getRootWord().getRootWord(), "man");
-
-    ASSERT_EQ(parsed.getRootWord().getRole(), "ROOT");
-
-    ASSERT_EQ(parsed.getRootWord().getNature(), "VB");
+    ASSERT_EQ(parsed.getRootWord().getNature(), "VBZ");
 
 }

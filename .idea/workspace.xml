@@ -6,33 +6,34 @@
       <config projectName="DrawyMcDrawface" targetName="gmock_main" />
       <config projectName="DrawyMcDrawface" targetName="NightlyMemoryCheck" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousTest" />
-      <config projectName="DrawyMcDrawface" targetName="runDrawyTests" />
       <config projectName="DrawyMcDrawface" targetName="ExperimentalCoverage" />
+      <config projectName="DrawyMcDrawface" targetName="runDrawyTests" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousMemCheck" />
       <config projectName="DrawyMcDrawface" targetName="ExperimentalUpdate" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousSubmit" />
       <config projectName="DrawyMcDrawface" targetName="NightlyUpdate" />
       <config projectName="DrawyMcDrawface" targetName="gmock" />
-      <config projectName="DrawyMcDrawface" targetName="ContinuousConfigure" />
       <config projectName="DrawyMcDrawface" targetName="ExperimentalMemCheck" />
+      <config projectName="DrawyMcDrawface" targetName="ContinuousConfigure" />
       <config projectName="DrawyMcDrawface" targetName="runTests" />
       <config projectName="DrawyMcDrawface" targetName="gtest" />
+      <config projectName="DrawyMcDrawface" targetName="DrawyMcDrawface_core" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousStart" />
       <config projectName="DrawyMcDrawface" targetName="googletest" />
-      <config projectName="DrawyMcDrawface" targetName="ExperimentalBuild" />
       <config projectName="DrawyMcDrawface" targetName="NightlyStart" />
+      <config projectName="DrawyMcDrawface" targetName="ExperimentalBuild" />
       <config projectName="DrawyMcDrawface" targetName="DrawyMcDrawface" />
       <config projectName="DrawyMcDrawface" targetName="Continuous" />
-      <config projectName="DrawyMcDrawface" targetName="ExperimentalStart" />
       <config projectName="DrawyMcDrawface" targetName="NightlySubmit" />
+      <config projectName="DrawyMcDrawface" targetName="ExperimentalStart" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousUpdate" />
       <config projectName="DrawyMcDrawface" targetName="ContinuousBuild" />
       <config projectName="DrawyMcDrawface" targetName="NightlyCoverage" />
-      <config projectName="DrawyMcDrawface" targetName="ExperimentalSubmit" />
       <config projectName="DrawyMcDrawface" targetName="NightlyConfigure" />
+      <config projectName="DrawyMcDrawface" targetName="ExperimentalSubmit" />
       <config projectName="DrawyMcDrawface" targetName="ExperimentalConfigure" />
-      <config projectName="DrawyMcDrawface" targetName="ExperimentalTest" />
       <config projectName="DrawyMcDrawface" targetName="Nightly" />
+      <config projectName="DrawyMcDrawface" targetName="ExperimentalTest" />
       <config projectName="DrawyMcDrawface" targetName="NightlyTest" />
       <config projectName="DrawyMcDrawface" targetName="NightlyMemCheck" />
       <config projectName="DrawyMcDrawface" targetName="gtest_main" />
@@ -40,24 +41,33 @@
       <config projectName="DrawyMcDrawface" targetName="ContinuousCoverage" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
+  <component name="CMakeSettings" AUTO_RELOAD="true" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
     <ADDITIONAL_GENERATION_ENVIRONMENT>
       <envs />
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5dd4335b-af97-43de-badf-4b86ba4aba53" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/googletest" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitmodules" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/CMakeLists.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/ParseTreeTest.cpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/gtest.cpp" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.kdev4/DrawyMcDrawface.kdev4" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DrawyMcDrawface.kdev4" afterPath="" />
+    <list default="true" id="5dd4335b-af97-43de-badf-4b86ba4aba53" name="Default" comment="Removed &quot;The old man the boat&quot; test case.&#10;Cleaned up SceneModel, renamed it.&#10;Renamed SceneStatement to SceneCommand, cleaned up and refactored to adhere to command pattern.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/.whitepaper.tex.swp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/SceneCommand.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/askUser.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/StatementApplicationTest.cpp" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/SceneStatement.h" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/SceneModel.cpp" afterPath="$PROJECT_DIR$/src/AbstractSceneModel.cpp" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/SceneModel.h" afterPath="$PROJECT_DIR$/src/AbstractSceneModel.h" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/SceneStatement.cpp" afterPath="$PROJECT_DIR$/src/SceneCommand.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/DrawyMcDrawface.iml" afterPath="$PROJECT_DIR$/.idea/DrawyMcDrawface.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SyntaxNetLink.h" afterPath="$PROJECT_DIR$/src/SyntaxNetLink.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Interpreter.cpp" afterPath="$PROJECT_DIR$/src/Interpreter.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Interpreter.h" afterPath="$PROJECT_DIR$/src/Interpreter.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SceneComputer.cpp" afterPath="$PROJECT_DIR$/src/SceneComputer.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SceneComputer.h" afterPath="$PROJECT_DIR$/src/SceneComputer.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/askUser.cpp" afterPath="$PROJECT_DIR$/src/askUser.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main.cpp" afterPath="$PROJECT_DIR$/src/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/CMakeLists.txt" afterPath="$PROJECT_DIR$/test/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/InterpreterTest.cpp" afterPath="$PROJECT_DIR$/test/InterpreterTest.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/SyntaxNetLinkTest.cpp" afterPath="$PROJECT_DIR$/test/SyntaxNetLinkTest.cpp" />
     </list>
     <ignored path="DrawyMcDrawface.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -78,14 +88,34 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.cpp">
+      <file leaf-file-name="AbstractSceneModel.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AbstractSceneModel.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
+            <state relative-caret-position="152">
+              <caret line="22" column="73" selection-start-line="22" selection-start-column="73" selection-end-line="22" selection-end-column="73" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterpreterTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/InterpreterTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
               <folding>
-                <element signature="e#75#97#0" expanded="true" />
+                <element signature="e#0#24#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractSceneModel.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/AbstractSceneModel.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="351">
+              <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -93,90 +123,72 @@
       <file leaf-file-name="Interpreter.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Interpreter.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1898">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SyntaxNetLink.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/SyntaxNetLink.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SyntaxNetLink.h" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/SyntaxNetLink.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="22" column="101" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
+            <state relative-caret-position="152">
+              <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
               <folding>
-                <element signature="e#123#140#0" expanded="true" />
+                <element signature="e#82#107#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParseTreeTest.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/test/ParseTreeTest.cpp">
+      <file leaf-file-name="StatementApplicationTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/StatementApplicationTest.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="21" column="51" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding>
+                <element signature="e#75#92#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="askUser.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/askUser.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SceneCommand.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/SceneCommand.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="60">
-              <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/CMakeLists.txt">
+      <file leaf-file-name="SceneCommand.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/SceneCommand.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="302">
+              <caret line="59" column="11" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gtest.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/test/gtest.cpp">
+      <file leaf-file-name="SyntaxNetLinkTest.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test/SyntaxNetLinkTest.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="plugins.cfg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/plugins.cfg">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="basic_string.h" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/include/c++/4.9/bits/basic_string.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38085">
-              <caret line="2539" column="0" selection-start-line="2539" selection-start-column="0" selection-end-line="2539" selection-end-column="0" />
+            <state relative-caret-position="450">
+              <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -197,16 +209,33 @@
         <option value="$PROJECT_DIR$/plugins.cfg" />
         <option value="$PROJECT_DIR$/main.cpp" />
         <option value="$PROJECT_DIR$/SceneContainer.h" />
-        <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/Manipulator.h" />
         <option value="$PROJECT_DIR$/src/Manipulator.cpp" />
         <option value="$PROJECT_DIR$/gtest/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/test/gtest/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/src/SyntaxNetLink.h" />
-        <option value="$PROJECT_DIR$/test/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/test/gtest.cpp.cpp" />
+        <option value="$PROJECT_DIR$/src/ParseTree.cpp" />
         <option value="$PROJECT_DIR$/test/ParseTreeTest.cpp" />
+        <option value="$PROJECT_DIR$/src/Knowledge.h" />
+        <option value="$PROJECT_DIR$/src/SceneRule.h" />
+        <option value="$PROJECT_DIR$/src/SyntaxNetLink.h" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/SceneModel.h" />
+        <option value="$PROJECT_DIR$/src/SceneStatement.h" />
+        <option value="$PROJECT_DIR$/src/Interpreter.h" />
+        <option value="$PROJECT_DIR$/src/SceneComputer.cpp" />
+        <option value="$PROJECT_DIR$/test/StatementApplicationTest.cpp" />
+        <option value="$PROJECT_DIR$/test/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/src/askUser.h" />
+        <option value="$PROJECT_DIR$/src/askUser.cpp" />
+        <option value="$PROJECT_DIR$/src/AbstractSceneModel.h" />
+        <option value="$PROJECT_DIR$/src/AbstractSceneModel.cpp" />
+        <option value="$PROJECT_DIR$/test/SyntaxNetLinkTest.cpp" />
+        <option value="$PROJECT_DIR$/src/SceneCommand.h" />
+        <option value="$PROJECT_DIR$/test/InterpreterTest.cpp" />
+        <option value="$PROJECT_DIR$/src/main.cpp" />
+        <option value="$PROJECT_DIR$/src/Interpreter.cpp" />
       </list>
     </option>
   </component>
@@ -279,6 +308,34 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -286,7 +343,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.intentionPowerPack" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
@@ -295,8 +352,24 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Google Test.SmokeTests.test1">
-    <configuration default="false" name="SmokeTests.test1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="SmokeTests" TEST_METHOD="test1" TEST_MODE="SUITE_TEST">
+  <component name="RunManager" selected="Google Test.ParserLinkTest.simpleTestGardenPath">
+    <configuration default="false" name="InterpreterTests.interpreterTest1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="InterpreterTests" TEST_METHOD="interpreterTest1" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="All in InterpreterTests" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="InterpreterTests" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="InterpreterTests.createWithAnd" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="InterpreterTests" TEST_METHOD="createWithAnd" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="SceneCommandTest.creationDoubleApplicationTest" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="SceneCommandTest" TEST_METHOD="creationDoubleApplicationTest" TEST_MODE="SUITE_TEST">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="ParserLinkTest.simpleTestGardenPath" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="runTests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="DrawyMcDrawface" RUN_TARGET_NAME="runTests" TEST_CLASS="ParserLinkTest" TEST_METHOD="simpleTestGardenPath" TEST_MODE="SUITE_TEST">
       <envs />
       <method />
     </configuration>
@@ -605,7 +678,11 @@
       <envs />
       <method />
     </configuration>
-    <list size="37">
+    <configuration default="false" name="DrawyMcDrawface_core" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="DrawyMcDrawface" TARGET_NAME="DrawyMcDrawface_core" CONFIG_NAME="Debug">
+      <envs />
+      <method />
+    </configuration>
+    <list size="42">
       <item index="0" class="java.lang.String" itemvalue="Application.Build All" />
       <item index="1" class="java.lang.String" itemvalue="Application.DrawyMcDrawface" />
       <item index="2" class="java.lang.String" itemvalue="Application.runDrawyTests" />
@@ -642,11 +719,20 @@
       <item index="33" class="java.lang.String" itemvalue="Application.gmock_main" />
       <item index="34" class="java.lang.String" itemvalue="Application.gtest" />
       <item index="35" class="java.lang.String" itemvalue="Application.gtest_main" />
-      <item index="36" class="java.lang.String" itemvalue="Google Test.SmokeTests.test1" />
+      <item index="36" class="java.lang.String" itemvalue="Application.DrawyMcDrawface_core" />
+      <item index="37" class="java.lang.String" itemvalue="Google Test.InterpreterTests.interpreterTest1" />
+      <item index="38" class="java.lang.String" itemvalue="Google Test.All in InterpreterTests" />
+      <item index="39" class="java.lang.String" itemvalue="Google Test.InterpreterTests.createWithAnd" />
+      <item index="40" class="java.lang.String" itemvalue="Google Test.SceneCommandTest.creationDoubleApplicationTest" />
+      <item index="41" class="java.lang.String" itemvalue="Google Test.ParserLinkTest.simpleTestGardenPath" />
     </list>
     <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Google Test.SmokeTests.test1" />
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Google Test.ParserLinkTest.simpleTestGardenPath" />
+        <item index="1" class="java.lang.String" itemvalue="Google Test.SceneCommandTest.creationDoubleApplicationTest" />
+        <item index="2" class="java.lang.String" itemvalue="Google Test.InterpreterTests.interpreterTest1" />
+        <item index="3" class="java.lang.String" itemvalue="Google Test.InterpreterTests.createWithAnd" />
+        <item index="4" class="java.lang.String" itemvalue="Google Test.All in InterpreterTests" />
       </list>
     </recent_temporary>
   </component>
@@ -671,30 +757,78 @@
       <option name="project" value="LOCAL" />
       <updated>1482601679326</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added Google Test.&#10;Fixed some files not compiling.">
+      <created>1482611883251</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1482611883251</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added a few tests for the interpreter.&#10;Added tests for the tree parser.&#10;Removed old parts of the code.&#10;Re-structured the interpreter for creation statements, added support for conjuncts.&#10;Temporarily disabled 3D rendering.">
+      <created>1482673902526</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1482673902526</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added start of the whitepaper.">
+      <created>1482675634016</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1482675634016</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="SmokeTests_test1 - 2016.12.24 at 21h 37m 18s.xml">
-      <configuration name="SmokeTests.test1" configurationId="CMakeGoogleTestRunConfigurationType" />
+    <history-entry file="ParserLinkTest_simpleTestGardenPath - 2016.12.25 at 17h 55m 38s.xml">
+      <configuration name="ParserLinkTest.simpleTestGardenPath" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 04m 58s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 05m 25s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 05m 53s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 06m 11s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 06m 52s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 07m 48s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 08m 24s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="SceneCommandTest_creationDoubleApplicationTest - 2016.12.25 at 17h 09m 34s.xml">
+      <configuration name="SceneCommandTest.creationDoubleApplicationTest" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="runTests - 2016.12.25 at 17h 54m 32s.xml">
+      <configuration name="runTests" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1442" height="874" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1745583" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1738516" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33653846" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3251029" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33105335" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32284543" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32831737" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32921812" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32831737" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33058986" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3994709" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39808482" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -702,6 +836,9 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.gitignore" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -715,11 +852,23 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <MESSAGE value="Renamed SceneContainer to ScenModel.&#10;Added SyntaxNetLink" />
-    <option name="LAST_COMMIT_MESSAGE" value="Renamed SceneContainer to ScenModel.&#10;Added SyntaxNetLink" />
+    <MESSAGE value="Added Google Test.&#10;Fixed some files not compiling." />
+    <MESSAGE value="Added a few tests for the interpreter.&#10;Added tests for the tree parser.&#10;Removed old parts of the code.&#10;Re-structured the interpreter for creation statements, added support for conjuncts.&#10;Temporarily disabled 3D rendering." />
+    <MESSAGE value="Added start of the whitepaper." />
+    <MESSAGE value="Removed &quot;The old man the boat&quot; test case.&#10;Cleaned up SceneModel, renamed it.&#10;Renamed SceneStatement to SceneCommand, cleaned up and refactored to adhere to command pattern." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed &quot;The old man the boat&quot; test case.&#10;Cleaned up SceneModel, renamed it.&#10;Renamed SceneStatement to SceneCommand, cleaned up and refactored to adhere to command pattern." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/test/StatementApplicationTest.cpp</url>
+          <line>21</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
@@ -728,85 +877,17 @@
           <properties />
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="4" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/plugins.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ParseTree.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-          <folding>
-            <element signature="e#121#138#0" expanded="true" />
-            <marker date="1465729890803" expanded="true" signature="531:542" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2223" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2221" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/ParseTree.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-          <folding>
-            <element signature="e#80#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/basic_string.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38085">
-          <caret line="2539" column="0" selection-start-line="2539" selection-start-column="0" selection-end-line="2539" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="90" column="5" selection-start-line="90" selection-start-column="5" selection-end-line="90" selection-end-column="5" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/SceneContainer.cpp" />
     <entry file="file://$PROJECT_DIR$/src/SceneContainer.h" />
     <entry file="file://$PROJECT_DIR$/plugins.cfg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -824,10 +905,7 @@
         <state relative-caret-position="450">
           <caret line="30" column="7" selection-start-line="30" selection-start-column="7" selection-end-line="30" selection-end-column="7" />
           <folding>
-            <element signature="e#121#138#0" expanded="true" />
             <marker date="1465729890803" expanded="true" signature="531:542" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2223" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2221" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -837,7 +915,7 @@
         <state relative-caret-position="630">
           <caret line="42" column="9" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
           <folding>
-            <element signature="e#80#102#0" expanded="true" />
+            <element signature="e#80#102#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -855,9 +933,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -867,7 +943,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
           <caret line="1" column="50" selection-start-line="1" selection-start-column="50" selection-end-line="1" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -875,13 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
           <caret line="513" column="0" selection-start-line="513" selection-start-column="0" selection-end-line="513" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/c++/4.9/bits/stl_algo.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="103" column="0" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -896,26 +964,37 @@
     <entry file="file://$PROJECT_DIR$/src/SceneContainer.cpp" />
     <entry file="file://$PROJECT_DIR$/src/SceneContainer.h" />
     <entry file="file://$PROJECT_DIR$/src/Manipulator.cpp" />
-    <entry file="file://$PROJECT_DIR$/src/ParseTree.h">
+    <entry file="file://$PROJECT_DIR$/src/Manipulator.h" />
+    <entry file="file://$PROJECT_DIR$/plugins.cfg">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="465">
-          <caret line="31" column="7" selection-start-line="31" selection-start-column="7" selection-end-line="31" selection-end-column="7" />
-          <folding>
-            <element signature="e#121#138#0" expanded="true" />
-            <marker date="1465729890803" expanded="true" signature="531:542" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2223" ph="{...}" />
-            <marker date="1465729890803" expanded="true" signature="2220:2221" ph="{...}" />
-          </folding>
+        <state relative-caret-position="60">
+          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/gtest/CMakeLists.txt" />
+    <entry file="file://$PROJECT_DIR$/test/gtest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ParseTree.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="690">
-          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="150">
+          <caret line="47" column="66" selection-start-line="47" selection-start-column="66" selection-end-line="47" selection-end-column="66" />
           <folding>
-            <element signature="e#80#102#0" expanded="true" />
+            <element signature="e#80#102#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/c++/4.9/bits/stl_algo.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="127" column="0" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -927,34 +1006,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Manipulator.h" />
-    <entry file="file://$PROJECT_DIR$/plugins.cfg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="23" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-          <folding>
-            <element signature="e#75#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Interpreter.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1898">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/SyntaxNetLink.cpp">
+    <entry file="file://$PROJECT_DIR$/src/Knowledge.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -962,52 +1014,208 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/src/Knowledge.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/gtest/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/src/ParseTree.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="31" selection-start-line="5" selection-start-column="31" selection-end-line="30" selection-end-column="63" />
+        <state relative-caret-position="-267">
+          <caret line="70" column="23" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+          <folding>
+            <marker date="1465729890803" expanded="true" signature="531:542" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="4" selection-start-line="1" selection-start-column="4" selection-end-line="1" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SyntaxNetLink.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/SyntaxNetLink.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="22" column="101" selection-start-line="22" selection-start-column="101" selection-end-line="22" selection-end-column="101" />
-          <folding>
-            <element signature="e#123#140#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/gtest.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/ParseTreeTest.cpp">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#24#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Interpreter.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="25" column="54" selection-start-line="25" selection-start-column="54" selection-end-line="25" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SceneComputer.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="33" column="4" selection-start-line="33" selection-start-column="4" selection-end-line="33" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/googletest/googletest/include/gtest/gtest.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="1849" column="13" selection-start-line="1849" selection-start-column="13" selection-end-line="1849" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/googletest/googletest/include/gtest/internal/gtest-internal.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="742" column="0" selection-start-line="742" selection-start-column="0" selection-end-line="742" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/googletest/googletest/src/gtest.cc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="4995" column="0" selection-start-line="4995" selection-start-column="0" selection-end-line="4995" selection-end-column="0" />
+          <folding>
+            <element signature="e#180525#180711#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="102" selection-start-line="8" selection-start-column="102" selection-end-line="8" selection-end-column="102" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="31" column="17" selection-start-line="31" selection-start-column="17" selection-end-line="31" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/askUser.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#70#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/StatementApplicationTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="21" column="51" selection-start-line="21" selection-start-column="51" selection-end-line="21" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/SyntaxNetLinkTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" column="1" selection-start-line="32" selection-start-column="1" selection-end-line="32" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/askUser.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SceneCommand.cpp">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
-          <caret line="4" column="1" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/InterpreterTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="31" selection-start-line="1" selection-start-column="31" selection-end-line="1" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding>
+            <element signature="e#75#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Interpreter.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="117" column="23" selection-start-line="117" selection-start-column="23" selection-end-line="117" selection-end-column="23" />
+          <folding>
+            <element signature="e#82#107#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AbstractSceneModel.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="22" column="73" selection-start-line="22" selection-start-column="73" selection-end-line="22" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/AbstractSceneModel.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="28" column="5" selection-start-line="28" selection-start-column="5" selection-end-line="28" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SceneCommand.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="59" column="11" selection-start-line="59" selection-start-column="11" selection-end-line="59" selection-end-column="11" />
           <folding />
         </state>
       </provider>

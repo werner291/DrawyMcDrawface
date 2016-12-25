@@ -22,10 +22,10 @@
 
 #include <OGRE/Ogre.h>
 
-#include "SceneModel.h"
+#include "AbstractSceneModel.h"
 
 /**
- * The element in the pipeline between the SceneModel
+ * The element in the pipeline between the AbstractSceneModel
  * and the Renderer.
  * 
  * It turns the "constrains" and "Entity Definitions"
@@ -36,13 +36,13 @@ class SceneComputer
 {
   
   std::default_random_engine rando;
-  
-  SceneModel& definition;
+
+    AbstractSceneModel &definition;
   
   std::vector<Ogre::AxisAlignedBox> occupiedSpace;
   
 public:
-    SceneComputer(SceneModel& defintion);
+    SceneComputer(AbstractSceneModel &defintion);
     
     void compute(const std::string& toDraw, Ogre::SceneManager* mSceneMgr);
     

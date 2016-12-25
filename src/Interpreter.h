@@ -10,8 +10,8 @@
 
 #include <string>
 #include "ParseTree.h"
-#include "SceneModel.h"
-#include "SceneStatement.h"
+#include "AbstractSceneModel.h"
+#include "SceneCommand.h"
 #include "Knowledge.h"
 
 /**
@@ -20,8 +20,10 @@
  * @param parseTree The parsed text
  * @param previous What the scene looked like before processing this text.
  */
-std::vector<std::shared_ptr<SceneStatement> > interpret(const std::string &toInterpret, const SceneModel &currentScene, Knowledge &knowledge,
-                                 bool allowLearning = true);
+std::vector<std::shared_ptr<SceneCommand> > interpret(const std::string &toInterpret,
+                                                      std::shared_ptr<AbstractSceneModel> scene,
+                                                      Knowledge &knowledge,
+                                                      bool allowLearning = true);
 
 
 #endif /* MANIPULATOR_H_ */

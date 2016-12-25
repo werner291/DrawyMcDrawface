@@ -1,14 +1,12 @@
 #include <gtest/gtest.h>
 #include "../src/Interpreter.h"
-#include "../src/SceneStatement.h"
-#include "../src/Knowledge.h"
 
 TEST(InterpreterTests, interpreterTest1) {
 
-    SceneModel model;
+    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
     Knowledge knowledge;
 
-    std::vector<std::shared_ptr<SceneStatement> > result = interpret("Create a box.", model, knowledge, false);
+    std::vector<std::shared_ptr<SceneCommand> > result = interpret("Create a box.", model, knowledge, false);
 
     std::shared_ptr<CreateEntityRule> stmt;
 
@@ -22,10 +20,10 @@ TEST(InterpreterTests, interpreterTest1) {
 
 TEST(InterpreterTests, interpreterTest2) {
 
-    SceneModel model;
+    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
     Knowledge knowledge;
 
-    std::vector<std::shared_ptr<SceneStatement> > result = interpret("Add a palm tree or two.", model, knowledge, false);
+    std::vector<std::shared_ptr<SceneCommand> > result = interpret("Add a palm tree or two.", model, knowledge, false);
 
     std::shared_ptr<CreateEntityRule> stmt;
 
@@ -40,10 +38,10 @@ TEST(InterpreterTests, interpreterTest2) {
 
 TEST(InterpreterTests, createWithAnd) {
 
-    SceneModel model;
+    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
     Knowledge knowledge;
 
-    std::vector<std::shared_ptr<SceneStatement> > result = interpret("Add a box and a cylinder", model, knowledge, false);
+    std::vector<std::shared_ptr<SceneCommand> > result = interpret("Add a box and a cylinder", model, knowledge, false);
 
     ASSERT_EQ(2, result.size());
 

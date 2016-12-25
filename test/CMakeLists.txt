@@ -6,7 +6,7 @@ add_subdirectory(googletest)
 include(CTest)
 enable_testing()
 
-set(test_SRCS ParseTreeTest.cpp SyntaxNetLinkTest.cpp InterpreterTest.cpp)
+set(test_SRCS ParseTreeTest.cpp SyntaxNetLinkTest.cpp InterpreterTest.cpp StatementApplicationTest.cpp)
 
 add_executable(runTests gtest.cpp ${test_SRCS})
 
