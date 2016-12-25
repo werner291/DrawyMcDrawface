@@ -6,12 +6,11 @@ add_subdirectory(googletest)
 include(CTest)
 enable_testing()
 
-set(test_SRCS ParseTreeTest.cpp)
+set(test_SRCS ParseTreeTest.cpp SyntaxNetLinkTest.cpp InterpreterTest.cpp)
 
 add_executable(runTests gtest.cpp ${test_SRCS})
-add_dependencies(runTests googletest)
 
-target_link_libraries(runTests gtest gmock)
+target_link_libraries(runTests DrawyMcDrawface_core gtest gmock)
 
 set_property(TARGET runTests PROPERTY CXX_STANDARD 11)
 set_property(TARGET runTests PROPERTY CXX_STANDARD_REQUIRED ON)

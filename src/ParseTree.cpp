@@ -47,13 +47,6 @@ ParseTree::ParseTree(const std::string& parserOutput)
 
         std::string wordRoleTag = line.substr(secondSpacePos + 1);
 
-        std::cout << depth 
-		  << " "  << line 
-		  << " (" << word 
-		  << ", " << wordNatureTag 
-		  << ", " << wordRoleTag
-                  << ")"  << std::endl;
-
         if (depth == 0)
         {
             rootWord = SentencePart(word, wordNatureTag ,wordRoleTag);

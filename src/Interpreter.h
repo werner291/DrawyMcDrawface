@@ -11,28 +11,17 @@
 #include <string>
 #include "ParseTree.h"
 #include "SceneModel.h"
+#include "SceneStatement.h"
+#include "Knowledge.h"
 
-class Interpreter
-{
+/**
+ * Interpret a parse tree and produce a scene.
+ *
+ * @param parseTree The parsed text
+ * @param previous What the scene looked like before processing this text.
+ */
+std::vector<std::shared_ptr<SceneStatement> > interpret(const std::string &toInterpret, const SceneModel &currentScene, Knowledge &knowledge,
+                                 bool allowLearning = true);
 
-    SceneModel& sceneContainer;
-
-public:
-    Interpreter(SceneModel& sceneContainer);
-    virtual ~Interpreter();
-
-    bool interpretParsed(const ParseTree& parsetree);
-
-    /**
-     * Interpret the given text as an integer.
-     *
-     * \returns A pair containing an int (the result) and a
-     * 	    float (confidence, between 0 and 1).
-     * 	    If the interpretation failed, the confidence will be exactly 0.
-     */
-    std::pair<int, float> interpretInteger(const std::string& text);
-protected:
-    std::pair<std::string, bool> pluralToSingular(const std::string& name);
-};
 
 #endif /* MANIPULATOR_H_ */

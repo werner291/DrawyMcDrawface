@@ -13,34 +13,34 @@
 #include <thread>
 #include <chrono>
 
-int main(int argc, char** argv)
-{
-    ParseTree tree(
-        R"(Let VB ROOT
- +-- be VB ccomp
-     +-- there EX expl
-     +-- cubes NNS nsubj
-         +-- 15 CD num)");
-
-    std::cout << "----------------" << std::endl;
+int main(int argc, char** argv) {
     
     SceneModel scene;
-    
-    SceneComputer sceneComputer(scene);
+    Knowledge knowl;
 
-    Interpreter interp(scene);
+    std::string line;
 
-    interp.interpretParsed(tree);
+    while (std::getline(std::cin, line)) {
+        auto results = interpret(line, scene, knowl, true);
+
+        std::cout << "Interpreted: " << std::endl;
+
+        for (auto stmt: results) {
+            std::cout << stmt->describe() << std::endl;
+        }
+
+        if (results.empty()) {
+            std::cout << "Unable to interpret. Guess I'm too stupid." << std::endl;
+        }
+    }
     
-    Renderer renderer(sceneComputer);
+    //Renderer renderer(sceneComputer);
     
-    renderer.startRendering();
+    //renderer.startRendering();
     
     ////////////////////
     // Shut down Ogre //
     ////////////////////
-
-    
 
     return 0;
 }

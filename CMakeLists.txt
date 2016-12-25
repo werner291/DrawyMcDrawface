@@ -25,8 +25,7 @@ endif(UNIX)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-set(SOURCE_FILES 
-        src/main.cpp
+set(SOURCE_FILES
         src/Interpreter.cpp
         src/Interpreter.h
         src/ParseTree.cpp
@@ -36,12 +35,17 @@ set(SOURCE_FILES
         src/SceneComputer.cpp
         src/SceneComputer.h
         src/SceneModel.cpp 
-        src/SceneModel.h src/SyntaxNetLink.cpp src/SyntaxNetLink.h)
+        src/SceneModel.h
+        src/SyntaxNetLink.cpp
+        src/SyntaxNetLink.h
+        src/SceneStatement.cpp)
 
 find_package(OGRE REQUIRED)
 
-add_executable(DrawyMcDrawface ${SOURCE_FILES})
+add_library(DrawyMcDrawface_core ${SOURCE_FILES})
 
-target_link_libraries(DrawyMcDrawface ${OGRE_LIBRARIES})
+add_executable(DrawyMcDrawface src/main.cpp)
+
+target_link_libraries(DrawyMcDrawface DrawyMcDrawface_core ${OGRE_LIBRARIES})
 
 add_subdirectory(test)

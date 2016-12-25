@@ -6,148 +6,124 @@
  */
 
 #include "Interpreter.h"
-#include <boost/algorithm/string/predicate.hpp>
+#include "SyntaxNetLink.h"
+#include "SceneStatement.h"
 
-Interpreter::Interpreter(SceneModel& sceneContainer)
-    : sceneContainer(sceneContainer) {
-    // TODO Auto-generated constructor stub
+int interpretInteger(const std::string &text) ;
 
-}
+std::string pluralToSingular(const std::string &name) ;
 
-Interpreter::~Interpreter() {
-    // TODO Auto-generated destructor stub
-}
+bool isCreationVerb(const SentencePart &part);
 
-bool Interpreter::interpretParsed(const ParseTree& parsetree) {
+int findNumber(const SentencePart& pPart);
 
-    const SentencePart& rootWord = parsetree.getRootWord();
+void creationRuleForObject(std::vector<std::shared_ptr<SceneStatement>> &statements, const SentencePart& obj);
 
-    // Check if the root word is a noun (as opposed to a verb)
-    bool rootWordIsNoun = boost::algorithm::starts_with(rootWord.getNature(), "NN");
+std::vector<std::shared_ptr<SceneStatement> > interpret(const std::string &toInterpret, const SceneModel &currentScene,
+                                                        Knowledge &knowledge,
+                                                        bool allowLearning) {
 
-    // Check for existential statements (like "There is")
-    bool containsExistentialStatement =
-        rootWord.dfsFind([](const SentencePart& part)
-    {
-        return part.getNature() == "EX";
-    }) != nullptr;
+    std::vector<std::shared_ptr<SceneStatement> > statements;
 
-    // No verb or an existential implies object creation
-    if (rootWordIsNoun || containsExistentialStatement)
-    {
-        std::cout << "Will create object." << std::endl;
+    SyntaxNetLink linky;
 
-        // Find the subject of the sentence
-        const SentencePart* toCreate = rootWord.dfsFind([](const SentencePart& part) {
-            return boost::algorithm::starts_with(part.getNature(), "NN");
-        });
+    ParseTree tree = linky.parse(toInterpret);
 
-        if (toCreate == nullptr)
-        {
-            std::cerr << "No NN found to create." << std::endl;
+    const SentencePart& rootWord = tree.getRootWord();
+
+    if (isCreationVerb(rootWord)) {
+        // This is a command in the form of "Create a cube"
+
+        const SentencePart* obj = rootWord.dfsFind([](const SentencePart& part){return part.getNature() == "NN" || part.getNature() == "NNS";});
+
+        if (obj == nullptr) {
+            throw std::runtime_error("Cannot find object to create.");
         }
 
-        // By default, create just 1
-        int number = 1;
+        creationRuleForObject(statements, *obj);
 
-        // NNS indicates plural.
-        bool plural = toCreate->getNature() == "NNS";
-
-        // Name of the entity
-        std::string name = toCreate->getRootWord();
-
-        if (plural)
-        {
-
-            std::cout << "Detected plural statement" << std::endl;
-
-            // Convert the name to singular form
-            std::pair<std::string, bool> singularResult = pluralToSingular(name);
-
-            if (!singularResult.second)
-            {
-                std::cout << "Cannot determine singular form of " << singularResult.first << std::endl;
-                return false;
-            }
-
-            name = singularResult.first;
-
-            // Check whether the user gave any kind of numeric statement.
-            const SentencePart* numeric = rootWord.dfsFind([](const SentencePart& part) {
-                std::cout << "<=>" << part.getRole() << std::endl;
-                return part.getNature() == "CD";
-            });
-
-            // Found an actual number! Let's see if we can interpret it.
-            if (numeric != nullptr)
-            {
-                std::pair<int,float> interpretation = interpretInteger(numeric->getRootWord());
-
-                if (interpretation.second < 0.5f)
-                {
-                    // Too unsure.
-                    std::cout << "I'm not sure what value \""
-                              << numeric->getRootWord()
-                              << "\" is. Interpreting it as "
-                              << number
-                              << "." << std::endl;
-                }
-                else
-                {
-                    number = interpretation.first;
-                }
-
-                if (number > 100)
-                {
-                    // More than 100 entities at a time is probably not what we want.
-                    // Should we prompt the user?
-                    std::cout << "Limiting group size to 100 units." << std::endl;
-                    number = 100;
-                }
-            }
-            else
-            {
-                number = 4; // What's a good interpretation of "a few"?
-            }
-
-
-        }
-        else
-        {
-
-        }
-
-        for (int i = 0; i < number; ++i)
-	{
-	  EntityPtr newEnt = sceneContainer.createEntity(name);
-	  
-	  sceneContainer.addEntityToGroup(newEnt->getName(), "Current Scene");
-	}
     }
 
-    return true;
+    return statements;
 }
 
-std::pair< int, float > Interpreter::interpretInteger(const std::string& text)
-{
-    char* p;
+void creationRuleForObject(std::vector<std::shared_ptr<SceneStatement>> &statements, const SentencePart& obj) {
+    std::shared_ptr<CreateEntityRule> createStmt = std::make_shared<CreateEntityRule>();
+
+    if (obj.getNature() == "NNS") {
+            // Plural
+            createStmt->number = findNumber(obj);
+            createStmt->what = pluralToSingular(obj.getRootWord());
+        } else {
+            // Singular
+            createStmt->number = 1;
+            createStmt->what = obj.getRootWord();
+        }
+
+    statements.push_back(createStmt);
+
+    for (auto itr = obj.children.begin(); itr != obj.children.end(); ++itr) {
+        // Look for "and something else"-type phrases.
+        if (itr->getRole() == "cc") {
+            if (itr->getRootWord() != "and") {
+                // This is an "or" or "while", don't know how to handle those yet!
+                throw std::runtime_error("I don't know how to handle coordinating conjunction " + itr->getRootWord() + " yet, sorry!");
+            }
+
+            // Add separate creation rules for the conjuncts as well.
+            creationRuleForObject(statements, *(++itr));
+        }
+    }
+}
+
+/**
+ * Tries to find some indication of a number of items.
+ * For example, in a phrase "15 lions", this function would return 15.
+ */
+int findNumber(const SentencePart& pPart) {
+    const SentencePart* numeric = pPart.dfsFind([](const SentencePart& part){return part.getNature() == "CD";});
+
+    if (numeric == nullptr) {
+        throw std::runtime_error("Cannot find a number of " + pPart.getRootWord());
+    }
+
+    return interpretInteger(numeric->getRootWord());
+}
+
+/**
+ * Returns whether this part of the sencence is a verb
+ * that commands creating somehting such as "create" or "add".
+ */
+bool isCreationVerb(const SentencePart &part) {
+    if (part.getNature() != "VB") return false;
+
+    const std::string &word = part.getRootWord();
+
+    return boost::iequals(word,"create") || boost::iequals(word,"add");
+}
+
+int interpretInteger(const std::string &text) {
+    char *p;
     int result = strtol(text.c_str(), &p, 10);
 
-    std::make_pair(result, p == nullptr ? 0.f : 1.f);
+    return result;
 }
 
-std::pair<std::string, bool> Interpreter::pluralToSingular(const std::string& name)
-{
+/**
+ * Take a plural form of a word, and make it singular.
+ * Mainly designed to work on nouns.
+ *
+ * For example, it converts "parties" to "party".
+ */
+std::string pluralToSingular(const std::string &name) {
     // TODO do this properly
-    if (boost::algorithm::ends_with(name, "ies"))
-    {
-        return std::make_pair(name.substr(0,name.length()-3) + "y", true);
+    if (boost::algorithm::ends_with(name, "ies")) {
+        return name.substr(0, name.length() - 3) + "y";
     }
 
-    if (boost::algorithm::ends_with(name, "s"))
-    {
-        return std::make_pair(name.substr(0,name.length()-1), true);
+    if (boost::algorithm::ends_with(name, "s")) {
+        return name.substr(0, name.length() - 1);
     }
 
-    return std::make_pair(name,false);
+    throw std::runtime_error("Cannot de-pluralize " + name);
 }
