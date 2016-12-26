@@ -22,7 +22,7 @@ void SceneCommand::revert() {
     onRevert();
 }
 
-void virtual SceneCommand::onRevert() {
+void SceneCommand::onRevert() {
     throw std::runtime_error("This statement cannot be reverted.");
 }
 
@@ -36,6 +36,6 @@ void CreateEntityRule::onApply() {
     created = scene.lock()->createEntity(what);
 }
 
-CreateEntityRule::CreateEntityRule(const std::weak_ptr<AbstractSceneModel> &scene) : SceneCommand(scene) { }
+CreateEntityRule::CreateEntityRule(const std::weak_ptr<CompositeModel> &scene) : SceneCommand(scene) { }
 
-SceneCommand::SceneCommand(const std::weak_ptr<AbstractSceneModel> &scene) : scene(scene) { }
+SceneCommand::SceneCommand(const std::weak_ptr<CompositeModel> &scene) : scene(scene) { }

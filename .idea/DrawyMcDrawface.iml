@@ -3,20 +3,22 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/SyntaxNetLink.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Knowledge.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Interpreter.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/AbstractSceneModel.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ParseTree.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CompositeModel.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/SceneCommand.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/CompositeModel.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/SceneCommand.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/workflow.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Interpreter.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/AbstractSceneModel.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Renderer.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/workflow.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/askUser.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/SyntaxNetLink.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/Renderer.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/askUser.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Knowledge.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/ParseTree.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/askUser.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/askUser.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/StatementApplicationTest.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test/googletest/googlemock/src/gmock-all.cc" isTestSource="false" />

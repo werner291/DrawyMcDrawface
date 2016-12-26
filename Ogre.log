@@ -17,7 +17,7 @@
 16:51:55: ETC codec registering
 16:51:55: Registering ResourceManager for type HighLevelGpuProgram
 16:51:55: Registering ResourceManager for type Compositor
-16:51:55: MovableObjectFactory for type 'Entity' registered.
+16:51:55: MovableObjectFactory for type 'Model' registered.
 16:51:55: MovableObjectFactory for type 'Light' registered.
 16:51:55: MovableObjectFactory for type 'BillboardSet' registered.
 16:51:55: MovableObjectFactory for type 'ManualObject' registered.

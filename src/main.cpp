@@ -8,48 +8,17 @@
 #include <thread>
 #include <memory>
 
-#include "ParseTree.h"
-#include "AbstractSceneModel.h"
-#include "Interpreter.h"
-#include "Renderer.h"
-#include "askUser.h"
+#include "workflow.h"
 
 using namespace std;
 
-void showScene(std::shared_ptr<AbstractSceneModel> scene);
-
 int main(int argc, char** argv) {
 
-    shared_ptr<AbstractSceneModel> scene = make_shared<AbstractSceneModel>();
-    Knowledge knowl;
+    Knowledge knowledge;
 
-    string line;
+    initializeKnowledgeWithPrimitives(knowledge);
 
-    while (getline(cin, line)) {
-        auto results = interpret(line, scene, knowl, true);
-
-        cout << "Interpreted: " << endl;
-
-        for (auto stmt: results) {
-            cout << stmt->describe() << endl;
-        }
-
-        if (results.empty()) {
-            cout << "Unable to interpret. Guess I'm too stupid." << endl;
-        }
-
-        if (askUserYesNo("Is this correct?")) {
-            for (auto cmd : results) {
-                cmd->apply();
-            }
-        }
-
-        showScene(scene);
-    }
-    
-    //Renderer renderer(sceneComputer);
-    
-    //renderer.startRendering();
+    descriptionSession("Main scene", knowledge);
     
     ////////////////////
     // Shut down Ogre //
@@ -58,8 +27,3 @@ int main(int argc, char** argv) {
     return 0;
 }
 
-void showScene(std::shared_ptr<AbstractSceneModel> scene) {
-    cout << "The scene currently looks like: " << endl;
-
-    cout << *scene << endl;
-}

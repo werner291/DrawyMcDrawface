@@ -3,7 +3,7 @@
 
 TEST(InterpreterTests, interpreterTest1) {
 
-    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
+    std::shared_ptr<CompositeModel> model = std::make_shared<CompositeModel>();
     Knowledge knowledge;
 
     std::vector<std::shared_ptr<SceneCommand> > result = interpret("Create a box.", model, knowledge, false);
@@ -20,7 +20,7 @@ TEST(InterpreterTests, interpreterTest1) {
 
 TEST(InterpreterTests, interpreterTest2) {
 
-    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
+    std::shared_ptr<CompositeModel> model = std::make_shared<CompositeModel>();
     Knowledge knowledge;
 
     std::vector<std::shared_ptr<SceneCommand> > result = interpret("Add a palm tree or two.", model, knowledge, false);
@@ -38,7 +38,7 @@ TEST(InterpreterTests, interpreterTest2) {
 
 TEST(InterpreterTests, createWithAnd) {
 
-    std::shared_ptr<AbstractSceneModel> model = std::make_shared<AbstractSceneModel>();
+    std::shared_ptr<CompositeModel> model = std::make_shared<CompositeModel>();
     Knowledge knowledge;
 
     std::vector<std::shared_ptr<SceneCommand> > result = interpret("Add a box and a cylinder", model, knowledge, false);

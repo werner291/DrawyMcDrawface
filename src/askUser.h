@@ -4,6 +4,8 @@
 #include <string>
 #include <iostream>
 
+void tellUser(const std::string &question);
+
 std::string askUserString(const std::string &question);
 
 bool askUserYesNo(const std::string &question);

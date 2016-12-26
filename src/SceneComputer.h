@@ -22,7 +22,7 @@
 
 #include <OGRE/Ogre.h>
 
-#include "AbstractSceneModel.h"
+#include "CompositeModel.h"
 
 /**
  * The element in the pipeline between the AbstractSceneModel

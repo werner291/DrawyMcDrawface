@@ -29,15 +29,19 @@ set(SOURCE_FILES
         src/Interpreter.cpp
         src/Interpreter.h
         src/ParseTree.cpp
-        src/ParseTree.h 
-        src/Renderer.cpp
-        src/Renderer.h
+        src/ParseTree.h
+        #src/Renderer.cpp
+        #src/Renderer.h
+        src/workflow.cpp
+        src/workflow.h
+        src/Knowledge.cpp
+        src/Knowledge.h
         #src/SceneComputer.cpp
         #src/SceneComputer.h
         src/askUser.cpp
         src/askUser.h
-        src/AbstractSceneModel.cpp
-        src/AbstractSceneModel.h
+        src/CompositeModel.cpp
+        src/CompositeModel.h
         src/SyntaxNetLink.cpp
         src/SyntaxNetLink.h
         src/SceneCommand.cpp)

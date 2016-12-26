@@ -10,7 +10,7 @@
 
 #include <string>
 #include "ParseTree.h"
-#include "AbstractSceneModel.h"
+#include "CompositeModel.h"
 #include "SceneCommand.h"
 #include "Knowledge.h"
 
@@ -21,7 +21,7 @@
  * @param previous What the scene looked like before processing this text.
  */
 std::vector<std::shared_ptr<SceneCommand> > interpret(const std::string &toInterpret,
-                                                      std::shared_ptr<AbstractSceneModel> scene,
+                                                      std::shared_ptr<CompositeModel> scene,
                                                       Knowledge &knowledge,
                                                       bool allowLearning = true);
 

@@ -25,11 +25,15 @@ bool askUserYesNo(const std::string &question) {
 
         if (line == "Y") {
             return true;
-        } else if (line == "F") {
+        } else if (line == "N") {
             return false;
         }
 
         std::cout << "Invalid entry: " << line << std::endl;
     }
 
+}
+
+void tellUser(const std::string &toTell) {
+    std::cout << toTell << std::endl;
 }

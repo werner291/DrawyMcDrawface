@@ -7,10 +7,10 @@
 
 #include <string>
 #include <sstream>
-#include "AbstractSceneModel.h"
+#include "CompositeModel.h"
 
 /**
- * An action to be applied on an AbstractSceneModel.
+ * An action to be applied on an CompositeModel.
  *
  * It follows a Command design pattern.
  *
@@ -20,14 +20,14 @@ class SceneCommand {
 
 protected:
     // Reference to the scene on which this statement is applied
-    std::weak_ptr<AbstractSceneModel> scene;
+    std::weak_ptr<CompositeModel> scene;
 private:
 
     // Whether this command has been applied or not.
     bool applied = false;
 
 public:
-    SceneCommand(const std::weak_ptr<AbstractSceneModel> &scene);
+    SceneCommand(const std::weak_ptr<CompositeModel> &scene);
 
     virtual std::string describe() = 0;
 
@@ -53,7 +53,7 @@ public:
     int number = 1;
 
 
-    CreateEntityRule(const std::weak_ptr<AbstractSceneModel> &scene);
+    CreateEntityRule(const std::weak_ptr<CompositeModel> &scene);
 
     std::string describe();
 
