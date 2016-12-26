@@ -38,7 +38,7 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<SceneCommand> result = getInterpreter(scene).interpret("Add a palm tree or two.", scene);
+        List<SceneCommand> result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
 
         Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
 
@@ -47,7 +47,7 @@ public class InterpreterTest {
         Assert.assertTrue(1 <= stmt.number);
         Assert.assertTrue(2 >= stmt.number);
 
-        Assert.assertEquals("tree", stmt.what.getName());
+        Assert.assertEquals("cylinder", stmt.what.getName());
 
     }
 
