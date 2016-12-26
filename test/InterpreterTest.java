@@ -47,7 +47,24 @@ public class InterpreterTest {
         Assert.assertTrue(1 <= stmt.number);
         Assert.assertTrue(2 >= stmt.number);
 
-        Assert.assertEquals("tree", stmt.what);
+        Assert.assertEquals("tree", stmt.what.getName());
+
+    }
+
+    @Test
+    public void interpreterTestNumeric() {
+
+        CompositeModel scene = new CompositeModel("Scene");
+
+        List<SceneCommand> result = getInterpreter(scene).interpret("50 spheres", scene);
+
+        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+
+        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+
+        Assert.assertEquals(50, stmt.number);
+
+        Assert.assertEquals("Sphere", stmt.what.getName());
 
     }
 
@@ -60,14 +77,14 @@ public class InterpreterTest {
 
         Assert.assertEquals(2, result.size());
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
 
+        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
 
         Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
 
         Assert.assertEquals(1, stmt.number);
 
-        Assert.assertEquals("box", stmt.what);
+        Assert.assertEquals("Cube", stmt.what.getName());
 
 
         Assert.assertTrue(result.get(1) instanceof CreateEntityRule);
@@ -76,7 +93,7 @@ public class InterpreterTest {
 
         Assert.assertEquals(1, stmt.number);
 
-        Assert.assertEquals("cylinder", stmt.what);
+        Assert.assertEquals("Cylinder", stmt.what.getName());
 
     }
 }

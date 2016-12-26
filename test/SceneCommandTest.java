@@ -19,9 +19,13 @@ public class SceneCommandTest {
 
         Assert.assertEquals(1, model.entities.size());
 
+        stmt.revert();
+
+        Assert.assertEquals(0, model.entities.size());
+
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void creationDouble() {
 
         CompositeModel model = new CompositeModel("Scene");
@@ -36,6 +40,8 @@ public class SceneCommandTest {
         stmt.apply();
 
         Assert.assertEquals(1, model.entities.size());
+
+        stmt.apply();
 
     }
 

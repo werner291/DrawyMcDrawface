@@ -7,12 +7,14 @@ public class ParseTreeTest {
     public void parseTest() {
 
         // Parse a tree
-        ParseTree tree = new ParseTree(
-                  "Let VB ROOT\n"
+        String parserOutput = "Let VB ROOT\n"
                 + " +-- be VB ccomp\n"
                 + "     +-- there EX expl\n"
                 + "     +-- cubes NNS nsubj\n"
-                + "         +-- 15 CD num");
+                + "         +-- 15 CD num";
+
+        ParseTree tree = new ParseTree(
+                parserOutput);
 
         // Check whether the root word was parsed correctly
         Assert.assertEquals("Let", tree.getRootWord().getRootWord());
@@ -33,7 +35,7 @@ public class ParseTreeTest {
 
         Assert.assertEquals("NNS", tree.getRootWord().children.get(0).children.get(1).getNature());
 
-
+        Assert.assertEquals(parserOutput, tree.toString());
     }
 
     @Test
