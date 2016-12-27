@@ -1,14 +1,16 @@
+package nl.wernerkroneman.Drawy.Modelling;
+
 import java.io.Serializable;
 
 public class Model implements Serializable {
 
-  String name;
+  public String name;
 
     Model(String name) {
       this.name = name;
     }
 
-  String getName()
+  public String getName()
   {
     return name;
   }

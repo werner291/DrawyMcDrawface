@@ -1,3 +1,7 @@
+package nl.wernerkroneman.Drawy.ModelEditor;
+
+import nl.wernerkroneman.Drawy.ModelEditor.*;
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -47,7 +51,7 @@ public class InterpreterTest {
         Assert.assertTrue(1 <= stmt.number);
         Assert.assertTrue(2 >= stmt.number);
 
-        Assert.assertEquals("cylinder", stmt.what.getName());
+        Assert.assertEquals("Cylinder", stmt.what.getName());
 
     }
 

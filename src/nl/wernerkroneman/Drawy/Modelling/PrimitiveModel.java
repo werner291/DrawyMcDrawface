@@ -1,6 +1,10 @@
+package nl.wernerkroneman.Drawy.Modelling;
+
+import nl.wernerkroneman.Drawy.Modelling.Model;
+
 public class PrimitiveModel extends Model {
 
-    enum ShapeType {
+    public enum ShapeType {
         CUBE, SPHERE, CYLINDER
     }
 
@@ -9,7 +13,7 @@ public class PrimitiveModel extends Model {
 
     ShapeType shape;
 
-    PrimitiveModel(ShapeType shape, String name) {
+    public PrimitiveModel(ShapeType shape, String name) {
         super(name);
         this.shape = shape;
     }

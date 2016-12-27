@@ -1,3 +1,5 @@
+package nl.wernerkroneman.Drawy.ModelEditor;
+
 import java.util.Scanner;
 
 /**

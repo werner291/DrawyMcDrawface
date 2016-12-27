@@ -1,3 +1,8 @@
+package nl.wernerkroneman.Drawy.ModelEditor;
+
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.Model;
+
 import java.util.ArrayList;
 import java.util.List;
 

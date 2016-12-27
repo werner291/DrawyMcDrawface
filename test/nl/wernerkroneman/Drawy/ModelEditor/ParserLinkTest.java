@@ -1,3 +1,7 @@
+package nl.wernerkroneman.Drawy.ModelEditor;
+
+import nl.wernerkroneman.Drawy.ModelEditor.ParseTree;
+import nl.wernerkroneman.Drawy.ModelEditor.SyntaxNetLink;
 import org.junit.Assert;
 import org.junit.Test;
 
