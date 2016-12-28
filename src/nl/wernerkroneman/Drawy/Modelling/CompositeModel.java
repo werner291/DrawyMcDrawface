@@ -1,9 +1,6 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
-import nl.wernerkroneman.Drawy.Modelling.Model;
-
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -15,16 +12,12 @@ import java.util.List;
  */
 public class CompositeModel extends Model {
 
-    public static class ModelInstance {
-
-        public ModelInstance(Model base) {
-            this.base = base;
-        }
-
-        Model base;
-    }
-
     int idGen = 0;
+    List<ModelInstance> entities = new ArrayList<>();
+
+    public CompositeModel(String name) {
+        super(name);
+    }
 
     /**
      * Obtain a list of model instances in this model.
@@ -34,12 +27,6 @@ public class CompositeModel extends Model {
      */
     public List<ModelInstance> getEntities() {
         return entities;
-    }
-
-    List<ModelInstance> entities = new ArrayList<>();
-
-    public CompositeModel(String name) {
-        super(name);
     }
 
     public ModelInstance createInstance(Model base) {
@@ -66,5 +53,18 @@ public class CompositeModel extends Model {
         }
 
         return builder.toString();
+    }
+
+    public static class ModelInstance {
+
+        Model base;
+
+        public ModelInstance(Model base) {
+            this.base = base;
+        }
+
+        public Model getBase() {
+            return base;
+        }
     }
 }
