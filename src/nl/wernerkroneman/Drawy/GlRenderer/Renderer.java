@@ -1,8 +1,6 @@
 package nl.wernerkroneman.Drawy.GlRenderer;
 
 import com.jogamp.opengl.GL3;
-import com.jogamp.opengl.util.glsl.ShaderCode;
-import com.jogamp.opengl.util.glsl.ShaderProgram;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Drawable;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
 import nl.wernerkroneman.Drawy.ConcreteModelling.SceneNode;
@@ -10,18 +8,17 @@ import org.joml.Matrix4d;
 import org.joml.MatrixStackd;
 
 import static com.jogamp.opengl.GL.*;
-import static com.jogamp.opengl.GL2ES2.GL_FRAGMENT_SHADER;
-import static com.jogamp.opengl.GL2ES2.GL_VERTEX_SHADER;
 
 /**
  * Created by werner on 29-12-16.
  */
 public class Renderer {
-    static final String SHADERS_ROOT = "shaders";  // Renderer
-    private int shaderProgram;
+
+    private ShaderProgram shaderProgram;
 
     private MatrixStackd matrixStack = new MatrixStackd(100);
     private Matrix4d view = new Matrix4d();
+    private Matrix4d proj = new Matrix4d();
 
     /**
      * Render the shape (triangle)
@@ -32,9 +29,10 @@ public class Renderer {
     void render(Scene scene, GL3 gl) {
 
         // clear the framebuffer
+
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        gl.glUseProgram(shaderProgram);
+        shaderProgram.use(gl);
 
         // Push a matrix so the transformations in this frame do not affect those in the next
         matrixStack.pushMatrix();
@@ -45,10 +43,6 @@ public class Renderer {
         // Apply camera transform
         matrixStack.mul(view);
 
-        // Scale the y by -1 to get a left-handed coordinate system
-        // (would it be better to stick to right-handed, and put the translation in TransitionState?)
-        matrixStack.scale(1, -1, 1);
-
         drawSceneNode(scene.getRootSceneNode(), gl.getGL3());
 
         matrixStack.popMatrix();
@@ -56,26 +50,7 @@ public class Renderer {
     }
 
     void initShaders(GL3 gl3) {
-        ShaderCode fragShader = ShaderCode.create(gl3, GL_FRAGMENT_SHADER, this.getClass(), SHADERS_ROOT, null,
-                "default_fragment", "frag", null, false);
-        ShaderCode vertShader = ShaderCode.create(gl3, GL_VERTEX_SHADER, this.getClass(), SHADERS_ROOT, null,
-                "default_vertex", "vert", null, false);
-
-        ShaderProgram prog = new ShaderProgram();
-        //prog.add(vertShader);
-        prog.add(fragShader);
-
-        prog.init(gl3);
-
-        shaderProgram = prog.program();
-
-        gl3.glBindAttribLocation(shaderProgram, ShaderPositions.POSITION, "position");
-        gl3.glBindAttribLocation(shaderProgram, ShaderPositions.COLOR, "color");
-
-        prog.link(gl3, System.err);
-
-        vertShader.destroy(gl3);
-        fragShader.destroy(gl3);
+        shaderProgram = new ShaderProgram("shaders/default_vertex.vert", "shaders/default_fragment.frag", gl3);
     }
 
     private void drawSceneNode(SceneNode rootSceneNode, GL3 gl) {
@@ -96,16 +71,46 @@ public class Renderer {
 
     private void draw(Drawable ent, GL3 gl3) {
 
-        gl3.glUseProgram(shaderProgram);
+        shaderProgram.use(gl3);
+
+        useTopMatrix(gl3);
 
         assert ent.getMesh() instanceof GlMesh;
 
         GlMesh mesh = (GlMesh) ent.getMesh();
+
+        if (mesh.isDirty()) {
+            mesh.recomputeVBO(gl3);
+        }
 
         gl3.glBindVertexArray(mesh.getVertexArrayID());
 
         gl3.glDrawArrays(GL_TRIANGLES, 1, mesh.getVerticesInBuffer());
 
         gl3.glBindVertexArray(0);
+    }
+
+    /**
+     * Send the current top matrix and projection matrix to OpenGL.
+     */
+    private void useTopMatrix(GL3 gl) {
+
+        // Compute modelviewprojection as projection * modelview to get full transformation.
+        Matrix4d mvp = new Matrix4d(proj).mul(matrixStack);
+
+        // Set uniforms
+        shaderProgram.setUniform("modelviewproj", mvp, gl);
+        shaderProgram.setUniform("modelview", matrixStack, gl);
+    }
+
+    /**
+     * Recopute the current projection matrix for a given window size.
+     *
+     * @param width  Window width in pixels
+     * @param height Window height in pixels
+     */
+    public void computeProjection(int width, int height) {
+        // Compute projection matrix
+        proj.identity().perspective((float) Math.toRadians(45), width / (float) height, 0.1f, 1000.0f);
     }
 }

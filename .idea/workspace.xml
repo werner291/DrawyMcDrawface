@@ -10,23 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dd4335b-af97-43de-badf-4b86ba4aba53" name="Default" comment="Added the Renderer/Visualizer module.&#10;Refactorings and small changes.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shaders/default_fragment.frag" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/shaders/default_vertex.vert" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/ModelChangeListener.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlRenderer.java" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DrawyMcDrawface.iml" afterPath="$PROJECT_DIR$/DrawyMcDrawface.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcrete.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcrete.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shaders/default_fragment.frag" afterPath="$PROJECT_DIR$/shaders/default_fragment.frag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shaders/default_vertex.vert" afterPath="$PROJECT_DIR$/shaders/default_vertex.vert" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" afterPath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java" />
     </list>
     <ignored path="DrawyMcDrawface.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -66,52 +59,24 @@
       <file leaf-file-name="GlVisualiser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java">
           <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-15">
+              <caret line="62" column="12" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="12" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2886#2887#0" expanded="true" />
+                <element signature="e#2920#2921#0" expanded="true" />
+                <element signature="e#2946#2947#0" expanded="true" />
+                <element signature="e#2978#2979#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShaderPositions.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MatrixStackd.class" pinned="false" current-in-tab="false">
-        <entry file="jar://$PROJECT_DIR$/lib/joml-1.9.0.jar!/org/joml/MatrixStackd.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="705">
-              <caret line="53" column="24" selection-start-line="53" selection-start-column="24" selection-end-line="53" selection-end-column="24" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Renderer.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShaderProgram.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/util/glsl/ShaderProgram.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-385">
-              <caret line="53" column="15" selection-start-line="53" selection-start-column="15" selection-end-line="53" selection-end-column="15" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ShaderCode.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/util/glsl/ShaderCode.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="767" column="29" selection-start-line="767" selection-start-column="29" selection-end-line="767" selection-end-column="29" />
+              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -120,8 +85,8 @@
       <file leaf-file-name="DrawyMcDrawFace.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
+            <state relative-caret-position="261">
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -129,11 +94,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="default_vertex.vert" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Scene.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="57" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default_vertex.vert" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shaders/default_vertex.vert">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
+            <state relative-caret-position="90">
+              <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -142,9 +117,58 @@
       <file leaf-file-name="default_fragment.frag" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/shaders/default_fragment.frag">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="315">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShaderProgram.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Renderer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GlMesh.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+              <folding>
+                <element signature="e#4595#4596#0" expanded="true" />
+                <element signature="e#4632#4633#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GlMeshFactory.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -155,8 +179,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -171,8 +195,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/ParseTree.java" />
-        <option value="$PROJECT_DIR$/src/Model.java" />
         <option value="$PROJECT_DIR$/src/Knowledge.java" />
         <option value="$PROJECT_DIR$/test/InterpreterTest.java" />
         <option value="$PROJECT_DIR$/src/main.java" />
@@ -182,7 +204,6 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/PrimitiveModel.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Knowledge.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/ParseTreeTest.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java" />
@@ -212,16 +233,19 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcrete.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
         <option value="$PROJECT_DIR$/shaders/default_vertex.glsl" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlVisualiser.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiserTest.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java" />
         <option value="$PROJECT_DIR$/shaders/default_fragment.frag" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" />
+        <option value="$PROJECT_DIR$/shaders/default_vertex.vert" />
       </list>
     </option>
   </component>
@@ -276,10 +300,6 @@
               <option name="myItemId" value="DrawyMcDrawface" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -288,24 +308,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="DrawyMcDrawface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DrawyMcDrawface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DrawyMcDrawface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Drawy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -337,7 +339,15 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="shaders" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GlRenderer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -351,7 +361,29 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="doc" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConcreteModelling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shaders" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -753,7 +785,14 @@
       <option name="project" value="LOCAL" />
       <updated>1482967587850</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added the Renderer/Visualizer module.&#10;Refactorings and small changes.">
+      <created>1483024124724</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1483024124724</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -803,12 +842,12 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20661157" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -865,11 +904,37 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="40" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="44" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="com.jogamp.opengl.GLException" package="com.jogamp.opengl" />
+          <option name="timeStamp" value="47" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java</url>
+          <line>92</line>
+          <properties />
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java</url>
+          <line>139</line>
+          <properties />
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java</url>
+          <line>36</line>
+          <properties />
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="41" />
+      <option name="time" value="51" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -878,118 +943,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AABBTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1410">
-          <caret line="97" column="20" selection-start-line="97" selection-start-column="20" selection-end-line="97" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNodeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="46" column="19" selection-start-line="46" selection-start-column="19" selection-end-line="46" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="46" column="50" selection-start-line="46" selection-start-column="50" selection-end-line="46" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/joml-1.9.0.jar!/org/joml/Matrix4d.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23190">
-          <caret line="1678" column="20" selection-start-line="1678" selection-start-column="20" selection-end-line="1678" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="19" selection-end-line="36" selection-end-column="19" />
-          <folding>
-            <element signature="e#959#960#0" expanded="false" />
-            <element signature="e#995#996#0" expanded="false" />
-            <element signature="e#3697#3698#0" expanded="false" />
-            <element signature="e#3785#3786#0" expanded="false" />
-            <element signature="e#3888#3889#0" expanded="false" />
-            <element signature="e#3932#3933#0" expanded="false" />
-            <element signature="e#3980#3981#0" expanded="false" />
-            <element signature="e#4025#4026#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/GL2.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40800">
-          <caret line="2734" column="24" selection-start-line="2734" selection-start-column="9" selection-end-line="2734" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/GL3.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2880">
-          <caret line="202" column="21" selection-start-line="202" selection-start-column="14" selection-end-line="202" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/GL2GL3.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="403" column="10" selection-start-line="403" selection-start-column="9" selection-end-line="403" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Shader.java" />
-    <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/GLEventListener.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="141" column="24" selection-start-line="141" selection-start-column="24" selection-end-line="141" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/util/AnimatorBase.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-137">
-          <caret line="27" column="43" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$PROJECT_DIR$/lib/jogl-all-2.3.2.jar!/com/jogamp/opengl/util/FPSAnimator.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="62">
@@ -1010,17 +963,6 @@
         <state relative-caret-position="60">
           <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="55" column="9" selection-start-line="55" selection-start-column="9" selection-end-line="55" selection-end-column="9" />
-          <folding>
-            <element signature="e#1621#1622#0" expanded="true" />
-            <element signature="e#1660#1661#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1061,14 +1003,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/GL.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1088,6 +1022,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="58">
           <caret line="8558" column="16" selection-start-line="8558" selection-start-column="16" selection-end-line="8558" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1098,45 +1033,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlRenderer.java" />
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="657">
-          <caret line="139" column="0" selection-start-line="139" selection-start-column="0" selection-end-line="139" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/GLEventListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-108">
           <caret line="48" column="17" selection-start-line="48" selection-start-column="17" selection-end-line="48" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
           <folding />
         </state>
       </provider>
@@ -1159,16 +1060,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/newt/opengl/GLWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-388">
-          <caret line="577" column="0" selection-start-line="577" selection-start-column="0" selection-end-line="577" selection-end-column="0" />
-          <folding>
-            <element signature="e#17733#17734#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/lang/Thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -1181,32 +1072,6 @@
         <state relative-caret-position="144">
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/default_fragment.frag">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/shaders/default_vertex.vert">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="23" selection-start-line="7" selection-start-column="23" selection-end-line="7" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="20" column="29" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1234,10 +1099,166 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java">
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        <state relative-caret-position="330">
+          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
+          <folding>
+            <element signature="e#525#526#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/io/FileInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="254" column="0" selection-start-line="254" selection-start-column="0" selection-end-line="254" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/io/BufferedInputStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/nio/cs/StreamDecoder.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="233" column="0" selection-start-line="233" selection-start-column="0" selection-end-line="233" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/joml-1.9.0.jar!/org/joml/Vector3fc.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="25" column="16" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/joml-1.9.0-sources.jar!/org/joml/Vector3fc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1305">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/GL2ES2.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="644" column="14" selection-start-line="644" selection-start-column="14" selection-end-line="644" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="557">
+          <caret line="564" column="11" selection-start-line="564" selection-start-column="11" selection-end-line="564" selection-end-column="11" />
+          <folding>
+            <element signature="e#20727#20728#0" expanded="false" />
+            <element signature="e#20771#20772#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="65" column="0" selection-start-line="65" selection-start-column="0" selection-end-line="65" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="35" column="12" selection-start-line="35" selection-start-column="12" selection-end-line="35" selection-end-column="12" />
+          <folding>
+            <element signature="e#768#769#0" expanded="true" />
+            <element signature="e#795#796#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/GLException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="307">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/jogamp/opengl/GLDrawableHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="1326" column="0" selection-start-line="1326" selection-start-column="0" selection-end-line="1326" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/com/jogamp/newt/opengl/GLWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="758" column="0" selection-start-line="758" selection-start-column="0" selection-end-line="758" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/jogl-all-2.3.2-sources.jar!/jogamp/opengl/GLBufferObjectTracker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="163" column="0" selection-start-line="163" selection-start-column="0" selection-end-line="163" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="18" column="57" selection-start-line="18" selection-start-column="57" selection-end-line="18" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/joml-1.9.0-sources.jar!/org/joml/Matrix4d.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="1580" column="0" selection-start-line="1580" selection-start-column="0" selection-end-line="1580" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/joml-1.9.0-sources.jar!/org/joml/MatrixStackd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="116" column="0" selection-start-line="116" selection-start-column="0" selection-end-line="116" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="13" column="29" selection-start-line="13" selection-start-column="29" selection-end-line="13" selection-end-column="29" />
+          <folding>
+            <element signature="e#4595#4596#0" expanded="true" />
+            <element signature="e#4632#4633#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1246,11 +1267,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="28" column="34" selection-start-line="28" selection-start-column="34" selection-end-line="28" selection-end-column="34" />
+        <state relative-caret-position="540">
+          <caret line="54" column="0" selection-start-line="54" selection-start-column="0" selection-end-line="54" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="57" selection-start-line="6" selection-start-column="57" selection-end-line="6" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/default_fragment.frag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15">
+          <caret line="62" column="12" selection-start-line="62" selection-start-column="12" selection-end-line="62" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2886#2887#0" expanded="true" />
+            <element signature="e#2920#2921#0" expanded="true" />
+            <element signature="e#2946#2947#0" expanded="true" />
+            <element signature="e#2978#2979#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="40" column="46" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/default_vertex.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="27" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>

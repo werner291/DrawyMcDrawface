@@ -15,7 +15,6 @@ public class GlVisualiser implements GLEventListener {
     private Scene scene = new Scene(); // Empty scene
     private MeshFactory meshFactory;
 
-
     private Renderer renderer = new Renderer();
 
     /**
@@ -66,6 +65,8 @@ public class GlVisualiser implements GLEventListener {
 
         GL3 gl3 = drawable.getGL().getGL3();
 
+        gl3.glClearColor(1, 0, 1, 1);
+
         renderer.initShaders(gl3);
     }
 
@@ -82,6 +83,7 @@ public class GlVisualiser implements GLEventListener {
      */
     @Override
     public void reshape(GLAutoDrawable drawable, int x, int y, int weight, int height) {
+        renderer.computeProjection(weight, height);
     }
 
     public void setScene(Scene scene) {

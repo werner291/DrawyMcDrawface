@@ -27,5 +27,5 @@ void main(){
     vec4 materialColor = vec4(mat_ambient + mat_diffuse * diffuseBrightness,1);
 
     // Combine the material with the texture
-    gl_FragColor = color * materialColor;
+    gl_FragColor = vec4(1,1,1,1);
 }

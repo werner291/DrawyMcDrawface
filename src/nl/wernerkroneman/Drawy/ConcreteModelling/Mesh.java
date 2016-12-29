@@ -15,8 +15,8 @@ public class Mesh {
 
     protected List<Vector3d> vertices = new ArrayList<>();
     protected List<Vector3d> normals = new ArrayList<>();
-    protected List<Vector3d> colors = null;
-    protected List<Vector2d> texCoords = null;
+    protected List<Vector3d> colors = new ArrayList<>();
+    protected List<Vector2d> texCoords = new ArrayList<>();
 
     /**
      * Add a triangle with the specified vertices, computes normals automatically

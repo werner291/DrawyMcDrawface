@@ -1,6 +1,6 @@
 package nl.wernerkroneman.Drawy.GlRenderer;
 
-import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.GLBuffers;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Mesh;
 import org.joml.Vector2d;
@@ -12,12 +12,18 @@ import static com.jogamp.opengl.GL.*;
 
 public class GlMesh extends Mesh {
 
-    private int vertexBufferID;
-    private int vertexArrayID;
+    private int vertexBufferID = -1;
+    private int vertexArrayID = -1;
     private boolean dirty = true;
     private int verticesInBuffer;
 
-    public void recomputeVBO(GL2 gl) {
+    @Override
+    public void addTriangle(Vector3d a, Vector3d b, Vector3d c, Vector3d aN, Vector3d bN, Vector3d cN) {
+        dirty = true;
+        super.addTriangle(a, b, c, aN, bN, cN);
+    }
+
+    public void recomputeVBO(GL3 gl) {
 
         dirty = false;
 
@@ -35,7 +41,7 @@ public class GlMesh extends Mesh {
             floatsPerVertex += 3;
         }
 
-        if (!texCoords.isEmpty()) {
+        if (texCoords != null && !texCoords.isEmpty()) {
             floatsPerVertex += 2;
         }
 
@@ -74,7 +80,7 @@ public class GlMesh extends Mesh {
                 bufData[bufPos++] = (float) normal.z;
             }
 
-            if (!texCoords.isEmpty()) {
+            if (texCoords != null && !texCoords.isEmpty()) {
                 Vector2d texCoord = texCoords.get(i);
 
                 bufData[bufPos++] = (float) texCoord.x;

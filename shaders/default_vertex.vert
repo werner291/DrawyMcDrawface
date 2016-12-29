@@ -7,14 +7,13 @@ in vec2 texCoord;
 uniform mat4 modelviewproj;
 uniform mat4 modelview;
 
-out pos;
 out vec3 normal;
 out vec2 vtexCoord;
  
 void main()
 {
     // Transform the position to NDC coordinates
-    pos = modelviewproj * vec4(position,1.0);
+    gl_Position = modelviewproj * vec4(position,1.0);
 
     // Transform the normal to view space for lighting
     normal = (modelview * vec4(in_normal,0.0)).xyz;
