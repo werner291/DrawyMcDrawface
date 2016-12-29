@@ -1,6 +1,5 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.ModelEditor.CreateEntityRule;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
 import org.junit.Assert;
@@ -14,7 +13,7 @@ public class SceneCommandTest {
         CompositeModel model = new CompositeModel("Scene");
 
         // Verify empty scene
-        Assert.assertTrue(model.getEntities().isEmpty());
+        Assert.assertTrue(model.getComponents().isEmpty());
 
         CreateEntityRule stmt = new CreateEntityRule(model);
         stmt.what = new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder");
@@ -22,11 +21,11 @@ public class SceneCommandTest {
 
         stmt.apply();
 
-        Assert.assertEquals(1, model.getEntities().size());
+        Assert.assertEquals(1, model.getComponents().size());
 
         stmt.revert();
 
-        Assert.assertEquals(0, model.getEntities().size());
+        Assert.assertEquals(0, model.getComponents().size());
 
     }
 
@@ -36,7 +35,7 @@ public class SceneCommandTest {
         CompositeModel model = new CompositeModel("Scene");
 
         // Verify empty scene
-        Assert.assertTrue(model.getEntities().isEmpty());
+        Assert.assertTrue(model.getComponents().isEmpty());
 
         CreateEntityRule stmt = new CreateEntityRule(model);
         stmt.what = new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder");
@@ -44,7 +43,7 @@ public class SceneCommandTest {
 
         stmt.apply();
 
-        Assert.assertEquals(1, model.getEntities().size());
+        Assert.assertEquals(1, model.getComponents().size());
 
         stmt.apply();
 

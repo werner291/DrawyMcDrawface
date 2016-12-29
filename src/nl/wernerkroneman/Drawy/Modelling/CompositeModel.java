@@ -12,8 +12,7 @@ import java.util.List;
  */
 public class CompositeModel extends Model {
 
-    int idGen = 0;
-    List<ModelInstance> entities = new ArrayList<>();
+    List<Model> components = new ArrayList<>();
 
     public CompositeModel(String name) {
         super(name);
@@ -25,46 +24,17 @@ public class CompositeModel extends Model {
      *
      * @return A list of model instances.
      */
-    public List<ModelInstance> getEntities() {
-        return entities;
-    }
-
-    public ModelInstance createInstance(Model base) {
-        return createInstance(base, String.format("%s-%d", base.getName(), idGen++));
-    }
-
-    public ModelInstance createInstance(Model base, String name) {
-        ModelInstance created = new ModelInstance(base);
-
-        entities.add(created);
-
-        return created;
-    }
-
-    public void deleteEntity(ModelInstance toDelete) {
-        entities.remove(toDelete);
+    public List<Model> getComponents() {
+        return components;
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (ModelInstance model : entities) {
+        for (Model model : components) {
             builder.append(model.toString());
         }
 
         return builder.toString();
-    }
-
-    public static class ModelInstance {
-
-        Model base;
-
-        public ModelInstance(Model base) {
-            this.base = base;
-        }
-
-        public Model getBase() {
-            return base;
-        }
     }
 }

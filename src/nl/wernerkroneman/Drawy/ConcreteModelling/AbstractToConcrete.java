@@ -2,6 +2,7 @@ package nl.wernerkroneman.Drawy.ConcreteModelling;
 
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
 import org.joml.Vector3d;
@@ -46,36 +47,74 @@ public class AbstractToConcrete {
     void exploreModel(Model absModel, SceneNode node) {
 
         if (absModel instanceof CompositeModel) {
-            /*
-             * In case of a CompositeModel, every model instance
-             * in the model will be given a SceneNode.
-             *
-             * In positioning the components, only those in the CompositeModel are taken into account.
-             * Taking this higher up in the tree into account is planned later on,
-             * but this should work for now.
-             */
-            for (CompositeModel.ModelInstance instance : ((CompositeModel) absModel).getEntities()) {
-                // Create a new SceneNode for this ModelInstance
-                SceneNode child = new SceneNode();
-
-                // Generate the contents for the node
-                exploreModel(instance.getBase(), child);
-
-                // Find an empty AABB that would fit the child node.
-                AABB place = findEmptyPlace(node, child.computeLocalAABB().transform(child.getTransform(), new AABB()));
-
-                // Set the translation of the node to match the emtpy space
-                Vector3d translation = getTranslationToFit(child, place);
-                child.setTranslation(translation);
-
-                // Finally, attach the child fo the parent.
-                node.addChild(child);
-
-            }
+            exploreCompositeModel((CompositeModel) absModel, node);
+        } else if (absModel instanceof GroupModel) {
+            exploreGroupModel((GroupModel) absModel, node);
         } else if (absModel instanceof PrimitiveModel) {
             PrimitiveModel prim = (PrimitiveModel) absModel;
 
             node.addDrawable(new Drawable(primitiveGenerator.generateUnitCube()));
+        }
+    }
+
+    /**
+     * In case of a CompositeModel, every model instance
+     * in the model will be given a SceneNode.
+     * <p>
+     * In positioning the components, only those in the CompositeModel are taken into account.
+     * Taking this higher up in the tree into account is planned later on,
+     * but this should work for now.
+     */
+    private void exploreGroupModel(GroupModel absModel, SceneNode node) {
+
+        GroupModel group = absModel;
+
+        for (int i = 0; i < group.getNumber(); i++) {
+            // Create a new SceneNode for this ModelInstance
+            SceneNode child = new SceneNode();
+
+            // Generate the contents for the node
+            exploreModel(group.getMember(), child);
+
+            // Find an empty AABB that would fit the child node.
+            AABB place = findEmptyPlace(node, child.computeLocalAABB().transform(child.getTransform(), new AABB()));
+
+            // Set the translation of the node to match the emtpy space
+            Vector3d translation = getTranslationToFit(child, place);
+            child.setTranslation(translation);
+
+            // Finally, attach the child fo the parent.
+            node.addChild(child);
+
+        }
+    }
+
+    /**
+     * In case of a CompositeModel, every model instance
+     * in the model will be given a SceneNode.
+     * <p>
+     * In positioning the components, only those in the CompositeModel are taken into account.
+     * Taking this higher up in the tree into account is planned later on,
+     * but this should work for now.
+     */
+    private void exploreCompositeModel(CompositeModel absModel, SceneNode node) {
+        for (Model instance : absModel.getComponents()) {
+            // Create a new SceneNode for this ModelInstance
+            SceneNode child = new SceneNode();
+
+            // Generate the contents for the node
+            exploreModel(instance, child);
+
+            // Find an empty AABB that would fit the child node.
+            AABB place = findEmptyPlace(node, child.computeLocalAABB().transform(child.getTransform(), new AABB()));
+
+            // Set the translation of the node to match the emtpy space
+            Vector3d translation = getTranslationToFit(child, place);
+            child.setTranslation(translation);
+
+            // Finally, attach the child fo the parent.
+            node.addChild(child);
+
         }
     }
 

@@ -1,10 +1,8 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CreateEntityRule extends SceneCommand {
 
@@ -12,8 +10,8 @@ public class CreateEntityRule extends SceneCommand {
     // String describing what to create
     Model what;
 
-    // After applying, stores the entity that was created
-    List<CompositeModel.ModelInstance> created;
+    // AfteModelr applying, stores the entity that was created
+    GroupModel created;
 
     // How many entities to create
     int number = 1;
@@ -28,16 +26,13 @@ public class CreateEntityRule extends SceneCommand {
 
     @Override
     void onApply(){
-        created = new ArrayList<>();
-        created.add(scene.createInstance(what));
+        created = new GroupModel(number, what);
+        scene.getComponents().add(created);
     }
 
     @Override
     void onRevert() {
-        for (CompositeModel.ModelInstance instance : created) {
-            scene.deleteEntity(instance);
-            created = null;
-        }
+        scene.getComponents().remove(created);
     }
 
 
