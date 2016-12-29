@@ -41,7 +41,7 @@ public class GlMesh extends Mesh {
             floatsPerVertex += 3;
         }
 
-        if (texCoords != null && !texCoords.isEmpty()) {
+        if (!texCoords.isEmpty()) {
             floatsPerVertex += 2;
         }
 
@@ -80,7 +80,7 @@ public class GlMesh extends Mesh {
                 bufData[bufPos++] = (float) normal.z;
             }
 
-            if (texCoords != null && !texCoords.isEmpty()) {
+            if (!texCoords.isEmpty()) {
                 Vector2d texCoord = texCoords.get(i);
 
                 bufData[bufPos++] = (float) texCoord.x;
@@ -95,7 +95,7 @@ public class GlMesh extends Mesh {
         FloatBuffer buffer = GLBuffers.newDirectFloatBuffer(bufData);
 
         // Give our vertices to OpenGL.
-        gl.glBufferData(GL_ARRAY_BUFFER, bufData.length, buffer, GL_STATIC_DRAW);
+        gl.glBufferData(GL_ARRAY_BUFFER, bufData.length * Float.BYTES, buffer, GL_STATIC_DRAW);
 
         /////////////////////////
         // Vertex array object //
@@ -118,7 +118,7 @@ public class GlMesh extends Mesh {
         gl.glVertexAttribPointer(ShaderPositions.NORMAL, 3, GL_FLOAT, false, floatsPerVertex * Float.BYTES, 3 * Float
                 .BYTES);
 
-        int offset = 6 * Float.BYTES;
+        /*int offset = 6 * Float.BYTES;
 
         if (!colors.isEmpty()) {
             gl.glEnableVertexAttribArray(ShaderPositions.TEXCOORD);
@@ -128,13 +128,13 @@ public class GlMesh extends Mesh {
             offset += 2 * Float.BYTES;
         }
 
-        if (!colors.isEmpty()) {
+        if (!texCoords.isEmpty()) {
             gl.glEnableVertexAttribArray(ShaderPositions.COLOR);
 
             gl.glVertexAttribPointer(ShaderPositions.NORMAL, 3, GL_FLOAT, false, floatsPerVertex * Float.BYTES, offset);
 
             offset += 3 * Float.BYTES;
-        }
+        }*/
 
         verticesInBuffer = vertices.size();
 

@@ -25,36 +25,47 @@ public class PrimitiveGenerator {
         cube.addTriangle(new Vector3d(-0.5f, -0.5f, -0.5f),
                 new Vector3d(-0.5f, -0.5f, 0.5f),
                 new Vector3d(-0.5f, 0.5f, 0.5f));
-        cube.addTriangle(new Vector3d(0.5f, 0.5f, -0.5f),
-                new Vector3d(-0.5f, -0.5f, -0.5f),
-                new Vector3d(-0.5f, 0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, -0.5f, 0.5f),
                 new Vector3d(-0.5f, -0.5f, -0.5f),
                 new Vector3d(0.5f, -0.5f, -0.5f));
-        cube.addTriangle(new Vector3d(0.5f, 0.5f, -0.5f),
-                new Vector3d(0.5f, -0.5f, -0.5f),
-                new Vector3d(-0.5f, -0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(-0.5f, -0.5f, -0.5f),
                 new Vector3d(-0.5f, 0.5f, 0.5f),
                 new Vector3d(-0.5f, 0.5f, -0.5f));
+
+        cube.addTriangle(new Vector3d(0.5f, 0.5f, -0.5f),
+                new Vector3d(-0.5f, -0.5f, -0.5f),
+                new Vector3d(-0.5f, 0.5f, -0.5f));
+
+        cube.addTriangle(new Vector3d(0.5f, 0.5f, -0.5f),
+                new Vector3d(-0.5f, -0.5f, -0.5f),
+                new Vector3d(0.5f, -0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, -0.5f, 0.5f),
                 new Vector3d(-0.5f, -0.5f, 0.5f),
                 new Vector3d(-0.5f, -0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(-0.5f, 0.5f, 0.5f),
                 new Vector3d(-0.5f, -0.5f, 0.5f),
                 new Vector3d(0.5f, -0.5f, 0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, 0.5f, 0.5f),
                 new Vector3d(0.5f, -0.5f, -0.5f),
                 new Vector3d(0.5f, 0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, -0.5f, -0.5f),
                 new Vector3d(0.5f, 0.5f, 0.5f),
                 new Vector3d(0.5f, -0.5f, 0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, 0.5f, 0.5f),
                 new Vector3d(0.5f, 0.5f, -0.5f),
                 new Vector3d(-0.5f, 0.5f, -0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, 0.5f, 0.5f),
                 new Vector3d(-0.5f, 0.5f, -0.5f),
                 new Vector3d(-0.5f, 0.5f, 0.5f));
+
         cube.addTriangle(new Vector3d(0.5f, 0.5f, 0.5f),
                 new Vector3d(-0.5f, 0.5f, 0.5f),
                 new Vector3d(0.5f, -0.5f, 0.5f));

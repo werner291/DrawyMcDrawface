@@ -28,6 +28,8 @@ public class Renderer {
      */
     void render(Scene scene, GL3 gl) {
 
+        gl.glEnable(GL_DEPTH_TEST);
+
         // clear the framebuffer
 
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -85,7 +87,7 @@ public class Renderer {
 
         gl3.glBindVertexArray(mesh.getVertexArrayID());
 
-        gl3.glDrawArrays(GL_TRIANGLES, 1, mesh.getVerticesInBuffer());
+        gl3.glDrawArrays(GL_TRIANGLES, 0, mesh.getVerticesInBuffer());
 
         gl3.glBindVertexArray(0);
     }

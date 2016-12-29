@@ -16,7 +16,7 @@ void main()
     gl_Position = modelviewproj * vec4(position,1.0);
 
     // Transform the normal to view space for lighting
-    normal = (modelview * vec4(in_normal,0.0)).xyz;
+    normal = in_normal;
 
     // Simply pass the texture coordinate along to the fragment shader
     vtexCoord = texCoord;
