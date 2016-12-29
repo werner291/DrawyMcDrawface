@@ -34,7 +34,7 @@ public class AbstractToConcrete {
      * @param absModel An abstract model
      * @return A concrete, drawable scene
      */
-    Scene computeScene(Model absModel) {
+    public Scene computeScene(Model absModel) {
 
         Scene result = new Scene();
 

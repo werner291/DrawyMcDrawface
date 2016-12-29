@@ -136,37 +136,39 @@ public class AbstractToConcreteTest {
     public void computeSceneMultipleCubeInComposite() throws Exception {
         // This should produce multiple, non-overlapping cubes.
 
-        PrimitiveModel cube = new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube");
+        for (int rep = 0; rep < 50; rep++) {
+            PrimitiveModel cube = new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube");
 
-        CompositeModel composite = new CompositeModel("Cube container.");
+            CompositeModel composite = new CompositeModel("Cube container.");
 
-        final int NUM_CUBES = 2;
+            final int NUM_CUBES = 10;
 
-        for (int i = 0;
-             i < NUM_CUBES;
-             i++) {
-            composite.createInstance(cube);
-        }
+            for (int i = 0;
+                 i < NUM_CUBES;
+                 i++) {
+                composite.createInstance(cube);
+            }
 
-        AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());
+            AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());
 
-        Scene result = converter.computeScene(composite);
+            Scene result = converter.computeScene(composite);
 
-        Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size());
-        Assert.assertEquals(NUM_CUBES, result.getRootSceneNode().getChildren().size());
+            Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size());
+            Assert.assertEquals(NUM_CUBES, result.getRootSceneNode().getChildren().size());
 
-        for (int i = 0;
-             i < NUM_CUBES;
-             i++) {
-            for (int j = 0;
-                 j < NUM_CUBES;
-                 j++) {
-                if (i != j) {
+            for (int i = 0;
+                 i < NUM_CUBES;
+                 i++) {
+                for (int j = 0;
+                     j < NUM_CUBES;
+                     j++) {
+                    if (i != j) {
 
-                    AABB a = result.getRootSceneNode().getChildren().get(i).getDrawables().get(0).getWorldAABB();
-                    AABB b = result.getRootSceneNode().getChildren().get(j).getDrawables().get(0).getWorldAABB();
+                        AABB a = result.getRootSceneNode().getChildren().get(i).getDrawables().get(0).getWorldAABB();
+                        AABB b = result.getRootSceneNode().getChildren().get(j).getDrawables().get(0).getWorldAABB();
 
-                    Assert.assertFalse(a.intersects(b));
+                        Assert.assertFalse(a.intersects(b));
+                    }
                 }
             }
         }

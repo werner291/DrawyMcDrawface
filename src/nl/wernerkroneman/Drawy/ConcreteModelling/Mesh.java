@@ -13,10 +13,10 @@ import java.util.List;
  */
 public class Mesh {
 
-    List<Vector3d> vertices = new ArrayList<>();
-    List<Vector3d> normals = new ArrayList<>();
-    List<Vector3d> colors = null;
-    List<Vector2d> texCoords = null;
+    protected List<Vector3d> vertices = new ArrayList<>();
+    protected List<Vector3d> normals = new ArrayList<>();
+    protected List<Vector3d> colors = null;
+    protected List<Vector2d> texCoords = null;
 
     /**
      * Add a triangle with the specified vertices, computes normals automatically

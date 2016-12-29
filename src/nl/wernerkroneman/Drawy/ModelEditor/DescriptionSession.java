@@ -4,61 +4,68 @@ package nl.wernerkroneman.Drawy.ModelEditor;//
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class DescriptionSession {
 
-public CompositeModel descriptionSession(String subject, Knowledge knowledge) {
+    private List<ModelChangeListener> listeners = new ArrayList<>();
 
-    CompositeModel scene = new CompositeModel("subject");
+    public CompositeModel descriptionSession(String subject, Knowledge knowledge) {
 
-    System.out.print( subject + ">: ");
+        CompositeModel scene = new CompositeModel("subject");
 
-    Scanner in = new Scanner(System.in);
+        System.out.print(subject + ">: ");
 
-    Resolver resolver = new Resolver(TerminalInteractor.getInstance(), knowledge);
+        Scanner in = new Scanner(System.in);
 
-    Interpreter interpreter = new Interpreter(resolver);
+        Resolver resolver = new Resolver(TerminalInteractor.getInstance(), knowledge);
 
-    while (in.hasNextLine()) {
+        Interpreter interpreter = new Interpreter(resolver);
 
-        String line = in.nextLine();
+        while (in.hasNextLine()) {
 
-        if (line.equals("done")) {
-            break;
-        }
+            String line = in.nextLine();
 
-        List<SceneCommand> results = interpreter.interpret(line, scene);
-
-        System.out.println( "Interpreted: ");
-
-        for (SceneCommand stmt: results) {
-            System.out.println( stmt.toString() );
-        }
-
-        if (results.isEmpty()) {
-            System.out.println( "Unable to interpret. Guess I'm too stupid.");
-        }
-
-        if (TerminalInteractor.getInstance().askUserYesNo("Is this correct?")) {
-            for (SceneCommand cmd : results) {
-                cmd.apply();
+            if (line.equals("done")) {
+                break;
             }
+
+            List<SceneCommand> results = interpreter.interpret(line, scene);
+
+            System.out.println("Interpreted: ");
+
+            for (SceneCommand stmt : results) {
+                System.out.println(stmt.toString());
+            }
+
+            if (results.isEmpty()) {
+                System.out.println("Unable to interpret. Guess I'm too stupid.");
+            }
+
+            if (TerminalInteractor.getInstance().askUserYesNo("Is this correct?")) {
+                for (SceneCommand cmd : results) {
+                    cmd.apply();
+                }
+            }
+
+            notifyChanged(scene);
+
+            System.out.println(subject);
         }
 
-        showScene(scene);
-
-        System.out.println(subject);
+        return scene;
     }
 
-    return scene;
-}
+    public void addListener(ModelChangeListener listener) {
+        listeners.add(listener);
+    }
 
-void showScene(CompositeModel scene) {
-    System.out.println("The scene currently looks like: ");
-
-    System.out.println(scene);
-}
+    private void notifyChanged(CompositeModel scene) {
+        for (ModelChangeListener list : listeners) {
+            list.modelChanged(scene);
+        }
+    }
 
 }
