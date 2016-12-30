@@ -125,7 +125,7 @@ public class SceneNode {
         return result;
     }
 
-    AABB computeWorldAABB() {
+    public AABB computeWorldAABB() {
         return computeLocalAABB().transform(computeWorldTransform(), new AABB());
     }
 

@@ -1,6 +1,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +24,13 @@ public class SceneCommandTest {
 
         Assert.assertEquals(1, model.getComponents().size());
 
+        Assert.assertTrue(model.getComponents().get(0) instanceof GroupModel);
+
+        GroupModel group = (GroupModel) model.getComponents().get(0);
+
+        Assert.assertEquals(5, group.getNumber());
+        Assert.assertEquals(stmt.what, group.getMember());
+
         stmt.revert();
 
         Assert.assertEquals(0, model.getComponents().size());
@@ -34,17 +42,9 @@ public class SceneCommandTest {
 
         CompositeModel model = new CompositeModel("Scene");
 
-        // Verify empty scene
-        Assert.assertTrue(model.getComponents().isEmpty());
-
         CreateEntityRule stmt = new CreateEntityRule(model);
-        stmt.what = new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder");
-        stmt.number = 5;
 
         stmt.apply();
-
-        Assert.assertEquals(1, model.getComponents().size());
-
         stmt.apply();
 
     }

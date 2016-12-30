@@ -1,34 +1,49 @@
-package nl.wernerkroneman.Drawy.ModelEditor;//
-// Created by werner on 25-12-16.
-
+package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.Model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
+/**
+ * A class representing a session where a user describes an object.
+ * <p>
+ * It allows for asynchronous running of the session since other
+ * parts of the program may need to run while this process takes its' time.
+ */
 public class DescriptionSession {
 
-    private List<ModelChangeListener> listeners = new ArrayList<>();
+    private BlockingInteractorInterface interactorIface;
+    private Interpreter interpreter;
+    private List<DescriptionSessionListener> listeners = new ArrayList<>();
 
-    public CompositeModel descriptionSession(String subject, Knowledge knowledge) {
+    public DescriptionSession(Interpreter interpreter, BlockingInteractorInterface interactorIface) {
+        this.interpreter = interpreter;
+        this.interactorIface = interactorIface;
+    }
 
-        CompositeModel scene = new CompositeModel("subject");
+    public static DescriptionSession createDescriptionSession(Knowledge knowledge, BlockingInteractorInterface iface) {
 
-        System.out.print(subject + ">: ");
+        RecursiveSessionResolver interactiveResolver = new RecursiveSessionResolver(iface);
+        KnowledgeResolver knowledgeResolver = new KnowledgeResolver(knowledge, iface, interactiveResolver);
+        Interpreter interpreter = new Interpreter(knowledgeResolver);
+        DescriptionSession descriptionSession = new DescriptionSession(interpreter, iface);
+        interactiveResolver.setSessionContext(descriptionSession);
+        return descriptionSession;
+    }
 
-        Scanner in = new Scanner(System.in);
+    public void start() {
+        new Thread(this::runSession).start();
+    }
 
-        Resolver resolver = new Resolver(TerminalInteractor.getInstance(), knowledge);
-
-        Interpreter interpreter = new Interpreter(resolver);
-
-        while (in.hasNextLine()) {
-
-            String line = in.nextLine();
+    public Model runSession() {
+        CompositeModel scene = new CompositeModel("Scene");
+        while (true) {
+            String line = interactorIface.askUserString("Say something:");
 
             if (line.equals("done")) {
+                notifyFinished();
                 break;
             }
 
@@ -44,28 +59,30 @@ public class DescriptionSession {
                 System.out.println("Unable to interpret. Guess I'm too stupid.");
             }
 
-            if (TerminalInteractor.getInstance().askUserYesNo("Is this correct?")) {
+            if (interactorIface.askUserYesNo("Is this correct?")) {
                 for (SceneCommand cmd : results) {
                     cmd.apply();
                 }
             }
 
             notifyChanged(scene);
-
-            System.out.println(subject);
         }
-
         return scene;
     }
 
-    public void addListener(ModelChangeListener listener) {
+    private void notifyFinished() {
+        for (DescriptionSessionListener list : listeners) {
+            list.sessionEnded();
+        }
+    }
+
+    public void addListener(DescriptionSessionListener listener) {
         listeners.add(listener);
     }
 
     private void notifyChanged(CompositeModel scene) {
-        for (ModelChangeListener list : listeners) {
+        for (DescriptionSessionListener list : listeners) {
             list.modelChanged(scene);
         }
     }
-
 }

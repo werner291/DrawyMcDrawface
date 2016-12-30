@@ -17,13 +17,6 @@ public class GroupModel extends Model {
         this.memberType = memberType;
     }
 
-    public GroupModel(String name, int number, Model memberType) {
-        super(name);
-
-        this.number = number;
-        this.memberType = memberType;
-    }
-
     public int getNumber() {
         return number;
     }

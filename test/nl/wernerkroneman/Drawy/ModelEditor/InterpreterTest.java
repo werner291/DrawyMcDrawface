@@ -1,6 +1,5 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.ModelEditor.*;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -12,13 +11,7 @@ public class InterpreterTest {
     Interpreter getInterpreter(CompositeModel model) {
         Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
 
-        return new Interpreter(new Resolver(null, knowledge) {
-            @Override
-            void askUserForObject(String name) {
-                // Should not ask for clarification
-                Assert.fail();
-            }
-        });
+        return new Interpreter(new KnowledgeResolver(knowledge, null, null));
     }
 
     @Test

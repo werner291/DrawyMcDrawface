@@ -1,9 +1,4 @@
-package nl.wernerkroneman.Drawy.ModelEditor;/*
- * Manipulator.h
- *
- *  Created on: 10 jun. 2016
- *      Author: werner
- */
+package nl.wernerkroneman.Drawy.ModelEditor;
 
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
@@ -12,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-class Interpreter {
+public class Interpreter {
 
-    Resolver resolver;
+    KnowledgeResolver resolver;
 
-    Interpreter(Resolver resolver) {
+    public Interpreter(KnowledgeResolver resolver) {
         this.resolver = resolver;
     }
 

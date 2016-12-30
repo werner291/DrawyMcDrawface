@@ -53,7 +53,16 @@ public class AbstractToConcrete {
         } else if (absModel instanceof PrimitiveModel) {
             PrimitiveModel prim = (PrimitiveModel) absModel;
 
-            node.addDrawable(new Drawable(primitiveGenerator.generateUnitCube()));
+            switch (prim.getShape()) {
+                case CUBE:
+                    node.addDrawable(new Drawable(primitiveGenerator.generateUnitCube()));
+                    break;
+                case SPHERE:
+                    node.addDrawable(new Drawable(primitiveGenerator.generateSphere(0.5, 4, 4)));
+                    break;
+                default:
+                    throw new UnsupportedOperationException("Shape " + prim.getShape() + " not implemented.");
+            }
         }
     }
 
