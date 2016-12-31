@@ -23,7 +23,7 @@ public class Mesh {
      */
     public void addTriangle(Vector3d a, Vector3d b, Vector3d c) {
 
-        Vector3d normal = new Vector3d(b).sub(a).cross(new Vector3d(c).sub(a));
+        Vector3d normal = new Vector3d(b).sub(a).cross(new Vector3d(c).sub(a)).normalize();
 
         addTriangle(a, b, c, normal);
     }

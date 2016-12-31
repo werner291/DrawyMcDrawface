@@ -58,7 +58,7 @@ public class AbstractToConcrete {
                     node.addDrawable(new Drawable(primitiveGenerator.generateUnitCube()));
                     break;
                 case SPHERE:
-                    node.addDrawable(new Drawable(primitiveGenerator.generateSphere(0.5, 4, 4)));
+                    node.addDrawable(new Drawable(primitiveGenerator.generateSphere(0.5, 16, 8)));
                     break;
                 default:
                     throw new UnsupportedOperationException("Shape " + prim.getShape() + " not implemented.");

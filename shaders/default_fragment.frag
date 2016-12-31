@@ -15,10 +15,10 @@ uniform vec3 mat_emissive;
 void main(){
 
     // Normalize the light direction
-    vec3 lightDirection = vec3(0,0,1);//normalize(lightDir).xyz;
+    vec3 lightDirection = normalize(vec3(0.1,1,0));//normalize(lightDir).xyz;
 
     // Compute diffuse brightness as the cosine of the angle between the light direction and the normal
-    float diffuseBrightness = abs(dot(normal,lightDirection));
+    float diffuseBrightness = dot(normal,lightDirection);
 
     // Sample the texture
     vec4 color = texture2D(texture, vtexCoord);
@@ -27,5 +27,5 @@ void main(){
     vec4 materialColor = vec4(mat_ambient + mat_diffuse * diffuseBrightness,1);
 
     // Combine the material with the texture
-    gl_FragColor = vec4(abs(normal.x),abs(normal.y),abs(normal.z),1);
+    gl_FragColor = vec4(diffuseBrightness,diffuseBrightness,diffuseBrightness,1);
 }

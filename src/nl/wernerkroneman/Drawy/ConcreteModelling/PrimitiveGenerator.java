@@ -95,13 +95,21 @@ public class PrimitiveGenerator {
                 double secondX = Math.cos(secondLongitude);
                 double secondZ = Math.sin(secondLongitude);
 
-                mesh.addTriangle(new Vector3d(firstX * lowerRingRadius, lowerRingHeight, firstZ * lowerRingRadius),
-                        new Vector3d(secondX * lowerRingRadius, lowerRingHeight, secondZ * lowerRingRadius),
-                        new Vector3d(firstX * upperRingRadius, upperRingHeight, firstZ * upperRingRadius));
+                if (h < vertSegments - 1) {
+                    mesh.addTriangle(new Vector3d(secondX * lowerRingRadius, lowerRingHeight, secondZ *
+                                    lowerRingRadius),
 
-                mesh.addTriangle(new Vector3d(secondX * lowerRingRadius, lowerRingHeight, secondZ * lowerRingRadius),
-                        new Vector3d(firstX * upperRingRadius, upperRingHeight, firstZ * upperRingRadius),
-                        new Vector3d(secondX * upperRingRadius, upperRingHeight, secondZ * upperRingRadius));
+                            new Vector3d(firstX * lowerRingRadius, lowerRingHeight, firstZ * lowerRingRadius),
+                            new Vector3d(firstX * upperRingRadius, upperRingHeight, firstZ * upperRingRadius));
+                }
+
+                if (h > 0) {
+                    mesh.addTriangle(new Vector3d(secondX * lowerRingRadius, lowerRingHeight, secondZ *
+                                    lowerRingRadius),
+
+                            new Vector3d(firstX * upperRingRadius, upperRingHeight, firstZ * upperRingRadius),
+                            new Vector3d(secondX * upperRingRadius, upperRingHeight, secondZ * upperRingRadius));
+                }
             }
         }
 
