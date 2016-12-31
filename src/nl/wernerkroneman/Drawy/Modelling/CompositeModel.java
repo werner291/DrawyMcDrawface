@@ -1,7 +1,7 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The CompositeModel represents everything that DrawyMcDrawface
@@ -12,29 +12,44 @@ import java.util.List;
  */
 public class CompositeModel extends Model {
 
-    List<Model> components = new ArrayList<>();
+    Set<Component> components = new HashSet<>();
 
     public CompositeModel(String name) {
         super(name);
     }
 
+    public void addComponentForModel(PrimitiveModel cube) {
+        components.add(new Component(cube));
+    }
+
     /**
      * Obtain a list of model instances in this model.
-     * DO NOT MODIFY
      *
      * @return A list of model instances.
      */
-    public List<Model> getComponents() {
+    public Set<Component> getComponents() {
         return components;
     }
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (Model model : components) {
-            builder.append(model.toString());
+        for (Component comp : components) {
+            builder.append(comp.toString());
         }
 
         return builder.toString();
+    }
+
+    public static class Component {
+        private Model model;
+
+        public Component(Model model) {
+            this.model = model;
+        }
+
+        public Model getModel() {
+            return model;
+        }
     }
 }

@@ -106,7 +106,7 @@ public class AbstractToConcreteTest {
 
         CompositeModel composite = new CompositeModel("Cube container.");
 
-        composite.getComponents().add(cube);
+        composite.addComponentForModel(cube);
 
         AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());
 
@@ -144,7 +144,7 @@ public class AbstractToConcreteTest {
             final int NUM_CUBES = 10;
 
             for (int i = 0; i < NUM_CUBES; i++) {
-                composite.getComponents().add(cube);
+                composite.addComponentForModel(cube);
             }
 
             AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());

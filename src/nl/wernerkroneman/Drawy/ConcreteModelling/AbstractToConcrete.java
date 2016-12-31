@@ -107,12 +107,12 @@ public class AbstractToConcrete {
      * but this should work for now.
      */
     private void exploreCompositeModel(CompositeModel absModel, SceneNode node) {
-        for (Model instance : absModel.getComponents()) {
+        for (CompositeModel.Component instance : absModel.getComponents()) {
             // Create a new SceneNode for this ModelInstance
             SceneNode child = new SceneNode();
 
             // Generate the contents for the node
-            exploreModel(instance, child);
+            exploreModel(instance.getModel(), child);
 
             // Find an empty AABB that would fit the child node.
             AABB place = findEmptyPlace(node, child.computeLocalAABB().transform(child.getTransform(), new AABB()));

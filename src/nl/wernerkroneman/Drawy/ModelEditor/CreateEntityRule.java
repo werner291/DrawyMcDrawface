@@ -11,7 +11,7 @@ public class CreateEntityRule extends SceneCommand {
     Model what;
 
     // AfteModelr applying, stores the entity that was created
-    GroupModel created;
+    CompositeModel.Component created;
 
     // How many entities to create
     int number = 1;
@@ -26,7 +26,7 @@ public class CreateEntityRule extends SceneCommand {
 
     @Override
     void onApply(){
-        created = new GroupModel(number, what);
+        created = new CompositeModel.Component(new GroupModel(number, what));
         scene.getComponents().add(created);
     }
 

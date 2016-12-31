@@ -2,6 +2,7 @@ package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.GroupModel;
+import nl.wernerkroneman.Drawy.Modelling.Model;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
 import org.junit.Assert;
 import org.junit.Test;
@@ -24,9 +25,10 @@ public class SceneCommandTest {
 
         Assert.assertEquals(1, model.getComponents().size());
 
-        Assert.assertTrue(model.getComponents().get(0) instanceof GroupModel);
+        Model model1 = model.getComponents().iterator().next().getModel();
+        Assert.assertTrue(model1 instanceof GroupModel);
 
-        GroupModel group = (GroupModel) model.getComponents().get(0);
+        GroupModel group = (GroupModel) model1;
 
         Assert.assertEquals(5, group.getNumber());
         Assert.assertEquals(stmt.what, group.getMember());

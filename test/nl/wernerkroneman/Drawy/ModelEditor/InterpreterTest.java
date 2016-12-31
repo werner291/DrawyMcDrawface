@@ -93,4 +93,46 @@ public class InterpreterTest {
         Assert.assertEquals("Cylinder", stmt.what.getName());
 
     }
+
+    @Test
+    public void createSphereAboveCube() {
+
+        CompositeModel scene = new CompositeModel("Scene");
+
+        List<SceneCommand> result = getInterpreter(scene).interpret("A cube above a sphere", scene);
+
+        Assert.assertEquals(3, result.size());
+
+        // ----------------------
+
+        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+
+        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+
+        Assert.assertEquals(1, stmt.number);
+
+        Assert.assertEquals("Cube", stmt.what.getName());
+
+        // ----------------------
+
+        Assert.assertTrue(result.get(1) instanceof CreateEntityRule);
+
+        stmt = (CreateEntityRule) result.get(1);
+
+        Assert.assertEquals(1, stmt.number);
+
+        Assert.assertEquals("Cylinder", stmt.what.getName());
+
+        // ----------------------
+
+        Assert.assertTrue(result.get(2) instanceof);
+
+        stmt = (CreateEntityRule) result.get(1);
+
+        Assert.assertEquals(1, stmt.number);
+
+        Assert.assertEquals("Cylinder", stmt.what.getName());
+
+
+    }
 }
