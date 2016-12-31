@@ -88,12 +88,12 @@ public class PrimitiveGenerator {
             double lowerRingHeight = Math.sin(lowerLongitude);
 
             for (int v = 0; v < vertSegments; v++) {
-                double firstLongitude = v * Math.PI / vertSegments;
+                double firstLongitude = 2.0 * v * Math.PI / vertSegments;
                 double firstX = Math.cos(firstLongitude);
                 double firstZ = Math.sin(firstLongitude);
-                double secondLongitude = (v + 1) * Math.PI / vertSegments;
+                double secondLongitude = 2.0 * (v + 1) * Math.PI / vertSegments;
                 double secondX = Math.cos(secondLongitude);
-                double secondZ = Math.cos(secondLongitude);
+                double secondZ = Math.sin(secondLongitude);
 
                 mesh.addTriangle(new Vector3d(firstX * lowerRingRadius, lowerRingHeight, firstZ * lowerRingRadius),
                         new Vector3d(secondX * lowerRingRadius, lowerRingHeight, secondZ * lowerRingRadius),
