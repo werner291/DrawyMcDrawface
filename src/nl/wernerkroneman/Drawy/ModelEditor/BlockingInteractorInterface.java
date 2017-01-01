@@ -66,9 +66,9 @@ public class BlockingInteractorInterface {
 
             String line = askUserString(question + "(Y/N)");
 
-            if (line.equalsIgnoreCase("Y")) {
+            if (line.equalsIgnoreCase("Y") || line.equalsIgnoreCase("Yes")) {
                 return true;
-            } else if (line.equalsIgnoreCase("N")) {
+            } else if (line.equalsIgnoreCase("N") || line.equalsIgnoreCase("No")) {
                 return false;
             }
 

@@ -36,4 +36,13 @@ public class RelativePositionConstraint extends Constraint {
     public void setPos(RelativePositionStatement.RelativePosition pos) {
         this.pos = pos;
     }
+
+    @Override
+    public String toString() {
+        return "RelativePositionConstraint{" +
+                "a=" + a +
+                ", b=" + b +
+                ", pos=" + pos +
+                '}';
+    }
 }

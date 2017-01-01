@@ -104,9 +104,9 @@ public class Interpreter {
         // Find the determinant of the pobj
         SentencePart pobjDet = prepObj.dfsFind(part -> part.getRole().equals("det"));
 
-        if (pobjDet.getRootWord().equalsIgnoreCase("the")) {
+        if (pobjDet != null && pobjDet.getRootWord().equalsIgnoreCase("the")) {
             throw new UnsupportedOperationException("Selectors not yet implemented.");
-        } else if (pobjDet.getRootWord().equalsIgnoreCase("a")) {
+        } else if (pobjDet == null || pobjDet.getRootWord().equalsIgnoreCase("a")) {
             CreateEntityCommand result = creationRuleForObject(statements, context, prepObj);
 
             statements.add(new RelativePositionStatement(relatesTo, result,

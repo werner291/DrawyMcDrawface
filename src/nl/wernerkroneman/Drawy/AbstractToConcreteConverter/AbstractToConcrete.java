@@ -130,10 +130,8 @@ public class AbstractToConcrete {
 
         // Translate the set of components into a list such that positional constraints
         // can be solved in the right order.
-        List<CompositeModel.Component> components = new ArrayList<>(absModel.getComponents());
-
-        // SOrt them
-        PositionalSolver.sortIntoFeasibleOrder(components, absModel.getConstraints());
+        List<CompositeModel.Component> components = PositionalSolver.sortIntoFeasibleOrder(absModel.getComponents(),
+                absModel.getConstraints());
 
         // Maintain a mapping of components to the scene nodes that were produced from them.
         Map<CompositeModel.Component, SceneNode> componentToNode = new HashMap<>();

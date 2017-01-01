@@ -49,14 +49,14 @@ public class DescriptionSession {
 
             List<SceneCommand> results = interpreter.interpret(line, scene);
 
-            System.out.println("Interpreted: ");
+            interactorIface.tellUser("Interpreted: ");
 
             for (SceneCommand stmt : results) {
-                System.out.println(stmt.toString());
+                interactorIface.tellUser(stmt.toString());
             }
 
             if (results.isEmpty()) {
-                System.out.println("Unable to interpret. Guess I'm too stupid.");
+                interactorIface.tellUser("Unable to interpret. Guess I'm too stupid.");
             }
 
             if (interactorIface.askUserYesNo("Is this correct?")) {

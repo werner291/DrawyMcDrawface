@@ -80,12 +80,12 @@ public class PrimitiveGenerator {
         for (int h = 0; h < horSegments; h++) {
 
             double upperLatitude = -Math.PI / 2 + Math.PI * (double) (h + 1) / (double) horSegments;
-            double upperRingRadius = Math.cos(upperLatitude);
-            double upperRingHeight = Math.sin(upperLatitude);
+            double upperRingRadius = radius * Math.cos(upperLatitude);
+            double upperRingHeight = radius * Math.sin(upperLatitude);
 
             double lowerLongitude = -Math.PI / 2 + Math.PI * (double) h / (double) horSegments;
-            double lowerRingRadius = Math.cos(lowerLongitude);
-            double lowerRingHeight = Math.sin(lowerLongitude);
+            double lowerRingRadius = radius * Math.cos(lowerLongitude);
+            double lowerRingHeight = radius * Math.sin(lowerLongitude);
 
             for (int v = 0; v < vertSegments; v++) {
                 double firstLongitude = 2.0 * v * Math.PI / vertSegments;

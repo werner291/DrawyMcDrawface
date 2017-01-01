@@ -17,6 +17,7 @@ import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
 import nl.wernerkroneman.Drawy.Modelling.Model;
+import org.joml.Vector3d;
 
 import javax.swing.*;
 import java.awt.*;
@@ -73,8 +74,9 @@ public class DrawyMcDrawFace {
             public void actionPerformed(ActionEvent e) {
                 t += 0.01;
                 AABB box = visualiser.getScene().getRootSceneNode().computeWorldAABB();
-                double d = 2 * Math.max(box.getWidth(), box.getDepth());
-                Scene.EYE.set(d * Math.sin(t), 2, d * Math.cos(t));
+                double d = 10 * Math.max(box.getWidth(), box.getDepth());
+                Scene.EYE.set(d * Math.sin(t), 10, d * Math.cos(t));
+                Scene.LOOKAT_CENTER.set(box.getCenter(new Vector3d()));
                 glcanvas.display();
             }
         });

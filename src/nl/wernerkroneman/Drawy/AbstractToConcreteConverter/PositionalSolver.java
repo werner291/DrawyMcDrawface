@@ -6,9 +6,7 @@ import nl.wernerkroneman.Drawy.Modelling.Constraint;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PositionalSolver {
 
@@ -75,27 +73,56 @@ public class PositionalSolver {
      * @param components  The list of components
      * @param constraints The constraints on those components.
      */
-    static void sortIntoFeasibleOrder(List<CompositeModel.Component> components, Set<Constraint> constraints) {
-        components.sort((a, b) -> {
-            // Does this work with a partial ordering?
-            int result = 0;
+    static List<CompositeModel.Component> sortIntoFeasibleOrder(Set<CompositeModel.Component> components,
+                                                                Set<Constraint> constraints) {
 
-            for (Constraint constr : constraints) {
-                if (constr instanceof RelativePositionConstraint) {
-                    RelativePositionConstraint constrPos = (RelativePositionConstraint) constr;
+        Map<CompositeModel.Component, List<CompositeModel.Component>> componentGraphOut = new HashMap<>();
+        Map<CompositeModel.Component, List<CompositeModel.Component>> componentGraphIn = new HashMap<>();
 
-                    int recommended = requiresOrder(a, b, constrPos);
+        for (CompositeModel.Component comp : components) {
+            componentGraphIn.put(comp, new ArrayList<>());
+            componentGraphOut.put(comp, new ArrayList<>());
+        }
 
-                    if (result != 0 && recommended != result) {
-                        throw new IllegalStateException("Constraints unsolvable.");
-                    }
+        for (Constraint constr : constraints) {
+            if (constr instanceof RelativePositionConstraint) {
+                RelativePositionConstraint posConstr = (RelativePositionConstraint) constr;
 
-                    result = recommended;
+                componentGraphOut.get(posConstr.getB()).add(posConstr.getA());
+                componentGraphIn.get(posConstr.getA()).add(posConstr.getB());
+            }
+        }
+
+        Queue<CompositeModel.Component> noIncoming = new LinkedList<>();
+
+        for (CompositeModel.Component comp : components) {
+            if (componentGraphIn.get(comp).isEmpty()) {
+                noIncoming.add(comp);
+            }
+        }
+
+        List<CompositeModel.Component> result = new ArrayList<>();
+
+        while (!noIncoming.isEmpty()) {
+            CompositeModel.Component comp = noIncoming.poll();
+
+            result.add(comp);
+
+            for (CompositeModel.Component dependant : componentGraphOut.get(comp)) {
+                componentGraphIn.get(dependant).remove(comp);
+                if (componentGraphIn.get(dependant).isEmpty()) {
+                    noIncoming.add(dependant);
                 }
             }
 
-            return result;
-        });
+            componentGraphOut.remove(comp);
+        }
+
+        if (result.size() < components.size()) {
+            throw new IllegalStateException("Constraints not solvable.");
+        }
+
+        return result;
     }
 
     /**

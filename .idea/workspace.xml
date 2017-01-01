@@ -10,30 +10,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5dd4335b-af97-43de-badf-4b86ba4aba53" name="Default" comment="Added support for rudimentary relative position constraints. (Above and below at the moment.)">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/CommandResultSelector.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/Constraint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/package-info.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/package-info.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcrete.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityRule.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Algorithms/DirectedGraph.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Graph.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Graph.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SceneCommand.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SceneCommand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/CompositeModel.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/CompositeModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/GroupModel.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/GroupModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AABBTest.java" afterPath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AABBTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" afterPath="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" afterPath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.java" afterPath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java" afterPath="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java" />
     </list>
     <ignored path="DrawyMcDrawface.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -75,51 +64,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractToConcrete.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java">
+      <file leaf-file-name="DrawyMcDrawFace.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="87">
-              <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+            <state relative-caret-position="139">
+              <caret line="77" column="49" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Scene.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java">
+      <file leaf-file-name="Interpreter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
-              <folding>
-                <element signature="e#380#381#0" expanded="true" />
-                <element signature="e#416#417#0" expanded="true" />
-                <element signature="e#477#478#0" expanded="true" />
-                <element signature="e#527#528#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompositeModel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/CompositeModel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-              <folding>
-                <element signature="e#1302#1303#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PositionalSolver.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="111" column="20" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
+            <state relative-caret-position="99">
+              <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -127,55 +87,84 @@
       <file leaf-file-name="RelativePositionConstraint.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+            <state relative-caret-position="90">
+              <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
               <folding>
-                <element signature="e#976#977#0" expanded="false" />
-                <element signature="e#1006#1007#0" expanded="false" />
+                <element signature="e#976#977#0" expanded="true" />
+                <element signature="e#1006#1007#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractToConcreteTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="RelativePositionStatement.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractToConcrete.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="70" column="78" selection-start-line="70" selection-start-column="78" selection-end-line="70" selection-end-column="78" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PrimitiveGenerator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="85" column="95" selection-start-line="85" selection-start-column="95" selection-end-line="85" selection-end-column="95" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PositionalSolver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DescriptionSession.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BlockingInteractorInterface.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="122">
+              <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractToConcreteTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="194" column="40" selection-start-line="194" selection-start-column="40" selection-end-line="194" selection-end-column="40" />
+            <state relative-caret-position="238">
+              <caret line="226" column="59" selection-start-line="226" selection-start-column="59" selection-end-line="226" selection-end-column="59" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NativeMethodAccessorImpl.class" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/reflect/NativeMethodAccessorImpl.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="37" column="33" selection-start-line="37" selection-start-column="33" selection-end-line="37" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DelegatingMethodAccessorImpl.class" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/reflect/DelegatingMethodAccessorImpl.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AABB.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
-              <folding>
-                <element signature="e#2201#2202#0" expanded="false" />
-                <element signature="e#2261#2262#0" expanded="false" />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -203,8 +192,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlVisualiser.java" />
-        <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiserTest.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/ShaderProgram.java" />
         <option value="$PROJECT_DIR$/shaders/default_vertex.vert" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/Renderer.java" />
@@ -213,7 +200,6 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/TerminalInteractor.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/UserInteractor.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractor.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/UnresolvableObjectResolver.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/UnresolvableObjectResolverImpl.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSessionListener.java" />
@@ -223,11 +209,8 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RecursiveSessionResolver.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java" />
         <option value="$PROJECT_DIR$/shaders/default_fragment.frag" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/ResultSelector.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/ContactConstraintStatement.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/ResultSelector.java" />
@@ -236,11 +219,9 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/ModelGroup.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/GroupModel.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityRule.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/SceneCommand.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/Model.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityCommand.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/CompositeModel.java" />
@@ -249,11 +230,19 @@
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/package-info.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcrete.java" />
-        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Graph.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Algorithms/DirectedGraph.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java" />
         <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java" />
         <option value="$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
+        <option value="$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java" />
       </list>
     </option>
   </component>
@@ -423,7 +412,51 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ModelEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="ConcreteModelling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -897,8 +930,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.DrawyMcDrawFace" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest.testRelativePositionConstraint" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest.testRelativePositionConstraint" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest.findEmptyPlaceTest" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest" />
       </list>
@@ -1002,39 +1035,46 @@
       <option name="project" value="LOCAL" />
       <updated>1483214788376</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added support for rudimentary relative position constraints. (Above and below at the moment.)">
+      <created>1483285675205</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1483285675205</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 38m 27s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 03m 49s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 38m 35s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 08m 39s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 40m 43s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 09m 03s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 14s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 47m 26s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 18s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 47m 30s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 21s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 49m 03s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 23s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 49m 19s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 25s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 52m 20s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 16h 44m 32s.xml">
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 52m 29s.xml">
       <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="nl_wernerkroneman_Drawy_in_DrawyMcDrawface - 2017.01.01 at 16h 45m 13s.xml">
-      <configuration name="nl.wernerkroneman.Drawy in DrawyMcDrawface" configurationId="JUnit" />
+    <history-entry file="AbstractToConcreteTest_testRelativePositionConstraint - 2017.01.01 at 17h 52m 54s.xml">
+      <configuration name="AbstractToConcreteTest.testRelativePositionConstraint" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1052,12 +1092,12 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292011" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32506886" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32506886" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31129476" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20661157" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1125,11 +1165,23 @@
           <properties class="java.lang.AssertionError" package="java.lang" />
           <option name="timeStamp" value="75" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java</url>
+          <line>125</line>
+          <properties />
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java</url>
+          <line>41</line>
+          <properties />
+          <option name="timeStamp" value="80" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="76" />
+      <option name="time" value="81" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1138,28 +1190,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/GroupModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="33" selection-start-line="4" selection-start-column="33" selection-end-line="4" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/awt/Dimension.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-208">
-          <caret line="97" column="11" selection-start-line="97" selection-start-column="11" selection-end-line="97" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/javax/swing/JFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
@@ -1189,16 +1219,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="24" column="78" selection-start-line="24" selection-start-column="78" selection-end-line="24" selection-end-column="78" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSessionListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1219,13 +1239,64 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4770">
           <caret line="434" column="17" selection-start-line="434" selection-start-column="17" selection-end-line="434" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/awt/image/OffScreenImageSource.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="174" column="90" selection-start-line="174" selection-start-column="90" selection-end-line="174" selection-end-column="90" />
+          <folding>
+            <element signature="e#0#64294#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#9247#9248#0" expanded="false" />
+            <element signature="e#9304#9305#0" expanded="false" />
+            <element signature="e#9502#9503#0" expanded="false" />
+            <element signature="e#9575#9576#0" expanded="false" />
+            <element signature="e#13214#13215#0" expanded="false" />
+            <element signature="e#13235#13236#0" expanded="false" />
+            <element signature="e#13479#13480#0" expanded="false" />
+            <element signature="e#13517#13518#0" expanded="false" />
+            <element signature="e#13583#13584#0" expanded="false" />
+            <element signature="e#13624#13625#0" expanded="false" />
+            <element signature="e#21054#21055#0" expanded="false" />
+            <element signature="e#21124#21125#0" expanded="false" />
+            <element signature="e#22065#22066#0" expanded="false" />
+            <element signature="e#22095#22096#0" expanded="false" />
+            <element signature="e#34767#34768#0" expanded="false" />
+            <element signature="e#34785#34786#0" expanded="false" />
+            <element signature="e#43948#43949#0" expanded="false" />
+            <element signature="e#43993#43994#0" expanded="false" />
+            <element signature="e#44229#44230#0" expanded="false" />
+            <element signature="e#44280#44281#0" expanded="false" />
+            <element signature="e#44507#44508#0" expanded="false" />
+            <element signature="e#44566#44567#0" expanded="false" />
+            <element signature="e#45422#45423#0" expanded="false" />
+            <element signature="e#45467#45468#0" expanded="false" />
+            <element signature="e#45523#45524#0" expanded="false" />
+            <element signature="e#45560#45561#0" expanded="false" />
+            <element signature="e#45786#45787#0" expanded="false" />
+            <element signature="e#45839#45840#0" expanded="false" />
+            <element signature="e#46237#46238#0" expanded="false" />
+            <element signature="e#46274#46275#0" expanded="false" />
+            <element signature="e#46787#46788#0" expanded="false" />
+            <element signature="e#46812#46813#0" expanded="false" />
+            <element signature="e#46859#46860#0" expanded="false" />
+            <element signature="e#46883#46884#0" expanded="false" />
+            <element signature="e#47336#47337#0" expanded="false" />
+            <element signature="e#47383#47384#0" expanded="false" />
+            <element signature="e#47439#47440#0" expanded="false" />
+            <element signature="e#47486#47487#0" expanded="false" />
+            <element signature="e#47529#47530#0" expanded="false" />
+            <element signature="e#47600#47601#0" expanded="false" />
+            <element signature="e#47909#47910#0" expanded="false" />
+            <element signature="e#47952#47953#0" expanded="false" />
+            <element signature="e#48001#48002#0" expanded="false" />
+            <element signature="e#48044#48045#0" expanded="false" />
+            <element signature="e#48631#48632#0" expanded="false" />
+            <element signature="e#48703#48704#0" expanded="false" />
+            <element signature="e#48750#48751#0" expanded="false" />
+            <element signature="e#48823#48824#0" expanded="false" />
+            <element signature="e#55268#55269#0" expanded="false" />
+            <element signature="e#55322#55323#0" expanded="false" />
+            <element signature="e#63886#63887#0" expanded="false" />
+            <element signature="e#63940#63941#0" expanded="false" />
+            <element signature="e#64166#64167#0" expanded="false" />
+            <element signature="e#64213#64214#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1233,14 +1304,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -1285,29 +1348,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-861">
-          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="182">
           <caret line="25" column="90" selection-start-line="25" selection-start-column="90" selection-end-line="25" selection-end-column="90" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="95" column="0" selection-start-line="95" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1345,14 +1390,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="109" column="0" selection-start-line="109" selection-start-column="0" selection-end-line="109" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
@@ -1366,32 +1403,6 @@
         <state relative-caret-position="144">
           <caret line="23" column="9" selection-start-line="23" selection-start-column="9" selection-end-line="23" selection-end-column="9" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="45" column="96" selection-start-line="45" selection-start-column="96" selection-end-line="45" selection-end-column="96" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#962#963#0" expanded="false" />
-            <element signature="e#986#987#0" expanded="false" />
-            <element signature="e#1027#1028#0" expanded="false" />
-            <element signature="e#1051#1052#0" expanded="false" />
-            <element signature="e#1153#1154#0" expanded="false" />
-            <element signature="e#1259#1260#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-126">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1431,17 +1442,6 @@
             <element signature="e#865#866#0" expanded="false" />
             <element signature="e#917#918#0" expanded="false" />
             <element signature="e#947#948#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding>
-            <element signature="e#629#630#0" expanded="true" />
-            <element signature="e#680#681#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1505,17 +1505,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <element signature="e#976#977#0" expanded="false" />
-            <element signature="e#1006#1007#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Scene.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
@@ -1555,28 +1544,141 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java">
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/awt/image/OffScreenImageSource.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="135" column="34" selection-start-line="135" selection-start-column="34" selection-end-line="135" selection-end-column="34" />
+        <state relative-caret-position="240">
+          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ModelEditor/SceneCommandTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/Assert.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="248" column="0" selection-start-line="248" selection-start-column="0" selection-end-line="248" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/Graph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Algorithms/DirectedGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="34" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#188#189#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/util/ArrayDeque.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="186" column="11" selection-start-line="186" selection-start-column="11" selection-end-line="186" selection-end-column="11" />
+          <folding>
+            <element signature="e#6490#6491#0" expanded="true" />
+            <element signature="e#6531#6532#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="111" column="20" selection-start-line="111" selection-start-column="20" selection-end-line="111" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+        <state relative-caret-position="143">
+          <caret line="92" column="31" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/test/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="194" column="40" selection-start-line="194" selection-start-column="40" selection-end-line="194" selection-end-column="40" />
+        <state relative-caret-position="238">
+          <caret line="226" column="59" selection-start-line="226" selection-start-column="59" selection-end-line="226" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="77" column="49" selection-start-line="77" selection-start-column="49" selection-end-line="77" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/Interpreter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="50" column="18" selection-start-line="50" selection-start-column="18" selection-end-line="50" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="70" column="78" selection-start-line="70" selection-start-column="78" selection-end-line="70" selection-end-column="78" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="85" column="95" selection-start-line="85" selection-start-column="95" selection-end-line="85" selection-end-column="95" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="19" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+          <folding>
+            <element signature="e#976#977#0" expanded="true" />
+            <element signature="e#1006#1007#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="61" column="41" selection-start-line="61" selection-start-column="41" selection-end-line="61" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="122">
+          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
           <folding />
         </state>
       </provider>

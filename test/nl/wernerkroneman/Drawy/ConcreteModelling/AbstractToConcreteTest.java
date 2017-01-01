@@ -184,9 +184,12 @@ public class AbstractToConcreteTest {
         }
     }
 
+    /**
+     * Supposed to create a stack of 3 cubes.
+     */
     @Test
     public void testRelativePositionConstraint() {
-        for (int i = 0; i < 100; i++) {
+        for (int rep = 0; rep < 100; rep++) {
             // Set up a simple scene with two cubes
             PrimitiveModel cube = new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube");
 
@@ -195,26 +198,36 @@ public class AbstractToConcreteTest {
             // Create two cube components.
             CompositeModel.Component cubeA = composite.addComponentForModel(cube);
             CompositeModel.Component cubeB = composite.addComponentForModel(cube);
+            CompositeModel.Component cubeC = composite.addComponentForModel(cube);
 
             composite.getConstraints().add(new RelativePositionConstraint(cubeA, cubeB, ABOVE));
+            composite.getConstraints().add(new RelativePositionConstraint(cubeB, cubeC, ABOVE));
 
             // Compute the concrete scene
             AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());
 
             Scene scene = converter.computeScene(composite);
 
-            // Should be two children
+            // Should be three children
             List<SceneNode> children = scene.getRootSceneNode().getChildren();
-            Assert.assertEquals(2, children.size());
+            Assert.assertEquals(3, children.size());
 
-            // Check whether one is actually above the other.
-            Vector3d pos = children.get(1).computeWorldAABB().getCenter(new Vector3d());
-            AABB aboveThisAABB = children.get(0).computeWorldAABB();
+            // Check for intersecting pairs
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if (i != j) {
+                        AABB boxA = children.get(i).computeWorldAABB();
+                        AABB boxB = children.get(j).computeWorldAABB();
+                        Assert.assertFalse(boxA.intersects(boxB, 0.01));
+                    }
+                }
+            }
 
-            // Must be above the other AABB
-            Assert.assertTrue(aboveThisAABB.minExtent.x < pos.x && pos.x < aboveThisAABB.maxExtent.x);
-            Assert.assertTrue(aboveThisAABB.minExtent.z < pos.z && pos.z < aboveThisAABB.maxExtent.z);
-            Assert.assertTrue(pos.y > aboveThisAABB.maxExtent.y);
+            // Check whether the bounding box is consistent with a stack of 3 cubes.
+            AABB totalBox = scene.getRootSceneNode().computeWorldAABB();
+            Assert.assertEquals(3, totalBox.getHeight(), 1);
+            Assert.assertEquals(1, totalBox.getWidth(), 1);
+            Assert.assertEquals(1, totalBox.getDepth(), 1);
         }
     }
 

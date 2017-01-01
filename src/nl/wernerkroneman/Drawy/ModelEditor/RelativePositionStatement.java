@@ -43,12 +43,16 @@ public class RelativePositionStatement extends SceneCommand {
         scene.addConstraint(new RelativePositionConstraint(a.getCreated(), b.getCreated(), ABOVE));
     }
 
+    @Override
+    public String toString() {
+        return "RelativePositionStatement{" +
+                "a=" + a +
+                ", b=" + b +
+                ", pos=" + pos +
+                '}';
+    }
+
     public enum RelativePosition {
         ABOVE, BELOW
     }
-
-    //@Override
-    //public CommandResultSelector resultSelector() {
-    //return null;
-    //}
 }
