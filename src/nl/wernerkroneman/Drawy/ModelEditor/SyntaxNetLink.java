@@ -38,7 +38,11 @@ class SyntaxNetLink {
                 }
 
                 // Parse and return
-                return new ParseTree(str.toString());
+                String parserOutput = str.toString();
+
+                System.err.println(parserOutput);
+
+                return new ParseTree(parserOutput);
             }
 
         } catch (IOException e) {

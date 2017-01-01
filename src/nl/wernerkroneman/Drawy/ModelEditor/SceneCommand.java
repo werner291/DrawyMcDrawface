@@ -44,5 +44,7 @@ public abstract class SceneCommand {
     void onRevert() {
         throw new UnsupportedOperationException("This command cannot be reverted.");
     }
+
+    //public abstract CommandResultSelector resultSelector();
 }
 

@@ -1,5 +1,7 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
+import nl.wernerkroneman.Drawy.ModelEditor.CommandResultSelector;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,14 +14,17 @@ import java.util.Set;
  */
 public class CompositeModel extends Model {
 
-    Set<Component> components = new HashSet<>();
+    private Set<Component> components = new HashSet<>();
+    private Set<Constraint> constraints = new HashSet<>();
 
     public CompositeModel(String name) {
         super(name);
     }
 
-    public void addComponentForModel(PrimitiveModel cube) {
-        components.add(new Component(cube));
+    public Component addComponentForModel(Model cube) {
+        Component comp = new Component(cube);
+        components.add(comp);
+        return comp;
     }
 
     /**
@@ -34,14 +39,22 @@ public class CompositeModel extends Model {
     public String toString() {
         StringBuilder builder = new StringBuilder();
 
-        for (Component comp : components) {
+        for (Component comp : getComponents()) {
             builder.append(comp.toString());
         }
 
         return builder.toString();
     }
 
-    public static class Component {
+    public Set<Constraint> getConstraints() {
+        return constraints;
+    }
+
+    public void addConstraint(RelativePositionConstraint relativePositionConstraint) {
+        constraints.add(relativePositionConstraint);
+    }
+
+    public static class Component implements CommandResultSelector {
         private Model model;
 
         public Component(Model model) {

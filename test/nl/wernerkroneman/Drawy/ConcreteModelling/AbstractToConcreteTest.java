@@ -1,10 +1,18 @@
 package nl.wernerkroneman.Drawy.ConcreteModelling;
 
+import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
+import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.PositionalSolver;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
 
 /**
  * Created by werner on 27-12-16.
@@ -59,9 +67,13 @@ public class AbstractToConcreteTest {
 
             AbstractToConcrete converter = new AbstractToConcrete(meshFactory);
 
-            AABB empty = converter.findEmptyPlace(root, new AABB(new Vector3d(1), new Vector3d(-1)));
+            List<AABB> doesNotIntersect = new ArrayList<>();
+            doesNotIntersect.add(child.computeWorldAABB());
 
-            Assert.assertFalse(empty.intersects(new AABB(new Vector3d(0.5), new Vector3d(-0.5))));
+            AABB empty = PositionalSolver.findEmptyPlace(doesNotIntersect, 0, new AABB(new Vector3d(1), new Vector3d
+                    (-1)), null);
+
+            Assert.assertFalse(empty.intersects(new AABB(new Vector3d(0.5), new Vector3d(-0.5)), 0));
 
             Assert.assertEquals(2, empty.getDepth(), 0.01);
             Assert.assertEquals(2, empty.getWidth(), 0.01);
@@ -165,10 +177,44 @@ public class AbstractToConcreteTest {
                         AABB a = result.getRootSceneNode().getChildren().get(i).getDrawables().get(0).getWorldAABB();
                         AABB b = result.getRootSceneNode().getChildren().get(j).getDrawables().get(0).getWorldAABB();
 
-                        Assert.assertFalse(a.intersects(b));
+                        Assert.assertFalse(a.intersects(b, 0));
                     }
                 }
             }
+        }
+    }
+
+    @Test
+    public void testRelativePositionConstraint() {
+        for (int i = 0; i < 100; i++) {
+            // Set up a simple scene with two cubes
+            PrimitiveModel cube = new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube");
+
+            CompositeModel composite = new CompositeModel("Cube container.");
+
+            // Create two cube components.
+            CompositeModel.Component cubeA = composite.addComponentForModel(cube);
+            CompositeModel.Component cubeB = composite.addComponentForModel(cube);
+
+            composite.getConstraints().add(new RelativePositionConstraint(cubeA, cubeB, ABOVE));
+
+            // Compute the concrete scene
+            AbstractToConcrete converter = new AbstractToConcrete(new DefaultMeshFactory());
+
+            Scene scene = converter.computeScene(composite);
+
+            // Should be two children
+            List<SceneNode> children = scene.getRootSceneNode().getChildren();
+            Assert.assertEquals(2, children.size());
+
+            // Check whether one is actually above the other.
+            Vector3d pos = children.get(1).computeWorldAABB().getCenter(new Vector3d());
+            AABB aboveThisAABB = children.get(0).computeWorldAABB();
+
+            // Must be above the other AABB
+            Assert.assertTrue(aboveThisAABB.minExtent.x < pos.x && pos.x < aboveThisAABB.maxExtent.x);
+            Assert.assertTrue(aboveThisAABB.minExtent.z < pos.z && pos.z < aboveThisAABB.maxExtent.z);
+            Assert.assertTrue(pos.y > aboveThisAABB.maxExtent.y);
         }
     }
 

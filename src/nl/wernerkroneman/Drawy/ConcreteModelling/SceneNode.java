@@ -61,7 +61,7 @@ public class SceneNode {
      *
      * @param node The node to add, must not already have a parent.
      */
-    void addChild(SceneNode node) {
+    public void addChild(SceneNode node) {
         assert node.getParent() == null;
         children.add(node);
         node.setParent(this);
@@ -95,7 +95,7 @@ public class SceneNode {
      *
      * @return the AABB.
      */
-    AABB computeLocalAABB() {
+    public AABB computeLocalAABB() {
 
         // Initialize the AABB as empty and negatively space-spanning
         // Any call to extendToCover will center the box on the position

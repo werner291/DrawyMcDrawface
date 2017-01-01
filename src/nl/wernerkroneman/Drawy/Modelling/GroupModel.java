@@ -21,7 +21,7 @@ public class GroupModel extends Model {
         return number;
     }
 
-    public Model getMember() {
+    public Model getMemberModelType() {
         return memberType;
     }
 }

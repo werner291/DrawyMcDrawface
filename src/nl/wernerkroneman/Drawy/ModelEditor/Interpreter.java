@@ -19,7 +19,7 @@ public class Interpreter {
      * Interpret a parse tree and produce a scene.
      *
      * @param toInterpret An English sentence to interpret.
-     * @param previous What the scene currently looks like
+     * @param scene What the scene currently looks like
      */
     List<SceneCommand> interpret(String toInterpret, CompositeModel scene) {
 
@@ -48,12 +48,12 @@ public class Interpreter {
     /**
      * Generate a creation command for the object(s) described in this sentence part.
      */
-    void creationRuleForObject(List<SceneCommand> statements,
-                               CompositeModel scene,
-                               SentencePart obj) {
+    CreateEntityCommand creationRuleForObject(List<SceneCommand> statements,
+                                              CompositeModel scene,
+                                              SentencePart obj) {
 
         // Allocate a new command
-        CreateEntityRule createStmt = new CreateEntityRule(scene);
+        CreateEntityCommand createStmt = new CreateEntityCommand(scene);
 
         // Check whether plural and singular
         String objName;
@@ -86,7 +86,35 @@ public class Interpreter {
                 // Add separate creation rules for the conjuncts as well.
                 creationRuleForObject(statements, scene, itr.next());
             }
+
+            if (part.getRole().equals("prep")) {
+                processPreposition(part, createStmt, scene, statements);
+            }
         }
+
+        return createStmt;
+    }
+
+    private void processPreposition(SentencePart preposition, CreateEntityCommand relatesTo, CompositeModel context,
+                                    List<SceneCommand> statements) {
+        // Find what the preposition relates to.
+        // For example, in "on a sphere", this would be "a sphere"
+        SentencePart prepObj = preposition.dfsFind(part -> part.getRole().equals("pobj"));
+
+        // Find the determinant of the pobj
+        SentencePart pobjDet = prepObj.dfsFind(part -> part.getRole().equals("det"));
+
+        if (pobjDet.getRootWord().equalsIgnoreCase("the")) {
+            throw new UnsupportedOperationException("Selectors not yet implemented.");
+        } else if (pobjDet.getRootWord().equalsIgnoreCase("a")) {
+            CreateEntityCommand result = creationRuleForObject(statements, context, prepObj);
+
+            statements.add(new RelativePositionStatement(relatesTo, result,
+                    RelativePositionStatement.RelativePosition.ABOVE,
+                    context));
+        }
+
+
     }
 
     /**

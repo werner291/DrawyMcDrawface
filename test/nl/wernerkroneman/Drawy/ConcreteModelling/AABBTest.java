@@ -81,16 +81,16 @@ public class AABBTest {
     public void intersects() throws Exception {
 
         Assert.assertTrue((new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9)))
-                .intersects((new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9)))));
+                .intersects((new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9))), 0));
 
         Assert.assertTrue((new AABB(new Vector3d(11, 7, 11), new Vector3d(-1, 4, 8)))
-                .intersects((new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9)))));
+                .intersects((new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9))), 0));
 
         Assert.assertTrue(new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9))
-                .intersects(new AABB(new Vector3d(11, 7, 11), new Vector3d(-1, 4, 8))));
+                .intersects(new AABB(new Vector3d(11, 7, 11), new Vector3d(-1, 4, 8)), 0));
 
         Assert.assertFalse(new AABB(new Vector3d(-1), new Vector3d(1))
-                .intersects(new AABB(new Vector3d(-2), new Vector3d(-1))));
+                .intersects(new AABB(new Vector3d(-2), new Vector3d(-1)), 0));
 
     }
 

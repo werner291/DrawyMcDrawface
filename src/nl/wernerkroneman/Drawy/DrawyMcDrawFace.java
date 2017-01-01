@@ -8,8 +8,8 @@ package nl.wernerkroneman.Drawy;/*
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
+import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
-import nl.wernerkroneman.Drawy.ConcreteModelling.AbstractToConcrete;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
 import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
 import nl.wernerkroneman.Drawy.ModelEditor.BlockingInteractorInterface;

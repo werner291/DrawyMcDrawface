@@ -17,7 +17,7 @@ public class SceneCommandTest {
         // Verify empty scene
         Assert.assertTrue(model.getComponents().isEmpty());
 
-        CreateEntityRule stmt = new CreateEntityRule(model);
+        CreateEntityCommand stmt = new CreateEntityCommand(model);
         stmt.what = new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder");
         stmt.number = 5;
 
@@ -31,7 +31,7 @@ public class SceneCommandTest {
         GroupModel group = (GroupModel) model1;
 
         Assert.assertEquals(5, group.getNumber());
-        Assert.assertEquals(stmt.what, group.getMember());
+        Assert.assertEquals(stmt.what, group.getMemberModelType());
 
         stmt.revert();
 
@@ -44,10 +44,47 @@ public class SceneCommandTest {
 
         CompositeModel model = new CompositeModel("Scene");
 
-        CreateEntityRule stmt = new CreateEntityRule(model);
+        CreateEntityCommand stmt = new CreateEntityCommand(model);
 
         stmt.apply();
         stmt.apply();
+
+    }
+
+    @Test
+    public void creationWithPositionContstraint() {
+
+        CompositeModel model = new CompositeModel("Scene");
+
+        // Verify empty scene
+        Assert.assertTrue(model.getComponents().isEmpty());
+
+        //////////////////////
+
+        CreateEntityCommand stmt = new CreateEntityCommand(model);
+        stmt.what = new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder");
+        stmt.number = 2;
+        stmt.apply();
+
+        //////////////////////
+
+        CreateEntityCommand stmt2 = new CreateEntityCommand(model);
+        stmt2.what = new PrimitiveModel(PrimitiveModel.ShapeType.SPHERE, "Sphere");
+        stmt2.number = 5;
+        stmt2.apply();
+
+        //////////////////////
+
+        RelativePositionStatement stmt3 = new RelativePositionStatement(stmt, stmt2,
+                RelativePositionStatement.RelativePosition.BELOW, model);
+
+        stmt3.apply();
+
+        //////////////////////
+
+        Assert.assertEquals(2, model.getComponents().size());
+
+        Assert.assertEquals(1, model.getConstraints().size());
 
     }
 

@@ -6,6 +6,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
+
 public class InterpreterTest {
 
     Interpreter getInterpreter(CompositeModel model) {
@@ -20,9 +22,9 @@ public class InterpreterTest {
         CompositeModel scene = new CompositeModel("Scene");
         List<SceneCommand> result = getInterpreter(scene).interpret("Create a cube.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
 
         Assert.assertEquals(1, stmt.number);
 
@@ -37,9 +39,9 @@ public class InterpreterTest {
 
         List<SceneCommand> result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
 
         Assert.assertTrue(1 <= stmt.number);
         Assert.assertTrue(2 >= stmt.number);
@@ -55,9 +57,9 @@ public class InterpreterTest {
 
         List<SceneCommand> result = getInterpreter(scene).interpret("50 spheres", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
 
         Assert.assertEquals(50, stmt.number);
 
@@ -75,18 +77,18 @@ public class InterpreterTest {
         Assert.assertEquals(2, result.size());
 
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
 
         Assert.assertEquals(1, stmt.number);
 
         Assert.assertEquals("Cube", stmt.what.getName());
 
 
-        Assert.assertTrue(result.get(1) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(1) instanceof CreateEntityCommand);
 
-        stmt = (CreateEntityRule) result.get(1);
+        stmt = (CreateEntityCommand) result.get(1);
 
         Assert.assertEquals(1, stmt.number);
 
@@ -105,34 +107,35 @@ public class InterpreterTest {
 
         // ----------------------
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityRule);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
 
-        CreateEntityRule stmt = (CreateEntityRule) result.get(0);
+        CreateEntityCommand stmtA = (CreateEntityCommand) result.get(0);
 
-        Assert.assertEquals(1, stmt.number);
+        Assert.assertEquals(1, stmtA.number);
 
-        Assert.assertEquals("Cube", stmt.what.getName());
-
-        // ----------------------
-
-        Assert.assertTrue(result.get(1) instanceof CreateEntityRule);
-
-        stmt = (CreateEntityRule) result.get(1);
-
-        Assert.assertEquals(1, stmt.number);
-
-        Assert.assertEquals("Cylinder", stmt.what.getName());
+        Assert.assertEquals("Cube", stmtA.what.getName());
 
         // ----------------------
 
-        Assert.assertTrue(result.get(2) instanceof);
+        Assert.assertTrue(result.get(1) instanceof CreateEntityCommand);
 
-        stmt = (CreateEntityRule) result.get(1);
+        CreateEntityCommand stmtB = (CreateEntityCommand) result.get(1);
 
-        Assert.assertEquals(1, stmt.number);
+        Assert.assertEquals(1, stmtB.number);
 
-        Assert.assertEquals("Cylinder", stmt.what.getName());
+        Assert.assertEquals("Sphere", stmtB.what.getName());
 
+        // ----------------------
+
+        Assert.assertTrue(result.get(2) instanceof RelativePositionStatement);
+
+        RelativePositionStatement relStmt = (RelativePositionStatement) result.get(2);
+
+        Assert.assertEquals(stmtA, relStmt.getA());
+
+        Assert.assertEquals(stmtB, relStmt.getB());
+
+        Assert.assertEquals(ABOVE, relStmt.getPos());
 
     }
 }

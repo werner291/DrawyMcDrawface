@@ -13,5 +13,9 @@ public class Scene {
         return rootSceneNode;
     }
 
+    public void setRootSceneNode(SceneNode rootSceneNode) {
+        this.rootSceneNode = rootSceneNode;
+    }
+
 
 }

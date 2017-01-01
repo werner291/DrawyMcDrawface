@@ -4,8 +4,7 @@ import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
-public class CreateEntityRule extends SceneCommand {
-
+public class CreateEntityCommand extends SceneCommand {
 
     // String describing what to create
     Model what;
@@ -16,7 +15,7 @@ public class CreateEntityRule extends SceneCommand {
     // How many entities to create
     int number = 1;
 
-    CreateEntityRule(CompositeModel scene) {
+    CreateEntityCommand(CompositeModel scene) {
         super(scene);
     }
 
@@ -26,8 +25,7 @@ public class CreateEntityRule extends SceneCommand {
 
     @Override
     void onApply(){
-        created = new CompositeModel.Component(new GroupModel(number, what));
-        scene.getComponents().add(created);
+        created = scene.addComponentForModel(number == 1 ? what : new GroupModel(number, what));
     }
 
     @Override
@@ -35,5 +33,7 @@ public class CreateEntityRule extends SceneCommand {
         scene.getComponents().remove(created);
     }
 
-
+    public CompositeModel.Component getCreated() {
+        return created;
+    }
 }
