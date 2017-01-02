@@ -2,6 +2,7 @@ package nl.wernerkroneman.Drawy.ModelEditor;
 
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -122,14 +123,17 @@ public class Interpreter {
             throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
         }
 
-        if ((pobjDet == null && prepObj.getNature().startsWith("NN")) || pobjDet.getRootWord().equalsIgnoreCase("a")) {
+        if ((pobjDet == null && prepObj.getNature().startsWith("NN")) || (pobjDet != null && pobjDet.getRootWord()
+                .equalsIgnoreCase("a"))) {
             CreateEntityEditorCommand result = creationRuleForObject(statements, relatesTo.target, prepObj);
 
             statements.add(new RelativePositionStatement(relatesTo.getResultSupplier(), result.getResultSupplier(),
                     relativePosition, relatesTo.target));
-        } else if (relatesTo.number >= 2 && InterpretPhrases.isReciprocalPronoun(preposition)) {
-            //statements.add(new RelativePositionStatement(relatesTo, null, relativePosition, relatesTo
-            // .getResultProvider()));
+        } else if (relatesTo.number >= 2 && InterpretPhrases.isReciprocalPronoun(prepObj)) {
+            statements.add(new RelativePositionStatement(() -> GroupModel.PLACEHOLDER_A,
+                    () -> GroupModel.PLACEHOLDER_B,
+                    ABOVE,
+                    () -> (GroupModel) relatesTo.getResultSupplier().get().getModel()));
         } else {
             throw new UnsupportedOperationException("Selectors not yet implemented.");
         }

@@ -31,12 +31,7 @@ public class CreateEntityEditorCommand extends EditorCommand {
 
     @Override
     public String toString() {
-        return "CreateEntityEditorCommand{" +
-                "what=" + what +
-                ", target=" + target +
-                ", created=" + created +
-                ", number=" + number +
-                '}';
+        return "Create " + number + " x " + what + " in " + target;
     }
 
     @Override
@@ -62,11 +57,19 @@ public class CreateEntityEditorCommand extends EditorCommand {
      * @return the supplier.
      */
     public Supplier<CompositeModel.Component> getResultSupplier() {
-        return () -> {
-            if (!applied) {
-                throw new IllegalStateException("Statement not applied");
+        return new Supplier<CompositeModel.Component>() {
+            @Override
+            public CompositeModel.Component get() {
+                if (!applied) {
+                    throw new IllegalStateException("Statement not applied");
+                }
+                return created;
             }
-            return created;
+
+            @Override
+            public String toString() {
+                return "(Created by " + (CreateEntityEditorCommand.this) + ")";
+            }
         };
     }
 }

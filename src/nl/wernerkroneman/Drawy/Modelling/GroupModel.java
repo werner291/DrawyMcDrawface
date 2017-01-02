@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -26,6 +27,7 @@ public class GroupModel extends Model implements RelativeConstraintContext {
     int number;
 
     Model memberType;
+    private Collection<Constraint> constraints = new ArrayList<>();
 
     public GroupModel(int number, Model memberType) {
         super(number + " x " + memberType.getName());
@@ -44,6 +46,6 @@ public class GroupModel extends Model implements RelativeConstraintContext {
 
     @Override
     public Collection<Constraint> getConstraints() {
-        return null;
+        return constraints;
     }
 }

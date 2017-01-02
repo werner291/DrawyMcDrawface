@@ -47,11 +47,7 @@ public class RelativePositionStatement extends EditorCommand {
 
     @Override
     public String toString() {
-        return "RelativePositionStatement{" +
-                "a=" + a +
-                ", b=" + b +
-                ", pos=" + pos +
-                '}';
+        return "RelativePositionStatement(" + a + " " + pos + " " + b + ")";
     }
 
     public enum RelativePosition {

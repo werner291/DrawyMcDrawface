@@ -113,7 +113,7 @@ public class EditorCommandTest {
 
         //////////////////////
 
-        Assert.assertEquals(2, model.getComponents().size());
+        Assert.assertEquals(1, model.getComponents().size());
 
         Assert.assertEquals(1, model.getConstraints().size());
 

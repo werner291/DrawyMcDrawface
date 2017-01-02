@@ -5,7 +5,9 @@ import nl.wernerkroneman.Drawy.ConcreteModelling.*;
 import nl.wernerkroneman.Drawy.Modelling.*;
 import org.joml.Vector3d;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class AbstractToConcrete {
 
@@ -84,36 +86,33 @@ public class AbstractToConcrete {
      * but this should work for now.
      */
     private void computeSceneNodeForGroupModel(GroupModel absModel, SceneNode node) {
+        resolveThroughPositionResolutionContext(node, new PositionResolutionContext(absModel));
+    }
 
-        GroupModel group = absModel;
+    private void resolveThroughPositionResolutionContext(SceneNode node, PositionResolutionContext
+            positionResolutionContext) {
+        // Translate the set of components into a list such that positional constraints
+        // can be solved in the right order.
 
-        // Maintain a list of occupied AABBs
+        // List of AABBs that count as "occupied" space.
         List<AABB> occupiedSpaces = new ArrayList<>();
 
-        for (int i = 0; i < group.getNumber(); i++) {
+        // Iterate voer all components.
+        for (PositionResolutionContext.Component component : positionResolutionContext.getComponents()) {
+
             // Create a new SceneNode for this ModelInstance
-            SceneNode child = new SceneNode();
+            component.node = new SceneNode();
+
+            // Attach the child to the parent.
+            node.addChild(component.node);
 
             // Generate the contents for the node
-            createSceneNodeForModel(group.getMemberModelType(), child);
+            createSceneNodeForModel(component.abstractModel, component.node);
 
-            // Compute the space required for the child.
-            AABB childRequiredAABB = child.computeLocalAABB().transform(child.getTransform(), new AABB());
-
-            // Find an empty place for the child
-            AABB place = PositionalSolver.findEmptyPlace(occupiedSpaces, 0.001, childRequiredAABB, null);
-
-            // Set the translation of the node to match the empty space
-            Vector3d translation = getTranslationToFit(child, place);
-
-            // Translate the child
-            child.setTranslation(translation);
+            placeChild(component, occupiedSpaces);
 
             // Mark the space as occupied.
-            occupiedSpaces.add(place);
-
-            // Finally, attach the child to the parent.
-            node.addChild(child);
+            occupiedSpaces.add(component.node.computeWorldAABB());
 
         }
     }
@@ -127,91 +126,61 @@ public class AbstractToConcrete {
      * but this should work for now.
      */
     private void exploreCompositeModel(CompositeModel absModel, SceneNode node) {
+        resolveThroughPositionResolutionContext(node, new PositionResolutionContext(absModel));
+    }
 
-        // Translate the set of components into a list such that positional constraints
-        // can be solved in the right order.
-        List<CompositeModel.Component> components = (List<CompositeModel.Component>) PositionalSolver
-                .sortIntoFeasibleOrder(absModel.getComponents(),
-                absModel.getConstraints());
+    /**
+     * Place (translate) the child in the composite model scene node.
+     *
+     * @param component      The component to place
+     * @param occupiedSpaces A list of AABBs that are considered "occupied"
+     */
+    void placeChild(PositionResolutionContext.Component component,
+                    Collection<AABB> occupiedSpaces) {
 
-        // Maintain a mapping of components to the scene nodes that were produced from them.
-        Map<CompositeModel.Component, SceneNode> componentToNode = new HashMap<>();
+        AABB allowedSpace = computeAllowedSpace(component);
 
-        // List of AABBs that count as "occupied" space.
-        List<AABB> occupiedSpaces = new ArrayList<>();
+        // Compute how big the AABB of the child is.
+        AABB childRequiredAABB = component.node.computeLocalAABB();
 
-        // Iterate voer all components.
-        for (CompositeModel.Component instance : components) {
+        // Find an empty AABB inside that space.
+        AABB place = PositionalSolver.findEmptyPlace(occupiedSpaces, 0, childRequiredAABB, allowedSpace);
 
-            // Create a new SceneNode for this ModelInstance
-            SceneNode child = new SceneNode();
+        // Set the translation of the node to match the empty space
+        Vector3d translation = getTranslationToFit(component.node, place);
 
-            componentToNode.put(instance, child);
-
-            // Generate the contents for the node
-            createSceneNodeForModel(instance.getModel(), child);
-
-            AABB allowedSpace = computeAllowedSpace(componentToNode, absModel.getConstraints(), instance);
-
-            // Compute how big the AABB of the child is.
-            AABB childRequiredAABB = child.computeLocalAABB().transform(child.getTransform(), new AABB());
-
-            // Find an empty AABB inside that space.
-            AABB place = PositionalSolver.findEmptyPlace(occupiedSpaces, 0, childRequiredAABB, allowedSpace);
-
-            // Set the translation of the node to match the empty space
-            Vector3d translation = getTranslationToFit(child, place);
-
-            // Translate the child
-            child.setTranslation(translation);
-
-            // Mark the space as occupied.
-            occupiedSpaces.add(place);
-
-            // Finally, attach the child to the parent.
-            node.addChild(child);
-
-        }
+        // Translate the child
+        component.node.setTranslation(translation);
     }
 
     /**
      * Compute an AABB in which the new object can be placed
      * in accordance to the provided constraints.
      *
-     * @param componentToNode A map of components to scenenodes, the previously-placed nodes.
-     * @param constraints     A set of constraints to satisfy
-     * @param toPlace         Which component we're trying to place.
+     * @param toPlace Which component we're trying to place.
      */
-    private AABB computeAllowedSpace(Map<CompositeModel.Component, SceneNode> componentToNode,
-                                     Collection<Constraint> constraints,
-                                     CompositeModel.Component toPlace) {
+    private AABB computeAllowedSpace(PositionResolutionContext.Component toPlace) {
 
         AABB restrictSpace = new AABB(new Vector3d(Double.POSITIVE_INFINITY), new Vector3d(Double.NEGATIVE_INFINITY));
 
-        for (Constraint constr : constraints) {
-            if (constr instanceof RelativePositionConstraint) {
+        for (PositionResolutionContext.Component.Constraint constr : toPlace.constraintRelatedTo) {
+            if (constr.abstractConstraint instanceof RelativePositionConstraint) {
 
-                RelativePositionConstraint posConstrl = (RelativePositionConstraint) constr;
+                RelativePositionConstraint posConstrl = constr.abstractConstraint;
 
-                // This constraint must be about the position of "toPlace"
-                // relative to some other shape
-                if (posConstrl.getA() == toPlace) {
+                assert constr.relativeTo.node != null;
 
-                    SceneNode relatedB = componentToNode.get(posConstrl.getB());
+                // Compute the AABB of the object that toPlace is related to.
+                AABB relatedBBounds = constr.relativeTo.node.computeLocalAABB().transform(constr.relativeTo.node
+                        .getTransform(), new AABB());
 
-                    assert (relatedB != null);
+                // Compute the infinite AABB above the related object
+                AABB aboveSpace = new AABB(relatedBBounds);
 
-                    // Compute the AABB of the object that toPlace is related to.
-                    AABB relatedBBounds = relatedB.computeLocalAABB().transform(relatedB.getTransform(), new AABB());
+                aboveSpace.maxExtent.y = Double.POSITIVE_INFINITY;
+                aboveSpace.minExtent.y = relatedBBounds.maxExtent.y;
 
-                    // Compute the infinite AABB above the related object
-                    AABB aboveSpace = new AABB(relatedBBounds);
-
-                    aboveSpace.maxExtent.y = Double.POSITIVE_INFINITY;
-                    aboveSpace.minExtent.y = relatedBBounds.maxExtent.y;
-
-                    restrictSpace = restrictSpace.intersection(aboveSpace, restrictSpace);
-                }
+                restrictSpace = restrictSpace.intersection(aboveSpace, restrictSpace);
             }
         }
 
