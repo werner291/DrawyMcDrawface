@@ -45,6 +45,8 @@ public class DrawyMcDrawFace {
 
         frame.setVisible(true);
 
+        frame.pack();
+
         // Initialize empty knowledge
         Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
 
@@ -73,7 +75,7 @@ public class DrawyMcDrawFace {
             public void actionPerformed(ActionEvent e) {
                 t += 0.01;
                 AABB box = visualiser.getScene().getRootSceneNode().computeWorldAABB();
-                double d = 10 * Math.max(box.getWidth(), box.getDepth());
+                double d = 5 * Math.max(box.getWidth(), box.getDepth());
                 Scene.EYE.set(d * Math.sin(t), 10, d * Math.cos(t));
                 Scene.LOOKAT_CENTER.set(box.getCenter(new Vector3d()));
                 glcanvas.display();

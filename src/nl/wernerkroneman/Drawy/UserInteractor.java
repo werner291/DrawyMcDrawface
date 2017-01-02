@@ -35,8 +35,13 @@ public class UserInteractor extends JPanel implements ActionListener {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         conversationView = new JTextPane();
+        conversationView.setPreferredSize(new Dimension(300, 100));
         conversationView.setEditable(false);
-        this.add(conversationView, c);
+
+        JScrollPane scrollPane = new JScrollPane(conversationView);
+        scrollPane.setPreferredSize(new Dimension(300, 100));
+
+        this.add(scrollPane, c);
 
         // Input entry field
 
