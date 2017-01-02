@@ -1,7 +1,6 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
-import nl.wernerkroneman.Drawy.ModelEditor.CommandResultSelector;
-
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +11,7 @@ import java.util.Set;
  * It describes the scene on a very high level, and deals
  * in constraints rather than realisations of those constraints.
  */
-public class CompositeModel extends Model {
+public class CompositeModel extends Model implements RelativeConstraintContext {
 
     private Set<Component> components = new HashSet<>();
     private Set<Constraint> constraints = new HashSet<>();
@@ -46,7 +45,8 @@ public class CompositeModel extends Model {
         return builder.toString();
     }
 
-    public Set<Constraint> getConstraints() {
+    @Override
+    public Collection<Constraint> getConstraints() {
         return constraints;
     }
 
@@ -54,7 +54,7 @@ public class CompositeModel extends Model {
         constraints.add(relativePositionConstraint);
     }
 
-    public static class Component implements CommandResultSelector {
+    public static class Component implements Positionable {
         private Model model;
 
         public Component(Model model) {

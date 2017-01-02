@@ -1,36 +1,38 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
+
+import java.util.function.Supplier;
 
 import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
 
 /**
  * Represents a statement that creates a constraint
- * that results in the result of one "create" command
- * being in a certain relative position with respect to
- * the result of another command.
+ * between two components in a CompositeModel.
  */
-public class RelativePositionStatement extends SceneCommand {
+public class RelativePositionStatement extends EditorCommand {
 
-    private final CreateEntityCommand a;
-    private final CreateEntityCommand b;
+    private final Supplier<? extends RelativeConstraintContext.Positionable> a;
+    private final Supplier<? extends RelativeConstraintContext.Positionable> b;
+    private final Supplier<? extends RelativeConstraintContext> target;
     private final RelativePosition pos;
 
-    public RelativePositionStatement(CreateEntityCommand a, CreateEntityCommand b, RelativePosition pos,
-                                     CompositeModel scene) {
-        super(scene);
+    public RelativePositionStatement(Supplier<? extends RelativeConstraintContext.Positionable> a,
+                                     Supplier<? extends RelativeConstraintContext.Positionable> b,
+                                     RelativePosition pos,
+                                     Supplier<? extends RelativeConstraintContext> target) {
+        this.target = target;
         this.a = a;
         this.b = b;
         this.pos = pos;
     }
 
-    public CreateEntityCommand getA() {
+    public Supplier<? extends RelativeConstraintContext.Positionable> getA() {
         return a;
     }
 
-    public CreateEntityCommand getB() {
+    public Supplier<? extends RelativeConstraintContext.Positionable> getB() {
         return b;
     }
 
@@ -40,7 +42,7 @@ public class RelativePositionStatement extends SceneCommand {
 
     @Override
     void onApply() {
-        scene.addConstraint(new RelativePositionConstraint(a.getCreated(), b.getCreated(), ABOVE));
+        target.get().getConstraints().add(new RelativePositionConstraint(a.get(), b.get(), ABOVE));
     }
 
     @Override

@@ -20,11 +20,11 @@ public class InterpreterTest {
     public void interpreterTest1() {
 
         CompositeModel scene = new CompositeModel("Scene");
-        List<SceneCommand> result = getInterpreter(scene).interpret("Create a cube.", scene);
+        List<EditorCommand> result = getInterpreter(scene).interpret("Create a cube.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
-        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
         Assert.assertEquals(1, stmt.number);
 
@@ -37,11 +37,11 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<SceneCommand> result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
+        List<EditorCommand> result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
-        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
         Assert.assertTrue(1 <= stmt.number);
         Assert.assertTrue(2 >= stmt.number);
@@ -55,11 +55,11 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<SceneCommand> result = getInterpreter(scene).interpret("50 spheres", scene);
+        List<EditorCommand> result = getInterpreter(scene).interpret("50 spheres", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
-        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
         Assert.assertEquals(50, stmt.number);
 
@@ -72,23 +72,23 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<SceneCommand> result = getInterpreter(scene).interpret("Add a cube and a cylinder", scene);
+        List<EditorCommand> result = getInterpreter(scene).interpret("Add a cube and a cylinder", scene);
 
         Assert.assertEquals(2, result.size());
 
 
-        CreateEntityCommand stmt = (CreateEntityCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
         Assert.assertEquals(1, stmt.number);
 
         Assert.assertEquals("Cube", stmt.what.getName());
 
 
-        Assert.assertTrue(result.get(1) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(1) instanceof CreateEntityEditorCommand);
 
-        stmt = (CreateEntityCommand) result.get(1);
+        stmt = (CreateEntityEditorCommand) result.get(1);
 
         Assert.assertEquals(1, stmt.number);
 
@@ -101,29 +101,33 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<SceneCommand> result = getInterpreter(scene).interpret("A cube above a sphere", scene);
+        List<EditorCommand> result = getInterpreter(scene).interpret("A cube above a sphere", scene);
 
         Assert.assertEquals(3, result.size());
 
         // ----------------------
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
-        CreateEntityCommand stmtA = (CreateEntityCommand) result.get(0);
+        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
 
         Assert.assertEquals(1, stmtA.number);
 
         Assert.assertEquals("Cube", stmtA.what.getName());
 
+        stmtA.apply();
+
         // ----------------------
 
-        Assert.assertTrue(result.get(1) instanceof CreateEntityCommand);
+        Assert.assertTrue(result.get(1) instanceof CreateEntityEditorCommand);
 
-        CreateEntityCommand stmtB = (CreateEntityCommand) result.get(1);
+        CreateEntityEditorCommand stmtB = (CreateEntityEditorCommand) result.get(1);
 
         Assert.assertEquals(1, stmtB.number);
 
         Assert.assertEquals("Sphere", stmtB.what.getName());
+
+        stmtB.apply();
 
         // ----------------------
 
@@ -131,9 +135,9 @@ public class InterpreterTest {
 
         RelativePositionStatement relStmt = (RelativePositionStatement) result.get(2);
 
-        Assert.assertEquals(stmtA, relStmt.getA());
+        Assert.assertEquals(stmtA.getResultSupplier().get(), relStmt.getA().get());
 
-        Assert.assertEquals(stmtB, relStmt.getB());
+        Assert.assertEquals(stmtB.getResultSupplier().get(), relStmt.getB().get());
 
         Assert.assertEquals(ABOVE, relStmt.getPos());
 

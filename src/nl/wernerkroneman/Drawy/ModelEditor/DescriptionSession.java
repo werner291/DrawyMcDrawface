@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.BlockingInteractor;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
@@ -14,16 +15,16 @@ import java.util.List;
  */
 public class DescriptionSession {
 
-    private BlockingInteractorInterface interactorIface;
+    private BlockingInteractor interactorIface;
     private Interpreter interpreter;
     private List<DescriptionSessionListener> listeners = new ArrayList<>();
 
-    public DescriptionSession(Interpreter interpreter, BlockingInteractorInterface interactorIface) {
+    public DescriptionSession(Interpreter interpreter, BlockingInteractor interactorIface) {
         this.interpreter = interpreter;
         this.interactorIface = interactorIface;
     }
 
-    public static DescriptionSession createDescriptionSession(Knowledge knowledge, BlockingInteractorInterface iface) {
+    public static DescriptionSession createDescriptionSession(Knowledge knowledge, BlockingInteractor iface) {
 
         RecursiveSessionResolver interactiveResolver = new RecursiveSessionResolver(iface);
         KnowledgeResolver knowledgeResolver = new KnowledgeResolver(knowledge, iface, interactiveResolver);
@@ -47,11 +48,11 @@ public class DescriptionSession {
                 break;
             }
 
-            List<SceneCommand> results = interpreter.interpret(line, scene);
+            List<EditorCommand> results = interpreter.interpret(line, scene);
 
             interactorIface.tellUser("Interpreted: ");
 
-            for (SceneCommand stmt : results) {
+            for (EditorCommand stmt : results) {
                 interactorIface.tellUser(stmt.toString());
             }
 
@@ -60,7 +61,7 @@ public class DescriptionSession {
             }
 
             if (interactorIface.askUserYesNo("Is this correct?")) {
-                for (SceneCommand cmd : results) {
+                for (EditorCommand cmd : results) {
                     cmd.apply();
                 }
             }

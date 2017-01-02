@@ -5,7 +5,7 @@ import nl.wernerkroneman.Drawy.Modelling.Model;
 public interface DescriptionSessionListener {
 
     /**
-     * Called when the scene in the description session has been changed.
+     * Called when the target in the description session has been changed.
      * <p>
      * Throughout the session, this may be the same object, but don't assume it.
      *
@@ -14,7 +14,7 @@ public interface DescriptionSessionListener {
     void modelChanged(Model scene);
 
     /**
-     * Called when the sessionis ended and the scene will no longer change.
+     * Called when the sessionis ended and the target will no longer change.
      */
     void sessionEnded();
 

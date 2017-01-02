@@ -3,6 +3,7 @@ package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.Constraint;
+import nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 
@@ -68,18 +69,20 @@ public class PositionalSolver {
      * the components can be placed without running into problems
      * with positions that depend on eachother.
      * <p>
-     * TODO: this one is fishy, need to re-assess this.
      *
      * @param components  The list of components
      * @param constraints The constraints on those components.
      */
-    static List<CompositeModel.Component> sortIntoFeasibleOrder(Set<CompositeModel.Component> components,
-                                                                Set<Constraint> constraints) {
+    static List<? extends RelativeConstraintContext.Positionable> sortIntoFeasibleOrder(Set<? extends
+            RelativeConstraintContext.Positionable> components,
+                                                                                        Collection<Constraint>
+                                                                                                constraints) {
 
-        Map<CompositeModel.Component, List<CompositeModel.Component>> componentGraphOut = new HashMap<>();
-        Map<CompositeModel.Component, List<CompositeModel.Component>> componentGraphIn = new HashMap<>();
+        Map<RelativeConstraintContext.Positionable, List<RelativeConstraintContext.Positionable>> componentGraphOut =
+                new HashMap<>();
+        Map<RelativeConstraintContext.Positionable, List<RelativeConstraintContext.Positionable>> componentGraphIn = new HashMap<>();
 
-        for (CompositeModel.Component comp : components) {
+        for (RelativeConstraintContext.Positionable comp : components) {
             componentGraphIn.put(comp, new ArrayList<>());
             componentGraphOut.put(comp, new ArrayList<>());
         }
@@ -93,22 +96,22 @@ public class PositionalSolver {
             }
         }
 
-        Queue<CompositeModel.Component> noIncoming = new LinkedList<>();
+        Queue<RelativeConstraintContext.Positionable> noIncoming = new LinkedList<>();
 
-        for (CompositeModel.Component comp : components) {
+        for (RelativeConstraintContext.Positionable comp : components) {
             if (componentGraphIn.get(comp).isEmpty()) {
                 noIncoming.add(comp);
             }
         }
 
-        List<CompositeModel.Component> result = new ArrayList<>();
+        List<RelativeConstraintContext.Positionable> result = new ArrayList<>();
 
         while (!noIncoming.isEmpty()) {
-            CompositeModel.Component comp = noIncoming.poll();
+            RelativeConstraintContext.Positionable comp = noIncoming.poll();
 
             result.add(comp);
 
-            for (CompositeModel.Component dependant : componentGraphOut.get(comp)) {
+            for (RelativeConstraintContext.Positionable dependant : componentGraphOut.get(comp)) {
                 componentGraphIn.get(dependant).remove(comp);
                 if (componentGraphIn.get(dependant).isEmpty()) {
                     noIncoming.add(dependant);

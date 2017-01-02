@@ -12,7 +12,6 @@ import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
 import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
-import nl.wernerkroneman.Drawy.ModelEditor.BlockingInteractorInterface;
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
@@ -51,7 +50,7 @@ public class DrawyMcDrawFace {
 
         System.out.println("Loaded " + knowledge.getNumberOfObjects() + " concepts. ");
 
-        BlockingInteractorInterface iface = new BlockingInteractorInterface(interactor);
+        BlockingInteractor iface = new BlockingInteractor(interactor);
         DescriptionSession session = DescriptionSession.createDescriptionSession(knowledge, iface);
 
         // Create a visualizer

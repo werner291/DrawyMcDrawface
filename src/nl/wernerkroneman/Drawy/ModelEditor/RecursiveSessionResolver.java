@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.BlockingInteractor;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
 /**
@@ -7,10 +8,10 @@ import nl.wernerkroneman.Drawy.Modelling.Model;
  */
 public class RecursiveSessionResolver implements ModelResolver {
 
-    private final BlockingInteractorInterface interactor;
+    private final BlockingInteractor interactor;
     DescriptionSession sessionContext;
 
-    public RecursiveSessionResolver(BlockingInteractorInterface interactor) {
+    public RecursiveSessionResolver(BlockingInteractor interactor) {
         this.interactor = interactor;
     }
 

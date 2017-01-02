@@ -130,7 +130,8 @@ public class AbstractToConcrete {
 
         // Translate the set of components into a list such that positional constraints
         // can be solved in the right order.
-        List<CompositeModel.Component> components = PositionalSolver.sortIntoFeasibleOrder(absModel.getComponents(),
+        List<CompositeModel.Component> components = (List<CompositeModel.Component>) PositionalSolver
+                .sortIntoFeasibleOrder(absModel.getComponents(),
                 absModel.getConstraints());
 
         // Maintain a mapping of components to the scene nodes that were produced from them.
@@ -182,7 +183,7 @@ public class AbstractToConcrete {
      * @param toPlace         Which component we're trying to place.
      */
     private AABB computeAllowedSpace(Map<CompositeModel.Component, SceneNode> componentToNode,
-                                     Set<Constraint> constraints,
+                                     Collection<Constraint> constraints,
                                      CompositeModel.Component toPlace) {
 
         AABB restrictSpace = new AABB(new Vector3d(Double.POSITIVE_INFINITY), new Vector3d(Double.NEGATIVE_INFINITY));

@@ -6,6 +6,9 @@ import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Supplier;
+
+import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
 
 public class Interpreter {
 
@@ -16,21 +19,21 @@ public class Interpreter {
     }
 
     /**
-     * Interpret a parse tree and produce a scene.
+     * Interpret a parse tree and produce a target.
      *
      * @param toInterpret An English sentence to interpret.
-     * @param scene What the scene currently looks like
+     * @param rootContext The context that the user can currently see.
      */
-    List<SceneCommand> interpret(String toInterpret, CompositeModel scene) {
+    List<EditorCommand> interpret(String toInterpret, CompositeModel rootContext) {
 
-        List<SceneCommand> statements = new ArrayList<>();
+        List<EditorCommand> statements = new ArrayList<>();
 
         ParseTree tree = SyntaxNetLink.parse(toInterpret);
 
         assert tree != null;
         SentencePart rootWord = tree.getRootWord();
 
-        if (!rootWord.getNature().equals("VB") || isCreationVerb(rootWord)) {
+        if (!rootWord.getNature().equals("VB") || InterpretPhrases.isCreationVerb(rootWord)) {
             // This is a command in the form of "Create a cube", or simply "a cube"
 
             SentencePart obj = rootWord.dfsFind((SentencePart part) -> part.nature.startsWith("NN"));
@@ -39,29 +42,34 @@ public class Interpreter {
                 throw new RuntimeException("Cannot find object to create.");
             }
 
-            creationRuleForObject(statements, scene, obj);
+            creationRuleForObject(statements, () -> rootContext, obj);
         }
 
         return statements;
     }
 
+
     /**
      * Generate a creation command for the object(s) described in this sentence part.
+     *
+     * @param statements A list of statements that come before interpreting this one.
+     * @param scene A supplier that provides a scene when executed in which to create the object
+     * @param obj The sentence part that we're trying to interpret
      */
-    CreateEntityCommand creationRuleForObject(List<SceneCommand> statements,
-                                              CompositeModel scene,
-                                              SentencePart obj) {
+    CreateEntityEditorCommand creationRuleForObject(List<EditorCommand> statements,
+                                                    Supplier<CompositeModel> scene,
+                                                    SentencePart obj) {
 
         // Allocate a new command
-        CreateEntityCommand createStmt = new CreateEntityCommand(scene);
+        CreateEntityEditorCommand createStmt = new CreateEntityEditorCommand(scene);
 
         // Check whether plural and singular
         String objName;
 
         if (obj.getNature().equals("NNS")) {
             // Plural
-            createStmt.number = findNumber(obj);
-            objName = pluralToSingular(obj.getRootWord());
+            createStmt.number = InterpretPhrases.findNumber(obj);
+            objName = InterpretPhrases.pluralToSingular(obj.getRootWord());
         } else {
             // Singular
             createStmt.number = 1;
@@ -71,6 +79,7 @@ public class Interpreter {
         // Check  if this is a known object
         createStmt.what = resolver.resolveObject(objName);
 
+        // Add the command at the end of the list so far
         statements.add(createStmt);
 
         for (Iterator<SentencePart> itr = obj.children.iterator(); itr.hasNext();) {
@@ -88,15 +97,16 @@ public class Interpreter {
             }
 
             if (part.getRole().equals("prep")) {
-                processPreposition(part, createStmt, scene, statements);
+                processPreposition(part, createStmt, statements);
             }
         }
 
         return createStmt;
     }
 
-    private void processPreposition(SentencePart preposition, CreateEntityCommand relatesTo, CompositeModel context,
-                                    List<SceneCommand> statements) {
+    private void processPreposition(SentencePart preposition,
+                                    CreateEntityEditorCommand relatesTo,
+                                    List<EditorCommand> statements) {
         // Find what the preposition relates to.
         // For example, in "on a sphere", this would be "a sphere"
         SentencePart prepObj = preposition.dfsFind(part -> part.getRole().equals("pobj"));
@@ -104,68 +114,27 @@ public class Interpreter {
         // Find the determinant of the pobj
         SentencePart pobjDet = prepObj.dfsFind(part -> part.getRole().equals("det"));
 
-        if (pobjDet != null && pobjDet.getRootWord().equalsIgnoreCase("the")) {
+        RelativePositionStatement.RelativePosition relativePosition;
+
+        if (preposition.getRootWord().equalsIgnoreCase("above")) {
+            relativePosition = ABOVE;
+        } else {
+            throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
+        }
+
+        if ((pobjDet == null && prepObj.getNature().startsWith("NN")) || pobjDet.getRootWord().equalsIgnoreCase("a")) {
+            CreateEntityEditorCommand result = creationRuleForObject(statements, relatesTo.target, prepObj);
+
+            statements.add(new RelativePositionStatement(relatesTo.getResultSupplier(), result.getResultSupplier(),
+                    relativePosition, relatesTo.target));
+        } else if (relatesTo.number >= 2 && InterpretPhrases.isReciprocalPronoun(preposition)) {
+            //statements.add(new RelativePositionStatement(relatesTo, null, relativePosition, relatesTo
+            // .getResultProvider()));
+        } else {
             throw new UnsupportedOperationException("Selectors not yet implemented.");
-        } else if (pobjDet == null || pobjDet.getRootWord().equalsIgnoreCase("a")) {
-            CreateEntityCommand result = creationRuleForObject(statements, context, prepObj);
-
-            statements.add(new RelativePositionStatement(relatesTo, result,
-                    RelativePositionStatement.RelativePosition.ABOVE,
-                    context));
         }
 
 
-    }
-
-    /**
-     * Tries to find some indication of a number of items.
-     * For example, in a phrase "15 lions", this function would return 15.
-     */
-    int findNumber(SentencePart pPart) {
-        SentencePart numeric = pPart.dfsFind((SentencePart part) -> part.getNature().equals("CD"));
-
-        if (numeric == null) {
-            throw new RuntimeException("Cannot find a number of " + pPart.getRootWord());
-        }
-
-        return interpretInteger(numeric.getRootWord());
-    }
-
-    /**
-     * Returns whether this part of the sencence is a verb
-     * that commands creating somehting such as "create" or "add".
-     */
-    boolean isCreationVerb(SentencePart part) {
-        if (! part.getNature().equals("VB")) {
-            return false;
-        }
-
-        String word = part.getRootWord();
-
-        return word.equalsIgnoreCase("create") || word.equalsIgnoreCase("add");
-    }
-
-    int interpretInteger(String text) {
-        return Integer.parseInt(text);
-    }
-
-    /**
-     * Take a plural form of a word, and make it singular.
-     * Mainly designed to work on nouns.
-     *
-     * For example, it converts "parties" to "party".
-     */
-    String pluralToSingular(String name) {
-        // TODO do this properly
-        if (name.endsWith("ies")) {
-            return name.substring(0, name.length() - 3) + "y";
-        }
-
-        if (name.endsWith("s")) {
-            return name.substring(0, name.length() - 1);
-        }
-
-        throw new RuntimeException("Cannot de-pluralize " + name);
     }
 
 }
