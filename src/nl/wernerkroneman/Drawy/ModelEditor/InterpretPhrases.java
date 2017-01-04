@@ -1,5 +1,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
+
 /**
  * Created by werner on 1-1-17.
  */
@@ -61,5 +63,36 @@ public class InterpretPhrases {
         }
 
         throw new RuntimeException("Cannot de-pluralize " + name);
+    }
+
+
+    static RelativePositionStatement.RelativePosition determineRelativePosition(SentencePart preposition) {
+
+        if (preposition.getRootWord().equalsIgnoreCase("above")) {
+        } else {
+            throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
+        }
+        return ABOVE;
+    }
+
+    /**
+     * Removes any direct conjuncts from the phrase.
+     * <p>
+     * "A red car, a bike or a boat" -> "A red car"
+     *
+     * @param phrase The phrase to clean up.
+     * @return A copy of the phrase, original is not modified.
+     */
+    private static SentencePart removeConjuncts(SentencePart phrase) {
+        SentencePart toClean = phrase.deepCopy();
+
+        for (int i = 0; i < toClean.children.size(); i++) {
+            if (toClean.children.get(i).getRole().equals("conj")) {
+                toClean.children = toClean.children.subList(0, i);
+                break;
+            }
+        }
+
+        return toClean;
     }
 }

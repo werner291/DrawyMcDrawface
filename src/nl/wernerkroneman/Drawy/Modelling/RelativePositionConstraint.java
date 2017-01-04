@@ -3,8 +3,11 @@ package nl.wernerkroneman.Drawy.Modelling;
 import nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement;
 
 public class RelativePositionConstraint extends Constraint {
-    RelativeConstraintContext.Positionable a, b;
-    RelativePositionStatement.RelativePosition pos;
+    public RelativeConstraintContext.Positionable a, b;
+    public RelativePositionStatement.RelativePosition pos;
+
+    public RelativePositionConstraint() {
+    }
 
     public RelativePositionConstraint(RelativeConstraintContext.Positionable a,
                                       RelativeConstraintContext.Positionable b,

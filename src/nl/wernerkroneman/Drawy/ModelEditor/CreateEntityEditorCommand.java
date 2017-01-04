@@ -1,7 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
-import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
 import java.util.function.Supplier;
@@ -21,9 +20,6 @@ public class CreateEntityEditorCommand extends EditorCommand {
     // After applying, stores the created component
     CompositeModel.Component created;
 
-    // How many entities to create (if > 1, will create GroupModel)
-    int number = 1;
-
     CreateEntityEditorCommand(Supplier<CompositeModel> target) {
         super();
         this.target = target;
@@ -31,12 +27,12 @@ public class CreateEntityEditorCommand extends EditorCommand {
 
     @Override
     public String toString() {
-        return "Create " + number + " x " + what + " in " + target;
+        return "Create " + what + " in " + target;
     }
 
     @Override
     void onApply(){
-        created = target.get().addComponentForModel(number == 1 ? what : new GroupModel(number, what));
+        created = target.get().addComponentForModel(what);
     }
 
     @Override

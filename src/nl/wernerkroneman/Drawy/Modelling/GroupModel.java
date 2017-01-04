@@ -20,13 +20,12 @@ import java.util.Collection;
 public class GroupModel extends Model implements RelativeConstraintContext {
 
     // Placeholder values for relative constraints
-    // TODO make a proper type
     public static final Positionable PLACEHOLDER_A = new CompositeModel.Component(null);
-    public static final CompositeModel.Component PLACEHOLDER_B = new CompositeModel.Component(null);
+    public static final Positionable PLACEHOLDER_B = new CompositeModel.Component(null);
 
-    int number;
+    public int number;
 
-    Model memberType;
+    public Model memberType;
     private Collection<Constraint> constraints = new ArrayList<>();
 
     public GroupModel(int number, Model memberType) {

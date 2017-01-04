@@ -1,22 +1,33 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
-import nl.wernerkroneman.Drawy.Modelling.GroupModel;
+import nl.wernerkroneman.Drawy.Modelling.*;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
-import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
-
+/**
+ * The class that houses the most important, top-level parts
+ * of the system that turns parsed English sentences commands
+ * that the system can work with.
+ * <p>
+ * If the system sometimes looks a bit spaghetti-ish, please remember
+ * that the language we're trying to understand is not actually meant
+ * to be a good, simple and unambiguous language.
+ */
 public class Interpreter {
 
     KnowledgeResolver resolver;
+    Knowledge knowledge;
+    BlockingInteractorInterface iface;
 
-    public Interpreter(KnowledgeResolver resolver) {
+    public Interpreter(KnowledgeResolver resolver, Knowledge knowledge, BlockingInteractorInterface iface) {
+
         this.resolver = resolver;
+        this.knowledge = knowledge;
+        this.iface = iface;
     }
 
     /**
@@ -31,22 +42,65 @@ public class Interpreter {
 
         ParseTree tree = SyntaxNetLink.parse(toInterpret);
 
-        assert tree != null;
         SentencePart rootWord = tree.getRootWord();
 
-        if (!rootWord.getNature().equals("VB") || InterpretPhrases.isCreationVerb(rootWord)) {
-            // This is a command in the form of "Create a cube", or simply "a cube"
+        if (rootWord.getNature().startsWith("NN")) {
 
-            SentencePart obj = rootWord.dfsFind((SentencePart part) -> part.nature.startsWith("NN"));
+            interpretAsCreateCommand(statements, () -> rootContext, rootWord);
 
-            if (obj == null) {
-                throw new RuntimeException("Cannot find object to create.");
-            }
+        } else if (InterpretPhrases.isCreationVerb(rootWord)) {
 
-            creationRuleForObject(statements, () -> rootContext, obj);
+            SentencePart objectPhrase = rootWord.findFirstChild(phrase -> phrase.getRole().equals("dobj"));
+
+            interpretAsCreateCommand(statements, () -> rootContext, objectPhrase);
+
+            rootWord.findFirstChild(phrase -> phrase.getRole().equals("dobj"));
+
+        } else if (rootWord.getNature().equals("VB") && rootWord.getRootWord().equalsIgnoreCase("is")) {
+
+            processDefinition(rootWord);
         }
 
         return statements;
+    }
+
+    // Todo use command pattern here.
+    private void processDefinition(SentencePart phrase) {
+        SentencePart subj = phrase.dfsFind((SentencePart part) -> part.getRole().equals("nsub"));
+        SentencePart obj = phrase.dfsFind((SentencePart part) -> part.getRole().equals("nobj"));
+
+        if (obj == null) {
+            throw new RuntimeException("Cannot find definition.");
+        }
+
+        Model currentSubjectDef = knowledge.getObject(subj.getRootWord());
+        Model newSubjectDef = resolver.resolveObject(obj.getRootWord());
+
+        if (currentSubjectDef == null) {
+            if (iface.askUserYesNo("Do you want me to remember that " + subj.getRootWord() + " is " + newSubjectDef +
+                    "?")) {
+                knowledge.remember(subj.getRootWord(), newSubjectDef);
+            }
+        } else {
+
+            String response = iface.askUserString("I currently know that " + subj.getRootWord() + " is " +
+                    newSubjectDef + "."
+                    + "Do you want be to replace the definition, add it as an alternative, or cancel? (replace / add " +
+                    "/ cancel)");
+
+            if (response.equalsIgnoreCase("replace")) {
+                knowledge.remember(subj.getRootWord(), newSubjectDef);
+            } else if (response.equalsIgnoreCase("add")) {
+                if (currentSubjectDef instanceof AnyModel) {
+                    ((AnyModel) currentSubjectDef).addOption(newSubjectDef);
+                } else {
+                    AnyModel any = new AnyModel(subj.getRootWord());
+                    any.addOption(currentSubjectDef);
+                    any.addOption(newSubjectDef);
+                    knowledge.remember(subj.getRootWord(), any);
+                }
+            }
+        }
     }
 
 
@@ -57,88 +111,226 @@ public class Interpreter {
      * @param scene A supplier that provides a scene when executed in which to create the object
      * @param obj The sentence part that we're trying to interpret
      */
-    CreateEntityEditorCommand creationRuleForObject(List<EditorCommand> statements,
-                                                    Supplier<CompositeModel> scene,
-                                                    SentencePart obj) {
+    CreateEntityEditorCommand interpretAsCreateCommand(List<EditorCommand> statements,
+                                                       Supplier<CompositeModel> scene,
+                                                       SentencePart obj) {
 
         // Allocate a new command
         CreateEntityEditorCommand createStmt = new CreateEntityEditorCommand(scene);
 
-        // Check whether plural and singular
-        String objName;
-
-        if (obj.getNature().equals("NNS")) {
-            // Plural
-            createStmt.number = InterpretPhrases.findNumber(obj);
-            objName = InterpretPhrases.pluralToSingular(obj.getRootWord());
-        } else {
-            // Singular
-            createStmt.number = 1;
-            objName = obj.getRootWord();
-        }
+        Stack<Model> modelStack = new Stack<>();
 
         // Check  if this is a known object
-        createStmt.what = resolver.resolveObject(objName);
+        createStmt.what = interpretModel(obj, modelStack);
 
         // Add the command at the end of the list so far
         statements.add(createStmt);
 
-        for (Iterator<SentencePart> itr = obj.children.iterator(); itr.hasNext();) {
-            SentencePart part = itr.next();
-            // Look for "and something else"-type phrases.
-            if (part.getRole().equals("cc")) {
-                if (! part.getRootWord().equals("and")) {
-                    // This is an "or" or "while", don't know how to handle those yet!
-                    throw new RuntimeException("I don't know how to handle coordinating conjunction "
-                            + part.getRootWord() + " yet, sorry!");
-                }
-
-                // Add separate creation rules for the conjuncts as well.
-                creationRuleForObject(statements, scene, itr.next());
-            }
-
-            if (part.getRole().equals("prep")) {
-                processPreposition(part, createStmt, statements);
-            }
-        }
-
         return createStmt;
     }
 
+    /**
+     * Attempt to interpret the SentencePart as a model.
+     * <p>
+     * {@code sentence} must be rooted in something that can be interpreted as a Model.
+     * <p>
+     * The verb must already have been removed.
+     * <p>
+     * For example:
+     * <p>
+     * boats NNS dobj
+     * +-- one CD num
+     * |   +-- or CC cc
+     * |       +-- two CD conj
+     * <p>
+     * But not:
+     * <p>
+     * Add VB ROOT
+     * +-- boats NNS dobj
+     * |   +-- one CD num
+     * |       +-- or CC cc
+     * |       +-- two CD conj
+     *
+     * @param phrase       What to interpret.
+     * @param contextStack In which context to interpret it.
+     * @return The Model that results.
+     * <p>
+     * Please note that the {@code contextStack} and its' contents may be modified
+     * by interpretModel as sometimes deeper parts of the tree reveal things about
+     * the context not known in advance. (Yay English!)
+     */
+    private Model interpretModel(SentencePart phrase, Stack<Model> contextStack) {
+
+        int stackSizeAtStart = contextStack.size();
+
+        ///////////////////////////////
+        // Resolve the object itself //
+        ///////////////////////////////
+
+        if (phrase.getNature().equals("NNS")) {
+            String singular = InterpretPhrases.pluralToSingular(phrase.getRootWord());
+
+            GroupModel model = new GroupModel(1, resolver.resolveObject(singular));
+
+            SentencePart number = phrase.findFirstChild(c -> c.getNature().equals("CD"));
+
+            model.number = InterpretPhrases.interpretInteger(number.getRootWord());
+
+            contextStack.push(model);
+        } else {
+            contextStack.push(resolver.resolveObject(phrase.getRootWord()));
+        }
+
+        ////////////////////////////////////////////////////
+        // TODO - Subordinate clauses to the main object. //
+        ////////////////////////////////////////////////////
+
+        // ---
+
+        ///////////////////////
+        // Process conjuncts //
+        ///////////////////////
+
+        SentencePart firstCC = phrase.findFirstChild(child -> child.getRole().equals("cc"));
+
+        List<SentencePart> conjuncts = phrase.children.stream()
+                .filter(child -> child.getRole().equals("conj"))
+                .collect(Collectors.toList());
+
+
+        if (firstCC != null) {
+            if (firstCC.getRootWord().equalsIgnoreCase("and")) {
+
+                CompositeModel compositeModel = new CompositeModel(phrase.getRootWord());
+
+                Model topModel = contextStack.pop();
+
+                compositeModel.addComponentForModel(topModel);
+
+                contextStack.push(compositeModel);
+
+                // Interpret the conjucts and add as components.
+                for (SentencePart conjunct : conjuncts) {
+                    compositeModel.addComponentForModel(interpretModel(conjunct, contextStack));
+                }
+
+            } else if (firstCC.getRootWord().equalsIgnoreCase("or")) {
+
+                // Or-based conjuction, interpret as non-deterministic choice.
+                AnyModel anyModel = new AnyModel(phrase.getRootWord());
+
+                Model topModel = contextStack.pop();
+
+                anyModel.addOption(topModel);
+
+                contextStack.push(anyModel);
+
+                // Interpret the conjuncts and add as options.
+                for (SentencePart conjunct : conjuncts) {
+                    anyModel.addOption(interpretModel(conjunct, contextStack));
+                }
+
+            } else {
+                // This is an "or" or "while", don't know how to handle those yet!
+                throw new RuntimeException("I don't know how to handle coordinating conjunction "
+                        + firstCC.getRootWord() + " yet, sorry!");
+            }
+        }
+
+        // Find any prepositions.
+        // TODO distinguish between prepositions on the composite and on individual objects.
+        for (SentencePart child : phrase.children) {
+            if (child.getRole().equals("prep")) {
+                processPreposition(child, contextStack);
+            }
+        }
+
+        Model result = contextStack.pop();
+
+        // Should not have changed.
+        assert stackSizeAtStart == contextStack.size();
+
+        return result;
+    }
+
+    /**
+     * Explore a preposition.
+     *
+     * Ex: "above the field", "in the room", "through the tunnel"
+     *
+     * @param preposition The preposition
+     * @param relatesTo A stack of models that the preposition might affect.
+     *
+     * {@code relatesTo} is a stack of models on which the preposition might be applied.
+     *
+     * For example, the phrase "a car on a road" will be broken down into "a car" and "on a road".
+     * "a car" is evaluated first, then processPreposition is called with a stack with the {@link Model}
+     * representing the car at the top.
+     *
+     * processPreposition would then pop the car Model off the stack, add a {@link CompositeModel} onto it,
+     * create a road Model, add it as a component to the CompositeModel, add the car as a component to the
+     * CompositeModel, and add a constraint to the CompositeModel that the car is on the road.
+     */
     private void processPreposition(SentencePart preposition,
-                                    CreateEntityEditorCommand relatesTo,
-                                    List<EditorCommand> statements) {
+                                    Stack<Model> relatesTo) {
+
         // Find what the preposition relates to.
         // For example, in "on a sphere", this would be "a sphere"
         SentencePart prepObj = preposition.dfsFind(part -> part.getRole().equals("pobj"));
 
+        // This is assumed to be impossible, but better check to make sure.
+        if (prepObj == null) {
+            throw new IllegalStateException("Preposition without object.");
+        }
+
         // Find the determinant of the pobj
         SentencePart pobjDet = prepObj.dfsFind(part -> part.getRole().equals("det"));
 
-        RelativePositionStatement.RelativePosition relativePosition;
+        // Allocate the constraint
+        RelativePositionConstraint positionConstraint = new RelativePositionConstraint();
 
-        if (preposition.getRootWord().equalsIgnoreCase("above")) {
-            relativePosition = ABOVE;
+        // Determine relative position
+        positionConstraint.pos = InterpretPhrases.determineRelativePosition(preposition);
+
+        if (InterpretPhrases.isReciprocalPronoun(prepObj)) {
+            // Reciprocal pronoun ("each other", "one another")
+
+            if (relatesTo.peek() instanceof GroupModel) {
+                // Reciprocal pronoun prepositions apply between each element and the next,
+                // use the placeholders to indicate this.
+                positionConstraint.a = GroupModel.PLACEHOLDER_A;
+                positionConstraint.b = GroupModel.PLACEHOLDER_B;
+            } else {
+                throw new UnsupportedOperationException("Reciprocal pronoun as object of proposition on " +
+                        relatesTo.peek().getClass().getName() + " not supported or implemented.");
+            }
+
+        } else if ((pobjDet != null && pobjDet.getRootWord().equalsIgnoreCase("a"))) {
+
+            // Preposition calls for a relation with an object that still needs to be created
+            // Swap the stack top for a CompositeModel that has the stack top as a component.
+            CompositeModel compositeModel = new CompositeModel(preposition.getRootWord());
+            Model topModel = relatesTo.pop();
+            relatesTo.push(compositeModel);
+
+            // Set the constraints related objects as the topModel and the new object.
+            positionConstraint.a = compositeModel.addComponentForModel(topModel);
+            positionConstraint.b = compositeModel.addComponentForModel(interpretModel(prepObj, relatesTo));
+
         } else {
-            throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
+
+            throw new UnsupportedOperationException("Preposition with object like " + prepObj
+                    + " not supported or implemented yet.");
         }
 
-        if ((pobjDet == null && prepObj.getNature().startsWith("NN")) || (pobjDet != null && pobjDet.getRootWord()
-                .equalsIgnoreCase("a"))) {
-            CreateEntityEditorCommand result = creationRuleForObject(statements, relatesTo.target, prepObj);
-
-            statements.add(new RelativePositionStatement(relatesTo.getResultSupplier(), result.getResultSupplier(),
-                    relativePosition, relatesTo.target));
-        } else if (relatesTo.number >= 2 && InterpretPhrases.isReciprocalPronoun(prepObj)) {
-            statements.add(new RelativePositionStatement(() -> GroupModel.PLACEHOLDER_A,
-                    () -> GroupModel.PLACEHOLDER_B,
-                    ABOVE,
-                    () -> (GroupModel) relatesTo.getResultSupplier().get().getModel()));
-        } else {
-            throw new UnsupportedOperationException("Selectors not yet implemented.");
+        if (!(relatesTo.peek() instanceof RelativeConstraintContext)) {
+            // This should not occur, but check it just to make sure.
+            throw new IllegalStateException("Trying to apply relative constraint on something that is not a relative " +
+                    "constraint context.");
         }
 
-
+        // Apply the constraint.
+        ((RelativeConstraintContext) relatesTo.peek()).getConstraints().add(positionConstraint);
     }
 
 }

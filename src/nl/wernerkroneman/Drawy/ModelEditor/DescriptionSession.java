@@ -28,7 +28,7 @@ public class DescriptionSession {
 
         RecursiveSessionResolver interactiveResolver = new RecursiveSessionResolver(iface);
         KnowledgeResolver knowledgeResolver = new KnowledgeResolver(knowledge, iface, interactiveResolver);
-        Interpreter interpreter = new Interpreter(knowledgeResolver);
+        Interpreter interpreter = new Interpreter(knowledgeResolver, knowledge, iface);
         DescriptionSession descriptionSession = new DescriptionSession(interpreter, iface);
         interactiveResolver.setSessionContext(descriptionSession);
         return descriptionSession;

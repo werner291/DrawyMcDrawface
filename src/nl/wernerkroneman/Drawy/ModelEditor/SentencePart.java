@@ -12,6 +12,9 @@ import java.util.function.Predicate;
  * - A list of sub-parts.
  */
 public class SentencePart {
+
+    SentencePart parent;
+
     String nature;
     String role;
     String rootWord;
@@ -31,6 +34,17 @@ public class SentencePart {
 
         for (SentencePart part : children)
         {
+            SentencePart result = part.dfsFind(predicate);
+            if (result != null)
+                return result;
+        }
+
+        return null;
+    }
+
+    SentencePart findFirstChild(Predicate<SentencePart> predicate) {
+
+        for (SentencePart part : children) {
             SentencePart result = part.dfsFind(predicate);
             if (result != null)
                 return result;
@@ -71,6 +85,20 @@ public class SentencePart {
 
     void addChild(SentencePart part)
     {
+        if (part.parent != null) {
+            throw new IllegalStateException("SentencePart may not be a child to more than one parent.");
+        }
+        part.parent = this;
         children.add(part);
+    }
+
+    public SentencePart deepCopy() {
+        SentencePart copy = new SentencePart(this.rootWord, this.nature, this.role);
+
+        for (SentencePart child : children) {
+            copy.children.add(child.deepCopy());
+        }
+
+        return copy;
     }
 }

@@ -16,13 +16,14 @@ class SyntaxNetLink {
         // TODO isn't it beautiful?
         try {
 
-            ProcessBuilder processBuilder = new ProcessBuilder("docker","run","799d90a4425b","bash","-c","echo '" + english + "' | syntaxnet/demo.sh");
+            ProcessBuilder processBuilder = new ProcessBuilder("/bin/sh", "-c", "echo '" + english + "' | docker run " +
+                    "--rm -i brianlow/syntaxnet");
 
             Process p = processBuilder.start();
 
             p.waitFor();
 
-            try (BufferedReader output=new BufferedReader(new InputStreamReader(p.getInputStream()))) {
+            try (BufferedReader output = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
                 String line;
 
                 int skipLines = 2;

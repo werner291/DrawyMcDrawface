@@ -1,19 +1,20 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.GroupModel;
+import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
-
-import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
 
 public class InterpreterTest {
 
     Interpreter getInterpreter(CompositeModel model) {
         Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
 
-        return new Interpreter(new KnowledgeResolver(knowledge, null, null));
+        return new Interpreter(new KnowledgeResolver(knowledge, null, null), null, null);
     }
 
     @Test
@@ -26,13 +27,14 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
-        Assert.assertEquals(1, stmt.number);
+        Assert.assertTrue(stmt.what instanceof PrimitiveModel);
 
         Assert.assertEquals("Cube", stmt.what.getName());
 
     }
 
     @Test
+    @Ignore("Non-deterministic numbers not yet supported")
     public void interpreterTest2() {
 
         CompositeModel scene = new CompositeModel("Scene");
@@ -43,56 +45,11 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
 
-        Assert.assertTrue(1 <= stmt.number);
-        Assert.assertTrue(2 >= stmt.number);
+        Assert.assertTrue(stmt.what instanceof GroupModel);
 
-        Assert.assertEquals("Cylinder", stmt.what.getName());
+        Assert.assertEquals(1, ((GroupModel) stmt.what).getNumber());
 
-    }
-
-    @Test
-    public void interpreterTestNumeric() {
-
-        CompositeModel scene = new CompositeModel("Scene");
-
-        List<EditorCommand> result = getInterpreter(scene).interpret("50 spheres", scene);
-
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
-
-        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
-
-        Assert.assertEquals(50, stmt.number);
-
-        Assert.assertEquals("Sphere", stmt.what.getName());
-
-    }
-
-    @Test
-    public void createWithAnd() {
-
-        CompositeModel scene = new CompositeModel("Scene");
-
-        List<EditorCommand> result = getInterpreter(scene).interpret("Add a cube and a cylinder", scene);
-
-        Assert.assertEquals(2, result.size());
-
-
-        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
-
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
-
-        Assert.assertEquals(1, stmt.number);
-
-        Assert.assertEquals("Cube", stmt.what.getName());
-
-
-        Assert.assertTrue(result.get(1) instanceof CreateEntityEditorCommand);
-
-        stmt = (CreateEntityEditorCommand) result.get(1);
-
-        Assert.assertEquals(1, stmt.number);
-
-        Assert.assertEquals("Cylinder", stmt.what.getName());
+        Assert.assertEquals("Cylinder", ((GroupModel) stmt.what).getMemberModelType().getName());
 
     }
 
@@ -103,7 +60,7 @@ public class InterpreterTest {
 
         List<EditorCommand> result = getInterpreter(scene).interpret("A cube above a sphere", scene);
 
-        Assert.assertEquals(3, result.size());
+        Assert.assertEquals(1, result.size());
 
         // ----------------------
 
@@ -111,35 +68,41 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
 
-        Assert.assertEquals(1, stmtA.number);
+        Assert.assertTrue(stmtA.what instanceof CompositeModel);
 
-        Assert.assertEquals("Cube", stmtA.what.getName());
+        Assert.assertTrue(((CompositeModel) stmtA.what).getComponents().stream()
+                .allMatch(a -> a.getModel() instanceof PrimitiveModel));
 
         stmtA.apply();
 
         // ----------------------
 
-        Assert.assertTrue(result.get(1) instanceof CreateEntityEditorCommand);
+        Assert.assertEquals(1, scene.getComponents().size());
 
-        CreateEntityEditorCommand stmtB = (CreateEntityEditorCommand) result.get(1);
+    }
 
-        Assert.assertEquals(1, stmtB.number);
+    @Test
+    public void createSphereStack() {
 
-        Assert.assertEquals("Sphere", stmtB.what.getName());
+        CompositeModel scene = new CompositeModel("Scene");
 
-        stmtB.apply();
+        List<EditorCommand> result = getInterpreter(scene).interpret("500 cubes above each other", scene);
+
+        Assert.assertEquals(1, result.size());
 
         // ----------------------
 
-        Assert.assertTrue(result.get(2) instanceof RelativePositionStatement);
+        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
 
-        RelativePositionStatement relStmt = (RelativePositionStatement) result.get(2);
+        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
 
-        Assert.assertEquals(stmtA.getResultSupplier().get(), relStmt.getA().get());
+        Assert.assertTrue(stmtA.what instanceof GroupModel);
 
-        Assert.assertEquals(stmtB.getResultSupplier().get(), relStmt.getB().get());
+        Assert.assertTrue(((GroupModel) stmtA.what).getMemberModelType() instanceof PrimitiveModel);
 
-        Assert.assertEquals(ABOVE, relStmt.getPos());
+        Assert.assertEquals(500, ((GroupModel) stmtA.what).getNumber());
+
+        stmtA.apply();
 
     }
 }
