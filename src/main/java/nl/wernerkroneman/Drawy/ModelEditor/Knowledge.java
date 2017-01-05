@@ -1,7 +1,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.Modelling.Model;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;
+import nl.wernerkroneman.Drawy.Modelling.Model;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

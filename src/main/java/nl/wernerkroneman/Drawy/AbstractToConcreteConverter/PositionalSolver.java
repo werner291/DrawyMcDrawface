@@ -1,9 +1,9 @@
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 
-import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
-import nl.wernerkroneman.Drawy.Modelling.Constraint;
 import nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext;
+import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
+import nl.wernerkroneman.Drawy.Modelling.Constraint;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 

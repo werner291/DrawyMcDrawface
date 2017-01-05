@@ -1,0 +1,27 @@
+apply plugin: 'idea'
+
+apply plugin: 'java'
+
+apply plugin: 'application'
+
+sourceSets {
+    main.java.srcDir "src/main"
+
+    test.java.srcDir "src/test"
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile group: 'org.joml', name: 'joml', version: '1.9.1'
+    compile group: 'org.jogamp.jogl', name: 'jogl-all-main', version: '2.3.2'
+    compile group: 'org.jogamp.gluegen', name: 'gluegen-rt-main', version: '2.3.2'
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+}
+
+mainClassName = "nl.wernerkroneman.Drawy.DrawyMcDrawFace"

@@ -5,16 +5,16 @@ package nl.wernerkroneman.Drawy;/*
  *      Author: werner
  */
 
+import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
+import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
+import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
+import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
-import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
-import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
-import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 import org.joml.Vector3d;
 

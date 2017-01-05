@@ -1,8 +1,8 @@
 package nl.wernerkroneman.Drawy.GlRenderer;
 
+import nl.wernerkroneman.Drawy.ConcreteModelling.Mesh;
 import com.jogamp.opengl.GL3;
 import com.jogamp.opengl.util.GLBuffers;
-import nl.wernerkroneman.Drawy.ConcreteModelling.Mesh;
 import org.joml.Vector2d;
 import org.joml.Vector3d;
 
