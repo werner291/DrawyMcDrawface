@@ -20,17 +20,6 @@ public class AbstractToConcrete {
         this.primitiveGenerator = new PrimitiveGenerator(meshFactory);
     }
 
-    public static boolean hasChildWithIntersectingBB(SceneNode context, AABB proposedSolution) {
-        for (SceneNode node : context.getChildren()) {
-            AABB nodeBox = node.computeLocalAABB().transform(node.getTransform(), new AABB());
-
-            if (nodeBox.intersects(proposedSolution, 0)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     /**
      * Compute a conrete, drawable scene based on the abstract model.
      *
@@ -97,7 +86,7 @@ public class AbstractToConcrete {
         // List of AABBs that count as "occupied" space.
         List<AABB> occupiedSpaces = new ArrayList<>();
 
-        // Iterate voer all components.
+        // Iterate over all components.
         for (PositionResolutionContext.Component component : positionResolutionContext.getComponents()) {
 
             // Create a new SceneNode for this ModelInstance
@@ -138,13 +127,17 @@ public class AbstractToConcrete {
     void placeChild(PositionResolutionContext.Component component,
                     Collection<AABB> occupiedSpaces) {
 
-        AABB allowedSpace = computeAllowedSpace(component);
-
         // Compute how big the AABB of the child is.
         AABB childRequiredAABB = component.node.computeLocalAABB();
 
+        AABB allowedSpace = computeAllowedSpace(component, childRequiredAABB);
+
         // Find an empty AABB inside that space.
-        AABB place = PositionalSolver.findEmptyPlace(occupiedSpaces, 0, childRequiredAABB, allowedSpace);
+        AABB place = PositionalSolver.findEmptyPlace(occupiedSpaces, 0,
+                new Vector3d(childRequiredAABB.getSizeX(),
+                        childRequiredAABB.getSizeY(),
+                        childRequiredAABB.getSizeZ()),
+                allowedSpace);
 
         // Set the translation of the node to match the empty space
         Vector3d translation = getTranslationToFit(component.node, place);
@@ -157,9 +150,12 @@ public class AbstractToConcrete {
      * Compute an AABB in which the new object can be placed
      * in accordance to the provided constraints.
      *
+     * The AABB returned is the space in which the object
+     * must fit as a whole.
+     *
      * @param toPlace Which component we're trying to place.
      */
-    private AABB computeAllowedSpace(PositionResolutionContext.Component toPlace) {
+    private AABB computeAllowedSpace(PositionResolutionContext.Component toPlace, AABB objectBB) {
 
         AABB restrictSpace = new AABB(new Vector3d(Double.POSITIVE_INFINITY), new Vector3d(Double.NEGATIVE_INFINITY));
 

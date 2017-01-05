@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.Algorithms;
 
+import nl.wernerkroneman.Drawy.Algorithms.TopologicalSort;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -12,55 +12,59 @@ import java.util.*;
 public class PositionalSolver {
 
     /**
-     * Find an axis-aligned box that at is at least big enough to contain {@code minimumSpace}
-     * (same orientation) whose center is roughly central in {@code centerInsideSpace}
-     * and which must not intersect any in {@code mustNotIntersect}
+     * Find an axis-aligned box that at is at least big enough to contain an
+     * axis-aligned box with size {@code minimumSpaceSize} (same orientation)
+     * whose center is roughly central in {@code fitInsideSpace} and which
+     * must not intersect any in {@code mustNotIntersect}
      *
      * @param mustNotIntersect  Collection of AABBs that must not be intersected
-     * @param minimumSpace      The minimum size space to find
-     * @param centerInsideSpace In which space to center the AABB
-     * @return The AABB, or null
+     * @param minimumSpaceSize The minimum size space to find
+     * @param fitInsideSpace In which space to center the AABB
+     * @return The AABB
      */
-    public static AABB findEmptyPlace(Collection<AABB> mustNotIntersect, double tolerance, AABB minimumSpace, AABB
-            centerInsideSpace) {
+    public static AABB findEmptyPlace(Collection<AABB> mustNotIntersect,
+                                      double tolerance,
+                                      Vector3d minimumSpaceSize,
+                                      AABB fitInsideSpace) {
 
         double limit = 0;
 
-        AABB generateSpace = new AABB();
+        AABB initialSolution = fitInsideSpace.getFiniteWithBounds(minimumSpaceSize.x,
+                minimumSpaceSize.y,
+                minimumSpaceSize.z, new AABB());
 
-        while (true) {
+        final AABB candidate = new AABB(initialSolution);
 
-            if (centerInsideSpace == null) {
-                generateSpace.minExtent.set(-limit / 2, -limit / 2, -limit / 2);
-                generateSpace.maxExtent.set(limit / 2, limit / 2, limit / 2);
-            } else {
-                centerInsideSpace.getFiniteWithBounds(limit, limit, limit, generateSpace);
-            }
+        int triesLeft = 10000;
+
+        while (mustNotIntersect.stream().anyMatch(aabb -> aabb.intersects(candidate, tolerance)) && triesLeft-- > 0) {
+
+            // Find out what wiggle room we have
+            double translateMinX = Math.max(fitInsideSpace.minExtent.x - initialSolution.minExtent.x, - limit);
+            double translateMinY = Math.max(fitInsideSpace.minExtent.y - initialSolution.minExtent.y, - limit);
+            double translateMinZ = Math.max(fitInsideSpace.minExtent.z - initialSolution.minExtent.z, - limit);
+
+            double translateMaxX = Math.min(fitInsideSpace.maxExtent.x - initialSolution.maxExtent.x, limit);
+            double translateMaxY = Math.min(fitInsideSpace.maxExtent.y - initialSolution.maxExtent.y, limit);
+            double translateMaxZ = Math.min(fitInsideSpace.maxExtent.z - initialSolution.maxExtent.z, limit);
 
             Vector3d translation = new Vector3d(
-                    generateSpace.minExtent.x + Math.random() * generateSpace.getWidth(),
-                    generateSpace.minExtent.y + Math.random() * generateSpace.getHeight(),
-                    generateSpace.minExtent.z + Math.random() * generateSpace.getDepth()
+                translateMinX + Math.random() * (translateMaxX - translateMinX),
+                translateMinY + Math.random() * (translateMaxY - translateMinY),
+                translateMinZ + Math.random() * (translateMaxZ - translateMinZ)
             );
 
-            AABB proposedSolution = minimumSpace.translate(translation, new AABB());
+            initialSolution.translate(translation, candidate);
 
-            boolean intersectsAny = false;
-
-            for (AABB aabb : mustNotIntersect) {
-                if (aabb.intersects(proposedSolution, tolerance)) {
-                    intersectsAny = true;
-                    break;
-                }
-            }
-
-            if (intersectsAny) {
-                limit += 0.1;
-            } else {
-                return proposedSolution;
-            }
+            limit += 0.1;
 
         }
+
+        if (triesLeft <= 0) {
+            return null; // Give up.
+        }
+
+        return candidate;
 
     }
 

@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.ConcreteModelling;
 
+import nl.wernerkroneman.Drawy.ConcreteModelling.*;
 import org.joml.Vector3d;
 import org.junit.Assert;
 import org.junit.Test;

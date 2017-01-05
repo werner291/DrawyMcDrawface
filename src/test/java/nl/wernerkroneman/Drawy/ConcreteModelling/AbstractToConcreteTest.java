@@ -70,14 +70,15 @@ public class AbstractToConcreteTest {
             List<AABB> doesNotIntersect = new ArrayList<>();
             doesNotIntersect.add(child.computeWorldAABB());
 
-            AABB empty = PositionalSolver.findEmptyPlace(doesNotIntersect, 0, new AABB(new Vector3d(1), new Vector3d
-                    (-1)), null);
+            AABB empty = PositionalSolver.findEmptyPlace(doesNotIntersect, 0, new Vector3d(2),
+                    new AABB(new Vector3d(Double.POSITIVE_INFINITY),
+                             new Vector3d(Double.NEGATIVE_INFINITY)));
 
             Assert.assertFalse(empty.intersects(new AABB(new Vector3d(0.5), new Vector3d(-0.5)), 0));
 
-            Assert.assertEquals(2, empty.getDepth(), 0.01);
-            Assert.assertEquals(2, empty.getWidth(), 0.01);
-            Assert.assertEquals(2, empty.getHeight(), 0.01);
+            Assert.assertEquals(2, empty.getSizeZ(), 0.01);
+            Assert.assertEquals(2, empty.getSizeX(), 0.01);
+            Assert.assertEquals(2, empty.getSizeY(), 0.01);
 
             Assert.assertTrue(empty.getCenter(new Vector3d()).length() < 10);
 
@@ -105,9 +106,9 @@ public class AbstractToConcreteTest {
         Assert.assertEquals(0, center.y, 0.01);
         Assert.assertEquals(0, center.z, 0.01);
 
-        Assert.assertEquals(1, box.getHeight(), 0.01);
-        Assert.assertEquals(1, box.getDepth(), 0.01);
-        Assert.assertEquals(1, box.getWidth(), 0.01);
+        Assert.assertEquals(1, box.getSizeY(), 0.01);
+        Assert.assertEquals(1, box.getSizeZ(), 0.01);
+        Assert.assertEquals(1, box.getSizeX(), 0.01);
     }
 
     @Test
@@ -139,15 +140,14 @@ public class AbstractToConcreteTest {
         Assert.assertEquals(0, center.y, 0.01);
         Assert.assertEquals(0, center.z, 0.01);
 
-        Assert.assertEquals(1, box.getHeight(), 0.01);
-        Assert.assertEquals(1, box.getDepth(), 0.01);
-        Assert.assertEquals(1, box.getWidth(), 0.01);
+        Assert.assertEquals(1, box.getSizeY(), 0.01);
+        Assert.assertEquals(1, box.getSizeZ(), 0.01);
+        Assert.assertEquals(1, box.getSizeX(), 0.01);
     }
 
     @Test
     public void computeSceneMultipleCubeInComposite() throws Exception {
         // This should produce multiple, non-overlapping cubes.
-
         for (int rep = 0; rep < 50; rep++) {
             PrimitiveModel cube = new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube");
 
@@ -225,9 +225,9 @@ public class AbstractToConcreteTest {
 
             // Check whether the bounding box is consistent with a stack of 3 cubes.
             AABB totalBox = scene.getRootSceneNode().computeWorldAABB();
-            Assert.assertEquals(3, totalBox.getHeight(), 1);
-            Assert.assertEquals(1, totalBox.getWidth(), 1);
-            Assert.assertEquals(1, totalBox.getDepth(), 1);
+            Assert.assertEquals(3, totalBox.getSizeY(), 1);
+            Assert.assertEquals(1, totalBox.getSizeX(), 1);
+            Assert.assertEquals(1, totalBox.getSizeZ(), 1);
         }
     }
 

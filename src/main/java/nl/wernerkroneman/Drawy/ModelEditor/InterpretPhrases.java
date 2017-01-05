@@ -1,11 +1,17 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.Thesaurus;
+
 import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
+import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.BELOW;
 
 /**
  * Created by werner on 1-1-17.
  */
 public class InterpretPhrases {
+
+    //static Thesaurus thesaurus = new Thesaurus();
+
     static boolean isReciprocalPronoun(SentencePart potential) {
         return (potential.getRootWord().equalsIgnoreCase("other")
                 && potential.dfsFind(part -> part.getRootWord().equalsIgnoreCase("each")) != null) ||
@@ -69,10 +75,13 @@ public class InterpretPhrases {
     static RelativePositionStatement.RelativePosition determineRelativePosition(SentencePart preposition) {
 
         if (preposition.getRootWord().equalsIgnoreCase("above")) {
+            return ABOVE;
+        } else if (preposition.getRootWord().equalsIgnoreCase("below") ||
+                preposition.getRootWord().equalsIgnoreCase("under")) {
+            return BELOW;
         } else {
             throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
         }
-        return ABOVE;
     }
 
     /**

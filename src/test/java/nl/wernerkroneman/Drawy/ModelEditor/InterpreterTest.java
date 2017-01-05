@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.ModelEditor.*;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.GroupModel;
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel;

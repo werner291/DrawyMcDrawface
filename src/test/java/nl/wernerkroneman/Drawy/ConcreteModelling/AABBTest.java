@@ -109,4 +109,49 @@ public class AABBTest {
         Assert.assertEquals(-41, result.minExtent.z, 0.01);
     }
 
+    @Test
+    public void testFiniteInBounds() throws Exception {
+
+        AABB box = new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, -8));
+        
+        AABB result = box.getFiniteWithBounds(1,1,1, new AABB());
+
+        Assert.assertEquals(1,result.getSizeX(),0.001);
+        Assert.assertEquals(1,result.getSizeY(),0.001);
+        Assert.assertEquals(1,result.getSizeZ(),0.001);
+
+        Assert.assertEquals(4.5,result.minExtent.x,0.001);
+        Assert.assertEquals(5.5,result.maxExtent.x,0.001);
+
+        Assert.assertEquals(5,result.minExtent.y,0.001);
+        Assert.assertEquals(6,result.maxExtent.y,0.001);
+
+        Assert.assertEquals(0.5,result.minExtent.z,0.001);
+        Assert.assertEquals( 1.5,result.maxExtent.z,0.001);
+        
+    }
+
+    @Test
+    public void testFiniteInBoundsWithInfinite() throws Exception {
+
+        AABB box = new AABB(new Vector3d(Double.POSITIVE_INFINITY),
+                new Vector3d(Double.NEGATIVE_INFINITY));
+
+        AABB result = box.getFiniteWithBounds(1,1,1, new AABB());
+
+        Assert.assertEquals(1,result.getSizeX(),0.001);
+        Assert.assertEquals(1,result.getSizeY(),0.001);
+        Assert.assertEquals(1,result.getSizeZ(),0.001);
+
+        Assert.assertEquals(-0.5,result.minExtent.x,0.001);
+        Assert.assertEquals(0.5,result.maxExtent.x,0.001);
+
+        Assert.assertEquals(-0.5,result.minExtent.y,0.001);
+        Assert.assertEquals(0.5,result.maxExtent.y,0.001);
+
+        Assert.assertEquals(-0.5,result.minExtent.z,0.001);
+        Assert.assertEquals( 0.5,result.maxExtent.z,0.001);
+
+    }
+
 }

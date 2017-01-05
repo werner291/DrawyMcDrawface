@@ -85,36 +85,51 @@ public class AABB {
     /**
      * Get a finite AABB inside this AABB that is roughly centered inside this one,
      * or sticking to an edge if half-infinite.
-     * <p>
-     * The parameters give a maximum size, but note tha tthe actual result may be much smaller.
      *
-     * @param maxWidth  The maximum width of the AABB (x)
-     * @param maxHeight The maximum height (y)
-     * @param maxLength The maximum length of the AABB (z)
+     * @param xSize  The width of the AABB (x)
+     * @param ySize The height (y)
+     * @param zSize The length of the AABB (z)
      * @param dest      Where to store the result
      * @return The result (same as dest)
      */
-    public AABB getFiniteWithBounds(double maxWidth, double maxHeight, double maxLength, AABB dest) {
+    public AABB getFiniteWithBounds(double xSize, double ySize, double zSize, AABB dest) {
 
-        Vector3d centeredOn = new Vector3d(getExtentMean(minExtent.x, maxExtent.x),
-                getExtentMean(minExtent.y, maxExtent.y),
-                getExtentMean(minExtent.z, maxExtent.z));
+        // Can an AABB of the specified size actually fit inside?
+        if (this.getSizeX() < xSize || this.getSizeY() < ySize || this.getSizeZ() < zSize) {
+            throw new ArithmeticException("Requested size AABB can never fit in this AABB.");
+        }
 
-        centeredOn.add(maxWidth / 2, maxHeight / 2, maxLength / 2, dest.maxExtent);
-        centeredOn.sub(maxWidth / 2, maxHeight / 2, maxLength / 2, dest.minExtent);
+        // The AABB will be centered around this position as much as possible
+        // If the AABB permits it, the result will be centered.
+        Vector3d centerIsh = new Vector3d(
+                getExtentMean(minExtent.x,maxExtent.x),
+                getExtentMean(minExtent.y,maxExtent.y),
+                getExtentMean(minExtent.z,maxExtent.z)
+        );
 
-        return dest.intersection(this, dest);
+        // Compute the minExtent while keepng it as centered as possible.
+        // As a mental model, imagine the bounds of {@code this} "pushing"
+        // the result around.
+        dest.minExtent.x = Math.min(Math.max(this.minExtent.x, centerIsh.x - xSize/2), this.maxExtent.x - xSize);
+        dest.minExtent.y = Math.min(Math.max(this.minExtent.y, centerIsh.y - ySize/2), this.maxExtent.y - ySize);
+        dest.minExtent.z = Math.min(Math.max(this.minExtent.z, centerIsh.z - zSize/2), this.maxExtent.z - zSize);
+
+        dest.maxExtent.x = dest.minExtent.x + xSize;
+        dest.maxExtent.y = dest.minExtent.y + ySize;
+        dest.maxExtent.z = dest.minExtent.z + zSize;
+
+        return dest;
     }
 
-    public double getHeight() {
+    public double getSizeY() {
         return maxExtent.y - minExtent.y;
     }
 
-    public double getWidth() {
+    public double getSizeX() {
         return maxExtent.x - minExtent.x;
     }
 
-    public double getDepth() {
+    public double getSizeZ() {
         return maxExtent.z - minExtent.z;
     }
 
@@ -206,5 +221,21 @@ public class AABB {
         maxExtent.add(translation, aabb.maxExtent);
 
         return aabb;
+    }
+
+    /**
+     * Srink the AABB towards the center.
+     *
+     * @param width
+     * @param height
+     * @param depth
+     * @param dest
+     * @return
+     */
+    public AABB shrinkTowardsCenter(double width, double height, double depth, AABB dest) {
+        dest.maxExtent.set(this.maxExtent).sub(width/2,height/2,depth/2);
+        dest.minExtent.set(this.minExtent).add(width/2,height/2,depth/2);
+
+        return dest;
     }
 }

@@ -1,5 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.ModelEditor.CreateEntityEditorCommand;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import org.junit.Test;
 

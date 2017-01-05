@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/DrawyMcDrawface.iml" filepath="$PROJECT_DIR$/DrawyMcDrawface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DrawyMcDrawface.iml" filepath="$PROJECT_DIR$/.idea/modules/DrawyMcDrawface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DrawyMcDrawface_main.iml" filepath="$PROJECT_DIR$/.idea/modules/DrawyMcDrawface_main.iml" group="DrawyMcDrawface" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/DrawyMcDrawface_test.iml" filepath="$PROJECT_DIR$/.idea/modules/DrawyMcDrawface_test.iml" group="DrawyMcDrawface" />
     </modules>
   </component>
 </project>
