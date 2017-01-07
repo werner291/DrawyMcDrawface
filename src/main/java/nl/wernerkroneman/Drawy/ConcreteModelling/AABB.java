@@ -224,7 +224,7 @@ public class AABB {
     }
 
     /**
-     * Srink the AABB towards the center.
+     * Shrink the AABB towards the center.
      *
      * @param width
      * @param height

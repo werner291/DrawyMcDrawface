@@ -1,13 +1,8 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.Thesaurus;
+import nl.wernerkroneman.Drawy.Modelling.Distance;
+import nl.wernerkroneman.Drawy.Modelling.FixedDistance;
 
-import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.ABOVE;
-import static nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement.RelativePosition.BELOW;
-
-/**
- * Created by werner on 1-1-17.
- */
 public class InterpretPhrases {
 
     //static Thesaurus thesaurus = new Thesaurus();
@@ -71,37 +66,11 @@ public class InterpretPhrases {
         throw new RuntimeException("Cannot de-pluralize " + name);
     }
 
+    public static Distance interpretDistance(SentencePart npadvmod) {
 
-    static RelativePositionStatement.RelativePosition determineRelativePosition(SentencePart preposition) {
+        SentencePart num = npadvmod.findFirstChild(c -> c.getRole().equals("num"));
 
-        if (preposition.getRootWord().equalsIgnoreCase("above")) {
-            return ABOVE;
-        } else if (preposition.getRootWord().equalsIgnoreCase("below") ||
-                preposition.getRootWord().equalsIgnoreCase("under")) {
-            return BELOW;
-        } else {
-            throw new UnsupportedOperationException("I don't know the preposition " + preposition.getRootWord());
-        }
-    }
+        return new FixedDistance(interpretInteger(num.getRootWord()));
 
-    /**
-     * Removes any direct conjuncts from the phrase.
-     * <p>
-     * "A red car, a bike or a boat" -> "A red car"
-     *
-     * @param phrase The phrase to clean up.
-     * @return A copy of the phrase, original is not modified.
-     */
-    private static SentencePart removeConjuncts(SentencePart phrase) {
-        SentencePart toClean = phrase.deepCopy();
-
-        for (int i = 0; i < toClean.children.size(); i++) {
-            if (toClean.children.get(i).getRole().equals("conj")) {
-                toClean.children = toClean.children.subList(0, i);
-                break;
-            }
-        }
-
-        return toClean;
     }
 }

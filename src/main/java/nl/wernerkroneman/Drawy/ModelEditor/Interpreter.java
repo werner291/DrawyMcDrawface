@@ -19,15 +19,21 @@ import java.util.stream.Collectors;
  */
 public class Interpreter {
 
+    private final PrepositionInterpreter prepositionInterpreter;
     KnowledgeResolver resolver;
     Knowledge knowledge;
     BlockingInteractorInterface iface;
 
-    public Interpreter(KnowledgeResolver resolver, Knowledge knowledge, BlockingInteractorInterface iface) {
+    public Interpreter(KnowledgeResolver resolver,
+                       Knowledge knowledge,
+                       BlockingInteractorInterface iface, // TODO reduce number of parameters
+                       PrepositionInterpreter prepositionInterpreter) {
 
         this.resolver = resolver;
         this.knowledge = knowledge;
         this.iface = iface;
+        this.prepositionInterpreter = prepositionInterpreter;
+        this.prepositionInterpreter.setInterpreter(this);
     }
 
     /**
@@ -159,7 +165,7 @@ public class Interpreter {
      * by interpretModel as sometimes deeper parts of the tree reveal things about
      * the context not known in advance. (Yay English!)
      */
-    private Model interpretModel(SentencePart phrase, Stack<Model> contextStack) {
+    Model interpretModel(SentencePart phrase, Stack<Model> contextStack) {
 
         int stackSizeAtStart = contextStack.size();
 
@@ -241,7 +247,7 @@ public class Interpreter {
         // TODO distinguish between prepositions on the composite and on individual objects.
         for (SentencePart child : phrase.children) {
             if (child.getRole().equals("prep")) {
-                processPreposition(child, contextStack);
+                prepositionInterpreter.processPreposition(child, contextStack);
             }
         }
 
@@ -274,63 +280,27 @@ public class Interpreter {
     private void processPreposition(SentencePart preposition,
                                     Stack<Model> relatesTo) {
 
+        // Allocate the constraint
+
+        // Match the preposition against one of the known preposition patterns.
+
+        /////////////////////////////////
+        // Find the preposition object //
+        /////////////////////////////////
+
         // Find what the preposition relates to.
         // For example, in "on a sphere", this would be "a sphere"
-        SentencePart prepObj = preposition.dfsFind(part -> part.getRole().equals("pobj"));
 
         // This is assumed to be impossible, but better check to make sure.
-        if (prepObj == null) {
-            throw new IllegalStateException("Preposition without object.");
-        }
 
         // Find the determinant of the pobj
-        SentencePart pobjDet = prepObj.dfsFind(part -> part.getRole().equals("det"));
 
-        // Allocate the constraint
-        RelativePositionConstraint positionConstraint = new RelativePositionConstraint();
-
-        // Determine relative position
-        positionConstraint.pos = InterpretPhrases.determineRelativePosition(preposition);
-
-        if (InterpretPhrases.isReciprocalPronoun(prepObj)) {
-            // Reciprocal pronoun ("each other", "one another")
-
-            if (relatesTo.peek() instanceof GroupModel) {
-                // Reciprocal pronoun prepositions apply between each element and the next,
-                // use the placeholders to indicate this.
-                positionConstraint.a = GroupModel.PLACEHOLDER_A;
-                positionConstraint.b = GroupModel.PLACEHOLDER_B;
-            } else {
-                throw new UnsupportedOperationException("Reciprocal pronoun as object of proposition on " +
-                        relatesTo.peek().getClass().getName() + " not supported or implemented.");
-            }
-
-        } else if ((pobjDet != null && pobjDet.getRootWord().equalsIgnoreCase("a"))) {
-
-            // Preposition calls for a relation with an object that still needs to be created
-            // Swap the stack top for a CompositeModel that has the stack top as a component.
-            CompositeModel compositeModel = new CompositeModel(preposition.getRootWord());
-            Model topModel = relatesTo.pop();
-            relatesTo.push(compositeModel);
-
-            // Set the constraints related objects as the topModel and the new object.
-            positionConstraint.a = compositeModel.addComponentForModel(topModel);
-            positionConstraint.b = compositeModel.addComponentForModel(interpretModel(prepObj, relatesTo));
-
-        } else {
-
-            throw new UnsupportedOperationException("Preposition with object like " + prepObj
-                    + " not supported or implemented yet.");
-        }
-
-        if (!(relatesTo.peek() instanceof RelativeConstraintContext)) {
-            // This should not occur, but check it just to make sure.
-            throw new IllegalStateException("Trying to apply relative constraint on something that is not a relative " +
-                    "constraint context.");
-        }
+        /////////////////////////////
+        // Find adverbial modifier //
+        /////////////////////////////
 
         // Apply the constraint.
-        ((RelativeConstraintContext) relatesTo.peek()).getConstraints().add(positionConstraint);
+        prepositionInterpreter.processPreposition(preposition, relatesTo);
     }
 
 }

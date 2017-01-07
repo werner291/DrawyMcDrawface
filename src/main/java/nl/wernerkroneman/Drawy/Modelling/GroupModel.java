@@ -35,6 +35,15 @@ public class GroupModel extends Model implements RelativeConstraintContext {
         this.memberType = memberType;
     }
 
+    @Override
+    public String toString() {
+        return "GroupModel{" +
+                "number=" + number +
+                ", memberType=" + memberType +
+                ", constraints=" + constraints +
+                '}';
+    }
+
     public int getNumber() {
         return number;
     }

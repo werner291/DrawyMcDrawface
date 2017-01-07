@@ -1,20 +1,23 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
-import nl.wernerkroneman.Drawy.ModelEditor.RelativePositionStatement;
+import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosition.DimensionOrder.*;
 
 public class RelativePositionConstraint extends Constraint {
     public RelativeConstraintContext.Positionable a, b;
-    public RelativePositionStatement.RelativePosition pos;
+    public RelativePosition pos;
+    public Distance dist = Distance.ANY;
 
     public RelativePositionConstraint() {
     }
 
     public RelativePositionConstraint(RelativeConstraintContext.Positionable a,
                                       RelativeConstraintContext.Positionable b,
-                                      RelativePositionStatement.RelativePosition pos) {
+                                      RelativePosition pos,
+                                      Distance dist) {
         this.a = a;
         this.b = b;
         this.pos = pos;
+        this.dist = dist;
     }
 
     public RelativeConstraintContext.Positionable getA() {
@@ -33,11 +36,11 @@ public class RelativePositionConstraint extends Constraint {
         this.b = b;
     }
 
-    public RelativePositionStatement.RelativePosition getPos() {
+    public RelativePosition getPos() {
         return pos;
     }
 
-    public void setPos(RelativePositionStatement.RelativePosition pos) {
+    public void setPos(RelativePosition pos) {
         this.pos = pos;
     }
 
@@ -49,4 +52,24 @@ public class RelativePositionConstraint extends Constraint {
                 ", pos=" + pos +
                 '}';
     }
+
+    public static class RelativePosition {
+
+        public enum DimensionOrder {
+            BEFORE,AFTER,SAME
+        }
+
+        public RelativePosition(DimensionOrder xRel, DimensionOrder yRel, DimensionOrder zRel) {
+            this.rel = new DimensionOrder[]{xRel,yRel,zRel};
+        }
+
+        public DimensionOrder[] rel;
+    }
+
+    public static RelativePosition ABOVE =  new RelativePosition(SAME,  AFTER,  SAME);
+    public static RelativePosition BELOW =  new RelativePosition(SAME,  BEFORE, SAME);
+    public static RelativePosition FRONT =  new RelativePosition(SAME,  SAME,   AFTER);
+    public static RelativePosition BEHIND = new RelativePosition(SAME,  SAME,   BEFORE);
+    public static RelativePosition LEFT =   new RelativePosition(BEFORE,SAME,   SAME);
+    public static RelativePosition RIGHT =  new RelativePosition(AFTER, SAME,   SAME);
 }

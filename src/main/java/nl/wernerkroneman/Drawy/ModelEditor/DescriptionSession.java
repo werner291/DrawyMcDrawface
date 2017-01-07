@@ -28,7 +28,10 @@ public class DescriptionSession {
 
         RecursiveSessionResolver interactiveResolver = new RecursiveSessionResolver(iface);
         KnowledgeResolver knowledgeResolver = new KnowledgeResolver(knowledge, iface, interactiveResolver);
-        Interpreter interpreter = new Interpreter(knowledgeResolver, knowledge, iface);
+        Interpreter interpreter = new Interpreter(knowledgeResolver,
+                knowledge,
+                iface,
+                new PrepositionInterpreter(StandardPhraseMatchers.relativePositionPhrases()));
         DescriptionSession descriptionSession = new DescriptionSession(interpreter, iface);
         interactiveResolver.setSessionContext(descriptionSession);
         return descriptionSession;
