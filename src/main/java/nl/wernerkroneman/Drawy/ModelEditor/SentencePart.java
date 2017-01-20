@@ -102,4 +102,14 @@ public class SentencePart {
 
         return copy;
     }
+
+    @Override
+    public String toString() {
+        return "SentencePart{" +
+                ", nature='" + nature + '\'' +
+                ", role='" + role + '\'' +
+                ", rootWord='" + rootWord + '\'' +
+                ", children=" + children +
+                '}';
+    }
 }

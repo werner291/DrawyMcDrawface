@@ -56,4 +56,9 @@ public class GroupModel extends Model implements RelativeConstraintContext {
     public Collection<Constraint> getConstraints() {
         return constraints;
     }
+
+    @Override
+    public <V> V accept(ModelVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
 }

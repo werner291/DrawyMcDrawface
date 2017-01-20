@@ -34,8 +34,6 @@ public class AbstractToConcrete {
 
         Scene result = new Scene();
 
-        Stack<Pair<Model,SceneNode>> algoStack = new Stack<>();
-
         createSceneNodeForModel(absModel, result.getRootSceneNode());
 
         return result;
@@ -54,6 +52,8 @@ public class AbstractToConcrete {
             computeSceneNodeForGroupModel((GroupModel) absModel, node);
         } else if (absModel instanceof PrimitiveModel) {
             computeSceneNodeForPrimitive((PrimitiveModel) absModel, node);
+        } else if (absModel instanceof AnyModel) {
+            createSceneNodeForModel(((AnyModel)absModel).getAny(), node);
         }
     }
 

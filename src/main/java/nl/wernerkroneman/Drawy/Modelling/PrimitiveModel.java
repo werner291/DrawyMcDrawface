@@ -24,4 +24,11 @@ public class PrimitiveModel extends Model {
     public enum ShapeType {
         CUBE, SPHERE, CYLINDER
     }
+
+    @Override
+    public <V> V accept(ModelVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+
+
 }

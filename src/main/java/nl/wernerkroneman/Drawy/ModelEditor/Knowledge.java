@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class Knowledge implements Serializable {
+public class Knowledge {
 
     Map<String, Model> knownObjects = new TreeMap<String, Model>(String.CASE_INSENSITIVE_ORDER);
 
@@ -30,20 +30,14 @@ public class Knowledge implements Serializable {
 
     void remember(String name, Model model) {
         knownObjects.put(name, model);
-
-        try (FileOutputStream file = new FileOutputStream("knowledge.txt")) {
-
-            ObjectOutputStream out = new ObjectOutputStream(file);
-
-            out.writeObject(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public int getNumberOfObjects() {
         return knownObjects.size();
+    }
+
+    public boolean isKnownObject(Model model) {
+        return knownObjects.values().stream().anyMatch(kO -> model.equals(kO));
     }
 
 }

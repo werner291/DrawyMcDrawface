@@ -13,4 +13,7 @@ public abstract class Model implements Serializable {
     public String getName() {
         return name;
     }
+
+    public abstract <V extends Object> V accept(ModelVisitor<V> visitor);
+
 }

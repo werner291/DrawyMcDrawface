@@ -1,6 +1,7 @@
 package nl.wernerkroneman.Drawy.Modelling;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -14,7 +15,12 @@ public class AnyModel extends Model {
         super(name);
     }
 
-    Model getAny() {
+    @Override
+    public <V> V accept(ModelVisitor<V> visitor) {
+        return visitor.visit(this);
+    }
+
+    public Model getAny() {
         return options.get(random.nextInt(options.size()));
     }
 
@@ -27,5 +33,9 @@ public class AnyModel extends Model {
 
     public void addOption(Model newSubjectDef) {
         options.add(newSubjectDef);
+    }
+
+    public Collection<Model> getOptions() {
+        return options;
     }
 }

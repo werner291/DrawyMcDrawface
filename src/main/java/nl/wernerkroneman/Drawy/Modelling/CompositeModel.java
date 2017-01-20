@@ -7,7 +7,7 @@ import java.util.Set;
 /**
  * The CompositeModel represents everything that DrawyMcDrawface
  * knows about the scene described so far.
- * 
+ * <p>
  * It describes the scene on a very high level, and deals
  * in constraints rather than realisations of those constraints.
  */
@@ -18,6 +18,11 @@ public class CompositeModel extends Model implements RelativeConstraintContext {
 
     public CompositeModel(String name) {
         super(name);
+    }
+
+    @Override
+    public <V> V accept(ModelVisitor<V> visitor) {
+        return visitor.visit(this);
     }
 
     public Component addComponentForModel(Model cube) {

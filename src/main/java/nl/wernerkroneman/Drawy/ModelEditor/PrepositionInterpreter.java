@@ -90,7 +90,9 @@ public class PrepositionInterpreter {
                         relatesTo.peek().getClass().getName() + " not supported or implemented.");
             }
 
-        } else if ((pobjDet != null && pobjDet.getRootWord().equalsIgnoreCase("a"))) {
+        } else if (pobjDet == null ||
+                  (pobjDet != null &&
+                          pobjDet.getRootWord().equalsIgnoreCase("a"))) {
 
             // Preposition calls for a relation with an object that still needs to be created
             // Swap the stack top for a CompositeModel that has the stack top as a component.
@@ -100,7 +102,8 @@ public class PrepositionInterpreter {
 
             // Set the constraints related objects as the topModel and the new object.
             positionConstraint.a = compositeModel.addComponentForModel(topModel);
-            positionConstraint.b = compositeModel.addComponentForModel(interpreter.interpretModel(prepObj, relatesTo));
+            positionConstraint.b = compositeModel.addComponentForModel(
+                    interpreter.interpretModel(prepObj, relatesTo));
 
         } else {
 
