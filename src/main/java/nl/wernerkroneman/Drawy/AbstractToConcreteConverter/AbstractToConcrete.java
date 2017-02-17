@@ -1,7 +1,6 @@
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 
 
-import javafx.util.Pair;
 import nl.wernerkroneman.Drawy.ConcreteModelling.*;
 import nl.wernerkroneman.Drawy.Modelling.*;
 import org.joml.Vector3d;
@@ -9,9 +8,6 @@ import org.joml.Vector3d;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Stack;
-
-import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosition.DimensionOrder.*;
 
 public class AbstractToConcrete {
 
@@ -181,53 +177,13 @@ public class AbstractToConcrete {
 
                 if (posConstrl.dist instanceof FixedDistance) {
 
-                    AABB constraintRestrictedSpace = new AABB();
-
-                    double dist = ((FixedDistance) posConstrl.dist).distance;
-
-                    for (int dim = 0; dim < 3; dim++) {
-                        switch (posConstrl.pos.rel[dim]) {
-                            case BEFORE:
-                                constraintRestrictedSpace.maxExtent.setComponent(dim,
-                                        Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.minExtent.get(dim) - dist));
-
-                                constraintRestrictedSpace.minExtent.setComponent(dim,allowedSpace.maxExtent.get(dim) - (size.get(dim)+0.01));
-                                break;
-                            case AFTER:
-                                constraintRestrictedSpace.minExtent.setComponent(dim,
-                                        Math.max(allowedSpace.minExtent.get(dim), relatedBBounds.maxExtent.get(dim) + dist));
-
-                                constraintRestrictedSpace.maxExtent.setComponent(dim,allowedSpace.minExtent.get(dim) + (size.get(dim)+0.01));
-                                break;
-                            case SAME:
-                                constraintRestrictedSpace.maxExtent.setComponent(dim,
-                                        Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.maxExtent.get(dim) + size.get(dim)));
-                                constraintRestrictedSpace.minExtent.setComponent(dim,
-                                        Math.max(allowedSpace.minExtent.get(dim), relatedBBounds.minExtent.get(dim) - size.get(dim)));
-                                break;
-                        }
-                    }
+                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForFixedDistance(size, relatedBBounds, (FixedDistance) posConstrl.dist, posConstrl.pos);
 
                     allowedSpace.intersection(constraintRestrictedSpace, allowedSpace);
                 } else {
-                    for (int dim = 0; dim < 3; dim++) {
-                        switch (posConstrl.pos.rel[dim]) {
-                            case BEFORE:
-                                allowedSpace.maxExtent.setComponent(dim,
-                                        Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.minExtent.get(dim)));
-                                break;
-                            case AFTER:
-                                allowedSpace.minExtent.setComponent(dim,
-                                        Math.max(allowedSpace.minExtent.get(dim), relatedBBounds.maxExtent.get(dim)));
-                                break;
-                            case SAME:
-                                allowedSpace.maxExtent.setComponent(dim,
-                                        Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.maxExtent.get(dim) + size.get(dim)));
-                                allowedSpace.minExtent.setComponent(dim,
-                                        Math.max(allowedSpace.minExtent.get(dim), relatedBBounds.minExtent.get(dim) - size.get(dim)));
-                                break;
-                        }
-                    }
+                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForAnyDistance(size, allowedSpace, relatedBBounds, posConstrl.pos);
+
+                    allowedSpace.intersection(constraintRestrictedSpace, allowedSpace);
                 }
             }
         }

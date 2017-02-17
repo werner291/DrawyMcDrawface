@@ -10,4 +10,5 @@ public interface ModelVisitor<ReturnT extends Object> {
 
     ReturnT visit(PrimitiveModel model);
 
+    ReturnT visit(PlaceholderModel model);
 }

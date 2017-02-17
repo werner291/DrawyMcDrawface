@@ -4,13 +4,12 @@ import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.Distance;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.json.simple.JSONObject;
+import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.Map;
 
 import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.ABOVE;
 
-public class KnowledgeJSONSerialiszerTest {
+public class KnowledgeJSONSerializerTest {
 
     @Test
     public void testSimple() {
@@ -25,15 +24,15 @@ public class KnowledgeJSONSerialiszerTest {
                 knowledge.getObject("Sphere"));
         composite.addConstraint(new RelativePositionConstraint(cube,sphere,ABOVE, Distance.ANY));
 
-        KnowledgeJSONSerialiszer serializer = new KnowledgeJSONSerialiszer();
+        KnowledgeJSONSerializer serializer = new KnowledgeJSONSerializer(knowledge);
 
-        JSONObject jsonObject = serializer.serializeKnowledge(knowledge);
+        JSONObject jsonObject = serializer.serializeKnowledge();
 
         System.out.println(jsonObject.toJSONString());
 
-        Knowledge reconstructed = serializer.deserializeKnowledge(jsonObject);
+        Knowledge reconstructed = KnowledgeJSONDeserializer.deserializeJSON(jsonObject);
 
-
+        //Assert.assertTrue(KnowledgeIntegrityChecker.checkIntegrity(reconstructed));
 
     }
 }

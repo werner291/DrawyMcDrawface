@@ -1,6 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.BlockingInteractor;
+import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
@@ -15,26 +15,13 @@ import java.util.List;
  */
 public class DescriptionSession {
 
-    private BlockingInteractor interactorIface;
     private Interpreter interpreter;
+    private BlockingInteractor interactorIface;
     private List<DescriptionSessionListener> listeners = new ArrayList<>();
 
     public DescriptionSession(Interpreter interpreter, BlockingInteractor interactorIface) {
         this.interpreter = interpreter;
         this.interactorIface = interactorIface;
-    }
-
-    public static DescriptionSession createDescriptionSession(Knowledge knowledge, BlockingInteractor iface) {
-
-        RecursiveSessionResolver interactiveResolver = new RecursiveSessionResolver(iface);
-        KnowledgeResolver knowledgeResolver = new KnowledgeResolver(knowledge, iface, interactiveResolver);
-        Interpreter interpreter = new Interpreter(knowledgeResolver,
-                knowledge,
-                iface,
-                new PrepositionInterpreter(StandardPhraseMatchers.relativePositionPhrases()));
-        DescriptionSession descriptionSession = new DescriptionSession(interpreter, iface);
-        interactiveResolver.setSessionContext(descriptionSession);
-        return descriptionSession;
     }
 
     public void start() {

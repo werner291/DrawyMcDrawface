@@ -1,6 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.BlockingInteractor;
+import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
 /**

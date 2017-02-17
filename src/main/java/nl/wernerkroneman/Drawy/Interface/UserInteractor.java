@@ -1,4 +1,4 @@
-package nl.wernerkroneman.Drawy;
+package nl.wernerkroneman.Drawy.Interface;
 
 import javax.swing.*;
 import java.awt.*;

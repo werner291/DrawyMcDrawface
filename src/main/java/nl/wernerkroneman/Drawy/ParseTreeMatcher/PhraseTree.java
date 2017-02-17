@@ -1,8 +1,7 @@
-package nl.wernerkroneman.Drawy.ModelEditor;
+package nl.wernerkroneman.Drawy.ParseTreeMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -12,30 +11,30 @@ import java.util.function.Predicate;
  * - A root word with a corresponding grammatical nature and role
  * - A list of sub-parts.
  */
-public class SentencePart {
+public class PhraseTree {
 
-    SentencePart parent;
+    PhraseTree parent;
 
     String nature;
     String role;
     String rootWord;
-    List<SentencePart> children = new ArrayList<>();
+    List<PhraseTree> children = new ArrayList<>();
 
-    public SentencePart(String word,String tag,String role) {
+    public PhraseTree(String word, String tag, String role) {
         this.nature = tag;
         this.rootWord = word;
         this.role = role;
     }
 
-    SentencePart dfsFind(Predicate<SentencePart> predicate) {
+    public PhraseTree dfsFind(Predicate<PhraseTree> predicate) {
 
         if (predicate.test(this)) {
             return this;
         }
 
-        for (SentencePart part : children)
+        for (PhraseTree part : children)
         {
-            SentencePart result = part.dfsFind(predicate);
+            PhraseTree result = part.dfsFind(predicate);
             if (result != null)
                 return result;
         }
@@ -43,10 +42,10 @@ public class SentencePart {
         return null;
     }
 
-    SentencePart findFirstChild(Predicate<SentencePart> predicate) {
+    public PhraseTree findFirstChild(Predicate<PhraseTree> predicate) {
 
-        for (SentencePart part : children) {
-            SentencePart result = part.dfsFind(predicate);
+        for (PhraseTree part : children) {
+            PhraseTree result = part.dfsFind(predicate);
             if (result != null)
                 return result;
         }
@@ -54,7 +53,7 @@ public class SentencePart {
         return null;
     }
 
-    String getNature()
+    public String getNature()
     {
         return nature;
     }
@@ -64,7 +63,7 @@ public class SentencePart {
         this.nature = nature;
     }
 
-    String getRole()
+    public String getRole()
     {
         return role;
     }
@@ -74,7 +73,7 @@ public class SentencePart {
         this.role = role;
     }
 
-    String getRootWord()
+    public String getRootWord()
     {
         return rootWord;
     }
@@ -84,19 +83,19 @@ public class SentencePart {
         this.rootWord = rootWord;
     }
 
-    void addChild(SentencePart part)
+    public void addChild(PhraseTree part)
     {
         if (part.parent != null) {
-            throw new IllegalStateException("SentencePart may not be a child to more than one parent.");
+            throw new IllegalStateException("PhraseTree may not be a child to more than one parent.");
         }
         part.parent = this;
         children.add(part);
     }
 
-    public SentencePart deepCopy() {
-        SentencePart copy = new SentencePart(this.rootWord, this.nature, this.role);
+    public PhraseTree deepCopy() {
+        PhraseTree copy = new PhraseTree(this.rootWord, this.nature, this.role);
 
-        for (SentencePart child : children) {
+        for (PhraseTree child : children) {
             copy.children.add(child.deepCopy());
         }
 
@@ -105,11 +104,15 @@ public class SentencePart {
 
     @Override
     public String toString() {
-        return "SentencePart{" +
+        return "PhraseTree{" +
                 ", nature='" + nature + '\'' +
                 ", role='" + role + '\'' +
                 ", rootWord='" + rootWord + '\'' +
                 ", children=" + children +
                 '}';
+    }
+
+    public List<PhraseTree> getChildren() {
+        return children;
     }
 }

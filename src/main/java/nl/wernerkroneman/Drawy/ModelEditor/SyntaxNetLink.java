@@ -1,12 +1,14 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 class SyntaxNetLink {
 
-    static ParseTree parse(String english) {
+    static PhraseTree parse(String english) {
 
         if (english.chars().anyMatch((int c) ->
                 !(Character.isAlphabetic(c) || Character.isDigit(c) || c == '.' || c == ',' || c == ' '))) {
@@ -43,7 +45,7 @@ class SyntaxNetLink {
 
                 System.err.println(parserOutput);
 
-                return new ParseTree(parserOutput);
+                return new ParseTree(parserOutput).getRootWord();
             }
 
         } catch (IOException e) {

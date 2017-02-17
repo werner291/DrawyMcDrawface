@@ -1,6 +1,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.BlockingInteractor;
+import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
 import nl.wernerkroneman.Drawy.Modelling.Model;
 
 import java.io.FileNotFoundException;
@@ -22,7 +22,9 @@ public class KnowledgeResolver implements ModelResolver {
     ModelResolver fallback;
     private Knowledge knowledge;
 
-    public KnowledgeResolver(Knowledge knowledge, BlockingInteractor interactor, ModelResolver fallback) {
+    public KnowledgeResolver(Knowledge knowledge,
+                             BlockingInteractor interactor,
+                             ModelResolver fallback) {
         this.knowledge = knowledge;
         this.interactor = interactor;
         this.fallback = fallback;
@@ -48,7 +50,7 @@ public class KnowledgeResolver implements ModelResolver {
             interactor.tellUser("TIL what " + name + " looks like.");
 
             if (interactor.askUserYesNo("Would you like me to remember this?")) {
-                knowledge.remember(name, toCreate);
+                knowledge.remember(toCreate);
 
                 try {
                     FileOutputStream fout = null;

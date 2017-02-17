@@ -5,21 +5,32 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class KnowledgeJSONSerialiszer implements ModelVisitor<JSONObject> {
+/**
+ * Class that converts a Knowledge into a JSON object.
+ *
+ * A Knowledge is provided on construction, and serializeKnowledge()
+ * is called to obtain a JSONObject that represents the Knowledge.
+ */
+public class KnowledgeJSONSerializer implements ModelVisitor<JSONObject> {
 
-    JSONObject serializeKnowledge(Knowledge knowledge) {
+    Knowledge knowledge;
+
+    public KnowledgeJSONSerializer(Knowledge knowledge) {
+        this.knowledge = knowledge;
+    }
+
+    JSONObject serializeKnowledge() {
 
         JSONObject obj = new JSONObject();
 
         obj.put("type","Knowledge");
 
-        JSONObject objects = new JSONObject();
+        JSONArray objects = new JSONArray();
 
-        objects.putAll(knowledge.knownObjects.entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getKey(),
-                        entry -> entry.getValue().accept(this))));
+        for (Map.Entry<String, Model> modelEntry : knowledge.knownObjects.entrySet()) {
+            objects.add(modelEntry.getValue().accept(this));
+        }
 
         obj.put("known_objects",objects);
 
@@ -33,11 +44,15 @@ public class KnowledgeJSONSerialiszer implements ModelVisitor<JSONObject> {
 
         obj.put("type", "Group");
 
-        obj.put("member_type", model.getMemberModelType().accept(this));
+        obj.put("member_type", modelOrRef(model.getMemberModelType()));
 
         obj.put("number", model.getNumber());
 
         return obj;
+    }
+
+    private Object modelOrRef(Model model) {
+        return knowledge.isKnownObject(model) ? model.getName() : model.accept(this);
     }
 
     @Override
@@ -49,7 +64,7 @@ public class KnowledgeJSONSerialiszer implements ModelVisitor<JSONObject> {
         JSONArray options = new JSONArray();
 
         for (Model option: model.getOptions()){
-            options.add(option.accept(this));
+            options.add(modelOrRef(option));
         }
 
         obj.put("options", options);
@@ -68,7 +83,7 @@ public class KnowledgeJSONSerialiszer implements ModelVisitor<JSONObject> {
 
         for (CompositeModel.Component comp: model.getComponents()){
             JSONObject component = new JSONObject();
-            component.put("model",comp.getModel().accept(this));
+            component.put("model",modelOrRef(comp.getModel()));
         }
 
         obj.put("components", components);
@@ -87,25 +102,12 @@ public class KnowledgeJSONSerialiszer implements ModelVisitor<JSONObject> {
         return obj;
     }
 
-    public Knowledge deserializeKnowledge(JSONObject obj) {
+    @Override
+    public JSONObject visit(PlaceholderModel model) {
+        JSONObject obj = new JSONObject();
 
-        if (! obj.get("type").equals("Knowledge")) {
-            throw new IllegalArgumentException("Object is not a Knowledge");
-        }
+        obj.put("type", "Placeholder");
 
-        JSONObject knownObjects = (JSONObject) obj.get("known_objects");
-
-        Knowledge knowledge = new Knowledge();
-
-        for (Object entryObj: knownObjects.entrySet()) {
-            Map.Entry<String,Object> entry = (Map.Entry<String,Object>) entryObj;
-
-            if (knowledge.getObject(entry.getKey()) == null) {
-                //deserializeTopLevelObject(knowledge);
-            }
-        }
-
-        return knowledge;
-
+        return obj;
     }
 }

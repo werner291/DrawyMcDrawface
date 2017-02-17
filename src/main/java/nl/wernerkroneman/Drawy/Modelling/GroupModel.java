@@ -28,8 +28,8 @@ public class GroupModel extends Model implements RelativeConstraintContext {
     public Model memberType;
     private Collection<Constraint> constraints = new ArrayList<>();
 
-    public GroupModel(int number, Model memberType) {
-        super(number + " x " + memberType.getName());
+    public GroupModel(int number, Model memberType, String name) {
+        super(name);
 
         this.number = number;
         this.memberType = memberType;

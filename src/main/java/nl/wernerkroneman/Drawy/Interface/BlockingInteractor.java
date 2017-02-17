@@ -1,4 +1,4 @@
-package nl.wernerkroneman.Drawy;
+package nl.wernerkroneman.Drawy.Interface;
 
 import nl.wernerkroneman.Drawy.ModelEditor.BlockingInteractorInterface;
 

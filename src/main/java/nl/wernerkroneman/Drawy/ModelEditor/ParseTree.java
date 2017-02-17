@@ -1,6 +1,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
 import javafx.util.Pair;
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree;
 
 import java.io.StringReader;
 import java.util.List;
@@ -9,10 +10,10 @@ import java.util.Stack;
 
 class ParseTree
 {
-    SentencePart rootWord;
+    PhraseTree rootWord;
 
     ParseTree(String parserOutput) {
-        Stack<SentencePart> parseStack = new Stack<>();
+        Stack<PhraseTree> parseStack = new Stack<>();
 
         Scanner strstr = new Scanner(new StringReader(parserOutput));
 
@@ -34,7 +35,7 @@ class ParseTree
             // Split up the remainder into word/nature/role
             String[] tokens = line.split(" ");
 
-            SentencePart part = new SentencePart(tokens[0], tokens[1] ,tokens[2]);
+            PhraseTree part = new PhraseTree(tokens[0], tokens[1] ,tokens[2]);
 
             if (depth == 0){
                 // This is the root
@@ -65,7 +66,7 @@ class ParseTree
     public String toString() {
         StringBuilder strstr = new StringBuilder();
 
-        Stack<Pair<SentencePart, Integer>> printStack = new Stack<>();
+        Stack<Pair<PhraseTree, Integer>> printStack = new Stack<>();
 
         printStack.push(new Pair<>(rootWord, 0));
 
@@ -76,7 +77,7 @@ class ParseTree
                 strstr.append('\n');
             }
 
-            SentencePart word = printStack.peek().getKey();
+            PhraseTree word = printStack.peek().getKey();
             int depth = printStack.peek().getValue();
 
             printStack.pop();
@@ -89,11 +90,11 @@ class ParseTree
                 strstr.append(" +-- ");
             }
 
-            strstr.append(word.getRootWord() + " " + word.nature + " " + word.getRole());
+            strstr.append(word.getRootWord() + " " + word.getNature() + " " + word.getRole());
 
-            List<SentencePart> children = word.children;
+            List<PhraseTree> children = word.getChildren();
             for (int i = children.size()-1; i >= 0;--i) {
-                SentencePart child = children.get(i);
+                PhraseTree child = children.get(i);
                 printStack.push(new Pair<>(child, depth + 1));
             }
         }
@@ -101,7 +102,7 @@ class ParseTree
         return strstr.toString();
     }
 
-    SentencePart getRootWord()
+    PhraseTree getRootWord()
     {
         return rootWord;
     }

@@ -3,15 +3,13 @@ package nl.wernerkroneman.Drawy.ModelEditor;
 import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 public class PhraseMatcherTest {
     @Test
     public void match() throws Exception {
         
         PhraseMatcher pattern = PhraseMatcher.compilePattern("* * * hello");
 
-        SentencePart phrase = new SentencePart("foo", "bar", "baz");
+        PhraseTree phrase = new PhraseTree("foo", "bar", "baz");
 
         PhraseMatcher.MatchResult result = pattern.match(phrase);
 
@@ -24,7 +22,7 @@ public class PhraseMatcherTest {
 
         PhraseMatcher pattern = PhraseMatcher.compilePattern("foo bar * hello");
 
-        SentencePart phrase = new SentencePart("foo", "bar", "baz");
+        PhraseTree phrase = new PhraseTree("foo", "bar", "baz");
 
         PhraseMatcher.MatchResult result = pattern.match(phrase);
 
@@ -38,8 +36,8 @@ public class PhraseMatcherTest {
         PhraseMatcher pattern = PhraseMatcher.compilePattern("foo bar *\n" +
                 " bar * baz child");
 
-        SentencePart phrase = new SentencePart("foo", "bar", "baz");
-        SentencePart child = new SentencePart("bar", "bar", "baz");
+        PhraseTree phrase = new PhraseTree("foo", "bar", "baz");
+        PhraseTree child = new PhraseTree("bar", "bar", "baz");
         phrase.addChild(child);
 
         PhraseMatcher.MatchResult result = pattern.match(phrase);
@@ -56,12 +54,12 @@ public class PhraseMatcherTest {
                 "  of * *\n" +
                 "   * * pobj relObj");
 
-        SentencePart phrase = new SentencePart("on", "bar", "baz");
-        SentencePart child = new SentencePart("top", "bar", "baz");
+        PhraseTree phrase = new PhraseTree("on", "bar", "baz");
+        PhraseTree child = new PhraseTree("top", "bar", "baz");
         phrase.addChild(child);
-        SentencePart grandChild = new SentencePart("of", "bar", "baz");
+        PhraseTree grandChild = new PhraseTree("of", "bar", "baz");
         child.addChild(grandChild);
-        SentencePart greatGrandChild = new SentencePart("car", "NN", "pobj");
+        PhraseTree greatGrandChild = new PhraseTree("car", "NN", "pobj");
         grandChild.addChild(greatGrandChild);
 
         PhraseMatcher.MatchResult result = pattern.match(phrase);
@@ -75,7 +73,7 @@ public class PhraseMatcherTest {
 
         PhraseMatcher pattern = PhraseMatcher.compilePattern("foo bar * hello");
 
-        SentencePart phrase = new SentencePart("foo", "ar", "baz");
+        PhraseTree phrase = new PhraseTree("foo", "ar", "baz");
 
         PhraseMatcher.MatchResult result = pattern.match(phrase);
 

@@ -12,24 +12,25 @@ import java.util.TreeMap;
 
 public class Knowledge {
 
+    // @inv For each entry: model name matches key
     Map<String, Model> knownObjects = new TreeMap<String, Model>(String.CASE_INSENSITIVE_ORDER);
 
     public static Knowledge knowledgeWithPrimitives() {
         Knowledge knowledge = new Knowledge();
 
-        knowledge.remember("Cube", new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube"));
-        knowledge.remember("Cylinder", new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder"));
-        knowledge.remember("Sphere", new PrimitiveModel(PrimitiveModel.ShapeType.SPHERE, "Sphere"));
+        knowledge.remember(new PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube"));
+        knowledge.remember(new PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder"));
+        knowledge.remember(new PrimitiveModel(PrimitiveModel.ShapeType.SPHERE, "Sphere"));
 
         return knowledge;
     }
 
-    Model getObject(String name) {
+    public Model getObject(String name) {
         return knownObjects.get(name);
     }
 
-    void remember(String name, Model model) {
-        knownObjects.put(name, model);
+    public void remember(Model model) {
+        knownObjects.put(model.getName(), model);
     }
 
     public int getNumberOfObjects() {

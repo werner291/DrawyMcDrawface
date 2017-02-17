@@ -7,15 +7,20 @@ package nl.wernerkroneman.Drawy;/*
 
 import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
 import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
-import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
+//import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
+//import nl.wernerkroneman.Drawy.Interface.UserInteractor;
+//import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
+//import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
+//import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
+import nl.wernerkroneman.Drawy.Modelling.FixedDistance;
 import nl.wernerkroneman.Drawy.Modelling.Model;
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 
 import javax.swing.*;
@@ -23,10 +28,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.ABOVE;
+
 public class DrawyMcDrawFace {
 
     public static void main(String[] args) {
-        JFrame frame = new JFrame();
+        /*JFrame frame = new JFrame();
 
         frame.setTitle("DrawyMcDrawface");
 
@@ -49,6 +56,14 @@ public class DrawyMcDrawFace {
 
         // Initialize empty knowledge
         Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
+
+        CompositeModel snowman = new CompositeModel("snowman");
+
+        CompositeModel.Component head = snowman.addComponentForModel(knowledge.getObject("sphere"));
+        CompositeModel.Component body = snowman.addComponentForModel(knowledge.getObject("sphere"));
+        snowman.addConstraint(new RelativePositionConstraint(head,body,ABOVE,new FixedDistance(0)));
+
+        knowledge.remember(snowman);
 
         System.out.println("Loaded " + knowledge.getNumberOfObjects() + " concepts. ");
 
@@ -83,10 +98,10 @@ public class DrawyMcDrawFace {
         });
         timer.start();
 
-        session.start();
+        session.start();*/
     }
 
-    private static class MyDescriptionSessionListener implements DescriptionSessionListener {
+    /*private static class MyDescriptionSessionListener implements DescriptionSessionListener {
         private final AbstractToConcrete converter;
         private final GlVisualiser visualiser;
         private final GLCanvas glcanvas;
@@ -117,5 +132,5 @@ public class DrawyMcDrawFace {
         public void recursiveSessionStarted(DescriptionSession recursiveSession) {
 
         }
-    }
+    }*/
 }
