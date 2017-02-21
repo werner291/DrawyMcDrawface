@@ -12,11 +12,10 @@ public class PhrasePatternTest {
     @Test
     public void matchAgainst() throws Exception {
 
-        PhrasePattern pattern = new PhrasePattern(Object.class,
-                new PhraseTreeNodeBuilder()
+        PhrasePattern pattern =  new PhrasePatternBuilder()
                         .setWord("Hello")
-                        .createPhraseTreeNode(),
-                (a)->null);
+                        .setNoChildren()
+                        .create();
 
         PhraseTree phrase = new PhraseTree("Hello","NN", "root");
 
@@ -31,40 +30,33 @@ public class PhrasePatternTest {
     @Test
     public void matchAgainstPatternWithChild() throws Exception {
 
-        PhrasePattern pattern = new PhrasePattern(Object.class,
-                new PhraseTreeNodeBuilder()
+        PhrasePattern pattern = new PhrasePatternBuilder()
                         .setWord("Hello")
                         .setChildren(
-                                new PhraseTreeNodeBuilder()
+                                new PhrasePatternBuilder()
                                         .setWord("world")
-                                        .createPhraseTreeNode()
-                        ).createPhraseTreeNode(),
-                (a)->null);
+                                        .create()
+                        ).create();
 
         PhraseTree phrase = new PhraseTree("Hello","NN", "root");
         phrase.addChild(new PhraseTree("world", "NN", "nobj"));
 
         assertTrue(pattern.matchAgainst(phrase).matches);
     }
-    
-    static class Foo {}
 
     @Test
     public void matchAgainstPatternWithChildAndDependency() throws Exception {
 
-        PhrasePattern pattern = new PhrasePattern(Object.class,
-                new PhraseTreeNodeBuilder()
-                        .setWord("Hello")
-                        .setChildren(
-                                new PhraseTreeNodeBuilder()
-                                        .setWord("world")
-                                        .createPhraseTreeNode(),
-                                new PhraseTreeNodeBuilder()
-                                        .setRequiredSubpatternType(Foo.class)
-                                        .setName("testdependency")
-                                        .createPhraseTreeNode()
-                        ).createPhraseTreeNode(),
-                (a)->null);
+        PhrasePattern pattern = new PhrasePatternBuilder()
+                .setWord("Hello")
+                .setChildren(
+                        new PhrasePatternBuilder()
+                                .setWord("world")
+                                .create(),
+                        new PhrasePatternBuilder()
+                                .setName("testdependency")
+                                .create()
+                ).create();
 
         PhraseTree phrase = new PhraseTree("Hello","NN", "root");
         phrase.addChild(new PhraseTree("world", "NN", "nobj"));
@@ -74,8 +66,32 @@ public class PhrasePatternTest {
         assertTrue(matchResult.matches);
 
         assertEquals(1,matchResult.capturings.size());
-        assertEquals(1,matchResult.dependencies.size());
         assertEquals("bar",matchResult.capturings.get("testdependency").getRootWord());
+    }
+
+    @Test
+    public void matchAgainstPatternAnychildNochild() throws Exception {
+
+        PhrasePattern anychild = new PhrasePatternBuilder()
+                .setWord("Hello")
+                .setAnyChildren()
+                .create();
+
+        PhrasePattern noChild = new PhrasePatternBuilder()
+                .setWord("Hello")
+                .setNoChildren()
+                .create();
+
+        PhraseTree phrase = new PhraseTree("Hello","NN", "root");
+        phrase.addChild(new PhraseTree("world", "NN", "nobj"));
+
+        PhrasePattern.MatchResult matchResult = anychild.matchAgainst(phrase);
+        assertTrue(matchResult.matches);
+
+        PhrasePattern.MatchResult matchResult2 = noChild.matchAgainst(phrase);
+        assertFalse(matchResult2.matches);
+
+
     }
 
 }

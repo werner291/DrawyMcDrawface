@@ -27,16 +27,16 @@ public class ParseTreeTest {
         Assert.assertEquals("VB", tree.getRootWord().getNature());
 
         // Randomly check tree structure
-        Assert.assertEquals(1, tree.getRootWord().children.size());
+        Assert.assertEquals(1, tree.getRootWord().getChildren().size());
 
-        Assert.assertEquals(2, tree.getRootWord().children.get(0).children.size());
+        Assert.assertEquals(2, tree.getRootWord().getChildren().get(0).getChildren().size());
 
         // Check correct parsing of one of the children
-        Assert.assertEquals("cubes", tree.getRootWord().children.get(0).children.get(1).getRootWord());
+        Assert.assertEquals("cubes", tree.getRootWord().getChildren().get(0).getChildren().get(1).getRootWord());
 
-        Assert.assertEquals("nsubj", tree.getRootWord().children.get(0).children.get(1).getRole());
+        Assert.assertEquals("nsubj", tree.getRootWord().getChildren().get(0).getChildren().get(1).getRole());
 
-        Assert.assertEquals("NNS", tree.getRootWord().children.get(0).children.get(1).getNature());
+        Assert.assertEquals("NNS", tree.getRootWord().getChildren().get(0).getChildren().get(1).getNature());
 
         Assert.assertEquals(parserOutput, tree.toString());
     }
@@ -52,7 +52,7 @@ public class ParseTreeTest {
 
         Assert.assertEquals("VB", tree.getRootWord().getNature());
 
-        Assert.assertEquals(0, tree.getRootWord().children.size());
+        Assert.assertEquals(0, tree.getRootWord().getChildren().size());
 
     }
 

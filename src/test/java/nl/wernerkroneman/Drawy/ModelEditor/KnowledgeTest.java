@@ -8,7 +8,7 @@ import org.junit.Test;
 public class KnowledgeTest {
 
     @Test
-    public static void knowledgeVariantTest() {
+    public void knowledgeVariantTest() {
 
     }
 

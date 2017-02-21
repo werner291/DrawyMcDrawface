@@ -2,6 +2,7 @@ package nl.wernerkroneman.Drawy.ModelEditor;
 
 import nl.wernerkroneman.Drawy.ModelEditor.ParseTree;
 import nl.wernerkroneman.Drawy.ModelEditor.SyntaxNetLink;
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -10,28 +11,28 @@ public class ParserLinkTest {
     @Test
     public void simpleTest1() {
 
-        ParseTree parsed = SyntaxNetLink.parse("Let there be 15 cubes.");
+        PhraseTree parsed = SyntaxNetLink.parse("Let there be 15 cubes.");
 
         // Check whether the root word was parsed correctly
-        Assert.assertEquals(parsed.getRootWord().getRootWord(), "Let");
+        Assert.assertEquals(parsed.getRootWord(), "Let");
 
-        Assert.assertEquals(parsed.getRootWord().getRole(), "ROOT");
+        Assert.assertEquals(parsed.getRole(), "ROOT");
 
-        Assert.assertEquals(parsed.getRootWord().getNature(), "VB");
+        Assert.assertEquals(parsed.getNature(), "VB");
 
     }
 
     @Test
     public void simpleTest2() {
 
-        ParseTree parsed = SyntaxNetLink.parse("The quick brown fox jumps over the lazy dog.");
+        PhraseTree parsed = SyntaxNetLink.parse("The quick brown fox jumps over the lazy dog.");
 
         // Check whether the root word was parsed correctly
-        Assert.assertEquals(parsed.getRootWord().getRootWord(), "jumps");
+        Assert.assertEquals(parsed.getRootWord(), "jumps");
 
-        Assert.assertEquals(parsed.getRootWord().getRole(), "ROOT");
+        Assert.assertEquals(parsed.getRole(), "ROOT");
 
-        Assert.assertEquals(parsed.getRootWord().getNature(), "VBZ");
+        Assert.assertEquals(parsed.getNature(), "VBZ");
 
     }
 

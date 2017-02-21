@@ -11,21 +11,21 @@ import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.*;
 
 public class InterpreterTest {
 
-    Interpreter getInterpreter(CompositeModel model) {
+    MainInterpreter getInterpreter(CompositeModel model) {
         Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
 
-        return new Interpreter(new KnowledgeResolver(knowledge, null, null), null, null, new PrepositionInterpreter(StandardPhraseMatchers.relativePositionPhrases()));
+        return new MainInterpreter();
     }
 
     @Test
     public void interpreterTest1() {
 
         CompositeModel scene = new CompositeModel("Scene");
-        List<EditorCommand> result = getInterpreter(scene).interpret("Create a cube.", scene);
+        EditorCommand result = getInterpreter(scene).interpret("Create a cube.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
+        Assert.assertTrue(result instanceof CreateEntityEditorCommand);
 
-        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result;
 
         Assert.assertTrue(stmt.what instanceof PrimitiveModel);
 
@@ -39,11 +39,11 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<EditorCommand> result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
+        EditorCommand result = getInterpreter(scene).interpret("Add a cylinder or two.", scene);
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
+        Assert.assertTrue(result instanceof CreateEntityEditorCommand);
 
-        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result.get(0);
+        CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result;
 
         Assert.assertTrue(stmt.what instanceof GroupModel);
 
@@ -58,15 +58,15 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<EditorCommand> result = getInterpreter(scene).interpret("A cube above a sphere", scene);
+        EditorCommand result = getInterpreter(scene).interpret("A cube above a sphere", scene);
 
-        Assert.assertEquals(1, result.size());
+        Assert.assertNotNull(result);
 
         // ----------------------
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
+        Assert.assertTrue(result instanceof CreateEntityEditorCommand);
 
-        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
+        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
         Assert.assertTrue(stmtA.what instanceof CompositeModel);
 
@@ -95,15 +95,15 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<EditorCommand> result = getInterpreter(scene).interpret("A cube 5 units above a sphere", scene);
+        EditorCommand result = getInterpreter(scene).interpret("A cube 5 units above a sphere", scene);
 
-        Assert.assertEquals(1, result.size());
+        Assert.assertNotNull(result);
 
         // ----------------------
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
+        Assert.assertTrue(result instanceof CreateEntityEditorCommand);
 
-        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
+        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
         Assert.assertTrue(stmtA.what instanceof CompositeModel);
 
@@ -134,15 +134,15 @@ public class InterpreterTest {
 
         CompositeModel scene = new CompositeModel("Scene");
 
-        List<EditorCommand> result = getInterpreter(scene).interpret("500 cubes above each other", scene);
+        EditorCommand result = getInterpreter(scene).interpret("500 cubes above each other", scene);
 
-        Assert.assertEquals(1, result.size());
+        Assert.assertNotNull(result);
 
         // ----------------------
 
-        Assert.assertTrue(result.get(0) instanceof CreateEntityEditorCommand);
+        Assert.assertTrue(result instanceof CreateEntityEditorCommand);
 
-        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result.get(0);
+        CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
         Assert.assertTrue(stmtA.what instanceof GroupModel);
 

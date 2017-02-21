@@ -15,11 +15,11 @@ import java.util.List;
  */
 public class DescriptionSession {
 
-    private Interpreter interpreter;
+    private MainInterpreter interpreter;
     private BlockingInteractor interactorIface;
     private List<DescriptionSessionListener> listeners = new ArrayList<>();
 
-    public DescriptionSession(Interpreter interpreter, BlockingInteractor interactorIface) {
+    public DescriptionSession(MainInterpreter interpreter, BlockingInteractor interactorIface) {
         this.interpreter = interpreter;
         this.interactorIface = interactorIface;
     }
@@ -38,22 +38,14 @@ public class DescriptionSession {
                 break;
             }
 
-            List<EditorCommand> results = interpreter.interpret(line, scene);
+            EditorCommand stmt = interpreter.interpret(line, scene);
 
             interactorIface.tellUser("Interpreted: ");
 
-            for (EditorCommand stmt : results) {
                 interactorIface.tellUser(stmt.toString());
-            }
-
-            if (results.isEmpty()) {
-                interactorIface.tellUser("Unable to interpret. Guess I'm too stupid.");
-            }
 
             if (interactorIface.askUserYesNo("Is this correct?")) {
-                for (EditorCommand cmd : results) {
-                    cmd.apply();
-                }
+                stmt.apply();
             }
 
             notifyChanged(scene);

@@ -1,131 +1,123 @@
 package nl.wernerkroneman.Drawy.ParseTreeMatcher;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
-import java.util.*;
-import java.util.function.Function;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
- * A structure containing a phrase tree pattern,
- * the class represented by that pattern,
- * and the factory function that produces the object.
+ * Represents a node in a phrase tree pattern,
+ * and the root of a sub-tree.
  */
 public class PhrasePattern {
 
-    Class representsType;
+    public static class MatchResult {
+        public boolean matches;
+        public Map<String, PhraseTree> capturings = new HashMap<>();
+    }
 
-    PhraseTreeNode patternRoot;
+    // Regexes for the word, nature and role
+    // Null means any will do.
+    Pattern word, nature, role;
 
-    public PhrasePattern(Class representsType,
-                         PhraseTreeNode patternRoot,
-                         Function<MatchResult, Object> resultProcessor) {
-        this.representsType = representsType;
-        this.patternRoot = patternRoot;
-        this.resultProcessor = resultProcessor;
+    // If not null, MatchResults capturings will include reference
+    // to phrase tree under this key name
+    String name;
+
+    // How many times to repeat this pattern.
+    // Note: meaningless on root pattern
+    int repeat = 1;
+
+    // List of child patterns.
+    // If null, ignore any children.
+    // If not null, children must match exactly.
+    // Empty list means no children allowed.
+    List<PhrasePattern> children;
+
+    public PhrasePattern(Pattern word,
+                         Pattern nature,
+                         Pattern role,
+                         String name,
+                         int repeat,
+                         List<PhrasePattern> children) {
+        this.word = word;
+        this.nature = nature;
+        this.role = role;
+        this.name = name;
+        this.repeat = repeat;
+        this.children = children;
     }
 
     public MatchResult matchAgainst(PhraseTree phrase) {
+        MatchResult matchResult = new MatchResult();
 
-        MatchResult result = new MatchResult();
+        matchResult.matches = this.matchAgainstImpl(phrase, matchResult);
 
-        result.matches = patternRoot.matchAgainst(phrase, result);
-
-        return result;
-
+        return matchResult;
     }
 
-    public static class MatchResult {
-        boolean matches;
-        int matchScore;
-        Map<String, PhraseTree> capturings = new HashMap<>();
-        public Map<String, Object> dependencies = new HashMap<>();
-    }
+    protected boolean matchAgainstImpl(PhraseTree phrase, MatchResult result) {
 
-    Function<PhrasePattern.MatchResult, ? extends Object> resultProcessor;
+        // First, verify that the word, nature and role match the regexes
+        if ((word == null || word.matcher(phrase.getRootWord()).find()) &&
+                (nature == null || nature.matcher(phrase.getNature()).find()) &&
+                        (role == null || role.matcher(phrase.getRole()).find())) {
 
-    /**
-     * Represents a node in a phrase tree pattern,
-     * and the root of a sub-tree.
-     */
-    static class PhraseTreeNode {
-        Pattern word, nature, role;
-        String name;
-        Class requiredSubpatternType = null;
-        int repeat = 1;
-
-        List<PhraseTreeNode> children;
-
-        public PhraseTreeNode(Pattern word,
-                              Pattern nature,
-                              Pattern role,
-                              String name,
-                              Class requiredSubpatternType,
-                              int repeat,
-                              List<PhraseTreeNode> children) {
-            this.word = word;
-            this.nature = nature;
-            this.role = role;
-            this.name = name;
-            this.requiredSubpatternType = requiredSubpatternType;
-            this.repeat = repeat;
-            this.children = children;
-
-            // Check invariants:
-            if (name == null && requiredSubpatternType != null) {
-                throw new IllegalArgumentException("Anonymous dependencies not allowed");
+            // If necessary, capture
+            if (name != null) {
+                result.capturings.put(name, phrase);
             }
 
-            if (requiredSubpatternType != null &&
-                    (this.children != null && !this.children.isEmpty())) {
-                throw new IllegalArgumentException("Phrase tree node cannot both have" +
-                        " children and represent a dependency.");
-            }
-        }
-
-        public boolean matchAgainst(PhraseTree phrase, MatchResult result) {
-
-            if ((word == null || word.matcher(phrase.getRootWord()).find()) &&
-                    (nature == null || nature.matcher(phrase.getNature()).find()) &&
-                            (role == null || role.matcher(phrase.getRole()).find())) {
-
-                if (name != null) {
-                    result.capturings.put(name, phrase);
-                    if (requiredSubpatternType != null) {
-                        result.dependencies.put(name,phrase);
-                    }
-                }
-
-                ListIterator<PhraseTree> phraseItr = phrase.children.listIterator();
-
-                if (this.children.isEmpty() && !phrase.children.isEmpty()){
+            // If information about children is present,
+            // match the children
+            if (this.children != null) {
+                if (!matchChildren(phrase, result)) {
                     return false;
                 }
+            }
 
-                for (PhraseTreeNode pattern : this.children) {
+            // Matches!
+            return true;
+        } else {
+            return false;
+        }
 
-                    for (int copies = pattern.repeat; copies > 0; copies--) {
+    }
 
-                        if (!phraseItr.hasNext()) {
-                            return false;
-                        } else {
-                            PhraseTree phraseChild = phraseItr.next();
+    // Match the children with each other
+    private boolean matchChildren(PhraseTree phrase, MatchResult result) {
+        // Get an iterator over the children of the phrase
+        ListIterator<PhraseTree> phraseItr = phrase.children.listIterator();
 
-                            if (!pattern.matchAgainst(phraseChild,result)){
-                                return false;
-                            }
-                        }
+        // If no children are allowed, but it has children, fail test
+        if (this.children.isEmpty() && !phrase.children.isEmpty()) {
+            return false;
+        }
 
+        // Try to consume all children with the child patterns
+        for (PhrasePattern pattern : this.children) {
+
+            // Repeat for required number of times
+            for (int copies = pattern.repeat; copies > 0; copies--) {
+
+                if (!phraseItr.hasNext()) {
+                    // There should be a child, but there isn't.
+                    return false;
+                } else {
+                    PhraseTree phraseChild = phraseItr.next();
+
+                    // Recursive matching
+                    if (!pattern.matchAgainstImpl(phraseChild, result)) {
+                        return false;
                     }
-
                 }
 
-                return true;
-            } else {
-                return false;
             }
 
         }
-    }
 
+        // All children should have been consumed.
+        return !phraseItr.hasNext();
+    }
 }
