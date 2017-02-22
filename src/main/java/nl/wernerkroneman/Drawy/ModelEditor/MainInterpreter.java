@@ -24,13 +24,19 @@ public class MainInterpreter {
     Collection<InterpreterEntry> patterns = new ArrayList<>();
 
     public MainInterpreter() {
+
+        Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
         
         CreateCommandInterpreter createCommandInterpreter =
                 new CreateCommandInterpreter(this);
 
+        KnowledgeModelInterpreter knowledgeModelInterpreter =
+                new KnowledgeModelInterpreter(this, knowledge);
+
         patterns.add(new InterpreterEntry(createCommandInterpreter,
                 new PhrasePatternBuilder()
                         .setRole("ROOT")
+                        .setNature("NN")
                         .setName("what")
                         .create()));
 
@@ -52,12 +58,18 @@ public class MainInterpreter {
                 new PhrasePatternBuilder()
                         .setWord("Create")
                         .addChild(new PhrasePatternBuilder()
-                                        .setName("what")
-                                        .create())
+                                .setName("what")
+                                .create())
                         .addChild(new PhrasePatternBuilder()
-                                        .setRole("punct")
-                                        .create()
-                ).create()));
+                                .setRole("punct")
+                                .create()
+                        ).create()));
+
+        patterns.add(new InterpreterEntry(knowledgeModelInterpreter,
+                new PhrasePatternBuilder()
+                        .setNature("NN")
+                        .setName("object name")
+                        .create()));
     }
 
     /**
@@ -79,14 +91,8 @@ public class MainInterpreter {
 
         System.out.println("Interpreted as " + result);
 
-        return null;
+        return (EditorCommand) result;
     }
-
-    Function<PhrasePattern.MatchResult, Object> modelProcessor =
-            (PhrasePattern.MatchResult result) -> {
-
-        return null;
-    };
 
     /**
      * Attempt to interpret the phrase according to the interpretation rules.

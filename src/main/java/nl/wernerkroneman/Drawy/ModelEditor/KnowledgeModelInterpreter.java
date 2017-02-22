@@ -23,19 +23,16 @@ public class KnowledgeModelInterpreter
 
     @Override
     public Class getInterpretedTypePrediction() {
-        return CreateEntityEditorCommand.class;
+        return Model.class;
     }
 
     @Override
     public Model createObject(Map<String, PhraseTree> capturings) {
-        // Allocate a new command, TODO supply the scene somehow
-        CreateEntityEditorCommand createStmt = new CreateEntityEditorCommand(null);
 
-        Stack<Model> modelStack = new Stack<>();
+        // Try retrieveing the object by name
+        String objectName = capturings.get("object name").getRootWord();
+        Model model = knowledge.getObject(objectName);
 
-        createStmt.what = (Model) subtreeInterpreter.interpret(capturings.get("what"),
-                (e) -> Model.class.isAssignableFrom(e.objectFactory.getInterpretedTypePrediction()));
-
-        return createStmt;
+        return model;
     }
 }
