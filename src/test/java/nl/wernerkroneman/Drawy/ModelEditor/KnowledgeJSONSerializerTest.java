@@ -14,7 +14,7 @@ public class KnowledgeJSONSerializerTest {
     @Test
     public void testSimple() {
 
-        Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
+        Knowledge knowledge = Knowledge.Companion.knowledgeWithPrimitives();
 
         CompositeModel composite = new CompositeModel("cube above sphere");
 
@@ -30,7 +30,7 @@ public class KnowledgeJSONSerializerTest {
 
         System.out.println(jsonObject.toJSONString());
 
-        Knowledge reconstructed = KnowledgeJSONDeserializer.deserializeJSON(jsonObject);
+        Knowledge reconstructed = KnowledgeJSONDeserializer.INSTANCE.deserializeJSON(jsonObject);
 
         //Assert.assertTrue(KnowledgeIntegrityChecker.checkIntegrity(reconstructed));
 

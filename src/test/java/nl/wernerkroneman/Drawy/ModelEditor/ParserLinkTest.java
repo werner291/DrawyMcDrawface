@@ -1,7 +1,5 @@
 package nl.wernerkroneman.Drawy.ModelEditor;
 
-import nl.wernerkroneman.Drawy.ModelEditor.ParseTree;
-import nl.wernerkroneman.Drawy.ModelEditor.SyntaxNetLink;
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree;
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,7 +9,7 @@ public class ParserLinkTest {
     @Test
     public void simpleTest1() {
 
-        PhraseTree parsed = SyntaxNetLink.parse("Let there be 15 cubes.");
+        PhraseTree parsed = SyntaxNetLink.INSTANCE.parse("Let there be 15 cubes.");
 
         // Check whether the root word was parsed correctly
         Assert.assertEquals(parsed.getRootWord(), "Let");
@@ -25,7 +23,7 @@ public class ParserLinkTest {
     @Test
     public void simpleTest2() {
 
-        PhraseTree parsed = SyntaxNetLink.parse("The quick brown fox jumps over the lazy dog.");
+        PhraseTree parsed = SyntaxNetLink.INSTANCE.parse("The quick brown fox jumps over the lazy dog.");
 
         // Check whether the root word was parsed correctly
         Assert.assertEquals(parsed.getRootWord(), "jumps");

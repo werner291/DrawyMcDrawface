@@ -14,6 +14,7 @@ public class PhrasePattern {
 
     public static class MatchResult {
         public boolean matches;
+        double matchScore = 0.0;
         public Map<String, PhraseTree> capturings = new HashMap<>();
     }
 
@@ -60,28 +61,36 @@ public class PhrasePattern {
     protected boolean matchAgainstImpl(PhraseTree phrase, MatchResult result) {
 
         // First, verify that the word, nature and role match the regexes
-        if ((word == null || word.matcher(phrase.getRootWord()).find()) &&
-                (nature == null || nature.matcher(phrase.getNature()).find()) &&
-                        (role == null || role.matcher(phrase.getRole()).find())) {
-
-            // If necessary, capture
-            if (name != null) {
-                result.capturings.put(name, phrase);
-            }
-
-            // If information about children is present,
-            // match the children
-            if (this.children != null) {
-                if (!matchChildren(phrase, result)) {
-                    return false;
-                }
-            }
-
-            // Matches!
-            return true;
-        } else {
+        if (word != null && !word.matcher(phrase.getRootWord()).find()){
             return false;
         }
+
+        if (nature == null || nature.matcher(phrase.getNature()).find()) {
+            return false;
+        }
+
+        if (role == null || role.matcher(phrase.getRole()).find()) {
+            return false;
+        }
+
+        // If information about children is present, match the children
+        if (this.children != null && !matchChildren(phrase, result)) {
+            return false;
+        }
+
+        ////////////////////
+        // -- Matches! -- //
+        ////////////////////
+
+        // Increase match score
+        result.matchScore += 1.0;
+
+        // If necessary, capture
+        if (name != null) {
+            result.capturings.put(name, phrase);
+        }
+
+        return true;
 
     }
 

@@ -17,7 +17,7 @@ public class KnowledgeIntegrityChecker implements ModelVisitor {
     static boolean checkIntegrity(Knowledge knowledge) {
         KnowledgeIntegrityChecker instance = new KnowledgeIntegrityChecker(knowledge);
 
-        for (Map.Entry<String, Model> modelEntry: knowledge.knownObjects.entrySet()) {
+        for (Map.Entry<String, Model> modelEntry: knowledge.getKnownObjects().entrySet()) {
 
 
 

@@ -12,7 +12,7 @@ import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.*;
 public class InterpreterTest {
 
     MainInterpreter getInterpreter(CompositeModel model) {
-        Knowledge knowledge = Knowledge.knowledgeWithPrimitives();
+        Knowledge knowledge = Knowledge.Companion.knowledgeWithPrimitives();
 
         return new MainInterpreter();
     }
@@ -27,9 +27,9 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result;
 
-        Assert.assertTrue(stmt.what instanceof PrimitiveModel);
+        Assert.assertTrue(stmt.getWhat() instanceof PrimitiveModel);
 
-        Assert.assertEquals("Cube", stmt.what.getName());
+        Assert.assertEquals("Cube", stmt.getWhat().getName());
 
     }
 
@@ -45,11 +45,11 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmt = (CreateEntityEditorCommand) result;
 
-        Assert.assertTrue(stmt.what instanceof GroupModel);
+        Assert.assertTrue(stmt.getWhat() instanceof GroupModel);
 
-        Assert.assertEquals(1, ((GroupModel) stmt.what).getNumber());
+        Assert.assertEquals(1, ((GroupModel) stmt.getWhat()).getNumber());
 
-        Assert.assertEquals("Cylinder", ((GroupModel) stmt.what).getMemberModelType().getName());
+        Assert.assertEquals("Cylinder", ((GroupModel) stmt.getWhat()).getMemberModelType().getName());
 
     }
 
@@ -68,14 +68,14 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
-        Assert.assertTrue(stmtA.what instanceof CompositeModel);
+        Assert.assertTrue(stmtA.getWhat() instanceof CompositeModel);
 
-        Assert.assertTrue(((CompositeModel) stmtA.what).getComponents().stream()
+        Assert.assertTrue(((CompositeModel) stmtA.getWhat()).getComponents().stream()
                 .allMatch(a -> a.getModel() instanceof PrimitiveModel));
 
-        Assert.assertEquals(1, ((CompositeModel) stmtA.what).getConstraints().size());
+        Assert.assertEquals(1, ((CompositeModel) stmtA.getWhat()).getConstraints().size());
 
-        Constraint constraint = ((CompositeModel) stmtA.what).getConstraints().iterator().next();
+        Constraint constraint = ((CompositeModel) stmtA.getWhat()).getConstraints().iterator().next();
         Assert.assertTrue(constraint instanceof RelativePositionConstraint);
 
         Assert.assertEquals(ABOVE, ((RelativePositionConstraint)constraint).pos);
@@ -105,14 +105,14 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
-        Assert.assertTrue(stmtA.what instanceof CompositeModel);
+        Assert.assertTrue(stmtA.getWhat() instanceof CompositeModel);
 
-        Assert.assertTrue(((CompositeModel) stmtA.what).getComponents().stream()
+        Assert.assertTrue(((CompositeModel) stmtA.getWhat()).getComponents().stream()
                 .allMatch(a -> a.getModel() instanceof PrimitiveModel));
 
-        Assert.assertEquals(1, ((CompositeModel) stmtA.what).getConstraints().size());
+        Assert.assertEquals(1, ((CompositeModel) stmtA.getWhat()).getConstraints().size());
 
-        Constraint constraint = ((CompositeModel) stmtA.what).getConstraints().iterator().next();
+        Constraint constraint = ((CompositeModel) stmtA.getWhat()).getConstraints().iterator().next();
         Assert.assertTrue(constraint instanceof RelativePositionConstraint);
 
         RelativePositionConstraint positionConstraint = (RelativePositionConstraint) constraint;
@@ -144,11 +144,11 @@ public class InterpreterTest {
 
         CreateEntityEditorCommand stmtA = (CreateEntityEditorCommand) result;
 
-        Assert.assertTrue(stmtA.what instanceof GroupModel);
+        Assert.assertTrue(stmtA.getWhat() instanceof GroupModel);
 
-        Assert.assertTrue(((GroupModel) stmtA.what).getMemberModelType() instanceof PrimitiveModel);
+        Assert.assertTrue(((GroupModel) stmtA.getWhat()).getMemberModelType() instanceof PrimitiveModel);
 
-        Assert.assertEquals(500, ((GroupModel) stmtA.what).getNumber());
+        Assert.assertEquals(500, ((GroupModel) stmtA.getWhat()).getNumber());
 
         stmtA.apply();
 
