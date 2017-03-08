@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.*
@@ -41,8 +60,8 @@ object KnowledgeJSONDeserializer {
                 }
 
                 return GroupModel(serialized["number"] as Int,
-                        deserializeObject(knowledge, serialized.get("member_type") as Any),
-                        (serialized["number"] as Int).toString() + " x " + deserializeObject(knowledge, serialized.get("member_type") as Any)!!.getName())
+                        deserializeObject(knowledge, serialized.get("member_type")!!)!!,
+                        (serialized["number"] as Int).toString() + " x " + deserializeObject(knowledge, serialized.get("member_type") as Any)!!.name)
 
             } else if (serialized["type"] == "Composite") {
 
@@ -52,7 +71,7 @@ object KnowledgeJSONDeserializer {
                     val componentJSON = obj as JSONObject
 
                     compositeModel.addComponentForModel(
-                            deserializeObject(knowledge, componentJSON.get("model") as Any))
+                            deserializeObject(knowledge, componentJSON.get("model") as Any)!!)
                 }
 
                 return compositeModel
@@ -64,7 +83,7 @@ object KnowledgeJSONDeserializer {
                 for (obj in serialized["options"] as JSONArray) {
                     val optionJSON = obj as JSONObject
 
-                    anyModel.addOption(deserializeObject(knowledge, optionJSON))
+                    anyModel.addOption(deserializeObject(knowledge, optionJSON)!!)
                 }
 
                 return anyModel

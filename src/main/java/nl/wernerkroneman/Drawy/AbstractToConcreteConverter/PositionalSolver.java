@@ -1,9 +1,28 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
-import nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext;
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
 import nl.wernerkroneman.Drawy.Modelling.Constraint;
+import nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext;
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
 import org.joml.Vector3d;
 
@@ -49,9 +68,9 @@ public class PositionalSolver {
             double translateMaxZ = Math.min(fitInsideSpace.maxExtent.z - initialSolution.maxExtent.z, limit);
 
             Vector3d translation = new Vector3d(
-                translateMinX + Math.random() * (translateMaxX - translateMinX),
-                translateMinY + Math.random() * (translateMaxY - translateMinY),
-                translateMinZ + Math.random() * (translateMaxZ - translateMinZ)
+                    translateMinX + Math.random() * (translateMaxX - translateMinX),
+                    translateMinY + Math.random() * (translateMaxY - translateMinY),
+                    translateMinZ + Math.random() * (translateMaxZ - translateMinZ)
             );
 
             initialSolution.translate(translation, candidate);

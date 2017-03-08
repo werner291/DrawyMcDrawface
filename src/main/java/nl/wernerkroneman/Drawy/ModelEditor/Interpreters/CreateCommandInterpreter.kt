@@ -1,29 +1,56 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import nl.wernerkroneman.Drawy.ModelEditor.CreateEntityEditorCommand
-import nl.wernerkroneman.Drawy.ModelEditor.MainInterpreter
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel
 import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import java.util.Stack
 
 /**
- * Generate a creation command for the object(s) described in this sentence part.* @param scene A supplier that provides a scene when executed in which to create the object
+ * Generate a creation command for the object(s) described in this sentence part.
+ * @param scene A supplier that provides a scene when executed in which to create the object
  */
-class CreateCommandInterpreter(internal var subtreeInterpreter: MainInterpreter) : MainInterpreter.InterpretedObjectFactory<CreateEntityEditorCommand> {
+class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
+    : PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: Class<*>
         get() = CreateEntityEditorCommand::class.java
 
-    override fun createObject(capturings: Map<String, PhraseTree>): CreateEntityEditorCommand? {
-        // Allocate a new command, TODO supply the scene somehow
-        val createStmt = CreateEntityEditorCommand({null})
+    override fun interpret(capturings: Map<String, PhraseTree>,
+                           context: MutableList<Any>): CreateEntityEditorCommand? {
+
+        val createStmt = CreateEntityEditorCommand(
+                {
+                    context.filter({ it is CompositeModel })
+                            .last() as CompositeModel
+                }
+        )
 
         val phraseTree = capturings["what"]!!
 
-        createStmt.what = subtreeInterpreter.interpret(phraseTree,
-                {entry : MainInterpreter.InterpreterEntry ->
-            Model::class.java.isAssignableFrom(entry.objectFactory.interpretedTypePrediction)
-        }) as Model?
+        createStmt.what = interpreter.interpret(
+                phraseTree,
+                { Model::class.java.isAssignableFrom(it.objectFactory.interpretedTypePrediction) }
+        ) as Model
 
         return createStmt
     }

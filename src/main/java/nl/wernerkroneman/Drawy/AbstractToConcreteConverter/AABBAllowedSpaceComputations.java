@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
@@ -13,7 +32,7 @@ public class AABBAllowedSpaceComputations {
         AABB constraintRestrictedSpace = new AABB();
 
         for (int dim = 0; dim < 3; dim++) {
-            switch (pos.rel[dim]) {
+            switch (pos.getRel()[dim]) {
                 case BEFORE:
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.minExtent.get(dim)));
@@ -50,11 +69,11 @@ public class AABBAllowedSpaceComputations {
                                                           RelativePositionConstraint.RelativePosition pos) {
         AABB constraintRestrictedSpace = new AABB();
 
-        double dist = distance.distance;
+        double dist = distance.getDistance();
 
         // Iterate over all dimensions (X,Y,Z)
         for (int dim = 0; dim < 3; dim++) {
-            switch (pos.rel[dim]) {
+            switch (pos.getRel()[dim]) {
                 case BEFORE: // Extent has to end before the other object
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             relatedBBounds.minExtent.get(dim) - dist);

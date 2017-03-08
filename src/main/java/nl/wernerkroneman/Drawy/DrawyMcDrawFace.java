@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy;/*
  * main.cpp
  *
@@ -5,30 +24,13 @@ package nl.wernerkroneman.Drawy;/*
  *      Author: werner
  */
 
-import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete;
-import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser;
 //import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
 //import nl.wernerkroneman.Drawy.Interface.UserInteractor;
 //import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
 //import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
-import com.jogamp.opengl.GLCapabilities;
-import com.jogamp.opengl.GLProfile;
-import com.jogamp.opengl.awt.GLCanvas;
-import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
-import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
 //import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel;
-import nl.wernerkroneman.Drawy.Modelling.FixedDistance;
-import nl.wernerkroneman.Drawy.Modelling.Model;
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint;
-import org.joml.Vector3d;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.ABOVE;
+//import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.ABOVE;
 
 public class DrawyMcDrawFace {
 

@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
 
 
@@ -162,7 +181,7 @@ public class AbstractToConcrete {
     private AABB computeAllowedSpace(PositionResolutionContext.Component toPlace, Vector3d size) {
 
         AABB allowedSpace = new AABB(new Vector3d(Double.POSITIVE_INFINITY),
-                                     new Vector3d(Double.NEGATIVE_INFINITY));
+                new Vector3d(Double.NEGATIVE_INFINITY));
 
         for (PositionResolutionContext.Component.Constraint constr : toPlace.constraintRelatedTo) {
             if (constr.abstractConstraint instanceof RelativePositionConstraint) {
@@ -175,13 +194,13 @@ public class AbstractToConcrete {
                 AABB relatedBBounds = constr.relativeTo.node.computeLocalAABB().transform(constr.relativeTo.node
                         .getTransform(), new AABB());
 
-                if (posConstrl.dist instanceof FixedDistance) {
+                if (posConstrl.getDist() instanceof FixedDistance) {
 
-                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForFixedDistance(size, relatedBBounds, (FixedDistance) posConstrl.dist, posConstrl.pos);
+                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForFixedDistance(size, relatedBBounds, (FixedDistance) posConstrl.getDist(), posConstrl.getPos());
 
                     allowedSpace.intersection(constraintRestrictedSpace, allowedSpace);
                 } else {
-                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForAnyDistance(size, allowedSpace, relatedBBounds, posConstrl.pos);
+                    AABB constraintRestrictedSpace = AABBAllowedSpaceComputations.computeAllowedAABBForAnyDistance(size, allowedSpace, relatedBBounds, posConstrl.getPos());
 
                     allowedSpace.intersection(constraintRestrictedSpace, allowedSpace);
                 }

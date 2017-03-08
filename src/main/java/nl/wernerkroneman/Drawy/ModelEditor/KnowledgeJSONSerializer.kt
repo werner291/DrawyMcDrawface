@@ -1,3 +1,22 @@
+/*
+ * Copyright (c) 2017 Werner Kroneman
+ *
+ * This file is part of DrawyMcDrawface.
+ *
+ * DrawyMcDrawface is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * DrawyMcDrawface is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.*
@@ -37,13 +56,13 @@ class KnowledgeJSONSerializer(internal var knowledge: Knowledge) : ModelVisitor<
 
         obj.put("member_type", modelOrRef(model.memberModelType))
 
-        obj.put("number", model.getNumber())
+        obj.put("number", model.number)
 
         return obj
     }
 
     private fun modelOrRef(model: Model): Any {
-        return if (knowledge.isKnownObject(model)) model.getName() else model.accept(this)
+        return if (knowledge.isKnownObject(model)) model.name else model.accept(this)
     }
 
     override fun visit(model: AnyModel): JSONObject {
@@ -72,7 +91,7 @@ class KnowledgeJSONSerializer(internal var knowledge: Knowledge) : ModelVisitor<
 
         for (comp in model.components) {
             val component = JSONObject()
-            component.put("model", modelOrRef(comp.model))
+            component.put("model", modelOrRef(comp.model!!))
         }
 
         obj.put("components", components)
