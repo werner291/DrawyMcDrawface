@@ -31,61 +31,57 @@ class PhrasePatternBuilder {
     private var nature: Pattern? = null
     private var role: Pattern? = null
     private var name: String? = null
-    private var repeat: Int? = 1
+    private var repeatMin: Int = 1
+    private var repeatMax: Int? = 1
     private var children: MutableList<PhrasePattern>? = null
 
-    fun setWord(word: Pattern): PhrasePatternBuilder {
+    fun word(word: Pattern): PhrasePatternBuilder {
         this.word = word
         return this
     }
 
-    fun setNature(nature: Pattern): PhrasePatternBuilder {
+    fun nature(nature: Pattern): PhrasePatternBuilder {
         this.nature = nature
         return this
     }
 
-    fun setRole(role: Pattern): PhrasePatternBuilder {
+    fun role(role: Pattern): PhrasePatternBuilder {
         this.role = role
         return this
     }
 
 
-    fun setWord(word: String): PhrasePatternBuilder {
+    fun word(word: String): PhrasePatternBuilder {
         this.word = Pattern.compile(word)
         return this
     }
 
-    fun setNature(nature: String): PhrasePatternBuilder {
+    fun nature(nature: String): PhrasePatternBuilder {
         this.nature = Pattern.compile(nature)
         return this
     }
 
-    fun setRole(role: String): PhrasePatternBuilder {
+    fun role(role: String): PhrasePatternBuilder {
         this.role = Pattern.compile(role)
         return this
     }
 
-    fun setName(name: String): PhrasePatternBuilder {
+    fun name(name: String): PhrasePatternBuilder {
         this.name = name
         return this
     }
 
-    fun setRepeat(repeat: Int): PhrasePatternBuilder {
-        this.repeat = repeat
-        return this
-    }
-
-    fun setChildren(children: MutableList<PhrasePattern>): PhrasePatternBuilder {
+    fun children(children: MutableList<PhrasePattern>): PhrasePatternBuilder {
         this.children = children
         return this
     }
 
-    fun setChildren(vararg children: PhrasePattern): PhrasePatternBuilder {
+    fun children(vararg children: PhrasePattern): PhrasePatternBuilder {
         this.children = Arrays.asList(*children)
         return this
     }
 
-    fun addChild(child: PhrasePattern): PhrasePatternBuilder {
+    fun child(child: PhrasePattern): PhrasePatternBuilder {
         if (this.children == null) {
             this.children = ArrayList<PhrasePattern>()
         }
@@ -93,16 +89,20 @@ class PhrasePatternBuilder {
         return this
     }
 
-    fun create(): PhrasePattern {
-        return PhrasePattern(word, nature, role, name, repeat, children)
+    fun child(build: PhrasePatternBuilder.()->Unit): PhrasePatternBuilder {
+        return child(buildPattern(build))
     }
 
-    fun setAnyChildren(): PhrasePatternBuilder {
+    fun create(): PhrasePattern {
+        return PhrasePattern(word, nature, role, name, repeatMin, repeatMax, children)
+    }
+
+    fun anyChildren(): PhrasePatternBuilder {
         this.children = null
         return this
     }
 
-    fun setNoChildren(): PhrasePatternBuilder {
+    fun noChildren(): PhrasePatternBuilder {
 
         if (this.children == null) {
             this.children = ArrayList<PhrasePattern>()
@@ -113,8 +113,27 @@ class PhrasePatternBuilder {
         return this
     }
 
-    fun setRepeatAny(): PhrasePatternBuilder {
-        repeat = null;
-        return this;
+    fun repeat(repeatMin: Int, repeatMax: Int? = repeatMin): PhrasePatternBuilder {
+        this.repeatMin = repeatMin
+        this.repeatMax = repeatMax
+        return this
     }
+
+    fun repeatAny(): PhrasePatternBuilder {
+        repeatMin = 1
+        repeatMax = null
+        return this
+    }
+
+    fun optional(optional: Boolean = true): PhrasePatternBuilder {
+        repeatMin = 0
+        repeatMax = 1
+        return this
+    }
+}
+
+fun buildPattern(build: PhrasePatternBuilder.()->Unit) : PhrasePattern {
+    val builder = PhrasePatternBuilder()
+    builder.build()
+    return builder.create()
 }

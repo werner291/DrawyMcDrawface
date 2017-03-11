@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters;
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
+import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.Distance.Companion.ANY
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
@@ -37,10 +38,14 @@ class RelativePositionInterpreter(val relPos: RelativePositionConstraint.Relativ
                            context: MutableList<Any>): Any? {
 
         if (context.isEmpty()) {
+
             throw IllegalStateException("Relative position makes no sense without context.")
 
         } else if (context.last() is Model) {
-            // Creat eht composite
+
+            // TODO should I perhaps move this to the model interpreter?
+
+            // Create the composite
             val composite = CompositeModel()
 
             // Put the context model  into the component
@@ -52,14 +57,33 @@ class RelativePositionInterpreter(val relPos: RelativePositionConstraint.Relativ
             // Interpret whatever this thing ig relative to
             val relativeTo = modelInterpreter.interpret(
                     capturings["relative_to"]!!,
-                    { Model::class.java.isAssignableFrom(it.objectFactory.interpretedTypePrediction) },
+                    Model::class,
                     context) as Model
 
             // Create a component for it.
             val componentB = composite.addComponentForModel(relativeTo)
 
+            // ----------------------------
+            // Create the actual constraint
+
+            val distance = when (capturings["distance"]) {
+                null -> Distance.ANY
+                else -> modelInterpreter.interpret(
+                        phrase = capturings["distance"]!!,
+                            type = Distance::class,
+                            context = context
+                        ) ?: Distance.ANY
+            } as Distance
+
             // Finally,add the constraint.
-            composite.addConstraint(RelativePositionConstraint(componentA, componentB, relPos, ANY))
+            val relativePositionConstraint = RelativePositionConstraint(
+                    a = componentA, b = componentB, pos = relPos, dist = distance)
+
+
+
+            composite.addConstraint(relativePositionConstraint)
+
+            return relativePositionConstraint
 
         } else {
             throw UnsupportedOperationException("Unknown context: " + context)

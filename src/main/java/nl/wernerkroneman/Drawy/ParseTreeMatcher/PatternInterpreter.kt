@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
 import java.util.*
+import kotlin.reflect.KClass
 
 /**
  * Framework interpreter that allows one to map
@@ -43,13 +44,13 @@ open class PatternInterpreter {
      * @return
      */
     fun interpret(phrase: PhraseTree,
-                  filter: (InterpreterEntry) -> Boolean = { true },
+                  type: KClass<out Any> = Any::class,
                   context: MutableList<Any> = mutableListOf()): Any? {
 
         val contextStartSize = context.size
 
         for (entry in patterns) {
-            if (filter(entry)) {
+            if (type.java.isAssignableFrom(entry.objectFactory.interpretedTypePrediction)) {
                 val result = entry.pattern.matchAgainst(phrase)
 
                 if (result.matches) {

@@ -20,12 +20,14 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.CreateCommandInterpreter
+import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.DistanceInterpreter
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.ModelInterpreter
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.RelativePositionInterpreter
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BELOW
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
 
 /**
  * Created by werner on 8-3-17.
@@ -40,65 +42,80 @@ fun createDefaultModelInterpreter(): PatternInterpreter {
 
     val createCommandInterpreter = CreateCommandInterpreter(interpreter)
 
+    val distanceInterpreter = DistanceInterpreter()
+
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
-                    .setRole("ROOT")
-                    .setNature("NN")
-                    .setName("what")
+                    .role("ROOT")
+                    .nature("NN")
+                    .name("what")
                     .create())
 
     interpreter.addPattern(modelInterpreter,
             PhrasePatternBuilder()
-                    .setNature("NN")
-                    .setName("name")
+                    .nature("NN")
+                    .name("name")
                     .create())
 
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
-                    .setWord("Give")
-                    .addChild(PhrasePatternBuilder()
-                            .setWord("me")
+                    .word("Give")
+                    .child(PhrasePatternBuilder()
+                            .word("me")
                             .create())
-                    .addChild(PhrasePatternBuilder()
-                            .setName("what")
+                    .child(PhrasePatternBuilder()
+                            .name("what")
                             .create())
-                    .addChild(PhrasePatternBuilder()
-                            .setRole("punct")
+                    .child(PhrasePatternBuilder()
+                            .role("punct")
                             .create()
                     ).create())
 
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
-                    .setWord("Create")
-                    .addChild(PhrasePatternBuilder()
-                            .setName("what")
+                    .word("Create")
+                    .child(PhrasePatternBuilder()
+                            .name("what")
                             .create())
-                    .addChild(PhrasePatternBuilder()
-                            .setRole("punct")
+                    .child(PhrasePatternBuilder()
+                            .role("punct")
                             .create()
                     ).create())
 
     interpreter.addPattern(RelativePositionInterpreter(ABOVE, interpreter),
             PhrasePatternBuilder()
-                    .setRole("prep")
-                    .setWord("above")
-                    .setChildren(
+                    .role("prep")
+                    .word("above")
+                    .children(
+                            buildPattern {
+                                role("npadvmod")
+                                name("distance")
+                                optional()},
                             PhrasePatternBuilder()
-                                    .setRole("pobj")
-                                    .setName("relative_to")
+                                    .role("pobj")
+                                    .name("relative_to")
                                     .create()
                     ).create())
 
     interpreter.addPattern(RelativePositionInterpreter(BELOW, interpreter),
             PhrasePatternBuilder()
-                    .setRole("prep")
-                    .setWord("below")
-                    .setChildren(
+                    .role("prep")
+                    .word("below")
+                    .children(
                             PhrasePatternBuilder()
-                                    .setRole("pobj")
-                                    .setName("relative_to")
+                                    .role("pobj")
+                                    .name("relative_to")
                                     .create()
                     ).create())
+
+    interpreter.addPattern(distanceInterpreter,
+            buildPattern {
+                nature("NN*")
+                child( buildPattern {
+                            nature("CD")
+                            role("num")
+                })
+            })
 
     return interpreter
 

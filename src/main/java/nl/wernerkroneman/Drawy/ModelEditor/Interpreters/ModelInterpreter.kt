@@ -23,7 +23,6 @@ import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 
 class ModelInterpreter(internal val knowledge: Knowledge,
@@ -37,7 +36,7 @@ class ModelInterpreter(internal val knowledge: Knowledge,
                            context: MutableList<Any>): Model {
 
         var phrase = capturings.get("name") ?:
-                throw InvalidStateException("No name capturing")
+                throw IllegalStateException("No name capturing")
 
         val simpleModel: Model = knowledge.getObject(phrase.rootWord) ?:
                 throw NoSuchElementException("No known model named " + phrase.rootWord)

@@ -64,38 +64,38 @@ class PatternInterpreterTest {
 
         terp.patterns.add(PatternInterpreter.InterpreterEntry(FooInterpreter(),
                 PhrasePatternBuilder()
-                        .setWord("Foo")
+                        .word("Foo")
                         .create()))
 
         terp.patterns.add(PatternInterpreter.InterpreterEntry(BarInterpreter(),
                 PhrasePatternBuilder()
-                        .setWord("Bar")
+                        .word("Bar")
                         .create()))
 
         terp.patterns.add(PatternInterpreter.InterpreterEntry(BazInterpreter(),
                 PhrasePatternBuilder()
-                        .setWord("Bar")
-                        .addChild(PhrasePatternBuilder()
-                                .setWord("Baz")
+                        .word("Bar")
+                        .child(PhrasePatternBuilder()
+                                .word("Baz")
                                 .create())
                         .create()))
 
         val testPhrase = PhraseTree("Bar", "TEST", "TEST")
 
-        val result = terp.interpret(testPhrase, { true })
+        val result = terp.interpret(testPhrase)
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
         testPhrase.addChild(PhraseTree("Troll", "TEST", "TEST"))
 
-        val result2 = terp.interpret(testPhrase, { true })
+        val result2 = terp.interpret(testPhrase)
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
         testPhrase.children.clear()
         testPhrase.addChild(PhraseTree("Baz", "TEST", "TEST"))
 
-        val result3 = terp.interpret(testPhrase, { true })
+        val result3 = terp.interpret(testPhrase)
         Assert.assertTrue(result3 is Bar)
         Assert.assertFalse(result3 is Baz)
 

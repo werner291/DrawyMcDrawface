@@ -49,7 +49,7 @@ class MainInterpreter(val interpreter: PatternInterpreter = createDefaultModelIn
         val tree = SyntaxNetLink.parse(toInterpret)
 
         val result = interpreter.interpret(tree,
-                filter = { true },
+                Any::class,
                 context = mutableListOf(rootContext))
 
         println("Interpreted as " + result)

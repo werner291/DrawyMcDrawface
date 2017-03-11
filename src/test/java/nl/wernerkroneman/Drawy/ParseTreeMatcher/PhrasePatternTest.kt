@@ -32,8 +32,8 @@ class PhrasePatternTest {
     fun matchAgainst() {
 
         val pattern = PhrasePatternBuilder()
-                .setWord("Hello")
-                .setNoChildren()
+                .word("Hello")
+                .noChildren()
                 .create()
 
         val phrase = PhraseTree("Hello", "NN", "root")
@@ -51,10 +51,10 @@ class PhrasePatternTest {
     fun matchAgainstPatternWithChild() {
 
         val pattern = PhrasePatternBuilder()
-                .setWord("Hello")
-                .setChildren(
+                .word("Hello")
+                .children(
                         PhrasePatternBuilder()
-                                .setWord("world")
+                                .word("world")
                                 .create()
                 ).create()
 
@@ -69,13 +69,13 @@ class PhrasePatternTest {
     fun matchAgainstPatternWithChildAndDependency() {
 
         val pattern = PhrasePatternBuilder()
-                .setWord("Hello")
-                .setChildren(
+                .word("Hello")
+                .children(
                         PhrasePatternBuilder()
-                                .setWord("world")
+                                .word("world")
                                 .create(),
                         PhrasePatternBuilder()
-                                .setName("testdependency")
+                                .name("testdependency")
                                 .create()
                 ).create()
 
@@ -95,13 +95,13 @@ class PhrasePatternTest {
     fun matchAgainstPatternAnychildNochild() {
 
         val anychild = PhrasePatternBuilder()
-                .setWord("Hello")
-                .setAnyChildren()
+                .word("Hello")
+                .anyChildren()
                 .create()
 
         val noChild = PhrasePatternBuilder()
-                .setWord("Hello")
-                .setNoChildren()
+                .word("Hello")
+                .noChildren()
                 .create()
 
         val phrase = PhraseTree("Hello", "NN", "root")
@@ -112,7 +112,161 @@ class PhrasePatternTest {
 
         val matchResult2 = noChild.matchAgainst(phrase)
         assertFalse(matchResult2.matches)
+    }
 
+    @Test
+    fun matchWithDeterministicNonrepeat() {
+        val pattern = buildPattern {
+            child( buildPattern { word("a") })
+            child( buildPattern { word("b") })
+            child( buildPattern { word("c") })
+            child( buildPattern { word("d") })
+            child( buildPattern { word("e") })
+            child( buildPattern { word("f") })
+        }
+
+        val phrase = PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("b","test","test"),
+                PhraseTree("c","test","test"),
+                PhraseTree("d","test","test"),
+                PhraseTree("e","test","test"),
+                PhraseTree("f","test","test")
+        ))
+
+        assertTrue(pattern.matchAgainst(phrase).matches)
+    }
+
+    @Test
+    fun matchWithDeterministicRepeat() {
+        val pattern = buildPattern {
+            child {
+                word("a")
+                repeat(6)
+            }
+        }
+
+        val phrase = PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))
+
+        assertTrue(pattern.matchAgainst(phrase).matches)
+
+        val phraseNoRepeat = PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("b","test","test"),
+                PhraseTree("c","test","test"),
+                PhraseTree("d","test","test"),
+                PhraseTree("e","test","test"),
+                PhraseTree("f","test","test")
+        ))
+
+        assertFalse(pattern.matchAgainst(phraseNoRepeat).matches)
+    }
+
+    @Test
+    fun matchWithNondeterministicRepeat() {
+        val pattern = buildPattern {
+            child( buildPattern {
+                word("a")
+                repeat(2,5)
+            })
+        }
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+    }
+
+    @Test
+    fun matchWithNondeterministicRepeatMultiple() {
+        val pattern = buildPattern {
+            child {
+                word("a")
+                repeat(1,2)
+            }
+            child {
+                word("b")
+                optional()
+            }
+        }
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test"),
+                PhraseTree("a","test","test")
+        ))).matches)
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("b","test","test")
+        ))).matches)
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("a","test","test"),
+                PhraseTree("b","test","test")
+        ))).matches)
+
+    }
+
+    @Test
+    fun matchWithNonMatchingFirstNondeterministicSecond() {
+        val pattern = buildPattern {
+            child {
+                word("a")
+                repeat(1)
+            }
+            child {
+                repeat(1,2)
+            }
+        }
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root","ROOT","root", mutableListOf(
+                PhraseTree("b","test","test"),
+                PhraseTree("b","test","test")
+        ))).matches)
 
     }
 

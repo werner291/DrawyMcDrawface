@@ -49,7 +49,7 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
 
         createStmt.what = interpreter.interpret(
                 phraseTree,
-                { Model::class.java.isAssignableFrom(it.objectFactory.interpretedTypePrediction) }
+                Model::class
         ) as Model
 
         return createStmt
