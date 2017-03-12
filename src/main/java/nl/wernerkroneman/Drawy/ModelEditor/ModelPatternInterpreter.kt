@@ -29,14 +29,12 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
 
-/**
- * Created by werner on 8-3-17.
- */
-fun createDefaultModelInterpreter(): PatternInterpreter {
+fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
+        PatternInterpreter {
 
     val interpreter = PatternInterpreter()
 
-    val knowledge = Knowledge.knowledgeWithPrimitives()
+
 
     val modelInterpreter = ModelInterpreter(knowledge, interpreter)
 

@@ -31,8 +31,10 @@ import java.util.*
  * It allows for asynchronous running of the session since other
  * parts of the program may need to run while this process takes its' time.
  */
-class DescriptionSession(private val interpreter: MainInterpreter, private val interactorIface: BlockingInteractor) {
-    private val listeners = ArrayList<DescriptionSessionListener>()
+class DescriptionSession(private val interpreter: MainInterpreter = MainInterpreter(),
+                         private val interactorIface: BlockingInteractor) {
+
+    private val changeListeners = mutableListOf<(Model) -> Unit>()
 
     fun start() {
         Thread(Runnable { this.runSession() }).start()
@@ -44,7 +46,7 @@ class DescriptionSession(private val interpreter: MainInterpreter, private val i
             val line = interactorIface.askUserString("Say something:")
 
             if (line == "done") {
-                notifyFinished()
+                //notifyFinished()
                 break
             }
 
@@ -63,19 +65,13 @@ class DescriptionSession(private val interpreter: MainInterpreter, private val i
         return scene
     }
 
-    private fun notifyFinished() {
-        for (list in listeners) {
-            list.sessionEnded()
-        }
-    }
-
-    fun addListener(listener: DescriptionSessionListener) {
-        listeners.add(listener)
-    }
-
     private fun notifyChanged(scene: CompositeModel) {
-        for (list in listeners) {
-            list.modelChanged(scene)
+        for (list in changeListeners.reversed()) {
+            list(scene)
         }
+    }
+
+    fun addChangeListener(listener: (Model) -> Unit) {
+        changeListeners.add(listener)
     }
 }
