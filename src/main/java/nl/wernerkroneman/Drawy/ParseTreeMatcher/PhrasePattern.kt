@@ -63,7 +63,7 @@ class PhrasePattern(// Regexes for the word, nature and role
      *              {@code matchScore} indicates how close it is (only meaningful if
      *              {@code matches == true}, and {@code capturings} is a map of captures.
      */
-     fun matchAgainst(phrase: PhraseTree): MatchResult {
+    fun matchAgainst(phrase: PhraseTree): MatchResult {
 
         val result = MatchResult(matches = false, matchScore = 0.0, capturings = mutableMapOf())
 
@@ -131,7 +131,7 @@ class PhrasePattern(// Regexes for the word, nature and role
         // If no children are allowed, check if this is the case
         if (patternChildren.isEmpty()) {
             if (phraseChildren.isEmpty()) {
-                return MatchResult(true,1.0)
+                return MatchResult(true, 1.0)
             } else {
                 return MatchResult(false)
             }
@@ -146,8 +146,8 @@ class PhrasePattern(// Regexes for the word, nature and role
          * to match the phrase children up to and excluding
          * phrase.children[i]
          */
-        val resultTable = Array<Array<MatchResult?>>(phraseChildren.size+1, {
-            Array(patternChildren.size+1, {
+        val resultTable = Array<Array<MatchResult?>>(phraseChildren.size + 1, {
+            Array(patternChildren.size + 1, {
                 null
             })
         })
@@ -156,7 +156,7 @@ class PhrasePattern(// Regexes for the word, nature and role
         resultTable[0][0] = MatchResult(matches = true, matchScore = 0.0)
 
         // Phrases with no patterns = no match
-        for (numPhrases in 1 until phraseChildren.size) {
+        for (numPhrases in 1 .. phraseChildren.size) {
             resultTable[numPhrases][0] = MatchResult(matches = false)
         }
 
@@ -167,11 +167,13 @@ class PhrasePattern(// Regexes for the word, nature and role
         // Iterate over the various cells in the table
         // In both dimensions, in increasing order.
         // Skip numPatterns == 0 since it was dealt with previously.
-        for (numPhrases in 0 .. phraseChildren.size) {
-            for (numPatterns in 1 .. patternChildren.size) {
+        for (numPhrases in 0..phraseChildren.size) {
+            for (numPatterns in 1..patternChildren.size) {
                 // Find the contents of the cell
-                resultTable[numPhrases][numPatterns] = computeOptimalResult(phraseChildren,
-                        numPhrases,patternChildren,numPatterns,resultTable)
+                resultTable[numPhrases][numPatterns] = computeOptimalResult(
+                        phraseChildren.take(numPhrases),
+                        patternChildren.take(numPatterns),
+                        resultTable)
             }
         }
 
@@ -186,14 +188,12 @@ class PhrasePattern(// Regexes for the word, nature and role
      * @pre numPatterns >= 1
      */
     fun computeOptimalResult(phrases: List<PhraseTree>,
-                             numPhrases: Int,
                              patterns: List<PhrasePattern>,
-                             numPatterns: Int,
-                             resultTable: Array<Array<MatchResult?>>) : MatchResult {
+                             resultTable: Array<Array<MatchResult?>>): MatchResult {
 
         // Reference to current pattern child, which is tha last pattern
         // in "patterns" truncated to length numPatterns
-        var pattern = patterns[numPatterns-1]
+        var pattern = patterns.last()
 
         /*
          * Pattern "pattern" must match every phrase from a certain index
@@ -203,47 +203,36 @@ class PhrasePattern(// Regexes for the word, nature and role
          * and resultTable[matchFrom][numPatterns-1].matches) is true.
          * (ie: previous pattern ik OK with basing from that cell)
          */
-        if (numPatterns == 0) { // This is the first in the list of patterns
-            if (pattern.repeatMax != null && pattern.repeatMax!! < numPhrases +1) {
-                // Cannot cover phrases[0]...phrases[numPatterns] by repeating
-                return MatchResult(matches = false)
-            } else if (pattern.repeatMin > numPhrases +1) {
-                // phrases[0]...phrases[numPatterns] not enough to cover repeat count
-                return MatchResult(matches = false)
-            } else {
-                return matchAllPhrases(pattern, phrases.take(numPhrases + 1))
-            }
-        } else { // There are previous patterns
+        val consumeAtLeast = pattern.repeatMin
+        val consumeAtMost = if (pattern.repeatMax == null) 0
+        else (pattern.repeatMax!!).coerceAtMost(phrases.size)
 
-            val consumeAtLeast = pattern.repeatMin
-            val consumeAtMost = if (pattern.repeatMax == null) 0
-                                else (pattern.repeatMax!!).coerceAtMost(numPhrases)
+        // Range of all possible match start positions
+        return (consumeAtLeast..consumeAtMost)
+                // Eliminate consumption numbers for which the previous patterns
+                // would not find a match with the remaining phrases
+                .filter({ consume -> resultTable[phrases.size - consume][patterns.size - 1]!!.matches })
+                // For each remaining consumption number, match the phrases
+                // to be consumed against the pattern
+                .map { Pair(it, matchAllPhrases(pattern, phrases.subList(phrases.size - it, phrases.size))) }
+                // Filter out non-matches
+                .filter { it.second.matches }
+                // Merge the match results with the match that was found earlier
+                .map {
+                    val result = MatchResult(it.second.matches,
+                            it.second.matchScore,
+                            HashMap(it.second.capturings))
 
-            // Range of all possible match start positions
-            return (consumeAtLeast..consumeAtMost)
-                    // Eliminate consumption numbers for which the previous patterns
-                    // would not find a match with the remaining phrases
-                    .filter({consume->resultTable[numPhrases-consume][numPatterns -1]!!.matches})
-                    // For each remaining consumption number, match the phrases
-                    // to be consumed against the pattern
-                    .map {Pair(it,matchAllPhrases(pattern, phrases.subList(numPhrases-it, numPhrases)))}
-                    // Filter out non-matches
-                    .filter {it.second.matches}
-                    // Merge the match results with the match that was found earlier
-                    .map {
-                        val result = MatchResult(it.second.matches,
-                                                 it.second.matchScore,
-                                                 HashMap(it.second.capturings))
+                    result.merge(resultTable[phrases.size - it.first][patterns.size - 1]!!)
 
-                        result.merge(resultTable[numPhrases-it.first][numPatterns - 1]!!)
+                    Pair(it.first, result)
+                }
+                // Get the maximum by match score
+                .maxBy { it.second.matchScore }
+                // Return the result, or return non-match result if null.
+                ?.second ?: MatchResult(false)
 
-                        Pair(it.first, result)}
-                    // Get the maximum by match score
-                    .maxBy { it.second.matchScore }
-                    // Return the result, or return non-match result if null.
-                    ?.second ?: MatchResult(false)
 
-        }
     }
 
     /**

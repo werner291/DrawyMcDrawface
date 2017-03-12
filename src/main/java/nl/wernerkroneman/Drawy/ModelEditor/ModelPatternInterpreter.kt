@@ -114,6 +114,7 @@ fun createDefaultModelInterpreter(): PatternInterpreter {
                 child( buildPattern {
                             nature("CD")
                             role("num")
+                            name("amount")
                 })
             })
 

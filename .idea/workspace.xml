@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -141,14 +142,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PhrasePattern.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DistanceInterpreter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="236">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding>
+                <element signature="e#807#1062#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainInterpreter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="35" column="83" lean-forward="false" selection-start-line="35" selection-start-column="83" selection-end-line="35" selection-end-column="83" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModelPatternInterpreter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="113" column="37" lean-forward="true" selection-start-line="113" selection-start-column="37" selection-end-line="113" selection-end-column="37" />
+              <folding>
+                <element signature="e#793#1471#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PhrasePattern.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="195" column="14" lean-forward="false" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
+            <state relative-caret-position="259">
+              <caret line="167" column="40" lean-forward="false" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InterpreterTest.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="142">
+              <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -169,6 +214,28 @@
             <state relative-caret-position="347">
               <caret line="265" column="0" lean-forward="false" selection-start-line="265" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ModelInterpreter.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="342">
+              <caret line="54" column="47" lean-forward="true" selection-start-line="54" selection-start-column="47" selection-end-line="54" selection-end-column="47" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Intrinsics.java" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/jvm/internal/Intrinsics.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="128">
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding>
+                <element signature="e#1344#1345#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -618,10 +685,10 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreterTest.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternBuilder.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
       </list>
     </option>
   </component>
@@ -721,6 +788,50 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ModelEditor" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleGroupNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface_test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nl.wernerkroneman.Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ConcreteModelling" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleGroupNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface_test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="nl.wernerkroneman.Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1103,7 +1214,7 @@
       <recent name="nl.wernerkroneman.Drawy.Modelling" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PhrasePatternTest">
+  <component name="RunManager" selected="JUnit.InterpreterTest">
     <configuration default="false" name="PhrasePatternTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1130,19 +1241,45 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="PhrasePatternTest.matchWithDeterministicNonrepeat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="nl.wernerkroneman.Drawy in DrawyMcDrawface_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.*" />
+          <option name="PATTERN" value="nl.wernerkroneman.Drawy.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="DrawyMcDrawface_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher" />
-      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternTest" />
-      <option name="METHOD_NAME" value="matchWithDeterministicNonrepeat" />
+      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="InterpreterTest.createCubeAboveSphere" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="nl.wernerkroneman.Drawy.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="DrawyMcDrawface_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ModelEditor" />
+      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ModelEditor.InterpreterTest" />
+      <option name="METHOD_NAME" value="createCubeAboveSphere" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1156,7 +1293,7 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="PhrasePatternTest.matchAgainst" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="nl.wernerkroneman.Drawy.ParseTreeMatcher in DrawyMcDrawface_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.*" />
@@ -1167,9 +1304,9 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher" />
-      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternTest" />
-      <option name="METHOD_NAME" value="matchAgainst" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="package" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -1182,46 +1319,20 @@
       <patterns />
       <method />
     </configuration>
-    <configuration default="false" name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="InterpreterTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.*" />
+          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ModelEditor.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <module name="DrawyMcDrawface_test" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher" />
-      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternTest" />
-      <option name="METHOD_NAME" value="matchWithNondeterministicRepeatMultiple" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="DrawyMcDrawface_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher" />
-      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternTest" />
-      <option name="METHOD_NAME" value="matchWithNonMatchingFirstNondeterministicSecond" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ModelEditor" />
+      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ModelEditor.InterpreterTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -1449,18 +1560,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithDeterministicNonrepeat" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchAgainst" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNondeterministicRepeatMultiple" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface_test" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createCubeAboveSphere" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy.ParseTreeMatcher in DrawyMcDrawface_test" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.InterpreterTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNondeterministicRepeatMultiple" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchAgainst" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithDeterministicNonrepeat" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.InterpreterTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy.ParseTreeMatcher in DrawyMcDrawface_test" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createCubeAboveSphere" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface_test" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest" />
       </list>
     </recent_temporary>
   </component>
@@ -1506,39 +1617,46 @@
       <option name="project" value="LOCAL" />
       <updated>1489314100074</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed dynamic programming approach to pattern matching sometimes not working, now passes all tests.">
+      <created>1489328350823</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1489328350823</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PhrasePatternTest - 2017.03.12 at 14h 45m 01s.xml">
+    <history-entry file="InterpreterTest - 2017.03.12 at 15h 40m 38s.xml">
+      <configuration name="InterpreterTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InterpreterTest - 2017.03.12 at 15h 48m 28s.xml">
+      <configuration name="InterpreterTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InterpreterTest_createCubeAboveSphere - 2017.03.12 at 15h 30m 48s.xml">
+      <configuration name="InterpreterTest.createCubeAboveSphere" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InterpreterTest_createCubeAboveSphere - 2017.03.12 at 15h 32m 15s.xml">
+      <configuration name="InterpreterTest.createCubeAboveSphere" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InterpreterTest_createCubeAboveSphere - 2017.03.12 at 15h 39m 54s.xml">
+      <configuration name="InterpreterTest.createCubeAboveSphere" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="InterpreterTest_createCubeAboveSphere - 2017.03.12 at 15h 40m 03s.xml">
+      <configuration name="InterpreterTest.createCubeAboveSphere" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PhrasePatternTest - 2017.03.12 at 15h 22m 59s.xml">
       <configuration name="PhrasePatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest - 2017.03.12 at 15h 18m 19s.xml">
+    <history-entry file="PhrasePatternTest - 2017.03.12 at 15h 28m 21s.xml">
       <configuration name="PhrasePatternTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNonMatchingFirstNondeterministicSecond - 2017.03.11 at 18h 45m 34s.xml">
-      <configuration name="PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" configurationId="JUnit" />
+    <history-entry file="nl_wernerkroneman_Drawy_ParseTreeMatcher_in_DrawyMcDrawface_test - 2017.03.12 at 15h 40m 06s.xml">
+      <configuration name="nl.wernerkroneman.Drawy.ParseTreeMatcher in DrawyMcDrawface_test" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 46m 04s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 46m 10s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 52m 05s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 09m 05s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 15m 09s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 16m 14s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 17m 31s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
+    <history-entry file="nl_wernerkroneman_Drawy_in_DrawyMcDrawface_test - 2017.03.12 at 15h 29m 54s.xml">
+      <configuration name="nl.wernerkroneman.Drawy in DrawyMcDrawface_test" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -1562,7 +1680,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4913669" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4913669" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17697842" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1587,7 +1705,8 @@
     <MESSAGE value="Restructured the test sources directory.&#10;Added Thesaurus class (not used yet)&#10;Changed the way object positioning works such that the first attempt to place an object is a better and more consistent guess." />
     <MESSAGE value="Added distance interpreters.&#10;Improved pattern matching algorithm" />
     <MESSAGE value="Backtrack pattern" />
-    <option name="LAST_COMMIT_MESSAGE" value="Backtrack pattern" />
+    <MESSAGE value="Fixed dynamic programming approach to pattern matching sometimes not working, now passes all tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed dynamic programming approach to pattern matching sometimes not working, now passes all tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1611,12 +1730,6 @@
           <option name="timeStamp" value="23" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt</url>
-          <line>46</line>
-          <properties />
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt</url>
           <line>40</line>
           <properties />
@@ -1633,11 +1746,15 @@
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="41" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="kotlin.KotlinNullPointerException" package="kotlin" />
+          <option name="timeStamp" value="47" />
+        </breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="45" />
+      <option name="time" value="48" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1646,7 +1763,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/PhraseMatcherMap.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/InterpretPhrases.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
@@ -1743,36 +1859,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#807#1062#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="49" column="40" lean-forward="false" selection-start-line="49" selection-start-column="40" selection-end-line="49" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="106" column="47" lean-forward="false" selection-start-line="106" selection-start-column="47" selection-end-line="106" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1784,14 +1874,6 @@
           <folding>
             <element signature="n#!!doc" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="35" column="65" lean-forward="false" selection-start-line="35" selection-start-column="65" selection-end-line="35" selection-end-column="65" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1850,16 +1932,6 @@
         <state relative-caret-position="222">
           <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="90" column="48" lean-forward="false" selection-start-line="90" selection-start-column="48" selection-end-line="90" selection-end-column="48" />
-          <folding>
-            <element signature="e#793#1471#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1943,13 +2015,67 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/jvm/internal/Intrinsics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding>
+            <element signature="e#1344#1345#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="195" column="14" lean-forward="false" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
+        <state relative-caret-position="259">
+          <caret line="167" column="40" lean-forward="false" selection-start-line="167" selection-start-column="40" selection-end-line="167" selection-end-column="40" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="106" column="0" lean-forward="false" selection-start-line="106" selection-start-column="0" selection-end-line="106" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="236">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#807#1062#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="35" column="83" lean-forward="false" selection-start-line="35" selection-start-column="83" selection-end-line="35" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="113" column="37" lean-forward="true" selection-start-line="113" selection-start-column="37" selection-end-line="113" selection-end-column="37" />
+          <folding>
+            <element signature="e#793#1471#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="54" column="47" lean-forward="true" selection-start-line="54" selection-start-column="47" selection-end-line="54" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
