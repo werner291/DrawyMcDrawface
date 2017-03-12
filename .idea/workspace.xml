@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternBuilder.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternBuilder.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreterTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreterTest.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -154,11 +144,21 @@
       <file leaf-file-name="PhrasePattern.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="217" column="88" lean-forward="false" selection-start-line="217" selection-start-column="88" selection-end-line="217" selection-end-column="88" />
+            <state relative-caret-position="322">
+              <caret line="195" column="14" lean-forward="false" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Collections.kt" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/Collections.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="173" column="19" lean-forward="false" selection-start-line="173" selection-start-column="19" selection-end-line="173" selection-end-column="19" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -195,6 +195,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="backtrack-pattern" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="myGradleHomes">
@@ -1098,7 +1103,7 @@
       <recent name="nl.wernerkroneman.Drawy.Modelling" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond">
+  <component name="RunManager" selected="JUnit.PhrasePatternTest">
     <configuration default="false" name="PhrasePatternTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1451,9 +1456,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" />
+        <item index="0" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest" />
         <item index="1" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNondeterministicRepeatMultiple" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" />
         <item index="3" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchAgainst" />
         <item index="4" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchWithDeterministicNonrepeat" />
       </list>
@@ -1487,38 +1492,52 @@
       <option name="project" value="LOCAL" />
       <updated>1483638648429</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added distance interpreters.&#10;Improved pattern matching algorithm">
+      <created>1489267640057</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1489267640057</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Backtrack pattern">
+      <created>1489314100074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1489314100074</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PhrasePatternTest - 2017.03.11 at 18h 35m 18s.xml">
+    <history-entry file="PhrasePatternTest - 2017.03.12 at 14h 45m 01s.xml">
+      <configuration name="PhrasePatternTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="PhrasePatternTest - 2017.03.12 at 15h 18m 19s.xml">
       <configuration name="PhrasePatternTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="PhrasePatternTest_matchWithNonMatchingFirstNondeterministicSecond - 2017.03.11 at 18h 45m 34s.xml">
       <configuration name="PhrasePatternTest.matchWithNonMatchingFirstNondeterministicSecond" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 03m 18s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 46m 04s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 25m 31s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 46m 10s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 34m 31s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 14h 52m 05s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 37m 28s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 09m 05s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 37m 30s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 15m 09s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 37m 58s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 16m 14s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 39m 21s.xml">
-      <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.11 at 18h 45m 28s.xml">
+    <history-entry file="PhrasePatternTest_matchWithNondeterministicRepeatMultiple - 2017.03.12 at 15h 17m 31s.xml">
       <configuration name="PhrasePatternTest.matchWithNondeterministicRepeatMultiple" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -1543,7 +1562,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4913669" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4913669" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17697842" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1566,7 +1585,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Converted to Gradle project." />
     <MESSAGE value="Restructured the test sources directory.&#10;Added Thesaurus class (not used yet)&#10;Changed the way object positioning works such that the first attempt to place an object is a better and more consistent guess." />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured the test sources directory.&#10;Added Thesaurus class (not used yet)&#10;Changed the way object positioning works such that the first attempt to place an object is a better and more consistent guess." />
+    <MESSAGE value="Added distance interpreters.&#10;Improved pattern matching algorithm" />
+    <MESSAGE value="Backtrack pattern" />
+    <option name="LAST_COMMIT_MESSAGE" value="Backtrack pattern" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1601,13 +1622,6 @@
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <dependency master-id="0" />
-          <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt</url>
-          <line>159</line>
-          <properties />
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="NONE" type="kotlin-line">
           <dependency id="0" />
           <url>file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt</url>
@@ -1623,7 +1637,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="44" />
+      <option name="time" value="45" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1839,14 +1853,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/Collections.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="173" column="15" lean-forward="false" selection-start-line="173" selection-start-column="15" selection-end-line="173" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
@@ -1929,10 +1935,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="173" column="19" lean-forward="false" selection-start-line="173" selection-start-column="19" selection-end-line="173" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="217" column="88" lean-forward="false" selection-start-line="217" selection-start-column="88" selection-end-line="217" selection-end-column="88" />
+        <state relative-caret-position="322">
+          <caret line="195" column="14" lean-forward="false" selection-start-line="195" selection-start-column="14" selection-end-line="195" selection-end-column="14" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>
