@@ -20,13 +20,11 @@
 package nl.wernerkroneman.Drawy.ConcreteModelling
 
 import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete
-import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.PositionalSolver
 import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import org.joml.Vector3d
 import org.junit.Assert
 import org.junit.Test
-import java.util.*
 
 /**
  * Created by werner on 27-12-16.
@@ -58,7 +56,7 @@ class AbstractToConcreteTest {
 
     }
 
-    @Test
+    /*@Test
     @Throws(Exception::class)
     fun findEmptyPlaceTest() {
 
@@ -91,7 +89,7 @@ class AbstractToConcreteTest {
             Assert.assertTrue(empty.getCenter(Vector3d()).length() < 10)
 
         }
-    }
+    }*/
 
     @Test
     @Throws(Exception::class)
@@ -104,9 +102,9 @@ class AbstractToConcreteTest {
 
         val result = converter.computeScene(cube)
 
-        Assert.assertEquals(1, result.getRootSceneNode().drawables.size.toLong())
+        Assert.assertEquals(1, result.getRootSceneNode().getDrawables().size.toLong())
 
-        val cubemesh = result.getRootSceneNode().drawables[0].getMesh()
+        val cubemesh = result.getRootSceneNode().getDrawables()[0].getMesh()
 
         val box = cubemesh.computeAABB()
 
@@ -135,13 +133,13 @@ class AbstractToConcreteTest {
 
         val result = converter.computeScene(composite)
 
-        Assert.assertEquals(0, result.getRootSceneNode().drawables.size.toLong())
-        Assert.assertEquals(1, result.getRootSceneNode().children.size.toLong())
+        Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size.toLong())
+        Assert.assertEquals(1, result.getRootSceneNode().getChildren().size.toLong())
 
-        val childNode = result.getRootSceneNode().children[0]
-        Assert.assertEquals(1, childNode.drawables.size.toLong())
+        val childNode = result.getRootSceneNode().getChildren()[0]
+        Assert.assertEquals(1, childNode.getDrawables().size.toLong())
 
-        val cubemesh = childNode.drawables[0].getMesh()
+        val cubemesh = childNode.getDrawables()[0].getMesh()
 
         val box = cubemesh.computeAABB()
 
@@ -174,15 +172,15 @@ class AbstractToConcreteTest {
 
             val result = converter.computeScene(composite)
 
-            Assert.assertEquals(0, result.getRootSceneNode().drawables.size.toLong())
-            Assert.assertEquals(NUM_CUBES.toLong(), result.getRootSceneNode().children.size.toLong())
+            Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size.toLong())
+            Assert.assertEquals(NUM_CUBES.toLong(), result.getRootSceneNode().getChildren().size.toLong())
 
             for (i in 0..NUM_CUBES - 1) {
                 for (j in 0..NUM_CUBES - 1) {
                     if (i != j) {
 
-                        val a = result.getRootSceneNode().children[i].drawables[0].worldAABB
-                        val b = result.getRootSceneNode().children[j].drawables[0].worldAABB
+                        val a = result.getRootSceneNode().getChildren()[i].getDrawables()[0].worldAABB
+                        val b = result.getRootSceneNode().getChildren()[j].getDrawables()[0].worldAABB
 
                         Assert.assertFalse(a.intersects(b, 0.0))
                     }
@@ -216,7 +214,7 @@ class AbstractToConcreteTest {
             val scene = converter.computeScene(composite)
 
             // Should be three children
-            val children = scene.getRootSceneNode().children
+            val children = scene.getRootSceneNode().getChildren()
             Assert.assertEquals(3, children.size.toLong())
 
             // Check for intersecting pairs
@@ -263,7 +261,7 @@ class AbstractToConcreteTest {
             val scene = converter.computeScene(composite)
 
             // Should be three children
-            val children = scene.getRootSceneNode().children
+            val children = scene.getRootSceneNode().getChildren()
             Assert.assertEquals(3, children.size.toLong())
 
             // Check for intersecting pairs

@@ -17,146 +17,136 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ConcreteModelling;
+package nl.wernerkroneman.Drawy.ConcreteModelling
 
-import org.joml.Matrix4d;
-import org.joml.Vector3d;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import org.joml.Matrix4d
+import org.joml.Vector3d
+import java.util.*
 
 /**
  * A node in the scene graph.
  */
-public class SceneNode {
+class SceneNode {
 
     /**
      * @inv parent != null implies parent.children.contains(this)
+     * *
      * @inv forall child in children: child.parent == this
      */
-    SceneNode parent;
-    Matrix4d transform = new Matrix4d();
-    private List<SceneNode> children = new ArrayList<>();
-    private List<Drawable> drawables = new ArrayList<>();
-
-    public SceneNode getParent() {
-        return parent;
-    }
-
     /**
      * Set the parent of this node in the tree.
-     * <p>
+     *
+     *
      * Note: do not call directly, use the add/remove child
      * methods of the parent, as the parents need to be
      * updated as well to maintain a correct structure.
-     *
+
      * @param parent
      */
-    protected void setParent(SceneNode parent) {
-        this.parent = parent;
-    }
+    var parent: SceneNode? = null
+        protected set
+    var transform = Matrix4d()
+        internal set
+    private val children = ArrayList<SceneNode>()
+    private val drawables = ArrayList<Drawable>()
 
     /**
      * Get a list of drwable objects attached to this node.
-     *
+
      * @return A list of drawable objects
      */
-    public List<Drawable> getDrawables() {
-        return Collections.unmodifiableList(drawables);
+    fun getDrawables(): List<Drawable> {
+        return Collections.unmodifiableList(drawables)
     }
 
     /**
      * Get a list of children.
-     *
+
      * @return a list of children
      */
-    public List<SceneNode> getChildren() {
-        return Collections.unmodifiableList(children);
+    fun getChildren(): List<SceneNode> {
+        return Collections.unmodifiableList(children)
     }
 
     /**
      * Add a child node to this SceneNode.
-     *
+
      * @param node The node to add, must not already have a parent.
      */
-    public void addChild(SceneNode node) {
-        assert node.getParent() == null;
-        children.add(node);
-        node.setParent(this);
+    fun addChild(node: SceneNode) {
+        assert(node.parent == null)
+        children.add(node)
+        node.parent = this
     }
 
     /**
      * Return the full world transform, assuming the root node's transform
      * is a world transform, which is then multiplied down the tree.
-     * <p>
-     * This matrix is a new matrix and does not modify existing data.
      *
+     *
+     * This matrix is a new matrix and does not modify existing data.
+
      * @return A transformation matrix
      */
-    public Matrix4d computeWorldTransform() {
+    fun computeWorldTransform(): Matrix4d {
         if (parent != null) {
-            return parent.computeWorldTransform().mul(this.transform);
+            return parent!!.computeWorldTransform().mul(this.transform)
         } else {
-            return new Matrix4d(this.transform);
+            return Matrix4d(this.transform)
         }
     }
 
-    public void addDrawable(Drawable drawable) {
-        assert drawable.getAttached() == null;
-        drawables.add(drawable);
-        drawable._notifyAttached(this);
+    fun addDrawable(drawable: Drawable) {
+        assert(drawable.getAttached() == null)
+        drawables.add(drawable)
+        drawable._notifyAttached(this)
     }
 
     /**
      * Compute the AABB of the contents of this scene node
      * in this node's local coordinate frame.
-     *
+
      * @return the AABB.
      */
-    public AABB computeLocalAABB() {
+    fun computeLocalAABB(): AABB {
 
         // Initialize the AABB as empty and negatively space-spanning
         // Any call to extendToCover will center the box on the position
         // and have volume 0.
-        AABB result = new AABB(new Vector3d(Double.NEGATIVE_INFINITY),
-                new Vector3d(Double.POSITIVE_INFINITY));
+        val result = AABB(Vector3d(java.lang.Double.NEGATIVE_INFINITY),
+                Vector3d(java.lang.Double.POSITIVE_INFINITY))
 
-        for (SceneNode child : children) {
+        for (child in children) {
             // Compute the bounding box of the child, and transform
             // using the child's transform to bring it to this node's
             // local coordinate space.
-            AABB childBox = child.computeLocalAABB().transform(child.getTransform(), new AABB());
+            val childBox = child.computeLocalAABB().transform(child.transform, AABB())
 
             // Extend the result AABB to cover the child space.
-            result.extendToCover(childBox.minExtent);
-            result.extendToCover(childBox.maxExtent);
+            result.extendToCover(childBox.minExtent)
+            result.extendToCover(childBox.maxExtent)
         }
 
-        for (Drawable drawable : drawables) {
+        for (drawable in drawables) {
             // Get the AABB of the child.
-            AABB childBox = drawable.computeAABB();
+            val childBox = drawable.computeAABB()
 
-            result.extendToCover(childBox.minExtent);
-            result.extendToCover(childBox.maxExtent);
+            result.extendToCover(childBox.minExtent)
+            result.extendToCover(childBox.maxExtent)
         }
 
-        return result;
+        return result
     }
 
-    public AABB computeWorldAABB() {
-        return computeLocalAABB().transform(computeWorldTransform(), new AABB());
+    fun computeWorldAABB(): AABB {
+        return computeLocalAABB().transform(computeWorldTransform(), AABB())
     }
 
-    public Matrix4d getTransform() {
-        return transform;
+    internal fun bfsIterator(): BfsIterator {
+        return BfsIterator(this)
     }
 
-    BfsIterator bfsIterator() {
-        return new BfsIterator(this);
-    }
-
-    public void setTranslation(Vector3d sub) {
-        transform.setTranslation(sub);
+    fun setTranslation(sub: Vector3d) {
+        transform.setTranslation(sub)
     }
 }

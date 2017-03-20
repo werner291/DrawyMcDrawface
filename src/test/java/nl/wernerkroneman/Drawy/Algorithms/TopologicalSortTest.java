@@ -51,7 +51,7 @@ public class TopologicalSortTest {
         dependencies.get("pants").add("underpants");
         dependencies.get("shoes").add("socks");
 
-        List<String> result = TopologicalSort.topologicalSort(strings, dependencies);
+        List<String> result = TopologicalSort.INSTANCE.topologicalSort(strings, dependencies);
 
         for (String str : strings) {
             Assert.assertTrue(result.contains(str));

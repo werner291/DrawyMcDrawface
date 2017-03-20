@@ -17,15 +17,12 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.AbstractToConcreteConverter;
+package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
-import nl.wernerkroneman.Drawy.ConcreteModelling.AABB;
+import nl.wernerkroneman.Drawy.ConcreteModelling.AABB
 
-public class SpaceDescriptor {
+class SpaceDescriptor
 
-
-}
-
-class AABBSpaceDescriptor {
-    AABB space;
+internal class AABBSpaceDescriptor {
+    var space: AABB? = null
 }
