@@ -43,6 +43,27 @@ class InterpreterTest {
     }
 
     @Test
+    fun interpreterSizeTest() {
+
+        val scene = CompositeModel("Scene")
+        val result = MainInterpreter().interpret("Create a big cube.", scene)
+
+        Assert.assertTrue(result is CreateEntityEditorCommand)
+
+        val stmt = result as CreateEntityEditorCommand
+
+        val what = stmt.what
+
+        Assert.assertTrue(what is VariantModel)
+        Assert.assertTrue((what as VariantModel).modifiers.any({it is SizeModifier}))
+
+        val cube = what.base
+
+        Assert.assertEquals("Cube", cube.name)
+
+    }
+
+    @Test
     @Ignore("Non-deterministic numbers not yet supported")
     fun interpreterTest2() {
 
@@ -161,5 +182,15 @@ class InterpreterTest {
 
         stmtA.apply()
 
+    }
+
+    @Test
+    fun createSnowmanShape() {
+
+        val scene = CompositeModel("Scene")
+
+        val result = MainInterpreter().interpret("a small sphere on top of a big sphere on top of a bigger sphere", scene)
+
+        Assert.assertNotNull(result)
     }
 }

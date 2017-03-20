@@ -30,4 +30,6 @@ interface ModelVisitor<ReturnT : Any> {
     fun visit(model: PrimitiveModel): ReturnT
 
     fun visit(model: PlaceholderModel): ReturnT
+
+    fun visit(model: VariantModel): ReturnT
 }

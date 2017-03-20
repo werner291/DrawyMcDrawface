@@ -21,6 +21,8 @@ package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
 import java.util.*
 import kotlin.reflect.KClass
+import kotlin.reflect.KType
+import kotlin.reflect.full.isSuperclassOf
 
 /**
  * Framework interpreter that allows one to map
@@ -44,19 +46,15 @@ open class PatternInterpreter {
      * @return
      */
     fun interpret(phrase: PhraseTree,
-                  type: KClass<out Any> = Any::class,
-                  context: MutableList<Any> = mutableListOf()): Any? {
-
-        val contextStartSize = context.size
+                  type: KClass<*> = Any::class,
+                  context: List<Any> = mutableListOf()): Any? {
 
         for (entry in patterns) {
-            if (type.java.isAssignableFrom(entry.objectFactory.interpretedTypePrediction)) {
+            if (type.isSuperclassOf(entry.objectFactory.interpretedTypePrediction)) {
                 val result = entry.pattern.matchAgainst(phrase)
 
                 if (result.matches) {
                     val interpretation = entry.objectFactory.interpret(result.capturings, context)
-                    // Was the context respected properly?
-                    assert(context.size == contextStartSize)
                     return interpretation
                 }
             }
@@ -75,7 +73,7 @@ open class PatternInterpreter {
      */
     interface InterpretedObjectFactory {
 
-        val interpretedTypePrediction: Class<*>
+        val interpretedTypePrediction: KClass<*>
 
         /**
          * Process the matchings of a certain phrase.
@@ -90,7 +88,7 @@ open class PatternInterpreter {
          *         more information about a parent context.
          */
         fun interpret(capturings: Map<String, PhraseTree>,
-                      context: MutableList<Any>): Any?
+                      context: List<Any>): Any?
     }
 
     /**

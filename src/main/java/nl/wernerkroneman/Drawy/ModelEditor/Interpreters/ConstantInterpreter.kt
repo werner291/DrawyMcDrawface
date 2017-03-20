@@ -17,17 +17,15 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.Modelling
+package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-/**
- * Marker interface that designates
- * objects that provide a valid context
- */
-interface RelativeConstraintContext {
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
+import kotlin.reflect.KClass
 
-    val constraints: MutableSet<Constraint>
+inline fun <reified T> constantInterpreter(component : T) = object : PatternInterpreter.InterpretedObjectFactory {
+    override val interpretedTypePrediction: KClass<*>
+        get() = T::class
 
-    // Marker interface for things that can be affected by a constraint
-    interface Positionable
-
+    override fun interpret(capturings: Map<String, PhraseTree>, context: List<Any>) = component
 }

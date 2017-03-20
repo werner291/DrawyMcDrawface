@@ -30,6 +30,9 @@ import org.json.simple.JSONObject
  * is called to obtain a JSONObject that represents the Knowledge.
  */
 class KnowledgeJSONSerializer(internal var knowledge: Knowledge) : ModelVisitor<JSONObject> {
+    override fun visit(model: VariantModel): JSONObject {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     fun serializeKnowledge(): JSONObject {
 

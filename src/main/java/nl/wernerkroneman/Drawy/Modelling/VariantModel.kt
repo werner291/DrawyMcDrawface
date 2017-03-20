@@ -17,17 +17,22 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.Modelling
+package nl.wernerkroneman.Drawy.Modelling;
 
-/**
- * Marker interface that designates
- * objects that provide a valid context
- */
-interface RelativeConstraintContext {
+class VariantModel(name: String,
+                   val base: Model) : Model(name) {
 
-    val constraints: MutableSet<Constraint>
+    val modifiers : MutableSet<Modifier> = mutableSetOf()
 
-    // Marker interface for things that can be affected by a constraint
-    interface Positionable
-
+    override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
+        return visitor.visit(this)
+    }
 }
+
+abstract class Modifier
+abstract class SizeModifier : Modifier()
+
+class RelativeSize(val relativeSize: Double) : SizeModifier()
+
+val BIG = RelativeSize(1.5)
+val SMALL = RelativeSize(1/1.5)

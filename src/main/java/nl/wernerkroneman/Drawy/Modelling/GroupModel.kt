@@ -36,10 +36,8 @@ package nl.wernerkroneman.Drawy.Modelling
 class GroupModel(var number: Int,
                  var memberModelType: Model,
                  name: String) : Model(name), RelativeConstraintContext {
-    override var constraints: MutableSet<Constraint>
-        get() = throw UnsupportedOperationException()
-        set(value) {
-        }
+
+    override val constraints: MutableSet<Constraint> = mutableSetOf<Constraint>()
 
     override fun toString(): String {
         return "GroupModel{" +
@@ -57,5 +55,9 @@ class GroupModel(var number: Int,
         // Placeholder values for relative constraints
         val PLACEHOLDER_A: RelativeConstraintContext.Positionable = CompositeModel.Component(null)
         val PLACEHOLDER_B: RelativeConstraintContext.Positionable = CompositeModel.Component(null)
+    }
+
+    enum class Component : RelativeConstraintContext.Positionable{
+        NEXT,PREVIOUS,RECIPROCAL
     }
 }

@@ -19,22 +19,18 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.CreateCommandInterpreter
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.DistanceInterpreter
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.ModelInterpreter
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.RelativePositionInterpreter
+import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
+import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BELOW
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
+import nl.wernerkroneman.Drawy.Modelling.RelativeSize
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.*
+import kotlin.reflect.KClass
 
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
         PatternInterpreter {
 
     val interpreter = PatternInterpreter()
-
-
 
     val modelInterpreter = ModelInterpreter(knowledge, interpreter)
 
@@ -115,6 +111,33 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                             name("amount")
                 })
             })
+
+    interpreter.addPattern(constantInterpreter(GroupModel.Component.RECIPROCAL),
+            buildPattern {
+                word("other")
+                child { word("each")}
+            })
+
+    interpreter.addPattern(constantInterpreter(GroupModel.Component.RECIPROCAL),
+            buildPattern {
+                word("one")
+                child { word("another")}
+            })
+
+    interpreter.addPattern(constantInterpreter(RelativeSize(1.5)),
+            buildPattern { word("big")})
+
+    interpreter.addPattern(constantInterpreter(RelativeSize(1/1.5)),
+            buildPattern { word("small")})
+
+    interpreter.addPattern(object : PatternInterpreter.InterpretedObjectFactory{
+        override val interpretedTypePrediction: KClass<*>
+            get() = Int::class
+
+        override fun interpret(capturings: Map<String, PhraseTree>, context: List<Any>): Any? {
+            return capturings["number"]!!.rootWord.toInt()
+        }
+    }, buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number")})
 
     return interpreter
 

@@ -26,9 +26,10 @@ apply plugin: 'application'
 apply plugin: "kotlin"
 
 buildscript {
-    ext.kotlin_version = '1.0.6'
+    ext.kotlin_version = '1.1.1'
     repositories {
         jcenter()
+
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -44,6 +45,7 @@ sourceSets {
 
 repositories {
     jcenter()
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -54,10 +56,12 @@ dependencies {
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
     compile 'org.mongodb:mongo-java-driver:2.12.3'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
 }
 
 dependencies {
     testCompile 'junit:junit:4.12'
+    compile 'com.github.cesarferreira:kotlin-pluralizer:0.2.9'
 }
 
 mainClassName = "nl.wernerkroneman.Drawy.DrawyMcDrawFace"

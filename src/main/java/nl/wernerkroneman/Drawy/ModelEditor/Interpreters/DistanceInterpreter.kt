@@ -23,14 +23,15 @@ import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
+import kotlin.reflect.KClass
 
 public class DistanceInterpreter(): InterpretedObjectFactory {
 
-    override val interpretedTypePrediction: Class<*>
-        get() = Distance::class.java
+    override val interpretedTypePrediction: KClass<*>
+        get() = Distance::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: MutableList<Any>): Any? {
+                           context: List<Any>): Any? {
 
         // TODO deal with written-out numers
         return FixedDistance(distance = capturings["amount"]!!.rootWord.toDouble());

@@ -19,77 +19,52 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters;
 
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.Distance
+import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.Modelling.Distance.Companion.ANY
-import nl.wernerkroneman.Drawy.Modelling.Model
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
+import kotlin.reflect.KClass
 
 class RelativePositionInterpreter(val relPos: RelativePositionConstraint.RelativePosition,
                                   val modelInterpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
 
-    override val interpretedTypePrediction: Class<*>
-        get() = RelativePositionConstraint::class.java
+    override val interpretedTypePrediction: KClass<*>
+        get() = RelativePositionConstraint::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: MutableList<Any>): Any? {
+                           context: List<Any>): Any? {
 
-        if (context.isEmpty()) {
+        // Interpret whatever this thing ig relative to
+        val relativeTo = modelInterpreter.interpret(
+                phrase = capturings["relative_to"]!!,
+                context = context)
 
-            throw IllegalStateException("Relative position makes no sense without context.")
-
-        } else if (context.last() is Model) {
-
-            // TODO should I perhaps move this to the model interpreter?
-
-            // Create the composite
-            val composite = CompositeModel()
-
-            // Put the context model  into the component
-            val componentA = composite.addComponentForModel(context.last() as Model)
-
-            // Replace the individual model by the composite in the context
-            context.set(context.lastIndex, composite)
-
-            // Interpret whatever this thing ig relative to
-            val relativeTo = modelInterpreter.interpret(
-                    capturings["relative_to"]!!,
-                    Model::class,
-                    context) as Model
-
-            // Create a component for it.
-            val componentB = composite.addComponentForModel(relativeTo)
-
-            // ----------------------------
-            // Create the actual constraint
-
-            val distance = when (capturings["distance"]) {
-                null -> Distance.ANY
-                else -> modelInterpreter.interpret(
-                        phrase = capturings["distance"]!!,
-                            type = Distance::class,
-                            context = context
-                        ) ?: Distance.ANY
-            } as Distance
-
-            // Finally,add the constraint.
-            val relativePositionConstraint = RelativePositionConstraint(
-                    a = componentA, b = componentB, pos = relPos, dist = distance)
-
-
-
-            composite.addConstraint(relativePositionConstraint)
-
-            return relativePositionConstraint
-
-        } else {
-            throw UnsupportedOperationException("Unknown context: " + context)
+        // Create a component for it.
+        val componentB = when (relativeTo) {
+            is Model -> CompositeModel.Component(relativeTo)
+            is RelativeConstraintContext.Positionable -> relativeTo
+            else -> throw IllegalStateException(relativeTo.toString() +
+                    " cannot be interpreted as relative target.")
         }
 
-        return null
+        // ----------------------------
+        // Create the actual constraint
+
+        val distance = when (capturings["distance"]) {
+            null -> Distance.ANY
+            else -> modelInterpreter.interpret(
+                    phrase = capturings["distance"]!!,
+                    type = Distance::class,
+                    context = context
+            ) ?: Distance.ANY
+        } as Distance
+
+        // Finally,add the constraint.
+        val relativePositionConstraint = RelativePositionConstraint(
+                a = null, b = componentB, pos = relPos, dist = distance)
+
+        return relativePositionConstraint
 
     }
 }

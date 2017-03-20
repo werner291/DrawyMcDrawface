@@ -19,6 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
+import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.constantInterpreter
 import org.junit.Assert
 import org.junit.Test
 
@@ -31,48 +32,23 @@ class PatternInterpreterTest {
     open class Bar
     class Baz : Bar()
 
-    class FooInterpreter : PatternInterpreter.InterpretedObjectFactory {
-        override val interpretedTypePrediction: Class<*>
-            get() = Foo::class.java
-
-        override fun interpret(capturings: Map<String, PhraseTree>,
-                               context: MutableList<Any>) = Foo()
-    }
-
-    class BarInterpreter : PatternInterpreter.InterpretedObjectFactory {
-        override val interpretedTypePrediction: Class<*>
-            get() = Bar::class.java
-
-        override fun interpret(capturings: Map<String, PhraseTree>,
-                               context: MutableList<Any>) = Bar()
-    }
-
-    class BazInterpreter : PatternInterpreter.InterpretedObjectFactory {
-        override val interpretedTypePrediction: Class<*>
-            get() = Baz::class.java
-
-        override fun interpret(capturings: Map<String, PhraseTree>,
-                               context: MutableList<Any>) = Baz()
-    }
-
-
     @Test
     @Throws(Exception::class)
     fun matchAgainst() {
 
         val terp = PatternInterpreter()
 
-        terp.patterns.add(PatternInterpreter.InterpreterEntry(FooInterpreter(),
+        terp.patterns.add(PatternInterpreter.InterpreterEntry(constantInterpreter(Foo()),
                 PhrasePatternBuilder()
                         .word("Foo")
                         .create()))
 
-        terp.patterns.add(PatternInterpreter.InterpreterEntry(BarInterpreter(),
+        terp.patterns.add(PatternInterpreter.InterpreterEntry(constantInterpreter(Bar()),
                 PhrasePatternBuilder()
                         .word("Bar")
                         .create()))
 
-        terp.patterns.add(PatternInterpreter.InterpreterEntry(BazInterpreter(),
+        terp.patterns.add(PatternInterpreter.InterpreterEntry(constantInterpreter(Baz()),
                 PhrasePatternBuilder()
                         .word("Bar")
                         .child(PhrasePatternBuilder()

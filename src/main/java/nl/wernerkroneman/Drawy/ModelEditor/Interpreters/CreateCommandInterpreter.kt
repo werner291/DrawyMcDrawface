@@ -24,6 +24,7 @@ import nl.wernerkroneman.Drawy.Modelling.CompositeModel
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
+import kotlin.reflect.KClass
 
 /**
  * Generate a creation command for the object(s) described in this sentence part.
@@ -32,11 +33,11 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
 
-    override val interpretedTypePrediction: Class<*>
-        get() = CreateEntityEditorCommand::class.java
+    override val interpretedTypePrediction: KClass<*>
+        get() = CreateEntityEditorCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: MutableList<Any>): CreateEntityEditorCommand? {
+                           context: List<Any>): CreateEntityEditorCommand? {
 
         val createStmt = CreateEntityEditorCommand(
                 {
