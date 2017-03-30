@@ -52,7 +52,7 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
      * *
      * @param node     The scene node that represents the model.
      */
-    private fun createSceneNodeForModel(absModel: Model, context: Context): SceneNode {
+    fun createSceneNodeForModel(absModel: Model, context: Context): SceneNode {
         return when (absModel) {
             is CompositeModel -> exploreCompositeModel(absModel, context)
             is GroupModel -> computeSceneNodeForGroupModel(absModel, context)
@@ -63,21 +63,25 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
         }
     }
 
-    private fun createSceneNodeForVariantModel(absModel: VariantModel, context: Context): SceneNode {
+    fun createSceneNodeForVariantModel(absModel: VariantModel, context: Context): SceneNode {
 
-        val childContext: Context
+        var sizeModifier = context.sizeModifier
 
         for (mod in absModel.modifiers) {
             when (mod) {
-                is RelativeSize -> context.sizeModifier *= mod.relativeSize
+                is RelativeSize -> sizeModifier *= mod.relativeSize
                 else -> throw UnsupportedOperationException("Unknown modifier " + mod)
             }
         }
 
+        val context = Context(context.node,
+                sizeModifier,
+                context.size)
+
         return createSceneNodeForModel(absModel.base, context)
     }
 
-    private fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, context: Context): SceneNode {
+    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, context: Context): SceneNode {
 
         println(context.sizeModifier)
 
@@ -215,7 +219,8 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
 fun constraintToTranslationRestriction(selfAABB: AABB,
                                        otherAABB: AABB,
                                        constraint: RelativePositionConstraint): AABB {
-    val restrictTo = AABB()
+    val restrictTo = AABB(Vector3d(Double.POSITIVE_INFINITY),
+            Vector3d(Double.NEGATIVE_INFINITY))
 
     constraint.pos.rel.forEachIndexed { index, dimensionOrder ->
         when (dimensionOrder) {
@@ -243,6 +248,6 @@ fun constraintToTranslationRestriction(selfAABB: AABB,
     return restrictTo
 }
 
-private class Context(val node: SceneNode? = null,
-                      var sizeModifier: Double = 1.0,
-                      var size: Double? = null)
+class Context(val node: SceneNode? = null,
+              val sizeModifier: Double = 1.0,
+              val size: Double? = null)

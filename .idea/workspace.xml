@@ -4,18 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="Kotlin-ized AbstractToConcrete modules.&#10;Started modifying AbstractToConcrete to move towards a side-effect-free style.&#10;Implemented simple size modifiers in concrete modeling.">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.kt" />
+    <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABBTest.java" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABBTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNodeTest.java" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNodeTest.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -150,25 +141,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AbstractToConcrete.kt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="AbstractToConcrete.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
-              <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+              <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
               <folding>
-                <element signature="e#809#1153#0" expanded="true" />
+                <element signature="e#809#1073#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DrawyMcDrawFace.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PrimitiveModel.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DrawyMcDrawFace.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="111" column="5" lean-forward="false" selection-start-line="111" selection-start-column="5" selection-end-line="111" selection-end-column="5" />
+            <state relative-caret-position="240">
+              <caret line="118" column="45" lean-forward="true" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
+                <marker date="1490891836645" expanded="false" signature="1258:2395" ph="..." />
               </folding>
             </state>
           </provider>
@@ -184,43 +186,34 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Class.java" pinned="false" current-in-tab="false">
-        <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/lang/Class.java">
+      <file leaf-file-name="SceneNode.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="712" column="0" lean-forward="false" selection-start-line="712" selection-start-column="0" selection-end-line="712" selection-end-column="0" />
+            <state relative-caret-position="202">
+              <caret line="130" column="42" lean-forward="false" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ReflectJavaClass.kt" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.1.1/23e5ae71bc0fdee003abc4d520bade83be5baf87/kotlin-reflect-1.1.1-sources.jar!/kotlin/reflect/jvm/internal/impl/load/java/structure/reflect/ReflectJavaClass.kt">
+      <file leaf-file-name="Drawable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="316">
+              <caret line="64" column="24" lean-forward="true" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
               <folding>
-                <element signature="n#!!doc" expanded="true" />
+                <element signature="e#1723#1724#0" expanded="true" />
+                <element signature="e#1764#1765#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="resolvers.kt" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.1.1/23e5ae71bc0fdee003abc4d520bade83be5baf87/kotlin-reflect-1.1.1-sources.jar!/kotlin/reflect/jvm/internal/impl/load/java/lazy/resolvers.kt">
+      <file leaf-file-name="Mesh.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="context.kt" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.1.1/23e5ae71bc0fdee003abc4d520bade83be5baf87/kotlin-reflect-1.1.1-sources.jar!/kotlin/reflect/jvm/internal/impl/load/java/lazy/context.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="85" column="0" lean-forward="false" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
+            <state relative-caret-position="152">
+              <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -754,9 +747,9 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
       </list>
     </option>
   </component>
@@ -1778,7 +1771,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490044340573</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set.">
+      <created>1490891838813</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1490891838813</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1828,13 +1828,13 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.422865" sideWeight="0.4913669" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.422865" sideWeight="0.4913669" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.423741" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4741007" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.4741007" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21079136" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1866,7 +1866,9 @@
     <MESSAGE value="Fixed some smaller bugs in the pattern matcher, refactored it a bit.&#10;Restored some more patterns." />
     <MESSAGE value="Added constantInterpreter&#10;Interpreter now uses proper KClass reflection, works with Int.&#10;Added group model interpretation.&#10;Added VariantModel&#10;" />
     <MESSAGE value="Kotlin-ized AbstractToConcrete modules.&#10;Started modifying AbstractToConcrete to move towards a side-effect-free style.&#10;Implemented simple size modifiers in concrete modeling." />
-    <option name="LAST_COMMIT_MESSAGE" value="Kotlin-ized AbstractToConcrete modules.&#10;Started modifying AbstractToConcrete to move towards a side-effect-free style.&#10;Implemented simple size modifiers in concrete modeling." />
+    <MESSAGE value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot." />
+    <MESSAGE value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1893,12 +1895,6 @@
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt</url>
-          <line>219</line>
-          <properties />
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="41" />
@@ -1911,7 +1907,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="56" />
+      <option name="time" value="57" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1920,21 +1916,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/lang/Integer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="560">
-          <caret line="51" column="19" lean-forward="false" selection-start-line="51" selection-start-column="19" selection-end-line="51" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/SingularizePluralize.kt" />
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/pluralize.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -2150,7 +2131,7 @@
         <state relative-caret-position="80">
           <caret line="23" column="67" lean-forward="false" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
             <element signature="e#809#990#0" expanded="true" />
           </folding>
         </state>
@@ -2205,14 +2186,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="101">
-          <caret line="84" column="6" lean-forward="true" selection-start-line="84" selection-start-column="6" selection-end-line="84" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -2251,7 +2224,52 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="20">
           <caret line="712" column="0" lean-forward="false" selection-start-line="712" selection-start-column="0" selection-end-line="712" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#0#147821#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#16480#16724#0" expanded="false" />
+            <element signature="e#16723#16724#0" expanded="false" />
+            <element signature="e#23047#23048#0" expanded="false" />
+            <element signature="e#23104#23105#0" expanded="false" />
+            <element signature="e#23453#23454#0" expanded="false" />
+            <element signature="e#23509#23510#0" expanded="false" />
+            <element signature="e#32636#32637#0" expanded="false" />
+            <element signature="e#32683#32684#0" expanded="false" />
+            <element signature="e#45841#45842#0" expanded="false" />
+            <element signature="e#45932#45933#0" expanded="false" />
+            <element signature="e#56746#56747#0" expanded="false" />
+            <element signature="e#56789#56790#0" expanded="false" />
+            <element signature="e#58208#58209#0" expanded="false" />
+            <element signature="e#58257#58258#0" expanded="false" />
+            <element signature="e#58496#58497#0" expanded="false" />
+            <element signature="e#58567#58568#0" expanded="false" />
+            <element signature="e#58809#58810#0" expanded="false" />
+            <element signature="e#58891#58892#0" expanded="false" />
+            <element signature="e#61733#62511#0" expanded="false" />
+            <element signature="e#62510#62511#0" expanded="false" />
+            <element signature="e#104463#104464#0" expanded="false" />
+            <element signature="e#104523#104524#0" expanded="false" />
+            <element signature="e#112572#112573#0" expanded="false" />
+            <element signature="e#112604#112605#0" expanded="false" />
+            <element signature="e#112898#112899#0" expanded="false" />
+            <element signature="e#112942#112943#0" expanded="false" />
+            <element signature="e#114513#114514#0" expanded="false" />
+            <element signature="e#114550#114551#0" expanded="false" />
+            <element signature="e#114579#114580#0" expanded="false" />
+            <element signature="e#114620#114621#0" expanded="false" />
+            <element signature="e#117160#117161#0" expanded="false" />
+            <element signature="e#117198#117199#0" expanded="false" />
+            <element signature="e#132121#133355#0" expanded="false" />
+            <element signature="e#133354#133355#0" expanded="false" />
+            <element signature="e#134416#134665#0" expanded="false" />
+            <element signature="e#134664#134665#0" expanded="false" />
+            <element signature="e#136811#136812#0" expanded="false" />
+            <element signature="e#136896#136897#0" expanded="false" />
+            <element signature="e#139547#139548#0" expanded="false" />
+            <element signature="e#139624#139625#0" expanded="false" />
+            <element signature="e#144390#144391#0" expanded="false" />
+            <element signature="e#144427#144428#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2260,7 +2278,7 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2313,22 +2331,58 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="219" column="0" lean-forward="false" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+        <state relative-caret-position="240">
+          <caret line="118" column="45" lean-forward="true" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
           <folding>
-            <element signature="e#809#1153#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1490891836645" expanded="false" signature="1258:2395" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="111" column="5" lean-forward="false" selection-start-line="111" selection-start-column="5" selection-end-line="111" selection-end-column="5" />
+        <state relative-caret-position="80">
+          <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="130" column="42" lean-forward="false" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="64" column="24" lean-forward="true" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
+            <element signature="e#1723#1724#0" expanded="true" />
+            <element signature="e#1764#1765#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+          <folding>
+            <element signature="e#809#1073#0" expanded="true" />
           </folding>
         </state>
       </provider>
