@@ -30,31 +30,6 @@ import org.junit.Test
  * Created by werner on 27-12-16.
  */
 class AbstractToConcreteTest {
-    @Test
-    @Throws(Exception::class)
-    fun getTranslationToFit() {
-
-        val meshFactory = DefaultMeshFactory()
-        val primitiveGenerator = PrimitiveGenerator(meshFactory)
-
-        val root = SceneNode()
-
-        val child = SceneNode()
-        root.addChild(child)
-
-        child.addDrawable(Drawable(primitiveGenerator.generateUnitCube()))
-
-        val converter = AbstractToConcrete(meshFactory)
-
-        val trans = converter.getTranslationToFit(child, child.computeLocalAABB())
-        Assert.assertEquals(0.0, trans.length(), 0.01)
-
-        val trans2 = converter.getTranslationToFit(child, AABB(Vector3d(-50.0), Vector3d(-51.0)))
-        Assert.assertEquals(-50.5, trans2.x, 0.01)
-        Assert.assertEquals(-50.5, trans2.y, 0.01)
-        Assert.assertEquals(-50.5, trans2.z, 0.01)
-
-    }
 
     /*@Test
     @Throws(Exception::class)

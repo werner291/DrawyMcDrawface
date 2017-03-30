@@ -51,11 +51,12 @@ import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import org.joml.Vector3d
-
-import javax.swing.*
-import java.awt.*
+import java.awt.BorderLayout
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import javax.swing.JFrame
+import javax.swing.Timer
+import javax.swing.WindowConstants
 
 fun main(args: Array<String>) {
 
@@ -103,7 +104,7 @@ fun main(args: Array<String>) {
         val concreteScene = converter.computeScene(scene)
 
         // Pass it to
-        visualiser.setScene(concreteScene)
+        visualiser.scene = concreteScene
 
         glcanvas.display()}
 
@@ -116,7 +117,7 @@ fun main(args: Array<String>) {
             t += 0.01
             val box = visualiser.scene.rootSceneNode.computeWorldAABB()
             val d = 5 * Math.max(box.sizeX, box.sizeZ)
-            Scene.EYE.set(d * Math.sin(t), 10.0, d * Math.cos(t))
+            Scene.EYE.set(d * Math.sin(t), 10.0 * Math.sin(t), d * Math.cos(t))
             Scene.LOOKAT_CENTER.set(box.getCenter(Vector3d()))
             glcanvas.display()
         }

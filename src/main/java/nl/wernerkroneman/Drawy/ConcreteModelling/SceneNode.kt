@@ -83,7 +83,6 @@ class SceneNode {
      * Return the full world transform, assuming the root node's transform
      * is a world transform, which is then multiplied down the tree.
      *
-     *
      * This matrix is a new matrix and does not modify existing data.
 
      * @return A transformation matrix
@@ -140,6 +139,17 @@ class SceneNode {
 
     fun computeWorldAABB(): AABB {
         return computeLocalAABB().transform(computeWorldTransform(), AABB())
+    }
+
+    /**
+     * Get the AABB in the local space of the parent. That is, apply
+     * this SceneNode's own transformation to lift the AAB of local
+     * space to the parent context. This works if the parent is null.
+     *
+     * Returns new AABB that is safe to modify.
+     */
+    fun computeParentContextAABB(): AABB {
+        return computeLocalAABB().transform(transform, AABB())
     }
 
     internal fun bfsIterator(): BfsIterator {

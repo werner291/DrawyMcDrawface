@@ -42,23 +42,23 @@ public class SceneNodeTest {
 
         AABB box = child.computeLocalAABB();
 
-        Assert.assertEquals(-0.5, box.minExtent.x, 0.01);
-        Assert.assertEquals(-0.5, box.minExtent.y, 0.01);
-        Assert.assertEquals(-0.5, box.minExtent.z, 0.01);
+        Assert.assertEquals(-0.5, box.getMinExtent().x, 0.01);
+        Assert.assertEquals(-0.5, box.getMinExtent().y, 0.01);
+        Assert.assertEquals(-0.5, box.getMinExtent().z, 0.01);
 
-        Assert.assertEquals(0.5, box.maxExtent.x, 0.01);
-        Assert.assertEquals(0.5, box.maxExtent.y, 0.01);
-        Assert.assertEquals(0.5, box.maxExtent.z, 0.01);
+        Assert.assertEquals(0.5, box.getMaxExtent().x, 0.01);
+        Assert.assertEquals(0.5, box.getMaxExtent().y, 0.01);
+        Assert.assertEquals(0.5, box.getMaxExtent().z, 0.01);
 
         AABB rootBox = root.computeLocalAABB();
 
-        Assert.assertEquals(4.5, rootBox.minExtent.x, 0.01);
-        Assert.assertEquals(8.5, rootBox.minExtent.y, 0.01);
-        Assert.assertEquals(0.5, rootBox.minExtent.z, 0.01);
+        Assert.assertEquals(4.5, rootBox.getMinExtent().x, 0.01);
+        Assert.assertEquals(8.5, rootBox.getMinExtent().y, 0.01);
+        Assert.assertEquals(0.5, rootBox.getMinExtent().z, 0.01);
 
-        Assert.assertEquals(5.5, rootBox.maxExtent.x, 0.01);
-        Assert.assertEquals(9.5, rootBox.maxExtent.y, 0.01);
-        Assert.assertEquals(1.5, rootBox.maxExtent.z, 0.01);
+        Assert.assertEquals(5.5, rootBox.getMaxExtent().x, 0.01);
+        Assert.assertEquals(9.5, rootBox.getMaxExtent().y, 0.01);
+        Assert.assertEquals(1.5, rootBox.getMaxExtent().z, 0.01);
 
     }
 
@@ -79,13 +79,13 @@ public class SceneNodeTest {
 
         AABB box = child.computeWorldAABB();
 
-        Assert.assertEquals(4.5, box.minExtent.x, 0.01);
-        Assert.assertEquals(8.5, box.minExtent.y, 0.01);
-        Assert.assertEquals(0.5, box.minExtent.z, 0.01);
+        Assert.assertEquals(4.5, box.getMinExtent().x, 0.01);
+        Assert.assertEquals(8.5, box.getMinExtent().y, 0.01);
+        Assert.assertEquals(0.5, box.getMinExtent().z, 0.01);
 
-        Assert.assertEquals(5.5, box.maxExtent.x, 0.01);
-        Assert.assertEquals(9.5, box.maxExtent.y, 0.01);
-        Assert.assertEquals(1.5, box.maxExtent.z, 0.01);
+        Assert.assertEquals(5.5, box.getMaxExtent().x, 0.01);
+        Assert.assertEquals(9.5, box.getMaxExtent().y, 0.01);
+        Assert.assertEquals(1.5, box.getMaxExtent().z, 0.01);
     }
 
 }

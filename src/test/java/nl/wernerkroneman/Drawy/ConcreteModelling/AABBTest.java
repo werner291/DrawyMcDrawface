@@ -86,13 +86,13 @@ public class AABBTest {
 
         AABB result = aabb.transform(mat, new AABB());
 
-        Assert.assertEquals(1, aabb.maxExtent.x, 0.001);
-        Assert.assertEquals(-2, aabb.maxExtent.y, 0.001);
-        Assert.assertEquals(60, aabb.maxExtent.z, 0.001);
+        Assert.assertEquals(1, aabb.getMaxExtent().x, 0.001);
+        Assert.assertEquals(-2, aabb.getMaxExtent().y, 0.001);
+        Assert.assertEquals(60, aabb.getMaxExtent().z, 0.001);
 
-        Assert.assertEquals(-9, aabb.minExtent.x, 0.001);
-        Assert.assertEquals(-3, aabb.minExtent.y, 0.001);
-        Assert.assertEquals(59, aabb.minExtent.z, 0.001);
+        Assert.assertEquals(-9, aabb.getMinExtent().x, 0.001);
+        Assert.assertEquals(-3, aabb.getMinExtent().y, 0.001);
+        Assert.assertEquals(59, aabb.getMinExtent().z, 0.001);
 
     }
 
@@ -119,13 +119,13 @@ public class AABBTest {
 
         AABB result = box.translate(new Vector3d(5, 1, -50), new AABB());
 
-        Assert.assertEquals(15, result.maxExtent.x, 0.01);
-        Assert.assertEquals(7, result.maxExtent.y, 0.01);
-        Assert.assertEquals(-40, result.maxExtent.z, 0.01);
+        Assert.assertEquals(15, result.getMaxExtent().x, 0.01);
+        Assert.assertEquals(7, result.getMaxExtent().y, 0.01);
+        Assert.assertEquals(-40, result.getMaxExtent().z, 0.01);
 
-        Assert.assertEquals(5, result.minExtent.x, 0.01);
-        Assert.assertEquals(6, result.minExtent.y, 0.01);
-        Assert.assertEquals(-41, result.minExtent.z, 0.01);
+        Assert.assertEquals(5, result.getMinExtent().x, 0.01);
+        Assert.assertEquals(6, result.getMinExtent().y, 0.01);
+        Assert.assertEquals(-41, result.getMinExtent().z, 0.01);
     }
 
     @Test
@@ -139,14 +139,14 @@ public class AABBTest {
         Assert.assertEquals(1,result.getSizeY(),0.001);
         Assert.assertEquals(1,result.getSizeZ(),0.001);
 
-        Assert.assertEquals(4.5,result.minExtent.x,0.001);
-        Assert.assertEquals(5.5,result.maxExtent.x,0.001);
+        Assert.assertEquals(4.5, result.getMinExtent().x, 0.001);
+        Assert.assertEquals(5.5, result.getMaxExtent().x, 0.001);
 
-        Assert.assertEquals(5,result.minExtent.y,0.001);
-        Assert.assertEquals(6,result.maxExtent.y,0.001);
+        Assert.assertEquals(5, result.getMinExtent().y, 0.001);
+        Assert.assertEquals(6, result.getMaxExtent().y, 0.001);
 
-        Assert.assertEquals(0.5,result.minExtent.z,0.001);
-        Assert.assertEquals( 1.5,result.maxExtent.z,0.001);
+        Assert.assertEquals(0.5, result.getMinExtent().z, 0.001);
+        Assert.assertEquals(1.5, result.getMaxExtent().z, 0.001);
 
     }
 
@@ -162,14 +162,14 @@ public class AABBTest {
         Assert.assertEquals(1,result.getSizeY(),0.001);
         Assert.assertEquals(1,result.getSizeZ(),0.001);
 
-        Assert.assertEquals(-0.5,result.minExtent.x,0.001);
-        Assert.assertEquals(0.5,result.maxExtent.x,0.001);
+        Assert.assertEquals(-0.5, result.getMinExtent().x, 0.001);
+        Assert.assertEquals(0.5, result.getMaxExtent().x, 0.001);
 
-        Assert.assertEquals(-0.5,result.minExtent.y,0.001);
-        Assert.assertEquals(0.5,result.maxExtent.y,0.001);
+        Assert.assertEquals(-0.5, result.getMinExtent().y, 0.001);
+        Assert.assertEquals(0.5, result.getMaxExtent().y, 0.001);
 
-        Assert.assertEquals(-0.5,result.minExtent.z,0.001);
-        Assert.assertEquals( 0.5,result.maxExtent.z,0.001);
+        Assert.assertEquals(-0.5, result.getMinExtent().z, 0.001);
+        Assert.assertEquals(0.5, result.getMaxExtent().z, 0.001);
 
     }
 

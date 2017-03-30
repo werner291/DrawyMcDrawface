@@ -21,7 +21,10 @@ package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
 import nl.wernerkroneman.Drawy.ConcreteModelling.*
 import nl.wernerkroneman.Drawy.Modelling.*
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosition.DimensionOrder.*
+import org.joml.Matrix4d
 import org.joml.Vector3d
+import java.util.*
 
 class AbstractToConcrete(internal var meshFactory: MeshFactory) {
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
@@ -133,16 +136,111 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
 
         val childContext = Context(node)
 
-        absModel.componentsInTopoligicalOrder()
-                .forEach { node.addChild(createSceneNodeForModel(it.model!!, childContext)) }
+        val componentToNode = HashMap<CompositeModel.Component, SceneNode>()
+
+        for (component in absModel.componentsInTopoligicalOrder()) {
+            val childNode = createSceneNodeForModel(component.model!!, childContext)
+            componentToNode[component] = childNode
+
+            childNode.transform = computeChildTransform(childNode,
+                    component,
+                    componentToNode,
+                    absModel)
+
+            node.addChild(childNode)
+        }
 
         return node
-
     }
 
-    fun getTranslationToFit(child: SceneNode, place: AABB): Vector3d {
-        return place.minExtent.sub(child.computeLocalAABB().minExtent, Vector3d())
+    /**
+     * Compute the translation of the child SceneNode corresponding to a given component.
+     *
+     * @param childNode The node of which to compute the transform
+     * @param component The component corresponding to the node
+     * @param componentToNode A Map that, for every component,
+     *                  provides the corresponding SceneNode that was previously computed.
+     * @param composite  The CompositeModel that is the context
+     *
+     * @pre componentToNode has an entry for each component that the current component
+     *      depends on according to {@code composite.constraints}.
+     */
+    private fun computeChildTransform(childNode: SceneNode,
+                                      component: CompositeModel.Component,
+                                      componentToNode: Map<CompositeModel.Component, SceneNode>,
+                                      composite: CompositeModel): Matrix4d {
+
+        // Get an AABB to estimate how big the component is and how the AABB fits around it.
+        val componentAABB = childNode.computeParentContextAABB()
+                .translate(childNode.transform.getTranslation(Vector3d()))
+
+        // Compute an AABB to restrict the AABB, start with one spanning space
+        val translationRestriction = AABB(Vector3d(Double.POSITIVE_INFINITY),
+                Vector3d(Double.NEGATIVE_INFINITY))
+
+        // For each constraint
+        for (constraint in composite.constraints) {
+
+            // Handle RelativePositionConstraints for now only,
+            // and only that concern the current component
+            if (constraint is RelativePositionConstraint && constraint.a == component) {
+                val other = componentToNode[constraint.b] ?:
+                        throw IllegalStateException("Component depends on other components " +
+                                "that have not yet been computed.")
+
+                // Get the AABB of the other in the context
+                val parentContextAABB = other.computeParentContextAABB()
+
+                // Intersect
+                translationRestriction.intersection(
+                        other = constraintToTranslationRestriction(
+                                parentContextAABB,
+                                componentAABB,
+                                constraint
+                        ),
+                        dest = translationRestriction
+                )
+
+            }
+        }
+
+        return Matrix4d().identity()
+                .setTranslation(translationRestriction.centerIsh())
     }
+}
+
+/**
+ * Convert the constraint to a restriction on the translation.
+ */
+fun constraintToTranslationRestriction(selfAABB: AABB,
+                                       otherAABB: AABB,
+                                       constraint: RelativePositionConstraint): AABB {
+    val restrictTo = AABB()
+
+    constraint.pos.rel.forEachIndexed { index, dimensionOrder ->
+        when (dimensionOrder) {
+        // S: |-------x-----|
+        // O:                  |-----x------|
+            AFTER -> restrictTo.minExtent.setComponent(index,
+                    otherAABB.maxExtent[index] - selfAABB.minExtent[index])
+        // S: |-------x-----|
+        // O:        |-----x------|
+        // or
+        // S:    |-------x-----|
+        // O: |-----x------|
+            SAME -> {
+                restrictTo.minExtent.setComponent(index,
+                        otherAABB.minExtent[index] - selfAABB.maxExtent[index])
+
+                restrictTo.maxExtent.setComponent(index,
+                        otherAABB.maxExtent[index] - selfAABB.minExtent[index])
+            }
+            BEFORE -> restrictTo.maxExtent.setComponent(index,
+                    otherAABB.minExtent[index] - selfAABB.maxExtent[index])
+        }
+    }
+
+    return restrictTo
 }
 
 private class Context(val node: SceneNode? = null,

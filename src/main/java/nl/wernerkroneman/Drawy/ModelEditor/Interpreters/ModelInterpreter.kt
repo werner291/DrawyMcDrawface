@@ -63,6 +63,7 @@ class ModelInterpreter(internal val knowledge: Knowledge,
                             if (model !is CompositeModel) {
                                 model = CompositeModel().apply { addComponentForModel(model) }
                             }
+                            interpreted.a = model.components.first()
                             model.components.add(interpreted.b as CompositeModel.Component)
                             model.addConstraint(interpreted)
                         }
