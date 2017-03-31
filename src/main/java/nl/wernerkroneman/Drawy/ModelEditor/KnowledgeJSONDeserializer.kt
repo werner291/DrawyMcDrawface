@@ -70,7 +70,7 @@ object KnowledgeJSONDeserializer {
                 for (obj in serialized["components"] as JSONArray) {
                     val componentJSON = obj as JSONObject
 
-                    compositeModel.addComponentForModel(
+                    compositeModel.createComponentForModel(
                             deserializeObject(knowledge, componentJSON.get("model") as Any)!!)
                 }
 

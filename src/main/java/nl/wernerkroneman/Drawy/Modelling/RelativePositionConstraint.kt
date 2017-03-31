@@ -24,11 +24,10 @@ import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosi
 class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable?,
                                  var b: RelativeConstraintContext.Positionable?,
                                  var pos: RelativePosition,
-                                 var dist: Distance) : Constraint() {
+                                 var dist: Distance) : Constraint {
 
     override fun toString(): String {
         return "RelativePositionConstraint{" +
-                "a=" + a +
                 ", b=" + b +
                 ", pos=" + pos +
                 '}'

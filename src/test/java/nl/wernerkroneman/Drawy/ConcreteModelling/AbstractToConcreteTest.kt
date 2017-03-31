@@ -102,7 +102,7 @@ class AbstractToConcreteTest {
 
         val composite = CompositeModel("Cube container.")
 
-        composite.addComponentForModel(cube)
+        composite.createComponentForModel(cube)
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
@@ -140,7 +140,7 @@ class AbstractToConcreteTest {
             val NUM_CUBES = 10
 
             for (i in 0..NUM_CUBES - 1) {
-                composite.addComponentForModel(cube)
+                composite.createComponentForModel(cube)
             }
 
             val converter = AbstractToConcrete(DefaultMeshFactory())
@@ -157,7 +157,7 @@ class AbstractToConcreteTest {
                         val a = result.getRootSceneNode().getChildren()[i].getDrawables()[0].worldAABB
                         val b = result.getRootSceneNode().getChildren()[j].getDrawables()[0].worldAABB
 
-                        Assert.assertFalse(a.intersects(b, 0.0))
+                        Assert.assertFalse(a.intersects(b, 0.01))
                     }
                 }
             }
@@ -176,12 +176,12 @@ class AbstractToConcreteTest {
             val composite = CompositeModel("Cube container.")
 
             // Create two cube components.
-            val cubeA = composite.addComponentForModel(cube)
-            val cubeB = composite.addComponentForModel(cube)
-            val cubeC = composite.addComponentForModel(cube)
+            val cubeA = composite.createComponentForModel(cube)
+            val cubeB = composite.createComponentForModel(cube)
+            val cubeC = composite.createComponentForModel(cube)
 
-            composite.addConstraint(RelativePositionConstraint(cubeA, cubeB, ABOVE, Distance.ANY))
-            composite.addConstraint(RelativePositionConstraint(cubeB, cubeC, ABOVE, Distance.ANY))
+            composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, Distance.ANY))
+            composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, Distance.ANY))
 
             // Compute the concrete scene
             val converter = AbstractToConcrete(DefaultMeshFactory())
@@ -223,11 +223,11 @@ class AbstractToConcreteTest {
             val composite = CompositeModel("Cube container.")
 
             // Create two cube components.
-            val cubeA = composite.addComponentForModel(cube)
-            val cubeB = composite.addComponentForModel(cube)
-            val cubeC = composite.addComponentForModel(cube)
+            val cubeA = composite.createComponentForModel(cube)
+            val cubeB = composite.createComponentForModel(cube)
+            val cubeC = composite.createComponentForModel(cube)
 
-            composite.addConstraint(RelativePositionConstraint(cubeA, cubeB, ABOVE, FixedDistance(1.0)))
+            composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, FixedDistance(1.0)))
             composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, FixedDistance(2.0)))
 
             // Compute the concrete scene

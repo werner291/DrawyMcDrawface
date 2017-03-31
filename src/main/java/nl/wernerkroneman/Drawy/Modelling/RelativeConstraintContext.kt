@@ -25,9 +25,10 @@ package nl.wernerkroneman.Drawy.Modelling
  */
 interface RelativeConstraintContext {
 
-    val constraints: MutableSet<Constraint>
-
     // Marker interface for things that can be affected by a constraint
+    // How to interpret it will depend on the kind of context we're in.
     interface Positionable
+
+    fun getApplicableConstraintsFor(component: Positionable): Iterable<RelativePositionConstraint>
 
 }

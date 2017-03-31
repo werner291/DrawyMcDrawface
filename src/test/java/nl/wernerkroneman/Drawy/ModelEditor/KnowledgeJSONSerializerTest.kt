@@ -33,11 +33,12 @@ class KnowledgeJSONSerializerTest {
 
         val composite = CompositeModel("cube above sphere")
 
-        val cube = composite.addComponentForModel(
+        val cube = composite.createComponentForModel(
                 knowledge.getObject("Cube")!!)
-        val sphere = composite.addComponentForModel(
+        val sphere = composite.createComponentForModel(
                 knowledge.getObject("Sphere")!!)
-        composite.addConstraint(RelativePositionConstraint(cube, sphere, RelativePositionConstraint.ABOVE, Distance.ANY))
+
+        composite.constraints.add(RelativePositionConstraint(cube, sphere, RelativePositionConstraint.ABOVE, Distance.ANY))
 
         val serializer = KnowledgeJSONSerializer(knowledge)
 

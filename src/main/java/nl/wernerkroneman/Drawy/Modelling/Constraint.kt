@@ -19,5 +19,5 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-open class Constraint
+interface Constraint
 

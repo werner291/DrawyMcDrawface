@@ -37,7 +37,24 @@ class GroupModel(var number: Int,
                  var memberModelType: Model,
                  name: String) : Model(name), RelativeConstraintContext {
 
-    override val constraints: MutableSet<Constraint> = mutableSetOf<Constraint>()
+    val constraints: MutableSet<RelativePositionConstraint> = mutableSetOf()
+
+    override fun getApplicableConstraintsFor(component: RelativeConstraintContext.Positionable):
+            Iterable<RelativePositionConstraint> {
+
+        if (component !is ComponentDesignator.IndexComponent) {
+            throw IllegalArgumentException("Non-IndexComponent makes no sense out of context.")
+        }
+
+        return constraints.filter {
+            val a = it.a
+            when (a) {
+                is ComponentDesignator.IndexComponent -> a.index == component.index
+                is ComponentDesignator.IndexRangeComponent -> component in a
+                else -> throw IllegalStateException("Constraint with invalid RelativeComponent as 'a'.")
+            }
+        }
+    }
 
     override fun toString(): String {
         return "GroupModel{" +
@@ -51,13 +68,37 @@ class GroupModel(var number: Int,
         return visitor.visit(this)
     }
 
-    companion object {
-        // Placeholder values for relative constraints
-        val PLACEHOLDER_A: RelativeConstraintContext.Positionable = CompositeModel.Component(null)
-        val PLACEHOLDER_B: RelativeConstraintContext.Positionable = CompositeModel.Component(null)
-    }
+    sealed class ComponentDesignator : RelativeConstraintContext.Positionable {
+        // Object that designates one of the members of the group by index.
+        // Note that this is rather abstract: there is no list of members,
+        // this must be determined when interpreting the model.
+        class IndexComponent(val index: Int) : ComponentDesignator() {
+            override fun equals(other: Any?): Boolean {
+                if (this === other) return true
+                if (other?.javaClass != javaClass) return false
 
-    enum class Component : RelativeConstraintContext.Positionable{
-        NEXT,PREVIOUS,RECIPROCAL
+                other as IndexComponent
+
+                if (index != other.index) return false
+
+                return true
+            }
+
+            override fun hashCode(): Int {
+                return index
+            }
+        }
+
+        class IndexRangeComponent(val indexAtLeast: Int?,
+                                  val indexAtMost: Int?) : ComponentDesignator() {
+            operator fun contains(component: IndexComponent): Boolean {
+                return (indexAtLeast == null || component.index >= indexAtLeast) &&
+                        (indexAtMost == null || component.index <= indexAtMost)
+            }
+        }
+
+        // Indicate a member of the group by relative index.
+        // Note that "relative to what" must be understood from context.
+        class RelativeComponent(val offset: Int) : ComponentDesignator()
     }
 }

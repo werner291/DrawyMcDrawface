@@ -58,28 +58,29 @@ class ModelInterpreter(internal val knowledge: Knowledge,
 
                 is RelativePositionConstraint -> {
                     when {
-                        interpreted.a == null &&
-                                interpreted.b is CompositeModel.Component -> {
+                        interpreted.b is CompositeModel.Component -> {
                             if (model !is CompositeModel) {
-                                model = CompositeModel().apply { addComponentForModel(model) }
+                                model = CompositeModel().apply { createComponentForModel(model) }
                             }
-                            interpreted.a = model.components.first()
-                            model.components.add(interpreted.b as CompositeModel.Component)
-                            model.addConstraint(interpreted)
-                        }
-                        interpreted.b == GroupModel.Component.RECIPROCAL -> {
-                            if (model !is GroupModel) {
-                                throw IllegalStateException("Cannot use GroupModel placeholder without GroupModel context.")
-                            }
-                            interpreted.a = GroupModel.PLACEHOLDER_A
-                            interpreted.b = GroupModel.PLACEHOLDER_B
+                            if (interpreted.a == null)
+                                interpreted.a = model.components.first()
+
                             model.constraints.add(interpreted)
                         }
-                        interpreted.a == GroupModel.PLACEHOLDER_A &&
-                                interpreted.b == GroupModel.PLACEHOLDER_B -> {
+                        interpreted.b is GroupModel.ComponentDesignator -> {
                             if (model !is GroupModel) {
                                 throw IllegalStateException("Cannot use GroupModel placeholder without GroupModel context.")
                             }
+
+                            val a = interpreted.a
+                            val b = interpreted.b
+
+                            if (a == null && b is GroupModel.ComponentDesignator.RelativeComponent) {
+                                interpreted.a = if (b.offset < 0)
+                                    GroupModel.ComponentDesignator.IndexRangeComponent(-b.offset, null)
+                                else TODO()
+                            }
+
                             model.constraints.add(interpreted)
                         }
                     }
@@ -94,10 +95,28 @@ class ModelInterpreter(internal val knowledge: Knowledge,
                 }
 
                 is Modifier -> {
-                    if (model !is VariantModel) {
-                        model = VariantModel("", model)
+                    // TODO this approach is far too naive,
+                    // need to develop a re-usable system.
+                    // For example, need to implement locking.
+                    // Proposal: plural -> apply to member,
+                    //           singular -> apply to group
+                    when (model) {
+                        is GroupModel -> {
+                            if (model.memberModelType !is VariantModel) {
+                                model.memberModelType = VariantModel("", model.memberModelType)
+                            }
+                            (model.memberModelType as VariantModel).modifiers.add(interpreted)
+                        }
+                        is VariantModel -> {
+                            model.modifiers.add(interpreted)
+                        }
+                        else -> {
+                            model = VariantModel("", model)
+                            model.modifiers.add(interpreted)
+                        }
                     }
-                    model.modifiers.add(interpreted)
+
+
                 }
 
             }

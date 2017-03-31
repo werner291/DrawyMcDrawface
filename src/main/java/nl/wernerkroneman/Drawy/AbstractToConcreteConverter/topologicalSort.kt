@@ -21,16 +21,11 @@ package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
 import nl.wernerkroneman.Drawy.Algorithms.topologicalSort
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 
 fun CompositeModel.componentsInTopoligicalOrder(): List<CompositeModel.Component> {
 
-    val constraints = this.constraints
-
     return topologicalSort<CompositeModel.Component>(components, { compA ->
-        constraints.filter { it is RelativePositionConstraint }
-                .filter { (it as RelativePositionConstraint).a == compA }
-                .map { (it as RelativePositionConstraint).b as CompositeModel.Component }
+        this.getApplicableConstraintsFor(compA).map { it.b as CompositeModel.Component }
     })
 
 }

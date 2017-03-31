@@ -4,9 +4,26 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set.">
+    <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="Fixed relative positioning sometimes resulting in objects being inside one another.">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.kt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.kt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONDeserializer.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONDeserializer.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Constraint.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Constraint.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -139,112 +156,19 @@
       </state>
     </system>
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="DrawyMcDrawface" />
+  </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+    <leaf>
       <file leaf-file-name="AbstractToConcrete.kt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+            <state relative-caret-position="329">
+              <caret line="242" column="30" lean-forward="false" selection-start-line="242" selection-start-column="30" selection-end-line="242" selection-end-column="30" />
               <folding>
                 <element signature="e#809#1073#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PrimitiveModel.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/PrimitiveModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="21" column="6" lean-forward="false" selection-start-line="21" selection-start-column="6" selection-end-line="21" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DrawyMcDrawFace.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="118" column="45" lean-forward="true" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <marker date="1490891836645" expanded="false" signature="1258:2395" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompositeModel.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="40">
-              <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SceneNode.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="130" column="42" lean-forward="false" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Drawable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="64" column="24" lean-forward="true" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
-              <folding>
-                <element signature="e#1723#1724#0" expanded="true" />
-                <element signature="e#1764#1765#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Mesh.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ModelInterpreter.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="328">
-              <caret line="64" column="29" lean-forward="true" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PatternInterpreter.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="55" column="37" lean-forward="true" selection-start-line="55" selection-start-column="37" selection-end-line="55" selection-end-column="37" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KClasses.kt" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.1.1/23e5ae71bc0fdee003abc4d520bade83be5baf87/kotlin-reflect-1.1.1-sources.jar!/kotlin/reflect/full/KClasses.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="243" column="0" lean-forward="false" selection-start-line="243" selection-start-column="0" selection-end-line="243" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -699,13 +623,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/PrepositionInterpreter.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/ConcretePositionConstraint.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/ConcreteSpaceDescriptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/SpaceDescriptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/StandardPhraseMatchers.java" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.java" />
@@ -720,13 +637,10 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/SingularizePluralize.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/pluralize.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/GroupComponentInterpreter.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/GroupComponentInterpreter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" />
@@ -736,19 +650,29 @@
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreterTest.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/VariantModel.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/ModelVisitor.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializer.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/VariantModel.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSort.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionResolutionContext.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionResolutionContext.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Constraint.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSort.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Model.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" />
+        <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.java" />
+        <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
       </list>
     </option>
@@ -811,6 +735,66 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DrawyMcDrawface" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Drawy" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Algorithms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -984,6 +968,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -1324,8 +1310,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1336,6 +1320,7 @@
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
+    <property name="full.screen.before.presentation.mode" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -1367,32 +1352,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="nl.wernerkroneman.Drawy in DrawyMcDrawface_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="nl.wernerkroneman.Drawy.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="DrawyMcDrawface_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="package" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
     <configuration default="false" name="InterpreterTest.createSphereStack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -1406,32 +1365,6 @@
       <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ModelEditor" />
       <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ModelEditor.InterpreterTest" />
       <option name="METHOD_NAME" value="createSphereStack" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="false" name="PhrasePatternTest.matchAgainstPatternWithChildAndDependency" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="DrawyMcDrawface_test" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher" />
-      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternTest" />
-      <option name="METHOD_NAME" value="matchAgainstPatternWithChildAndDependency" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -1468,6 +1401,55 @@
         <value defaultName="singleModule" />
       </option>
       <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="test in DrawyMcDrawface_test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="DrawyMcDrawface_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="directory" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <dir value="$PROJECT_DIR$/src/test" />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="false" name="AbstractToConcreteTest.computeSceneMultipleCubeInComposite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="nl.wernerkroneman.Drawy.ConcreteModelling.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="DrawyMcDrawface_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="nl.wernerkroneman.Drawy.ConcreteModelling" />
+      <option name="MAIN_CLASS_NAME" value="nl.wernerkroneman.Drawy.ConcreteModelling.AbstractToConcreteTest" />
+      <option name="METHOD_NAME" value="computeSceneMultipleCubeInComposite" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <dir value="$PROJECT_DIR$/src/test" />
       <patterns />
       <method />
     </configuration>
@@ -1686,18 +1668,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Kotlin.nl.wernerkroneman.Drawy.DrawyMcDrawFaceKt" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface_test" />
-      <item index="2" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createSphereStack" />
-      <item index="3" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchAgainstPatternWithChildAndDependency" />
-      <item index="4" class="java.lang.String" itemvalue="JUnit.InterpreterTest.interpreterSizeTest" />
+      <item index="1" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createSphereStack" />
+      <item index="2" class="java.lang.String" itemvalue="JUnit.InterpreterTest.interpreterSizeTest" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.test in DrawyMcDrawface_test" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest.computeSceneMultipleCubeInComposite" />
     </list>
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Kotlin.nl.wernerkroneman.Drawy.DrawyMcDrawFaceKt" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.InterpreterTest.interpreterSizeTest" />
-        <item index="2" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createSphereStack" />
-        <item index="3" class="java.lang.String" itemvalue="JUnit.PhrasePatternTest.matchAgainstPatternWithChildAndDependency" />
-        <item index="4" class="java.lang.String" itemvalue="JUnit.nl.wernerkroneman.Drawy in DrawyMcDrawface_test" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.AbstractToConcreteTest.computeSceneMultipleCubeInComposite" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.test in DrawyMcDrawface_test" />
+        <item index="3" class="java.lang.String" itemvalue="JUnit.InterpreterTest.interpreterSizeTest" />
+        <item index="4" class="java.lang.String" itemvalue="JUnit.InterpreterTest.createSphereStack" />
       </list>
     </recent_temporary>
   </component>
@@ -1778,15 +1760,19 @@
       <option name="project" value="LOCAL" />
       <updated>1490891838813</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Fixed relative positioning sometimes resulting in objects being inside one another.">
+      <created>1490895316525</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1490895316525</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="InterpreterTest_createSphereStack - 2017.03.17 at 16h 43m 09s.xml">
-      <configuration name="InterpreterTest.createSphereStack" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="InterpreterTest_createSphereStack - 2017.03.17 at 16h 52m 41s.xml">
-      <configuration name="InterpreterTest.createSphereStack" configurationId="JUnit" />
+    <history-entry file="AbstractToConcreteTest_computeSceneMultipleCubeInComposite - 2017.03.31 at 21h 32m 39s.xml">
+      <configuration name="AbstractToConcreteTest.computeSceneMultipleCubeInComposite" configurationId="JUnit" />
     </history-entry>
     <history-entry file="InterpreterTest_createSphereStack - 2017.03.17 at 16h 58m 35s.xml">
       <configuration name="InterpreterTest.createSphereStack" configurationId="JUnit" />
@@ -1812,6 +1798,18 @@
     <history-entry file="nl_wernerkroneman_Drawy_in_DrawyMcDrawface_test - 2017.03.17 at 15h 24m 35s.xml">
       <configuration name="nl.wernerkroneman.Drawy in DrawyMcDrawface_test" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="test_in_DrawyMcDrawface_test - 2017.03.31 at 21h 32m 05s.xml">
+      <configuration name="test in DrawyMcDrawface_test" configurationId="JUnit" />
+    </history-entry>
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="27" width="1442" height="874" extended-state="6" />
@@ -1820,36 +1818,70 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3278237" sideWeight="0.5258993" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.422865" sideWeight="0.4913669" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.422865" sideWeight="0.4913669" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.423741" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.4741007" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21079136" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36225894" sideWeight="0.423741" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.4741007" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22158274" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.4942446" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5565912" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5565912" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3278237" sideWeight="0.5258993" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5565912" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Dynamic Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.422865" sideWeight="0.4913669" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3264463" sideWeight="0.423741" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.4741007" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298611" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3288948" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21438849" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3264463" sideWeight="0.4942446" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294964" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -1868,7 +1900,8 @@
     <MESSAGE value="Kotlin-ized AbstractToConcrete modules.&#10;Started modifying AbstractToConcrete to move towards a side-effect-free style.&#10;Implemented simple size modifiers in concrete modeling." />
     <MESSAGE value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot." />
     <MESSAGE value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set." />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented relative position pst-resizing (not quite working right yet), cleaned up constraint code a lot.&#10;Fixed RelativePositionConstraint.a not being set." />
+    <MESSAGE value="Fixed relative positioning sometimes resulting in objects being inside one another." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed relative positioning sometimes resulting in objects being inside one another." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1895,6 +1928,18 @@
           <properties />
           <option name="timeStamp" value="43" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt</url>
+          <line>135</line>
+          <properties />
+          <option name="timeStamp" value="66" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt</url>
+          <line>201</line>
+          <properties />
+          <option name="timeStamp" value="67" />
+        </line-breakpoint>
         <breakpoint type="java-exception">
           <properties class="java.lang.ArrayIndexOutOfBoundsException" package="java.lang" />
           <option name="timeStamp" value="41" />
@@ -1903,11 +1948,19 @@
           <properties class="kotlin.KotlinNullPointerException" package="kotlin" />
           <option name="timeStamp" value="47" />
         </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.StackOverflowError" package="java.lang" />
+          <option name="timeStamp" value="58" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IndexOutOfBoundsException" package="java.lang" />
+          <option name="timeStamp" value="65" />
+        </breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="57" />
+      <option name="time" value="69" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1916,113 +1969,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="68" column="23" lean-forward="false" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/jvm/JvmClassMapping.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="93" column="22" lean-forward="false" selection-start-line="93" selection-start-column="22" selection-end-line="93" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.6/973c5cf7a510034cf4a89a551f85bf4bb0b724d6/kotlin-stdlib-1.0.6-sources.jar!/kotlin/collections/Sets.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="860">
-          <caret line="44" column="15" lean-forward="false" selection-start-line="44" selection-start-column="15" selection-end-line="44" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="27" column="7" lean-forward="false" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="39" column="81" lean-forward="false" selection-start-line="39" selection-start-column="81" selection-end-line="39" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.6/b2f828f696e80b1406a9079b968d12edc06ee916/kotlin-runtime-1.0.6-sources.jar!/kotlin/reflect/KType.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="22" column="17" lean-forward="false" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="31" column="48" lean-forward="false" selection-start-line="31" selection-start-column="48" selection-end-line="31" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="29" column="44" lean-forward="false" selection-start-line="29" selection-start-column="44" selection-end-line="29" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="55" column="16" lean-forward="false" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Model.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="23" column="15" lean-forward="false" selection-start-line="23" selection-start-column="15" selection-end-line="23" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/ModelVisitor.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/collections/Sets.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="860">
-          <caret line="43" column="23" lean-forward="false" selection-start-line="43" selection-start-column="23" selection-end-line="43" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/internal/Annotations.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="59" column="26" lean-forward="false" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreterTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-334">
-          <caret line="46" column="18" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="129" column="37" lean-forward="false" selection-start-line="129" selection-start-column="37" selection-end-line="129" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -2080,36 +2026,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/generated/_Collections.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22340">
-          <caret line="1117" column="37" lean-forward="false" selection-start-line="1117" selection-start-column="37" selection-end-line="1117" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/util/Standard.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1100">
-          <caret line="55" column="24" lean-forward="false" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSort.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="26" column="33" lean-forward="false" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/VariantModel.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -2126,63 +2042,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="23" column="67" lean-forward="false" selection-start-line="23" selection-start-column="67" selection-end-line="23" selection-end-column="67" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#809#990#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionResolutionContext.kt" />
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionalSolver.kt" />
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jogamp.jogl/jogl-all/2.3.2/677f26584c8860b8ac2091a09b08b5facedc6d68/jogl-all-2.3.2-sources.jar!/com/jogamp/opengl/math/geom/AABBox.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="52" column="13" lean-forward="false" selection-start-line="52" selection-start-column="13" selection-end-line="52" selection-end-column="13" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="imports" expanded="false" />
-            <element signature="e#2729#2730#0" expanded="false" />
-            <element signature="e#2752#2753#0" expanded="false" />
-            <element signature="e#2933#2934#0" expanded="false" />
-            <element signature="e#2958#2959#0" expanded="false" />
-            <element signature="e#3639#3640#0" expanded="false" />
-            <element signature="e#3673#3674#0" expanded="false" />
-            <element signature="e#4268#4269#0" expanded="false" />
-            <element signature="e#4295#4296#0" expanded="false" />
-            <element signature="e#4609#4610#0" expanded="false" />
-            <element signature="e#4635#4636#0" expanded="false" />
-            <element signature="e#9933#9934#0" expanded="false" />
-            <element signature="e#9986#9987#0" expanded="false" />
-            <element signature="e#19662#19663#0" expanded="false" />
-            <element signature="e#19715#19716#0" expanded="false" />
-            <element signature="e#19871#19872#0" expanded="false" />
-            <element signature="e#19900#19901#0" expanded="false" />
-            <element signature="e#21458#21459#0" expanded="false" />
-            <element signature="e#21487#21488#0" expanded="false" />
-            <element signature="e#21523#21524#0" expanded="false" />
-            <element signature="e#21552#21553#0" expanded="false" />
-            <element signature="e#21588#21589#0" expanded="false" />
-            <element signature="e#21617#21618#0" expanded="false" />
-            <element signature="e#21653#21654#0" expanded="false" />
-            <element signature="e#21683#21684#0" expanded="false" />
-            <element signature="e#21719#21720#0" expanded="false" />
-            <element signature="e#21749#21750#0" expanded="false" />
-            <element signature="e#21785#21786#0" expanded="false" />
-            <element signature="e#21815#21816#0" expanded="false" />
-            <element signature="e#21851#21852#0" expanded="false" />
-            <element signature="e#21890#21891#0" expanded="false" />
-            <element signature="e#21928#21929#0" expanded="false" />
-            <element signature="e#21967#21968#0" expanded="false" />
-            <element signature="e#22004#22005#0" expanded="false" />
-            <element signature="e#22043#22044#0" expanded="false" />
-            <element signature="e#22527#22528#0" expanded="false" />
-            <element signature="e#22591#22592#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2194,29 +2059,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="31" column="30" lean-forward="false" selection-start-line="31" selection-start-column="30" selection-end-line="31" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/reflect/generics/parser/SignatureParser.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="448" column="0" lean-forward="false" selection-start-line="448" selection-start-column="0" selection-end-line="448" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/reflect/generics/repository/ClassRepository.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-          <folding>
-            <element signature="e#965#966#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2277,9 +2123,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2315,30 +2158,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="46" column="0" lean-forward="true" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+        <state relative-caret-position="2220">
+          <caret line="130" column="42" lean-forward="false" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="328">
-          <caret line="64" column="29" lean-forward="true" selection-start-line="64" selection-start-column="29" selection-end-line="64" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="118" column="45" lean-forward="true" selection-start-line="118" selection-start-column="45" selection-end-line="118" selection-end-column="45" />
+        <state relative-caret-position="800">
+          <caret line="64" column="24" lean-forward="false" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
           <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1490891836645" expanded="false" signature="1258:2395" ph="..." />
+            <element signature="e#1723#1724#0" expanded="false" />
+            <element signature="e#1764#1765#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1240">
+          <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/GlRenderer/ShaderPositions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#1032#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/Progressions.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1680">
+          <caret line="98" column="0" lean-forward="false" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2350,37 +2211,636 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/GlRenderer/GlMeshFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="130" column="42" lean-forward="false" selection-start-line="130" selection-start-column="42" selection-end-line="130" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Drawable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="64" column="24" lean-forward="true" selection-start-line="64" selection-start-column="24" selection-end-line="64" selection-end-column="24" />
+        <state relative-caret-position="140">
+          <caret line="25" column="13" lean-forward="false" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
           <folding>
-            <element signature="e#1723#1724#0" expanded="true" />
-            <element signature="e#1764#1765#0" expanded="true" />
+            <element signature="e#0#1047#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#1007#1008#0" expanded="false" />
+            <element signature="e#1042#1043#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/Mesh.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2100">
+          <caret line="124" column="28" lean-forward="false" selection-start-line="124" selection-start-column="28" selection-end-line="124" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#5324#0" expanded="false" />
+            <element signature="e#947#948#0" expanded="false" />
+            <element signature="e#993#994#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Constraint.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="21" column="22" lean-forward="false" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/generated/_Collections.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
-          <caret line="83" column="16" lean-forward="false" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
+          <caret line="1117" column="37" lean-forward="false" selection-start-line="1117" selection-start-column="37" selection-end-line="1117" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Model.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="280">
+          <caret line="31" column="83" lean-forward="false" selection-start-line="31" selection-start-column="83" selection-end-line="31" selection-end-column="83" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSort.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="37" column="3" lean-forward="false" selection-start-line="37" selection-start-column="3" selection-end-line="37" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/collections/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="139" column="25" lean-forward="false" selection-start-line="139" selection-start-column="25" selection-end-line="139" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="24" column="79" lean-forward="false" selection-start-line="24" selection-start-column="79" selection-end-line="24" selection-end-column="79" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="50" column="19" lean-forward="true" selection-start-line="50" selection-start-column="19" selection-end-line="50" selection-end-column="19" />
+          <folding>
+            <marker date="1490980090588" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490980090588" expanded="true" signature="811:1055" ph="/** The CompositeModel represents everything that DrawyMcDrawface ...*/" />
+            <marker date="1490980090588" expanded="true" signature="1241:2066" ph="{...}" />
+            <marker date="1490980090588" expanded="true" signature="1456:1520" ph="{...}" />
+            <marker date="1490980090588" expanded="true" signature="1585:1627" ph="{...}" />
+            <marker date="1490980090588" expanded="true" signature="1685:1776" ph="{...}" />
+            <marker date="1490980090588" expanded="true" signature="1814:1984" ph="{...}" />
+            <marker date="1490980090588" expanded="true" signature="1888:1943" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="132" column="29" lean-forward="false" selection-start-line="132" selection-start-column="29" selection-end-line="132" selection-end-column="29" />
+          <folding>
+            <marker date="1490980090604" expanded="true" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490980090604" expanded="true" signature="781:854" ph="/ main.cpp .../" />
+            <marker date="1490980090604" expanded="false" signature="1258:2395" ph="..." />
+            <marker date="1490980090604" expanded="false" signature="1265:2395" ph="..." />
+            <marker date="1490980090604" expanded="true" signature="2427:4371" ph="{...}" />
+            <marker date="1490980090604" expanded="true" signature="3625:3819" ph="{...}" />
+            <marker date="1490980090604" expanded="true" signature="3904:4329" ph="{...}" />
+            <marker date="1490980090604" expanded="true" signature="3989:4323" ph="{...}" />
+            <marker date="1490980090604" expanded="true" signature="4437:4759" ph="{...}" />
+            <marker date="1490980090604" expanded="true" signature="4761:5635" ph="/ private static class MyDescriptionSessionListener implements DescriptionSessionListener { .../" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/Collections.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="266" column="17" lean-forward="false" selection-start-line="266" selection-start-column="17" selection-end-line="266" selection-end-column="17" />
+          <folding>
+            <marker date="1489861576554" expanded="false" signature="0:600" ph="/ Copyright 2010-2015 JetBrains s.r.o. .../" />
+            <marker date="1489861576554" expanded="true" signature="672:898" ph="/** Classes that inherit from this interface can be represented as a sequence of elements that can ...*/" />
+            <marker date="1489861576554" expanded="true" signature="932:1060" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="938:1010" ph="/** Returns an iterator over the elements of this object. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1062:1349" ph="/** Classes that inherit from this interface can be represented as a sequence of elements that can ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1404:1583" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="1410:1533" ph="/** Returns an iterator over the elements of this sequence that supports removing elements during iteration. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1585:1892" ph="/** A generic collection of elements. Methods in this interface support only read-only access to the collection; ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1942:2606" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="1972:2026" ph="/** Returns the size of the collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2057:2160" ph="/** Returns `true` if the collection is empty (contains no elements), `false` otherwise. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2200:2283" ph="/** Checks if the specified element is contained in this collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2424:2527" ph="/** Checks if all elements in the specified collection are contained in this collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2608:2817" ph="/** A generic collection of elements that supports adding and removing elements. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2892:4608" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="3002:3243" ph="/** Adds the specified element to the collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="3289:3529" ph="/** Removes a single instance of the specified element from this ...*/" />
+            <marker date="1489861576554" expanded="true" signature="3614:3840" ph="/** Adds all of the elements in the specified collection to this collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="3902:4154" ph="/** Removes all of this collection's elements that are also contained in the specified collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="4219:4451" ph="/** Retains only the elements in this collection that are contained in the specified collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="4516:4577" ph="/** Removes all elements from this collection. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="4610:4901" ph="/** A generic ordered collection of elements. Methods in this interface support only read-only access to the list; ...*/" />
+            <marker date="1489861576554" expanded="true" signature="4947:6696" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="5285:5359" ph="/** Returns the element at the specified index in the list. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="5433:5599" ph="/** Returns the index of the first occurrence of the specified element in the list, or -1 if the specified ...*/" />
+            <marker date="1489861576554" expanded="true" signature="5661:5826" ph="/** Returns the index of the last occurrence of the specified element in the list, or -1 if the specified ...*/" />
+            <marker date="1489861576554" expanded="true" signature="5914:6009" ph="/** Returns a list iterator over the elements in this list (in proper sequence). ...*/" />
+            <marker date="1489861576554" expanded="true" signature="6062:6192" ph="/** Returns a list iterator over the elements in this list (in proper sequence), starting at the specified [index]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="6267:6632" ph="/** Returns a view of the portion of this list between the specified [fromIndex] (inclusive) and [toIndex] (exclusive). ...*/" />
+            <marker date="1489861576554" expanded="true" signature="6698:6900" ph="/** A generic ordered collection of elements that supports adding and removing elements. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="6965:8437" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="7186:7397" ph="/** Inserts all of the elements in the specified collection [elements] into this list at the specified [index]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="7661:7839" ph="/** Replaces the element at the specified position in this list with the specified element. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="7900:7977" ph="/** Inserts an element into the list at the specified [index]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="8032:8166" ph="/** Removes an element at the specified [index] from the list. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="8439:8772" ph="/** A generic unordered collection of elements that does not support duplicate elements. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="8817:9115" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="9117:9363" ph="/** A generic unordered collection of elements that does not support duplicate elements, and supports ...*/" />
+            <marker date="1489861576554" expanded="true" signature="9426:9870" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="9872:10478" ph="/** A collection that holds pairs of objects (keys and values) and supports efficiently retrieving ...*/" />
+            <marker date="1489861576554" expanded="true" signature="10510:12342" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="10540:10608" ph="/** Returns the number of key/value pairs in the map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="10639:10735" ph="/** Returns `true` if the map is empty (contains no elements), `false` otherwise. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="10775:10849" ph="/** Returns `true` if the map contains the specified [key]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="10899:10991" ph="/** Returns `true` if the map maps one or more keys to the specified [value]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="11061:11182" ph="/** Returns the value corresponding to the given [key], or `null` if such a key is not present in the map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="11228:11386" ph="/** Returns the value corresponding to the given [key], or [defaultValue] if such a key is not present in the map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="11506:11591" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="11610:11679" ph="/** Returns a read-only [Set] of all keys in this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="11713:11847" ph="/** Returns a read-only [Collection] of all values in this map. Note that this collection may contain duplicate values. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="11890:11970" ph="/** Returns a read-only [Set] of all key/value pairs in this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="12021:12084" ph="/** Represents a key/value pair held by a [Map]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="12126:12340" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="12136:12202" ph="/** Returns the key of this key/value pair. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="12238:12306" ph="/** Returns the value of this key/value pair. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="12344:12720" ph="/** A modifiable collection that holds pairs of objects (keys and values) and supports efficiently retrieving ...*/" />
+            <marker date="1489861576554" expanded="true" signature="12767:14705" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="12804:13007" ph="/** Associates the specified [value] with the specified [key] in the map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="13054:13256" ph="/** Removes the specified key and its corresponding value from this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="13296:13447" ph="/** Removes the entry for the specified key only if it is mapped to the specified value. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="13544:13624" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="13666:13753" ph="/** Updates this map with key/value pairs from the specified map [from]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="13808:13862" ph="/** Removes all elements from this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="13910:13977" ph="/** Returns a mutable [Set] of all keys in this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="14020:14152" ph="/** Returns a mutable [Collection] of all values in this map. Note that this collection may contain duplicate values. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="14226:14304" ph="/** Returns a mutable [Set] of all key/value pairs in this map. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="14356:14426" ph="/** Represents a key/value pair held by a [MutableMap]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="14485:14703" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="14495:14653" ph="/** Changes the value associated with the key of this entry. ...*/" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="265">
+          <caret line="114" column="47" lean-forward="true" selection-start-line="114" selection-start-column="47" selection-end-line="114" selection-end-column="47" />
+          <folding>
+            <marker date="1490987507603" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490987507603" expanded="false" signature="800:1203" ph="..." />
+            <marker date="1490987507603" expanded="true" signature="1327:5414" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="3189:3332" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="4092:4318" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="4160:4303" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="4448:4531" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="4661:4745" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="5049:5311" ph="{...}" />
+            <marker date="1490987507603" expanded="true" signature="5235:5305" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/RelativePositionStatement.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="31" column="15" lean-forward="false" selection-start-line="31" selection-start-column="15" selection-end-line="31" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="40" column="29" lean-forward="false" selection-start-line="40" selection-start-column="29" selection-end-line="40" selection-end-column="29" />
+          <folding>
+            <marker date="1490988376449" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490988376449" expanded="false" signature="800:988" ph="..." />
+            <marker date="1490988376449" expanded="true" signature="1024:1855" ph="{...}" />
+            <marker date="1490988376449" expanded="true" signature="1058:1853" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/topologicalSort.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+          <folding>
+            <marker date="1490978495464" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490978495464" expanded="true" signature="816:990" ph="..." />
+            <marker date="1490978495464" expanded="true" signature="1074:1250" ph="{...}" />
+            <marker date="1490978495464" expanded="true" signature="1142:1246" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="54" column="44" lean-forward="true" selection-start-line="54" selection-start-column="44" selection-end-line="54" selection-end-column="44" />
+          <folding>
+            <marker date="1490988681585" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490988681585" expanded="false" signature="799:902" ph="..." />
+            <marker date="1490988681585" expanded="true" signature="931:2009" ph="{...}" />
+            <marker date="1490988681585" expanded="true" signature="999:2006" ph="{...}" />
+            <marker date="1490988681585" expanded="true" signature="1380:1446" ph="{...}" />
+            <marker date="1490988681585" expanded="true" signature="1740:1803" ph="{...}" />
+            <marker date="1490988681585" expanded="true" signature="1848:1999" ph="{...}" />
+            <marker date="1490988681585" expanded="true" signature="1889:1988" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="140" column="0" lean-forward="true" selection-start-line="140" selection-start-column="0" selection-end-line="140" selection-end-column="0" />
+          <folding>
+            <marker date="1490988755940" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490988755940" expanded="false" signature="806:1074" ph="..." />
+            <marker date="1490988755940" expanded="true" signature="1076:1117" ph="/** Created by werner on 27-12-16. ...*/" />
+            <marker date="1490988755940" expanded="true" signature="1147:9485" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="1154:2319" ph="/ @Test .../" />
+            <marker date="1490988755940" expanded="true" signature="2394:3229" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="3315:4472" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="4560:5735" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="4653:5729" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="4868:4939" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="5310:5719" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="5356:5705" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="5390:5687" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="5741:5798" ph="/** Supposed to create a stack of 3 cubes. ...*/" />
+            <marker date="1490988755940" expanded="true" signature="5850:7596" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="5879:7590" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="6922:7249" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="6956:7235" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="6990:7217" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="7602:7659" ph="/** Supposed to create a stack of 3 cubes. ...*/" />
+            <marker date="1490988755940" expanded="true" signature="7724:9482" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="7753:9476" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="8808:9135" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="8842:9121" ph="{...}" />
+            <marker date="1490988755940" expanded="true" signature="8876:9103" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/util/Standard.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-101">
+          <caret line="14" column="18" lean-forward="false" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
+          <folding>
+            <marker date="1489861576554" expanded="true" signature="90:181" ph="/** An exception is thrown to indicate that a method body remains to be implemented. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="287:376" ph="/** Always throws [NotImplementedError] stating that operation is not implemented. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="471:635" ph="/** Always throws [NotImplementedError] stating that operation is not implemented. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="787:858" ph="/** Calls the specified function [block] and returns its result. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="943:1048" ph="/** Calls the specified function [block] with `this` value as its receiver and returns its result. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1140:1253" ph="/** Calls the specified function [block] with the given [receiver] as its receiver and returns its result. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1366:1473" ph="/** Calls the specified function [block] with `this` value as its receiver and returns `this` value. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1582:1689" ph="/** Calls the specified function [block] with `this` value as its argument and returns `this` value. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="1820:1925" ph="/** Calls the specified function [block] with `this` value as its argument and returns its result. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2020:2115" ph="/** Returns `this` value if it satisfies the given [predicate] or `null`, if it doesn't. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2265:2366" ph="/** Returns `this` value if it _does not_ satisfy the given [predicate] or `null`, if it does. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2521:2681" ph="/** Executes the given function [action] specified number of [times]. ...*/" />
+            <marker date="1489861576554" expanded="true" signature="2770:2835" ph="{...}" />
+            <marker date="1489861576554" expanded="true" signature="2804:2833" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="199">
+          <caret line="59" column="26" lean-forward="true" selection-start-line="59" selection-start-column="26" selection-end-line="59" selection-end-column="26" />
+          <folding>
+            <marker date="1490996189555" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490996189555" expanded="false" signature="813:1122" ph="..." />
+            <marker date="1490996189555" expanded="true" signature="1305:5009" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="1510:5006" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="1939:2008" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2049:4977" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2214:3584" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2312:2719" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2372:2501" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2795:3544" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="2851:3007" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="3210:3454" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="3612:3861" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="3660:3763" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="3769:3843" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="3894:4951" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="4274:4596" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="4348:4475" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="4640:4728" ph="{...}" />
+            <marker date="1490996189555" expanded="true" signature="4761:4909" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/GroupModel.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+          <folding>
+            <marker date="1490987222064" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1490987222064" expanded="true" signature="811:1337" ph="/** Represents a group (usually understood as a cluster) ...*/" />
+            <marker date="1490987222064" expanded="true" signature="1489:3991" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="1716:2256" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="1781:1888" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="1924:2250" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="2294:2490" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="2555:2597" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="2681:3989" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="2967:3373" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="3023:3276" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="3319:3363" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="3514:3775" ph="{...}" />
+            <marker date="1490987222064" expanded="true" signature="3586:3765" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/src.zip!/java/util/ArrayList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="428" column="0" lean-forward="false" selection-start-line="428" selection-start-column="0" selection-end-line="428" selection-end-column="0" />
+          <folding>
+            <marker date="1466646781000" expanded="false" signature="0:215" ph="/.../" />
+            <marker date="1466646781000" expanded="false" signature="244:350" ph="..." />
+            <marker date="1466646781000" expanded="true" signature="352:4232" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="4436:4480" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="4538:4610" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="4674:4874" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="4954:5273" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="5362:5466" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="5494:5747" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="5790:6146" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="6152:6228" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="6251:6262" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="6315:6321" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="6327:6648" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="6697:7122" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="7128:7344" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="7374:7574" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="7580:7855" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="7904:8306" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="8062:8169" ph="//..." />
+            <marker date="1466646781000" expanded="true" signature="8365:8559" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="8618:8762" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="8768:8999" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="9074:9287" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="9327:9786" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="9841:10039" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="10045:10166" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="10188:10199" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="10211:10217" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="10223:10368" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="10397:10408" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="10425:10431" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="10437:10868" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="10906:10917" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="10940:10946" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="10952:11296" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="11330:11642" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="11648:11992" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="12030:12348" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="12354:12548" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="12575:12927" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="12933:13510" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="13540:13551" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="13591:13597" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="13603:14933" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="14938:14968" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="15003:15311" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="15354:15384" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="false" signature="15413:15424" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="15454:15460" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="15466:15724" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="15753:15823" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="15829:16189" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="16229:16368" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="16374:16576" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="16605:16734" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="16740:17149" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="17192:17464" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="17470:17820" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="17852:18220" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="18226:18901" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="18938:19411" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="19569:19841" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="19847:19965" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="19990:20150" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="20156:20848" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="20902:21156" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="21162:21958" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="22023:22495" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="22501:23147" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="23207:23586" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="23592:23901" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="23941:24047" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="24053:24119" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="24165:24283" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="24289:24503" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="24548:24559" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="24598:24604" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="24610:25399" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="25446:25526" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="25532:26435" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="26482:26561" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="26632:27585" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="26946:27051" ph="//..." />
+            <marker date="1466646781000" expanded="true" signature="27591:27928" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="28022:28525" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="28531:28642" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="28759:29289" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="29295:29869" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="29921:30068" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="30074:30304" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="30346:30357" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="30379:30385" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="30391:30649" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="30683:30694" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="30711:30717" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="30723:30782" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="30828:32999" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="31040:31055" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="31077:31087" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="31097:31127" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="31152:31550" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="31581:32014" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="32024:32072" ph="@{...}" />
+            <marker date="1466646781000" expanded="false" signature="32042:32072" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="32140:32829" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="32875:32993" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="33005:33068" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="33134:34687" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="33163:33223" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="33261:33276" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="33295:33305" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="33337:33352" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="33366:33376" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="33412:33427" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="33445:33455" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="33465:33495" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="33524:33918" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="33949:34273" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="34304:34681" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="34693:36293" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="36349:36466" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="36540:36939" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="37015:45276" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="37252:37484" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="37523:37761" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="37795:37938" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="37966:38045" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="38087:38292" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="38329:38566" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="38631:38884" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="38942:38957" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="38985:38995" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="39065:39396" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="39435:39450" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="39472:39482" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="39545:44162" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="39708:44151" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="39885:39908" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="39943:39961" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="39979:40009" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="40042:40553" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="40599:40622" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="40641:40659" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="40677:40707" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="40744:41238" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="41256:41286" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="41362:42186" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="42226:42249" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="42263:42281" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="42325:42348" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="42366:42384" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="42423:42965" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="43004:43409" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="43448:43926" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="43980:44137" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="44223:44357" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="44402:44538" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="44589:44724" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="44774:44789" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="44833:44843" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="44891:45021" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="45067:45270" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="45344:45804" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="45441:45471" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="45810:46335" ph="/**...*/" />
+            <marker date="1466646781000" expanded="false" signature="46389:46400" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="46450:46456" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="46462:46525" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="46599:51697" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="48770:48825" ph="/**...*/" />
+            <marker date="1466646781000" expanded="true" signature="48948:49139" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="49172:49615" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="49667:49957" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="50021:50515" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="50222:50252" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="50582:51462" ph="{...}" />
+            <marker date="1466646781000" expanded="false" signature="51177:51207" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="false" signature="51498:51513" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="51548:51558" ph=" }" />
+            <marker date="1466646781000" expanded="false" signature="51596:51611" ph=" { " />
+            <marker date="1466646781000" expanded="false" signature="51681:51691" ph=" }" />
+            <marker date="1466646781000" expanded="true" signature="51770:53300" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="51820:51986" ph="//..." />
+            <marker date="1466646781000" expanded="false" signature="52233:52263" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="53306:53350" ph="@{...}" />
+            <marker date="1466646781000" expanded="false" signature="53320:53350" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="53405:53814" ph="{...}" />
+            <marker date="1466646781000" expanded="true" signature="53820:53864" ph="@{...}" />
+            <marker date="1466646781000" expanded="false" signature="53834:53864" ph="/unchecked/" />
+            <marker date="1466646781000" expanded="true" signature="53911:54148" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/jdk-8-oracle-x64/jre/lib/rt.jar!/sun/reflect/generics/parser/SignatureParser.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="139">
+          <caret line="57" column="0" lean-forward="false" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding>
+            <marker date="1466646780000" expanded="false" signature="0:104" ph="/.../" />
+            <marker date="1466646780000" expanded="false" signature="151:1394" ph="..." />
+            <marker date="1466646780000" expanded="true" signature="1600:1607" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="1636:1841" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="1870:2073" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="2102:2180" ph="{...}" />
+            <marker date="1466646780000" expanded="false" signature="2212:2223" ph=" { " />
+            <marker date="1466646780000" expanded="false" signature="2297:2303" ph=" }" />
+            <marker date="1466646780000" expanded="true" signature="2358:2618" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="2657:2791" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="2829:2938" ph="{...}" />
+            <marker date="1466646780000" expanded="false" signature="2980:2991" ph=" { " />
+            <marker date="1466646780000" expanded="false" signature="3020:3026" ph=" }" />
+            <marker date="1466646780000" expanded="true" signature="3081:3172" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="3233:3329" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="3382:3472" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="3523:3704" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="3778:3882" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="3946:4543" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="4604:4766" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="4805:5326" ph="{...}" />
+            <marker date="1466646780000" expanded="false" signature="5384:5395" ph=" { " />
+            <marker date="1466646780000" expanded="false" signature="5437:5443" ph=" }" />
+            <marker date="1466646780000" expanded="true" signature="5514:5963" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="6022:6630" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="6715:7438" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="7521:7975" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="8061:8209" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="8262:8352" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="8402:8895" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="8942:9929" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="9994:10528" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="10587:10818" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="10867:11476" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="11515:12674" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="12723:13316" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="13374:13616" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="13677:13896" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="13950:14355" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="14417:15358" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="15401:15586" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="15655:15894" ph="{...}" />
+            <marker date="1466646780000" expanded="true" signature="15950:16200" ph="{...}" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="182" column="0" lean-forward="false" selection-start-line="182" selection-start-column="0" selection-end-line="182" selection-end-column="0" />
+        <state relative-caret-position="329">
+          <caret line="242" column="30" lean-forward="false" selection-start-line="242" selection-start-column="30" selection-end-line="242" selection-end-column="30" />
           <folding>
             <element signature="e#809#1073#0" expanded="true" />
           </folding>

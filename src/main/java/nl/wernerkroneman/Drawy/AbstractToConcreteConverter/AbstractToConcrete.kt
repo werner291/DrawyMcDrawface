@@ -114,11 +114,26 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
 
         val childContext = Context(node)
 
+        val componentToNode = mutableListOf<SceneNode>()
+
         // TODO implement identical models.
         0.until(absModel.number)
-                .forEach {
-                    node.addChild(createSceneNodeForModel(absModel.memberModelType,
-                            childContext))
+                .forEach { index ->
+                    val childNode = createSceneNodeForModel(absModel.memberModelType, childContext)
+
+                    childNode.transform = computeChildTransform(childNode,
+                            GroupModel.ComponentDesignator.IndexComponent(index),
+                            {
+                                when {
+                                    it is GroupModel.ComponentDesignator.RelativeComponent ->
+                                        componentToNode[index + it.offset]
+                                    else -> throw UnsupportedOperationException("Unknown...")
+                                }
+                            },
+                            absModel)
+
+                    componentToNode.add(childNode)
+                    node.addChild(childNode)
                 }
 
         return node
@@ -143,12 +158,12 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
         val componentToNode = HashMap<CompositeModel.Component, SceneNode>()
 
         for (component in absModel.componentsInTopoligicalOrder()) {
-            val childNode = createSceneNodeForModel(component.model!!, childContext)
+            val childNode = createSceneNodeForModel(component.model, childContext)
             componentToNode[component] = childNode
 
             childNode.transform = computeChildTransform(childNode,
                     component,
-                    componentToNode,
+                    { componentToNode[it]!! },
                     absModel)
 
             node.addChild(childNode)
@@ -162,17 +177,18 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
      *
      * @param childNode The node of which to compute the transform
      * @param component The component corresponding to the node
-     * @param componentToNode A Map that, for every component,
+     * @param componentToNode A function that, for every component,
      *                  provides the corresponding SceneNode that was previously computed.
      * @param composite  The CompositeModel that is the context
      *
      * @pre componentToNode has an entry for each component that the current component
-     *      depends on according to {@code composite.constraints}.
+     *      depends on according to {@code composite.applicableConstraints}.
      */
-    private fun computeChildTransform(childNode: SceneNode,
-                                      component: CompositeModel.Component,
-                                      componentToNode: Map<CompositeModel.Component, SceneNode>,
-                                      composite: CompositeModel): Matrix4d {
+    private fun computeChildTransform(
+            childNode: SceneNode,
+            component: RelativeConstraintContext.Positionable,
+            componentToNode: (RelativeConstraintContext.Positionable) -> SceneNode,
+            context: RelativeConstraintContext): Matrix4d {
 
         // Get an AABB to estimate how big the component is and how the AABB fits around it.
         val componentAABB = childNode.computeParentContextAABB()
@@ -183,29 +199,24 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
                 Vector3d(Double.NEGATIVE_INFINITY))
 
         // For each constraint
-        for (constraint in composite.constraints) {
+        for (constraint in context.getApplicableConstraintsFor(component)) {
 
             // Handle RelativePositionConstraints for now only,
             // and only that concern the current component
-            if (constraint is RelativePositionConstraint && constraint.a == component) {
-                val other = componentToNode[constraint.b] ?:
-                        throw IllegalStateException("Component depends on other components " +
-                                "that have not yet been computed.")
+            val other = componentToNode(constraint.b!!)
 
-                // Get the AABB of the other in the context
-                val parentContextAABB = other.computeParentContextAABB()
+            // Get the AABB of the other in the context
+            val parentContextAABB = other.computeParentContextAABB()
 
-                // Intersect
-                translationRestriction.intersection(
-                        other = constraintToTranslationRestriction(
-                                parentContextAABB,
-                                componentAABB,
-                                constraint
-                        ),
-                        dest = translationRestriction
-                )
-
-            }
+            // Intersect
+            translationRestriction.intersection(
+                    other = constraintToTranslationRestriction(
+                            componentAABB,
+                            parentContextAABB,
+                            constraint
+                    ),
+                    dest = translationRestriction
+            )
         }
 
         return Matrix4d().identity()

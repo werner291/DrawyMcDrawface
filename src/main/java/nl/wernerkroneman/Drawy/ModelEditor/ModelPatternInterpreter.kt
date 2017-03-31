@@ -24,7 +24,10 @@ import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BELOW
 import nl.wernerkroneman.Drawy.Modelling.RelativeSize
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.*
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
 import kotlin.reflect.KClass
 
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
@@ -112,13 +115,13 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 })
             })
 
-    interpreter.addPattern(constantInterpreter(GroupModel.Component.RECIPROCAL),
+    interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("other")
                 child { word("each")}
             })
 
-    interpreter.addPattern(constantInterpreter(GroupModel.Component.RECIPROCAL),
+    interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("one")
                 child { word("another")}

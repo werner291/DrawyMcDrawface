@@ -102,9 +102,9 @@ public class PrimitiveGenerator {
             double upperRingRadius = radius * Math.cos(upperLatitude);
             double upperRingHeight = radius * Math.sin(upperLatitude);
 
-            double lowerLongitude = -Math.PI / 2 + Math.PI * (double) h / (double) horSegments;
-            double lowerRingRadius = radius * Math.cos(lowerLongitude);
-            double lowerRingHeight = radius * Math.sin(lowerLongitude);
+            double lowerLatitude = -Math.PI / 2 + Math.PI * (double) h / (double) horSegments;
+            double lowerRingRadius = radius * Math.cos(lowerLatitude);
+            double lowerRingHeight = radius * Math.sin(lowerLatitude);
 
             for (int v = 0; v < vertSegments; v++) {
                 double firstLongitude = 2.0 * v * Math.PI / vertSegments;

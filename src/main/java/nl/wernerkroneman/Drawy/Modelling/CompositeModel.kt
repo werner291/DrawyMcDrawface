@@ -28,15 +28,22 @@ package nl.wernerkroneman.Drawy.Modelling
  * in constraints rather than realisations of those constraints.
  */
 class CompositeModel(name: String = "Anonymous composite",
-                     val components: MutableSet<Component> = mutableSetOf(),
-                     override var constraints: MutableSet<Constraint> = mutableSetOf()) :
+                     val components: MutableSet<Component> = mutableSetOf()) :
         Model(name), RelativeConstraintContext {
+
+    val constraints = mutableSetOf<RelativePositionConstraint>()
+
+    override fun getApplicableConstraintsFor(component: RelativeConstraintContext.Positionable):
+            Iterable<RelativePositionConstraint> {
+
+        return constraints.filter { it.a == component }
+    }
 
     override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
         return visitor.visit(this)
     }
 
-    fun addComponentForModel(cube: Model): Component {
+    fun createComponentForModel(cube: Model): Component {
         val comp = Component(cube)
         components.add(comp)
         return comp
@@ -52,9 +59,5 @@ class CompositeModel(name: String = "Anonymous composite",
         return builder.toString()
     }
 
-    fun addConstraint(relativePositionConstraint: RelativePositionConstraint) {
-        constraints.add(relativePositionConstraint)
-    }
-
-    class Component(val model: Model?) : RelativeConstraintContext.Positionable
+    class Component(var model: Model) : RelativeConstraintContext.Positionable
 }

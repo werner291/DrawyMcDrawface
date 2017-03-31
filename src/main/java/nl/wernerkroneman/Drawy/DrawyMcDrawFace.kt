@@ -130,9 +130,9 @@ fun main(args: Array<String>) {
 private fun createSnowman(knowledge: Knowledge): CompositeModel {
     val snowman = CompositeModel("snowman")
 
-    val head = snowman.addComponentForModel(knowledge.getObject("sphere")!!)
-    val body = snowman.addComponentForModel(knowledge.getObject("sphere")!!)
-    snowman.addConstraint(RelativePositionConstraint(head, body, ABOVE, FixedDistance(0.0)))
+    val head = snowman.createComponentForModel(knowledge.getObject("sphere")!!)
+    val body = snowman.createComponentForModel(knowledge.getObject("sphere")!!)
+    snowman.constraints.add(RelativePositionConstraint(head, body, ABOVE, FixedDistance(0.0)))
     return snowman
 }
 

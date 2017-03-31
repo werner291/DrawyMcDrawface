@@ -36,12 +36,12 @@ class CreateEntityEditorCommand internal constructor(
         return "Create $what in $target"
     }
 
-    internal override fun onApply() {
-        created = target()!!.addComponentForModel(what ?:
+    override fun onApply() {
+        created = target()!!.createComponentForModel(what ?:
                 throw NullPointerException("Expression 'what' must not be null"))
     }
 
-    internal override fun onRevert() {
+    override fun onRevert() {
         target()!!.components.remove(created)
     }
 
