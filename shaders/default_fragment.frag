@@ -15,7 +15,7 @@ uniform vec3 mat_emissive;
 void main(){
 
     // Normalize the light direction
-    vec3 lightDirection = normalize(vec3(0.1,1,0));//normalize(lightDir).xyz;
+    vec3 lightDirection = normalize(vec3(0.2,1,0.2));//normalize(lightDir).xyz;
 
     // Compute diffuse brightness as the cosine of the angle between the light direction and the normal
     float diffuseBrightness = dot(normal,lightDirection);

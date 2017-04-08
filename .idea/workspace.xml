@@ -5,31 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b705ce80-844e-4b27-ab99-7126a95081f0" name="Default" comment="Finally implemented cross-command component referencing.&#10;Refactored interpretation&#10;Introduced scaffolding types.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SceneComponent.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SceneComponentRelation.kt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SceneObject.kt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/EditorCommand.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/EditorCommand.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/NumberInterpreter.kt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/LastCreatedComponentInterpreter.kt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/shaders/default_fragment.frag" afterPath="$PROJECT_DIR$/shaders/default_fragment.frag" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/RelativePositionInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONDeserializer.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONDeserializer.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/CompositeModel.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" afterPath="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" afterPath="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -167,13 +151,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="AbstractToConcrete.kt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
+      <file leaf-file-name="CreateEntityEditorCommand.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
+            <state relative-caret-position="240">
+              <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
               <folding>
-                <element signature="e#809#1073#0" expanded="true" />
+                <element signature="e#793#916#0" expanded="true" />
+                <marker date="1491648107968" expanded="false" signature="800:848" ph="..." />
               </folding>
             </state>
           </provider>
@@ -631,12 +616,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternTest.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePattern.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.java" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/SingularizePluralize.kt" />
-        <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/pluralize.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/GroupComponentInterpreter.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/GroupComponentInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt" />
@@ -650,7 +629,6 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/PositionResolutionContext.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/SceneNode.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/AABB.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/Constraint.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativeConstraintContext.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSort.kt" />
@@ -660,7 +638,6 @@
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/KnowledgeJSONSerializerTest.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/Algorithms/TopologicalSortTest.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelConstruction/package-info.java" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelConstruction/Object.kt" />
@@ -674,14 +651,22 @@
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ModelInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/EditorCommand.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/DescriptionSession.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/MainInterpreter.kt" />
-        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/Modelling/RelativePositionConstraint.kt" />
         <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.java" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt" />
+        <option value="$PROJECT_DIR$/shaders/default_fragment.frag" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/NumberInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/NumberInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ExistingSceneComponentInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/LastCreatedComponentInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt" />
+        <option value="$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.kt" />
       </list>
     </option>
   </component>
@@ -1191,40 +1176,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DrawyMcDrawface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DrawyMcDrawface" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="org.jetbrains.plugins.gradle.projectView.GradleTreeStructureProvider$GradleSourceSetDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Drawy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ModelEditor" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Interpreters" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -1239,7 +1190,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/werner/workspace/DrawyMcDrawface/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/werner/workspace/DrawyMcDrawface/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -1251,6 +1202,7 @@
       <recent name="nl.wernerkroneman.Drawy.ModelEditor.Interpreter" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="nl.wernerkroneman.Drawy.ModelEditor.Interpreters" />
       <recent name="nl.wernerkroneman.Drawy.ModelEditor" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
@@ -1710,7 +1662,21 @@
       <option name="project" value="LOCAL" />
       <updated>1491648128698</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Finally implemented cross-command component referencing.&#10;Refactored interpretation&#10;Introduced scaffolding types.">
+      <created>1491648135466</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1491648135466</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Implemented cylinders">
+      <created>1491649353329</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1491649353329</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1826,6 +1792,9 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
     </layout-to-restore>
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.frag" />
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
@@ -1846,7 +1815,8 @@
     <MESSAGE value="Fixed relative positioning sometimes resulting in objects being inside one another." />
     <MESSAGE value="Implemented relative constraints on group models.&#10;Refactored constraints.&#10;Other small changes." />
     <MESSAGE value="Finally implemented cross-command component referencing.&#10;Refactored interpretation&#10;Introduced scaffolding types." />
-    <option name="LAST_COMMIT_MESSAGE" value="Finally implemented cross-command component referencing.&#10;Refactored interpretation&#10;Introduced scaffolding types." />
+    <MESSAGE value="Implemented cylinders" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented cylinders" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1875,7 +1845,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt</url>
-          <line>135</line>
+          <line>139</line>
           <properties />
           <option name="timeStamp" value="66" />
         </line-breakpoint>
@@ -1914,262 +1884,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelConstruction/package-info.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SceneObject.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding>
-            <marker date="1491648111356" expanded="true" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648111356" expanded="true" signature="800:907" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hello.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/DistanceInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="32" column="15" lean-forward="false" selection-start-line="32" selection-start-column="15" selection-end-line="32" selection-end-column="15" />
-          <folding>
-            <marker date="1491648107976" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648107976" expanded="false" signature="878:1155" ph="..." />
-            <marker date="1491648107976" expanded="true" signature="1210:1576" ph="{...}" />
-            <marker date="1491648107976" expanded="true" signature="1435:1573" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ConcreteModelling/AbstractToConcreteTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="236" column="43" lean-forward="true" selection-start-line="236" selection-start-column="43" selection-end-line="236" selection-end-column="43" />
-          <folding>
-            <marker date="1491598017966" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491598017966" expanded="false" signature="806:1140" ph="..." />
-            <marker date="1491598017966" expanded="true" signature="1142:1183" ph="/** Created by werner on 27-12-16. ...*/" />
-            <marker date="1491598017966" expanded="true" signature="1213:9773" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="1220:2385" ph="/ @Test .../" />
-            <marker date="1491598017966" expanded="true" signature="2460:3295" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="3381:4577" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="4665:5895" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="4758:5889" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="4973:5099" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="5470:5879" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="5516:5865" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="5550:5847" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="5901:5958" ph="/** Supposed to create a stack of 3 cubes. ...*/" />
-            <marker date="1491598017966" expanded="true" signature="6010:7820" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="6039:7814" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="7146:7473" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="7180:7459" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="7214:7441" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="7826:7883" ph="/** Supposed to create a stack of 3 cubes. ...*/" />
-            <marker date="1491598017966" expanded="true" signature="7948:9770" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="7977:9764" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="9096:9423" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="9130:9409" ph="{...}" />
-            <marker date="1491598017966" expanded="true" signature="9164:9391" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar!/org/junit/Assert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="142" column="23" lean-forward="false" selection-start-line="142" selection-start-column="23" selection-end-line="142" selection-end-column="23" />
-          <folding>
-            <marker date="1483622591522" expanded="false" signature="27:237" ph="..." />
-            <marker date="1483622591522" expanded="true" signature="239:629" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="656:726" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="750:757" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="763:1058" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="1128:1198" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="1204:1385" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="1438:1449" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="1477:1483" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="1489:1785" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="1855:1866" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="1898:1904" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="1910:2092" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="2146:2157" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="2186:2192" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="2198:2396" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="2441:2572" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="2578:2626" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="2656:2667" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="2678:2684" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="2690:3129" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="3226:3641" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="3722:3850" ph="{...}" />
-            <marker date="1483622591522" expanded="false" signature="3919:3930" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="3961:3967" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="3973:4334" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="4402:4413" ph=" { " />
-            <marker date="1483622591522" expanded="true" signature="4450:4456" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="4462:4962" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="5064:5177" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="5183:5569" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="5642:5653" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="5695:5701" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="5769:5984" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="5990:6373" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="6459:6567" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="6573:6842" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="6911:6922" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="6964:6970" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="6976:7716" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="7832:7967" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="7973:8573" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="8661:8726" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="8732:9329" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="9414:9479" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="9485:10077" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="10215:10280" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="10286:10743" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="10823:10883" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="10893:11387" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="11527:11592" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="11606:11966" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="12048:12108" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="12114:12481" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="12615:12680" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="12686:12921" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="12997:13057" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="13063:13430" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="13564:13629" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="13635:13870" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="13946:14006" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="14012:14382" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="14518:14583" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="14589:14827" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="14905:14965" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="14971:15335" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="15467:15532" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="15538:15770" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="15844:15904" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="15910:16277" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="16411:16476" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="16482:16717" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="16793:16853" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="16859:17397" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="17549:17643" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="17649:18055" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="18149:18216" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="18222:18757" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="18906:19000" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="19006:19409" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="19500:19567" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="19573:20165" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="20302:20389" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="20395:21116" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="21227:21388" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="21394:22112" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="22220:22378" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="22384:23121" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="23234:23367" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="23450:23638" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="23717:23904" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="23910:24113" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="24177:24188" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="24225:24231" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="24237:24572" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="24653:24786" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="24792:24944" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="25028:25039" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="25076:25082" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="25088:25256" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="25369:25469" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="25475:26056" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="26139:26199" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="26205:26784" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="26865:26925" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="26931:27234" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="27302:27313" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="27349:27355" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="27361:27532" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="27584:27595" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="27623:27629" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="27635:27940" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="28006:28111" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="28117:28288" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="28337:28348" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="28373:28379" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="28448:28635" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="28641:29021" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="29104:29223" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="29229:29504" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="29570:29581" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="29616:29622" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="29628:30054" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="30154:30238" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="30244:30556" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="30627:30638" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="30678:30684" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="30735:30900" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="30998:31219" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="31319:31375" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="31450:32092" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="32174:32313" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="32319:32952" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="33071:33134" ph="{...}" />
-            <marker date="1483622591522" expanded="true" signature="33140:33638" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="33728:33739" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="33777:33783" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="33789:34954" ph="/**...*/" />
-            <marker date="1483622591522" expanded="false" signature="35030:35041" ph=" { " />
-            <marker date="1483622591522" expanded="false" signature="35073:35079" ph=" }" />
-            <marker date="1483622591522" expanded="true" signature="35085:36429" ph="/**...*/" />
-            <marker date="1483622591522" expanded="true" signature="36533:36599" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/nl/wernerkroneman/Drawy/ModelEditor/InterpreterTest.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="134" column="0" lean-forward="false" selection-start-line="134" selection-start-column="0" selection-end-line="134" selection-end-column="0" />
-          <folding>
-            <marker date="1491648111348" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648111348" expanded="true" signature="800:991" ph="..." />
-            <marker date="1491648111348" expanded="true" signature="1015:4543" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="1102:1425" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="1464:1668" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="1710:2029" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="2127:2613" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="2657:3273" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="3331:3955" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="3995:4293" ph="{...}" />
-            <marker date="1491648111348" expanded="true" signature="4334:4541" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/ConstantInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1491643264634" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491643264634" expanded="false" signature="878:1025" ph="..." />
-            <marker date="1491643264634" expanded="true" signature="1140:1337" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/BlockingInteractorInterface.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="24" column="10" lean-forward="false" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-          <folding>
-            <marker date="1488973513521" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1488973513521" expanded="true" signature="793:832" ph="/** Created by werner on 1-1-17. ...*/" />
-            <marker date="1488973513521" expanded="true" signature="871:1273" ph="{...}" />
-            <marker date="1488973513521" expanded="true" signature="877:1140" ph="/** Present a question to the user and block until a response is provided. ...*/" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.1.1/23e5ae71bc0fdee003abc4d520bade83be5baf87/kotlin-reflect-1.1.1-sources.jar!/kotlin/reflect/jvm/internal/impl/utils/DFS.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="129">
@@ -2799,30 +2513,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="50" column="8" lean-forward="false" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
-          <folding>
-            <marker date="1491643396038" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491643396038" expanded="true" signature="805:952" ph="..." />
-            <marker date="1491643396038" expanded="false" signature="870:952" ph="..." />
-            <marker date="1491643396038" expanded="true" signature="954:1069" ph="/** Framework interpreter that allows one to map ...*/" />
-            <marker date="1491643396038" expanded="true" signature="1100:3855" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="1203:1748" ph="/** Attempt to interpret the phrase according to the interpretation rules. ...*/" />
-            <marker date="1491643396038" expanded="true" signature="1915:2349" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="1950:2323" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="2036:2313" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="2139:2299" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="2355:2646" ph="/** An interface for classes that take the capturings ...*/" />
-            <marker date="1491643396038" expanded="true" signature="2686:3264" ph="{...}" />
-            <marker date="1491643396038" expanded="true" signature="2747:3133" ph="/** Process the matchings of a certain phrase. ...*/" />
-            <marker date="1491643396038" expanded="true" signature="3270:3510" ph="/** Represents an interpretation rule. ...*/" />
-            <marker date="1491643396038" expanded="true" signature="3773:3853" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.1/a287944d92875a1f3c2161e5cddaede7720913d1/kotlin-stdlib-1.1.1-sources.jar!/kotlin/collections/Collections.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -3353,49 +3043,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="448">
-          <caret line="53" column="1" lean-forward="true" selection-start-line="53" selection-start-column="1" selection-end-line="53" selection-end-column="1" />
-          <folding>
-            <marker date="1491648107992" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648107992" expanded="false" signature="806:1005" ph="..." />
-            <marker date="1491648107992" expanded="true" signature="1007:1189" ph="/** Generate a creation command for the object(s) described in this sentence part. ...*/" />
-            <marker date="1491648107992" expanded="true" signature="1316:2286" ph="{...}" />
-            <marker date="1491648107992" expanded="true" signature="1649:1857" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="157" column="51" lean-forward="true" selection-start-line="157" selection-start-column="51" selection-end-line="157" selection-end-column="51" />
-          <folding>
-            <marker date="1491648111364" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648111364" expanded="false" signature="793:1428" ph="..." />
-            <marker date="1491648111364" expanded="true" signature="1552:6600" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="3454:3597" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="4357:4583" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="4425:4568" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="4713:4796" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="4926:5010" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="5314:5594" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="5518:5588" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="5752:6527" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="5998:6520" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="6602:6657" ph="/** Marker interface for interpretation contexts ...*/" />
-            <marker date="1491648111364" expanded="true" signature="6691:6765" ph="/** Get an Iterable describing all previous commands, last-to-first ...*/" />
-            <marker date="1491648111364" expanded="true" signature="6844:7539" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="6929:7533" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="6993:7522" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="7051:7508" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="7156:7235" ph="{...}" />
-            <marker date="1491648111364" expanded="true" signature="7292:7489" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/EditorCommand.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -3468,25 +3115,6 @@
             <marker date="1490978471231" expanded="true" signature="2163:2351" ph="{...}" />
             <marker date="1490978471231" expanded="true" signature="2296:2341" ph="{...}" />
             <marker date="1490978471231" expanded="true" signature="2397:2484" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="104" column="0" lean-forward="false" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
-          <folding>
-            <marker date="1491648107984" expanded="true" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648107984" expanded="true" signature="781:854" ph="/ main.cpp .../" />
-            <marker date="1491648107984" expanded="false" signature="1258:2402" ph="..." />
-            <marker date="1491648107984" expanded="false" signature="1258:2402" ph="..." />
-            <marker date="1491648107984" expanded="true" signature="2434:4361" ph="{...}" />
-            <marker date="1491648107984" expanded="true" signature="3615:3809" ph="{...}" />
-            <marker date="1491648107984" expanded="true" signature="3894:4319" ph="{...}" />
-            <marker date="1491648107984" expanded="true" signature="3979:4313" ph="{...}" />
-            <marker date="1491648107984" expanded="true" signature="4427:4814" ph="{...}" />
-            <marker date="1491648107984" expanded="true" signature="4816:5690" ph="/ private static class MyDescriptionSessionListener implements DescriptionSessionListener { .../" />
           </folding>
         </state>
       </provider>
@@ -3619,38 +3247,263 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt">
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.joml/joml/1.9.1/66e8f240cd4542f262a0c8f80f80f5c498857579/joml-1.9.1-sources.jar!/org/joml/Vector3d.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="68" column="66" lean-forward="false" selection-start-line="68" selection-start-column="66" selection-end-line="68" selection-end-column="66" />
+        <state relative-caret-position="195">
+          <caret line="40" column="13" lean-forward="false" selection-start-line="40" selection-start-column="13" selection-end-line="40" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/DrawyMcDrawFace.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="482">
+          <caret line="171" column="0" lean-forward="true" selection-start-line="171" selection-start-column="0" selection-end-line="171" selection-end-column="0" />
           <folding>
-            <marker date="1491648107968" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
-            <marker date="1491648107968" expanded="false" signature="800:848" ph="..." />
-            <marker date="1491648107968" expanded="true" signature="800:916" ph="..." />
-            <marker date="1491648107968" expanded="true" signature="918:1081" ph="/** Command that causes the creation of a component ...*/" />
-            <marker date="1491648107968" expanded="true" signature="1347:3812" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="1386:1434" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="1463:1540" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="1791:2986" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="1904:2152" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="2222:2471" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="2267:2373" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="2379:2461" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="2513:2592" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="2712:2980" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="3016:3091" ph="{...}" />
-            <marker date="1491648107968" expanded="true" signature="3097:3310" ph="/** Return a supplier that supplies the resulting Component. ...*/" />
-            <marker date="1491648107968" expanded="true" signature="3315:3810" ph="/ val resultSupplier: Supplier&lt;CompositeModel.Component&gt; .../" />
+            <marker date="1491649225923" expanded="true" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491649225923" expanded="true" signature="781:854" ph="/ main.cpp .../" />
+            <marker date="1491649225923" expanded="false" signature="1258:2402" ph="..." />
+            <marker date="1491649225923" expanded="false" signature="1265:2402" ph="..." />
+            <marker date="1491649225923" expanded="true" signature="2434:4360" ph="{...}" />
+            <marker date="1491649225923" expanded="true" signature="3615:3809" ph="{...}" />
+            <marker date="1491649225923" expanded="true" signature="3894:4318" ph="{...}" />
+            <marker date="1491649225923" expanded="true" signature="3979:4312" ph="{...}" />
+            <marker date="1491649225923" expanded="true" signature="4426:4813" ph="{...}" />
+            <marker date="1491649225923" expanded="true" signature="4815:5689" ph="/ private static class MyDescriptionSessionListener implements DescriptionSessionListener { .../" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/GlRenderer/GlVisualiser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-655">
+          <caret line="28" column="13" lean-forward="false" selection-start-line="28" selection-start-column="13" selection-end-line="28" selection-end-column="13" />
+          <folding>
+            <marker date="1488973513521" expanded="false" signature="0:746" ph="/.../" />
+            <marker date="1488973513521" expanded="false" signature="801:1024" ph="..." />
+            <marker date="1488973513521" expanded="true" signature="1440:1512" ph="/**...*/" />
+            <marker date="1488973513521" expanded="false" signature="1575:1586" ph=" { " />
+            <marker date="1488973513521" expanded="false" signature="1636:1642" ph=" }" />
+            <marker date="1488973513521" expanded="true" signature="1648:1730" ph="/**...*/" />
+            <marker date="1488973513521" expanded="true" signature="1791:1919" ph="{...}" />
+            <marker date="1488973513521" expanded="true" signature="1925:1995" ph="/**...*/" />
+            <marker date="1488973513521" expanded="true" signature="2059:2066" ph="{...}" />
+            <marker date="1488973513521" expanded="true" signature="2072:2218" ph="/**...*/" />
+            <marker date="1488973513521" expanded="true" signature="2320:2379" ph="{...}" />
+            <marker date="1488973513521" expanded="false" signature="2420:2431" ph=" { " />
+            <marker date="1488973513521" expanded="false" signature="2458:2464" ph=" }" />
+            <marker date="1488973513521" expanded="false" signature="2493:2504" ph=" { " />
+            <marker date="1488973513521" expanded="false" signature="2517:2523" ph=" }" />
+            <marker date="1488973513521" expanded="false" signature="2562:2573" ph=" { " />
+            <marker date="1488973513521" expanded="false" signature="2592:2598" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/default_vertex.vert">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-104">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/shaders/default_fragment.frag">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-106">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PatternInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="574">
+          <caret line="50" column="8" lean-forward="false" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
+          <folding>
+            <marker date="1491643396038" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491643396038" expanded="true" signature="805:952" ph="..." />
+            <marker date="1491643396038" expanded="false" signature="870:952" ph="..." />
+            <marker date="1491643396038" expanded="true" signature="954:1069" ph="/** Framework interpreter that allows one to map ...*/" />
+            <marker date="1491643396038" expanded="true" signature="1100:3855" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="1203:1748" ph="/** Attempt to interpret the phrase according to the interpretation rules. ...*/" />
+            <marker date="1491643396038" expanded="true" signature="1915:2349" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="1950:2323" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="2036:2313" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="2139:2299" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="2355:2646" ph="/** An interface for classes that take the capturings ...*/" />
+            <marker date="1491643396038" expanded="true" signature="2686:3264" ph="{...}" />
+            <marker date="1491643396038" expanded="true" signature="2747:3133" ph="/** Process the matchings of a certain phrase. ...*/" />
+            <marker date="1491643396038" expanded="true" signature="3270:3510" ph="/** Represents an interpretation rule. ...*/" />
+            <marker date="1491643396038" expanded="true" signature="3773:3853" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ParseTreeMatcher/PhrasePatternInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="26" column="10" lean-forward="false" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+          <folding>
+            <marker date="1488973513525" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1488973513525" expanded="true" signature="798:950" ph="/** A structure containing a phrase tree pattern, ...*/" />
+            <marker date="1488973513525" expanded="true" signature="988:1358" ph="/ Set&lt;PhrasePattern&gt; patterns; .../" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/SyntaxNetLink.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="42" column="35" lean-forward="true" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+          <folding>
+            <marker date="1491060481637" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491060481637" expanded="false" signature="800:942" ph="..." />
+            <marker date="1491060481637" expanded="true" signature="974:2588" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1020:2585" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1048:1261" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1264:1370" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1482:2379" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1776:2368" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="1998:2163" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="2042:2145" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="2403:2446" ph="{...}" />
+            <marker date="1491060481637" expanded="true" signature="2479:2522" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/NumberInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="26" column="6" lean-forward="false" selection-start-line="26" selection-start-column="6" selection-end-line="26" selection-end-column="6" />
+          <folding>
+            <marker date="1491649960463" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491649960463" expanded="true" signature="813:1025" ph="..." />
+            <marker date="1491649960463" expanded="true" signature="1097:1353" ph="{...}" />
+            <marker date="1491649960463" expanded="true" signature="1289:1351" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/LastCreatedComponentInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="30" column="11" lean-forward="true" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
+          <folding>
+            <marker date="1491650460726" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491650460726" expanded="false" signature="800:947" ph="..." />
+            <marker date="1491650460726" expanded="true" signature="1033:1842" ph="{...}" />
+            <marker date="1491650460726" expanded="true" signature="1329:1839" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/ModelPatternInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1407">
+          <caret line="73" column="41" lean-forward="true" selection-start-line="73" selection-start-column="41" selection-end-line="73" selection-end-column="41" />
+          <folding>
+            <marker date="1491665742363" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491665742363" expanded="false" signature="793:1340" ph="..." />
+            <marker date="1491665742363" expanded="false" signature="800:1340" ph="..." />
+            <marker date="1491665742363" expanded="true" signature="1464:5793" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="2950:3083" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="3541:3684" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="4444:4670" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="4512:4655" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="4800:4883" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="5013:5097" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="5665:5765" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="5706:5763" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="5795:5850" ph="/** Marker interface for interpretation contexts ...*/" />
+            <marker date="1491665742363" expanded="true" signature="5884:5958" ph="/** Get an Iterable describing all previous commands, last-to-first ...*/" />
+            <marker date="1491665742363" expanded="true" signature="6037:6732" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="6122:6726" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="6186:6715" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="6244:6701" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="6349:6428" ph="{...}" />
+            <marker date="1491665742363" expanded="true" signature="6485:6682" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/Interpreters/CreateCommandInterpreter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="50" column="26" lean-forward="true" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+          <folding>
+            <marker date="1491666323717" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491666323717" expanded="false" signature="806:1024" ph="..." />
+            <marker date="1491666323717" expanded="false" signature="813:1024" ph="..." />
+            <marker date="1491666323717" expanded="true" signature="1026:1208" ph="/** Generate a creation command for the object(s) described in this sentence part. ...*/" />
+            <marker date="1491666323717" expanded="true" signature="1335:2652" ph="{...}" />
+            <marker date="1491666323717" expanded="true" signature="1602:2594" ph="{...}" />
+            <marker date="1491666323717" expanded="true" signature="2200:2396" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ConcreteModelling/PrimitiveGenerator.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="802">
+          <caret line="129" column="55" lean-forward="false" selection-start-line="129" selection-start-column="55" selection-end-line="129" selection-end-column="55" />
+          <folding>
+            <marker date="1491666517096" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491666517096" expanded="true" signature="889:5851" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="896:1066" ph="/** Generate a simple cube, it will be centered on (0,0,0), ...*/" />
+            <marker date="1491666517096" expanded="true" signature="1100:2905" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="2989:4807" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="3075:4780" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="3587:4770" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="4021:4373" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="4402:4756" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="4887:5849" ph="{...}" />
+            <marker date="1491666517096" expanded="true" signature="5069:5822" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/AbstractToConcreteConverter/AbstractToConcrete.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="98" column="5" lean-forward="true" selection-start-line="98" selection-start-column="5" selection-end-line="98" selection-end-column="5" />
+        <state relative-caret-position="222">
+          <caret line="95" column="81" lean-forward="false" selection-start-line="95" selection-start-column="81" selection-end-line="95" selection-end-column="81" />
           <folding>
-            <element signature="e#809#1073#0" expanded="true" />
+            <marker date="1491666436373" expanded="false" signature="0:746" ph="/ Copyright (c) 2017 Werner Kroneman .../" />
+            <marker date="1491666436373" expanded="true" signature="816:1073" ph="..." />
+            <marker date="1491666436373" expanded="true" signature="1139:8752" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="1207:1381" ph="/** Compute a conrete, drawable scene based on the abstract model. ...*/" />
+            <marker date="1491666436373" expanded="true" signature="1427:1564" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="1570:1790" ph="/** Compute the contents of the scene node in accordance to the model. ...*/" />
+            <marker date="1491666436373" expanded="true" signature="1869:2398" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="2492:2964" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="2584:2789" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="3058:3847" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="3853:4189" ph="/** In case of a CompositeModel, every model instance ...*/" />
+            <marker date="1491666436373" expanded="true" signature="4333:5415" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="4570:5388" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="4867:5234" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="5421:5757" ph="/** In case of a CompositeModel, every model instance ...*/" />
+            <marker date="1491666436373" expanded="true" signature="5889:6497" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="6111:6470" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="6503:7136" ph="/** Compute the translation of the child SceneNode corresponding to a given component. ...*/" />
+            <marker date="1491666436373" expanded="true" signature="7415:8750" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="7968:8638" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="8754:8824" ph="/** Convert the constraint to a restriction on the translation. ...*/" />
+            <marker date="1491666436373" expanded="true" signature="9021:10167" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="9172:10142" ph="{...}" />
+            <marker date="1491666436373" expanded="true" signature="9697:9987" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/nl/wernerkroneman/Drawy/ModelEditor/CreateEntityEditorCommand.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
+          <folding>
+            <element signature="e#793#916#0" expanded="true" />
+            <marker date="1491648107968" expanded="false" signature="800:848" ph="..." />
           </folding>
         </state>
       </provider>

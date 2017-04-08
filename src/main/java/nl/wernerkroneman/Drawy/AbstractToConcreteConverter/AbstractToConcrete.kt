@@ -91,9 +91,9 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
             PrimitiveModel.ShapeType.CUBE ->
                 Drawable(primitiveGenerator.generateUnitCube())
             PrimitiveModel.ShapeType.SPHERE ->
-                Drawable(primitiveGenerator.generateSphere((context.size ?: 1.0) * context.sizeModifier, 16, 8))
+                Drawable(primitiveGenerator.generateSphere((context.size ?: 0.5) * context.sizeModifier, 16, 8))
             PrimitiveModel.ShapeType.CYLINDER ->
-                Drawable(primitiveGenerator.generateCylinder((context.size ?: 1.0) * context.sizeModifier,
+                Drawable(primitiveGenerator.generateCylinder((context.size ?: 0.5) * context.sizeModifier,
                         (context.size ?: 1.0) * context.sizeModifier,
                         16))
             else -> throw UnsupportedOperationException("Shape " + absModel.shape + " not implemented.")
@@ -240,14 +240,14 @@ fun constraintToTranslationRestriction(selfAABB: AABB,
     constraint.pos.rel.forEachIndexed { index, dimensionOrder ->
         when (dimensionOrder) {
         // S: |-------x-----|
-        // O:                  |-----x------|
+        // LastCreatedComponentInterpreter:                  |-----x------|
             AFTER -> restrictTo.minExtent.setComponent(index,
                     otherAABB.maxExtent[index] - selfAABB.minExtent[index])
         // S: |-------x-----|
-        // O:        |-----x------|
+        // LastCreatedComponentInterpreter:        |-----x------|
         // or
         // S:    |-------x-----|
-        // O: |-----x------|
+        // LastCreatedComponentInterpreter: |-----x------|
             SAME -> {
                 restrictTo.minExtent.setComponent(index,
                         otherAABB.minExtent[index] - selfAABB.maxExtent[index])

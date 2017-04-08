@@ -35,19 +35,32 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
         get() = CreateEntityEditorCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): CreateEntityEditorCommand =
-            CreateEntityEditorCommand(
-                    target = {
-                        (context.findLast({ it is DescriptionSession.DescriptionSessionContext })
-                                as DescriptionSession.DescriptionSessionContext).scene
-                    },
-                    previous = context.findLast { it is EditorCommand } as EditorCommand?,
-                    what = interpreter.interpret(
-                            capturings["what"]!!,
-                            SceneComponent::class,
-                            context + CreateCommandContext()
-                    ) as SceneComponent.NewComponent
-            )
+                           context: List<InterpretationContext>): CreateEntityEditorCommand {
+        val what = interpreter.interpret(
+                capturings["what"]!!,
+                SceneComponent::class,
+                context + CreateCommandContext()
+        ) as SceneComponent.NewComponent
+
+        val where = capturings["where"]
+
+        val extraRelations = if (where != null)
+            setOf(interpreter.interpret(
+                    where,
+                    SceneComponent::class,
+                    context + CreateCommandContext()
+            ) as SceneComponentRelation)
+        else emptySet()
+
+        return CreateEntityEditorCommand(
+                target = {
+                    (context.findLast({ it is DescriptionSession.DescriptionSessionContext })
+                            as DescriptionSession.DescriptionSessionContext).scene
+                },
+                previous = context.findLast { it is EditorCommand } as EditorCommand?,
+                what = SceneComponent.NewComponent(what.model, what.relations + extraRelations)
+        )
+    }
 
     class CreateCommandContext : InterpretationContext
 }

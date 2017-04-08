@@ -26,10 +26,8 @@ import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BE
 import nl.wernerkroneman.Drawy.Modelling.RelativeSize
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
 import java.util.*
-import kotlin.reflect.KClass
 
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
         PatternInterpreter {
@@ -75,6 +73,11 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     .child(PhrasePatternBuilder()
                             .name("what")
                             .create())
+                    .child(buildPattern {
+                        name("where")
+                        role("prep")
+                        optional()
+                    })
                     .child(PhrasePatternBuilder()
                             .role("punct")
                             .optional()
@@ -135,36 +138,18 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
     interpreter.addPattern(constantInterpreter(RelativeSize(1/1.5)),
             buildPattern { word("small")})
 
-    interpreter.addPattern(object : PatternInterpreter.InterpretedObjectFactory{
-        override val interpretedTypePrediction: KClass<*>
-            get() = Int::class
+    interpreter.addPattern(NumberInterpreter(),
+            buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number") })
 
-        override fun interpret(capturings: Map<String, PhraseTree>, context: List<InterpretationContext>): Any? {
-            return capturings["number"]!!.rootWord.toInt()
-        }
-    }, buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number")})
+    interpreter.addPattern(LastCreatedComponentInterpreter(),
+            buildPattern { word("that"); role("pobj") })
 
-    interpreter.addPattern(object : PatternInterpreter.InterpretedObjectFactory {
-        override val interpretedTypePrediction: KClass<*>
-            get() = SceneComponent::class
-
-        override fun interpret(capturings: Map<String, PhraseTree>,
-                               context: List<InterpretationContext>): Any? {
-
-            val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext } as DescriptionSession.DescriptionSessionContext
-
-            val lastCreateCommand = descSession.pastCommands
-                    .last { it is CreateEntityEditorCommand } as CreateEntityEditorCommand
-
-            val lastCreated = lastCreateCommand.created!!
-
-            val scene = lastCreateCommand.target()
-
-            return SceneComponent.CompositeComponentReference(lastCreated, scene, emptySet())
-
-        }
-
-    }, buildPattern { word("that"); role("pobj") })
+    interpreter.addPattern(LastCreatedComponentInterpreter(),
+            buildPattern {
+                role("pobj"); name("specifier"); child {
+                word("that"); role("det")
+            }
+            })
 
     return interpreter
 
