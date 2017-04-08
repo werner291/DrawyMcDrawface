@@ -135,4 +135,29 @@ public class PrimitiveGenerator {
         return mesh;
     }
 
+    public Mesh generateCylinder(double radius, double height, int segments) {
+        Mesh mesh = meshFactory.createMesh();
+
+        Vector3d lowerPole = new Vector3d(0, 0, 0);
+        Vector3d upperPole = new Vector3d(0, height, 0);
+
+        for (int i = 0; i < segments; i++) {
+
+            double angleMin = 2.0 * (double) i * Math.PI / (double) segments;
+            double angleMax = 2.0 * (double) (i + 1) * Math.PI / (double) segments;
+
+            Vector3d lowerA = new Vector3d(Math.cos(angleMin) * radius, 0, Math.sin(angleMin));
+            Vector3d lowerB = new Vector3d(Math.cos(angleMax) * radius, 0, Math.sin(angleMax));
+            Vector3d upperA = new Vector3d(Math.cos(angleMin) * radius, height, Math.sin(angleMin));
+            Vector3d upperB = new Vector3d(Math.cos(angleMax) * radius, height, Math.sin(angleMax));
+
+            mesh.addTriangle(lowerPole, lowerA, lowerB);
+            mesh.addTriangle(lowerA, lowerB, upperA);
+            mesh.addTriangle(lowerB, upperB, upperA);
+            mesh.addTriangle(upperPole, upperA, upperB);
+
+        }
+
+        return mesh;
+    }
 }

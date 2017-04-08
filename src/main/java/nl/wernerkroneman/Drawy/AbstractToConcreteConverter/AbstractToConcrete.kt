@@ -92,6 +92,10 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
                 Drawable(primitiveGenerator.generateUnitCube())
             PrimitiveModel.ShapeType.SPHERE ->
                 Drawable(primitiveGenerator.generateSphere((context.size ?: 1.0) * context.sizeModifier, 16, 8))
+            PrimitiveModel.ShapeType.CYLINDER ->
+                Drawable(primitiveGenerator.generateCylinder((context.size ?: 1.0) * context.sizeModifier,
+                        (context.size ?: 1.0) * context.sizeModifier,
+                        16))
             else -> throw UnsupportedOperationException("Shape " + absModel.shape + " not implemented.")
         })
 
@@ -203,7 +207,7 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
 
             // Handle RelativePositionConstraints for now only,
             // and only that concern the current component
-            val other = componentToNode(constraint.b!!)
+            val other = componentToNode(constraint.b)
 
             // Get the AABB of the other in the context
             val parentContextAABB = other.computeParentContextAABB()

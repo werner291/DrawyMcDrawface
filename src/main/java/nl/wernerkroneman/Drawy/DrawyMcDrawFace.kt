@@ -114,10 +114,10 @@ fun main(args: Array<String>) {
         internal var t = 0.0
 
         override fun actionPerformed(e: ActionEvent) {
-            t += 0.01
+            t += 0.05
             val box = visualiser.scene.rootSceneNode.computeWorldAABB()
             val d = 5 * Math.max(box.sizeX, box.sizeZ)
-            Scene.EYE.set(d * Math.sin(t), 10.0 * Math.sin(t), d * Math.cos(t))
+            Scene.EYE.set(d * Math.sin(t), 5.0 * Math.sin(t), d * Math.cos(t))
             Scene.LOOKAT_CENTER.set(box.getCenter(Vector3d()))
             glcanvas.display()
         }
