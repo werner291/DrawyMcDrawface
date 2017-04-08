@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import org.junit.Test
@@ -33,10 +34,12 @@ class KnowledgeJSONSerializerTest {
 
         val composite = CompositeModel("cube above sphere")
 
-        val cube = composite.createComponentForModel(
-                knowledge.getObject("Cube")!!)
-        val sphere = composite.createComponentForModel(
-                knowledge.getObject("Sphere")!!)
+        val comp = Component(knowledge.getObject("Cube")!!)
+        composite.components.add(comp)
+        val cube = comp
+        val comp1 = Component(knowledge.getObject("Sphere")!!)
+        composite.components.add(comp1)
+        val sphere = comp1
 
         composite.constraints.add(RelativePositionConstraint(cube, sphere, RelativePositionConstraint.ABOVE, Distance.ANY))
 

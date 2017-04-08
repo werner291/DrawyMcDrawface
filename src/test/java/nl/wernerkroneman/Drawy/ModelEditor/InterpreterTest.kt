@@ -20,46 +20,48 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.*
-import org.junit.Assert
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
+import org.junit.Assert.*
 import org.junit.Ignore
 import org.junit.Test
 
 class InterpreterTest {
 
-    @Test
-    fun interpreterTest1() {
-
+    private fun interpretCreateComponent(text: String): SceneComponent.NewComponent {
         val scene = CompositeModel("Scene")
-        val result = MainInterpreter().interpret("Create a cube.", scene)
+        val result = MainInterpreter().interpret(text, scene)
 
-        Assert.assertTrue(result is CreateEntityEditorCommand)
+        assertTrue(result is CreateEntityEditorCommand)
 
         val stmt = result as CreateEntityEditorCommand
 
-        Assert.assertTrue(stmt.what is PrimitiveModel)
+        val newComponent = stmt.what as SceneComponent.NewComponent
+        return newComponent
+    }
 
-        Assert.assertEquals("Cube", stmt.what!!.name)
+    @Test
+    fun interpreterTest1() {
+
+        val newComponent = interpretCreateComponent("Create a cube.")
+        val model = newComponent.model
+
+        assertTrue(model is PrimitiveModel)
+        assertEquals("Cube", model.name)
 
     }
 
     @Test
     fun interpreterSizeTest() {
 
-        val scene = CompositeModel("Scene")
-        val result = MainInterpreter().interpret("Create a big cube.", scene)
+        val newComponent = interpretCreateComponent("Create a big cube.")
+        val model = newComponent.model
 
-        Assert.assertTrue(result is CreateEntityEditorCommand)
+        assertTrue(model is VariantModel)
+        assertTrue((model as VariantModel).modifiers.any({ it is SizeModifier }))
 
-        val stmt = result as CreateEntityEditorCommand
+        val cube = model.base
 
-        val what = stmt.what
-
-        Assert.assertTrue(what is VariantModel)
-        Assert.assertTrue((what as VariantModel).modifiers.any({it is SizeModifier}))
-
-        val cube = what.base
-
-        Assert.assertEquals("Cube", cube.name)
+        assertEquals("Cube", cube.name)
 
     }
 
@@ -71,116 +73,73 @@ class InterpreterTest {
 
         val result = MainInterpreter().interpret("Add a cylinder or two.", scene)
 
-        Assert.assertTrue(result is CreateEntityEditorCommand)
+        assertTrue(result is CreateEntityEditorCommand)
 
         val stmt = result as CreateEntityEditorCommand
 
-        Assert.assertTrue(stmt.what is GroupModel)
+        val model = (stmt.what as SceneComponent.NewComponent).model
 
-        Assert.assertEquals(1, (stmt.what as GroupModel).number.toLong())
+        assertTrue(model is GroupModel)
 
-        Assert.assertEquals("Cylinder", (stmt.what as GroupModel).memberModelType.name)
+        assertEquals(1, (model as GroupModel).number.toLong())
+
+        assertEquals("Cylinder", model.memberModelType.name)
 
     }
 
     @Test
     fun createCubeAboveSphere() {
 
-        val scene = CompositeModel("Scene")
+        val newComponent = interpretCreateComponent("A cube above a sphere")
+        val model = newComponent.model
 
-        val result = MainInterpreter().interpret("A cube above a sphere", scene)
+        assertTrue(model is PrimitiveModel)
+        assertTrue(model.name == "Cube")
 
-        Assert.assertNotNull(result)
+        assertEquals(1, newComponent.relations.size)
 
-        // ----------------------
+        val relation = newComponent.relations.first()
 
-        Assert.assertTrue(result is CreateEntityEditorCommand)
+        assertEquals(ABOVE, relation.relPos)
 
-        val stmtA = result as CreateEntityEditorCommand
-
-        Assert.assertTrue(stmtA.what is CompositeModel)
-
-        Assert.assertTrue((stmtA.what as CompositeModel).components
-                .all({ it.model is PrimitiveModel }))
-
-        Assert.assertEquals(1, (stmtA.what as CompositeModel).constraints.size.toLong())
-
-        val constraint = (stmtA.what as CompositeModel).constraints.iterator().next()
-        Assert.assertTrue(constraint is RelativePositionConstraint)
-
-        Assert.assertEquals(RelativePositionConstraint.ABOVE, (constraint as RelativePositionConstraint).pos)
-
-        Assert.assertEquals(Distance.ANY, constraint.dist)
-
-        stmtA.apply()
-
-        // ----------------------
-
-        Assert.assertEquals(1, scene.components.size.toLong())
+        assertTrue(relation.right is SceneComponent.NewComponent)
+        assertTrue((relation.right as SceneComponent.NewComponent).model is PrimitiveModel)
+        assertEquals("Sphere", (relation.right as SceneComponent.NewComponent).model.name)
 
     }
 
     @Test
     fun createSphereAboveSphereWithDistance() {
 
-        val scene = CompositeModel("Scene")
+        val newComponent = interpretCreateComponent("A cube 5 units above a sphere")
+        val model = newComponent.model
 
-        val result = MainInterpreter().interpret("A cube 5 units above a sphere", scene)
+        assertTrue(model is PrimitiveModel)
+        assertTrue(model.name == "Cube")
 
-        Assert.assertNotNull(result)
+        assertEquals(1, newComponent.relations.size)
 
-        // ----------------------
+        val relation = newComponent.relations.first()
 
-        Assert.assertTrue(result is CreateEntityEditorCommand)
+        assertEquals(ABOVE, relation.relPos)
 
-        val stmtA = result as CreateEntityEditorCommand
-
-        Assert.assertTrue(stmtA.what is CompositeModel)
-
-        Assert.assertTrue((stmtA.what as CompositeModel).components
-                .all({ it.model is PrimitiveModel }))
-
-        Assert.assertEquals(1, (stmtA.what as CompositeModel).constraints.size.toLong())
-
-        val constraint = (stmtA.what as CompositeModel).constraints.iterator().next()
-        Assert.assertTrue(constraint is RelativePositionConstraint)
-
-        val positionConstraint = constraint as RelativePositionConstraint
-        Assert.assertEquals(RelativePositionConstraint.ABOVE, positionConstraint.pos)
-
-        Assert.assertTrue(positionConstraint.dist is FixedDistance)
-        Assert.assertEquals(5.0, (positionConstraint.dist as FixedDistance).distance, 0.01)
-
-        stmtA.apply()
-
-        // ----------------------
-
-        Assert.assertEquals(1, scene.components.size.toLong())
+        assertTrue(relation.right is SceneComponent.NewComponent)
+        assertTrue((relation.right as SceneComponent.NewComponent).model is PrimitiveModel)
+        assertEquals("Sphere", (relation.right as SceneComponent.NewComponent).model.name)
 
     }
 
     @Test
     fun createSphereStack() {
 
-        val scene = CompositeModel("Scene")
+        val newComponent = interpretCreateComponent("500 cubes above each other")
+        val model = newComponent.model
 
-        val result = MainInterpreter().interpret("500 cubes above each other", scene)
+        assertTrue(model is GroupModel)
 
-        Assert.assertNotNull(result)
+        assertTrue((model as GroupModel).memberModelType is PrimitiveModel)
 
-        // ----------------------
-
-        Assert.assertTrue(result is CreateEntityEditorCommand)
-
-        val stmtA = result as CreateEntityEditorCommand
-
-        Assert.assertTrue(stmtA.what is GroupModel)
-
-        Assert.assertTrue((stmtA.what as GroupModel).memberModelType is PrimitiveModel)
-
-        Assert.assertEquals(500, (stmtA.what as GroupModel).number.toLong())
-
-        stmtA.apply()
+        assertEquals(500, model.number.toLong())
 
     }
 
@@ -191,6 +150,6 @@ class InterpreterTest {
 
         val result = MainInterpreter().interpret("a small sphere on top of a big sphere on top of a bigger sphere", scene)
 
-        Assert.assertNotNull(result)
+        assertNotNull(result)
     }
 }

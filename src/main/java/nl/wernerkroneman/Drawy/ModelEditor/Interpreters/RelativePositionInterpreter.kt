@@ -17,10 +17,13 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor.Interpreters;
+package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.Modelling.*
-import nl.wernerkroneman.Drawy.Modelling.Distance.Companion.ANY
+import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
+import nl.wernerkroneman.Drawy.ModelEditor.SceneComponent
+import nl.wernerkroneman.Drawy.ModelEditor.SceneComponentRelation
+import nl.wernerkroneman.Drawy.Modelling.Distance
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
@@ -30,41 +33,22 @@ class RelativePositionInterpreter(val relPos: RelativePositionConstraint.Relativ
     : PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = RelativePositionConstraint::class
+        get() = SceneComponentRelation::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<Any>): Any? {
-
-        // Interpret whatever this thing ig relative to
-        val relativeTo = modelInterpreter.interpret(
-                phrase = capturings["relative_to"]!!,
-                context = context)
-
-        // Create a component for it.
-        val componentB = when (relativeTo) {
-            is Model -> CompositeModel.Component(relativeTo)
-            is RelativeConstraintContext.Positionable -> relativeTo
-            else -> throw IllegalStateException(relativeTo.toString() +
-                    " cannot be interpreted as relative target.")
-        }
-
-        // ----------------------------
-        // Create the actual constraint
-
-        val distance = when (capturings["distance"]) {
-            null -> Distance.ANY
-            else -> modelInterpreter.interpret(
-                    phrase = capturings["distance"]!!,
-                    type = Distance::class,
-                    context = context
-            ) ?: Distance.ANY
-        } as Distance
-
-        // Finally,add the constraint.
-        val relativePositionConstraint = RelativePositionConstraint(
-                a = null, b = componentB, pos = relPos, dist = distance)
-
-        return relativePositionConstraint
-
-    }
+                           context: List<InterpretationContext>): SceneComponentRelation =
+            SceneComponentRelation(
+                    right = modelInterpreter.interpret(
+                            type = SceneComponent::class,
+                            phrase = capturings["relative_to"]!!,
+                            context = context) as SceneComponent,
+                    relPos = relPos,
+                    dist = when (capturings["distance"]) {
+                        null -> Distance.ANY
+                        else -> modelInterpreter.interpret(
+                                phrase = capturings["distance"]!!,
+                                type = Distance::class,
+                                context = context
+                        ) ?: Distance.ANY
+                    } as Distance)
 }

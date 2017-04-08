@@ -17,16 +17,21 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
+package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import kotlin.reflect.KClass
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel
+import nl.wernerkroneman.Drawy.Modelling.Model
 
-inline fun <reified T> constantInterpreter(component : T) = object : PatternInterpreter.InterpretedObjectFactory {
-    override val interpretedTypePrediction: KClass<*>
-        get() = T::class
+/**
+ * Scaffolding classes to make the transition from the Parsey-output
+ * to the abstract modelling easier.
+ */
+sealed class SceneComponent(val relations: Set<SceneComponentRelation>) {
 
-    override fun interpret(capturings: Map<String, PhraseTree>, context: List<InterpretationContext>) = component
+    class CompositeComponentReference(val component: CompositeModel.Component,
+                                      val context: CompositeModel,
+                                      relations: Set<SceneComponentRelation>) : SceneComponent(relations)
+
+    class NewComponent(val model: Model,
+                       relations: Set<SceneComponentRelation>) : SceneComponent(relations)
 }

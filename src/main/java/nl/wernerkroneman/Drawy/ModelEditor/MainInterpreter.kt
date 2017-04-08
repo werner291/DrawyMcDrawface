@@ -44,13 +44,14 @@ class MainInterpreter(val interpreter: PatternInterpreter = createDefaultModelIn
      * *
      * @param rootContext The context that the user can currently see.
      */
-    fun interpret(toInterpret: String, rootContext: CompositeModel): EditorCommand {
+    fun interpret(toInterpret: String,
+                  rootContext: CompositeModel): EditorCommand {
 
         val tree = SyntaxNetLink.parse(toInterpret)
 
         val result = interpreter.interpret(tree,
                 Any::class,
-                context = mutableListOf(rootContext))
+                context = emptyList())
 
         println("Interpreted as " + result)
 

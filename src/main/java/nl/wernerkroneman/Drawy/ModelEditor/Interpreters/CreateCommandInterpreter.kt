@@ -19,9 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.CreateEntityEditorCommand
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.ModelEditor.*
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
@@ -37,22 +35,19 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
         get() = CreateEntityEditorCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<Any>): CreateEntityEditorCommand? {
+                           context: List<InterpretationContext>): CreateEntityEditorCommand =
+            CreateEntityEditorCommand(
+                    target = {
+                        (context.findLast({ it is DescriptionSession.DescriptionSessionContext })
+                                as DescriptionSession.DescriptionSessionContext).scene
+                    },
+                    previous = context.findLast { it is EditorCommand } as EditorCommand?,
+                    what = interpreter.interpret(
+                            capturings["what"]!!,
+                            SceneComponent::class,
+                            context + CreateCommandContext()
+                    ) as SceneComponent.NewComponent
+            )
 
-        val createStmt = CreateEntityEditorCommand(
-                {
-                    context.filter({ it is CompositeModel })
-                            .last() as CompositeModel
-                }
-        )
-
-        val phraseTree = capturings["what"]!!
-
-        createStmt.what = interpreter.interpret(
-                phraseTree,
-                Model::class
-        ) as Model
-
-        return createStmt
-    }
+    class CreateCommandContext : InterpretationContext
 }

@@ -22,7 +22,7 @@ package nl.wernerkroneman.Drawy.ModelEditor
 import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
 import nl.wernerkroneman.Drawy.Modelling.Model
-import java.util.*
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 
 /**
  * A class representing a session where a user describes an object.
@@ -31,10 +31,12 @@ import java.util.*
  * It allows for asynchronous running of the session since other
  * parts of the program may need to run while this process takes its' time.
  */
-class DescriptionSession(private val interpreter: MainInterpreter = MainInterpreter(),
+class DescriptionSession(private val interpreter: PatternInterpreter = createDefaultModelInterpreter(),
                          private val interactorIface: BlockingInteractor) {
 
     private val changeListeners = mutableListOf<(Model) -> Unit>()
+
+    private val commandHistory = mutableListOf<EditorCommand>()
 
     fun start() {
         Thread(Runnable { this.runSession() }).start()
@@ -43,6 +45,7 @@ class DescriptionSession(private val interpreter: MainInterpreter = MainInterpre
     fun runSession(): Model {
         val scene = CompositeModel("Scene")
         while (true) {
+
             val line = interactorIface.askUserString("Say something:")
 
             if (line == "done") {
@@ -50,15 +53,25 @@ class DescriptionSession(private val interpreter: MainInterpreter = MainInterpre
                 break
             }
 
-            val stmt = interpreter.interpret(line, scene)
+            val result = interpreter.interpret(
+                    SyntaxNetLink.parse(line),
+                    EditorCommand::class,
+                    context = listOf(DescriptionSessionContext(commandHistory,
+                            scene))) as EditorCommand
 
-            interactorIface.tellUser("Interpreted: ")
+            commandHistory.add(result)
 
-            interactorIface.tellUser(stmt.toString())
+            println("Interpreted as " + result)
 
-            if (interactorIface.askUserYesNo("Is this correct?")) {
+            val stmt = result
+
+//            interactorIface.tellUser("Interpreted: ")
+//
+//            interactorIface.tellUser(stmt.toString())
+//
+//            if (interactorIface.askUserYesNo("Is this correct?")) {
                 stmt.apply()
-            }
+//            }
 
             notifyChanged(scene)
         }
@@ -74,4 +87,16 @@ class DescriptionSession(private val interpreter: MainInterpreter = MainInterpre
     fun addChangeListener(listener: (Model) -> Unit) {
         changeListeners.add(listener)
     }
+
+    /**
+     * An interpretation context representing the description session
+     * without exposing the session itself to interpretation.
+     *
+     * @param pastCommands A list of commands before the current interpretation.
+     *                     No guarantees on execution state.
+     *
+     * @param scene The scene. Do not modify during interpretation.
+     */
+    class DescriptionSessionContext(val pastCommands: List<EditorCommand>,
+                                    val scene: CompositeModel) : InterpretationContext
 }

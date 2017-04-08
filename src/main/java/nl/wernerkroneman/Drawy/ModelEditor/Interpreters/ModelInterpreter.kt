@@ -20,8 +20,12 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
+import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
+import nl.wernerkroneman.Drawy.ModelEditor.SceneComponent
+import nl.wernerkroneman.Drawy.ModelEditor.SceneComponentRelation
 import nl.wernerkroneman.Drawy.Modelling.*
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import java.util.*
@@ -32,16 +36,18 @@ class ModelInterpreter(internal val knowledge: Knowledge,
         PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = SceneComponent::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<Any>): Model {
+                           context: List<InterpretationContext>): SceneComponent {
 
         var phrase = capturings.get("name") ?:
                 throw IllegalStateException("No name capturing")
 
         val modelName = if (phrase.nature == "NN") phrase.rootWord
                         else phrase.rootWord.singularize()
+
+        val relations = HashSet<SceneComponentRelation>()
 
         var model: Model = knowledge.getObject(modelName) ?:
                 throw NoSuchElementException("No known model named " + phrase.rootWord)
@@ -56,11 +62,19 @@ class ModelInterpreter(internal val knowledge: Knowledge,
 
             when (interpreted) {
 
+                is SceneComponentRelation -> {
+                    relations.add(interpreted)
+                }
+
                 is RelativePositionConstraint -> {
                     when {
                         interpreted.b is CompositeModel.Component -> {
                             if (model !is CompositeModel) {
-                                model = CompositeModel().apply { createComponentForModel(model) }
+                                model = CompositeModel().apply {
+                                    val comp = Component(model)
+                                    components.add(comp)
+                                    comp
+                                }
                             }
                             if (interpreted.a == null)
                                 interpreted.a = model.components.first()
@@ -123,7 +137,7 @@ class ModelInterpreter(internal val knowledge: Knowledge,
 
         }
 
-        return model
+        return SceneComponent.NewComponent(model, relations)
 
     }
 

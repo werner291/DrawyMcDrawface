@@ -17,16 +17,13 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
+package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import kotlin.reflect.KClass
+import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 
-inline fun <reified T> constantInterpreter(component : T) = object : PatternInterpreter.InterpretedObjectFactory {
-    override val interpretedTypePrediction: KClass<*>
-        get() = T::class
+class SceneObject(val model: Model,
+                  val relations: MutableSet<SceneRelation>)
 
-    override fun interpret(capturings: Map<String, PhraseTree>, context: List<InterpretationContext>) = component
-}
+class SceneRelation(val relPos: RelativePositionConstraint.RelativePosition,
+                    val relationTo: SceneObject)

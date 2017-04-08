@@ -43,12 +43,6 @@ class CompositeModel(name: String = "Anonymous composite",
         return visitor.visit(this)
     }
 
-    fun createComponentForModel(cube: Model): Component {
-        val comp = Component(cube)
-        components.add(comp)
-        return comp
-    }
-
     override fun toString(): String {
         val builder = StringBuilder()
 

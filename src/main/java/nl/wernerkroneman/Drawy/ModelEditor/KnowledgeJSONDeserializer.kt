@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.*
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 
@@ -70,8 +71,9 @@ object KnowledgeJSONDeserializer {
                 for (obj in serialized["components"] as JSONArray) {
                     val componentJSON = obj as JSONObject
 
-                    compositeModel.createComponentForModel(
-                            deserializeObject(knowledge, componentJSON.get("model") as Any)!!)
+                    val comp = Component(deserializeObject(knowledge, componentJSON.get("model") as Any)!!)
+                    compositeModel.components.add(comp)
+                    comp
                 }
 
                 return compositeModel

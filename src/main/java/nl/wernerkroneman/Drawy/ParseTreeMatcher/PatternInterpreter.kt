@@ -19,9 +19,9 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
+import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import java.util.*
 import kotlin.reflect.KClass
-import kotlin.reflect.KType
 import kotlin.reflect.full.isSuperclassOf
 
 /**
@@ -41,13 +41,16 @@ open class PatternInterpreter {
      * @param filter
      *
      * @param context Mutable list representing the context.
-     *                Rule: Resulting list must always be of the same size.
+     *                If interpretation requires a certain kind of context,
+     *                search the list last-to-first.
+     *
+     * @throws InvalidInterpretationContextException if context is not sufficient for interpetation
      *
      * @return
      */
     fun interpret(phrase: PhraseTree,
                   type: KClass<*> = Any::class,
-                  context: List<Any> = mutableListOf()): Any? {
+                  context: List<InterpretationContext> = mutableListOf()): Any? {
 
         for (entry in patterns) {
             if (type.isSuperclassOf(entry.objectFactory.interpretedTypePrediction)) {
@@ -83,12 +86,9 @@ open class PatternInterpreter {
          *                higher-level interpreted objects.
          *
          * @return An interpreted object corresponding to the capturings, if any
-         *
-         * @modify {@code context} in case this phrase capturing reveals
-         *         more information about a parent context.
          */
         fun interpret(capturings: Map<String, PhraseTree>,
-                      context: List<Any>): Any?
+                      context: List<InterpretationContext>): Any?
     }
 
     /**

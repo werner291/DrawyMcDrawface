@@ -39,7 +39,7 @@ internal object SyntaxNetLink {
         })) {
             throw RuntimeException("String contains illegal or unsafe characters: " + english)
         }
-
+// echo 'Hello world!' | docker run --rm -i brianlow/syntaxnet
         // TODO isn't it beautiful?
         try {
 

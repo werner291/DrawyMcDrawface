@@ -28,6 +28,7 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
+import java.util.*
 import kotlin.reflect.KClass
 
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
@@ -76,6 +77,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                             .create())
                     .child(PhrasePatternBuilder()
                             .role("punct")
+                            .optional()
                             .create()
                     ).create())
 
@@ -137,11 +139,68 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
         override val interpretedTypePrediction: KClass<*>
             get() = Int::class
 
-        override fun interpret(capturings: Map<String, PhraseTree>, context: List<Any>): Any? {
+        override fun interpret(capturings: Map<String, PhraseTree>, context: List<InterpretationContext>): Any? {
             return capturings["number"]!!.rootWord.toInt()
         }
     }, buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number")})
 
+    interpreter.addPattern(object : PatternInterpreter.InterpretedObjectFactory {
+        override val interpretedTypePrediction: KClass<*>
+            get() = SceneComponent::class
+
+        override fun interpret(capturings: Map<String, PhraseTree>,
+                               context: List<InterpretationContext>): Any? {
+
+            val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext } as DescriptionSession.DescriptionSessionContext
+
+            val lastCreateCommand = descSession.pastCommands
+                    .last { it is CreateEntityEditorCommand } as CreateEntityEditorCommand
+
+            val lastCreated = lastCreateCommand.created!!
+
+            val scene = lastCreateCommand.target()
+
+            return SceneComponent.CompositeComponentReference(lastCreated, scene, emptySet())
+
+        }
+
+    }, buildPattern { word("that"); role("pobj") })
+
     return interpreter
 
 }
+
+/**
+ * Marker interface for interpretation contexts
+ */
+interface InterpretationContext
+
+/**
+ * Get an Iterable describing all previous commands, last-to-first
+ */
+private val EditorCommand.previousCommands: Iterable<EditorCommand>
+    get() {
+        val firstInHistory = this
+
+        return object : Iterable<EditorCommand> {
+
+            override fun iterator(): Iterator<EditorCommand> {
+                return object : Iterator<EditorCommand> {
+
+                    var current = firstInHistory
+
+                    override fun hasNext(): Boolean {
+                        return current.previous != null
+                    }
+
+                    override fun next(): EditorCommand {
+                        current = current.previous ?:
+                                throw NoSuchElementException("No more history.")
+                        return current
+                    }
+
+                }
+            }
+
+        }
+    }

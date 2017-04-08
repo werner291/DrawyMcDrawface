@@ -44,9 +44,9 @@ import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
 import nl.wernerkroneman.Drawy.Interface.UserInteractor
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
-import nl.wernerkroneman.Drawy.ModelEditor.MainInterpreter
 import nl.wernerkroneman.Drawy.ModelEditor.createDefaultModelInterpreter
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
@@ -88,7 +88,7 @@ fun main(args: Array<String>) {
 
     val iface = BlockingInteractor(interactor)
     val session = DescriptionSession(
-            interpreter = MainInterpreter(createDefaultModelInterpreter(knowledge)),
+            interpreter = createDefaultModelInterpreter(knowledge),
             interactorIface = iface)
 
     // Create a visualizer
@@ -130,8 +130,12 @@ fun main(args: Array<String>) {
 private fun createSnowman(knowledge: Knowledge): CompositeModel {
     val snowman = CompositeModel("snowman")
 
-    val head = snowman.createComponentForModel(knowledge.getObject("sphere")!!)
-    val body = snowman.createComponentForModel(knowledge.getObject("sphere")!!)
+    val comp = Component(knowledge.getObject("sphere")!!)
+    snowman.components.add(comp)
+    val head = comp
+    val comp1 = Component(knowledge.getObject("sphere")!!)
+    snowman.components.add(comp1)
+    val body = comp1
     snowman.constraints.add(RelativePositionConstraint(head, body, ABOVE, FixedDistance(0.0)))
     return snowman
 }

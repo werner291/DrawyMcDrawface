@@ -26,10 +26,9 @@ package nl.wernerkroneman.Drawy.ModelEditor
 
  * Most commands are revertible.
  */
-abstract class EditorCommand {
-
-    // Whether this command has been applied or not.
-    internal var applied = false
+abstract class EditorCommand(// Whether this command has been applied or not.
+        var applied: Boolean = false,
+        var previous: EditorCommand?) {
 
     fun apply() {
         if (applied) {

@@ -17,26 +17,11 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
+package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import nl.wernerkroneman.Drawy.Modelling.Distance
-import nl.wernerkroneman.Drawy.Modelling.FixedDistance
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import kotlin.reflect.KClass
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 
-class DistanceInterpreter : InterpretedObjectFactory {
-
-    override val interpretedTypePrediction: KClass<*>
-        get() = Distance::class
-
-    override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Any? {
-
-        // TODO deal with written-out numers
-        return FixedDistance(distance = capturings["amount"]!!.rootWord.toDouble())
-
-    }
-
-}
+class SceneComponentRelation(val right: SceneComponent,
+                             val relPos: RelativePositionConstraint.RelativePosition,
+                             val dist: Distance)

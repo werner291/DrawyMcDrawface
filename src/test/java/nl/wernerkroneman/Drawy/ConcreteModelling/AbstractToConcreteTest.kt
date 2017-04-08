@@ -21,6 +21,7 @@ package nl.wernerkroneman.Drawy.ConcreteModelling
 
 import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete
 import nl.wernerkroneman.Drawy.Modelling.*
+import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import org.joml.Vector3d
 import org.junit.Assert
@@ -102,7 +103,9 @@ class AbstractToConcreteTest {
 
         val composite = CompositeModel("Cube container.")
 
-        composite.createComponentForModel(cube)
+        val comp = Component(cube)
+        composite.components.add(comp)
+        comp
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
@@ -140,7 +143,9 @@ class AbstractToConcreteTest {
             val NUM_CUBES = 10
 
             for (i in 0..NUM_CUBES - 1) {
-                composite.createComponentForModel(cube)
+                val comp = Component(cube)
+                composite.components.add(comp)
+                comp
             }
 
             val converter = AbstractToConcrete(DefaultMeshFactory())
@@ -175,10 +180,15 @@ class AbstractToConcreteTest {
 
             val composite = CompositeModel("Cube container.")
 
-            // Create two cube components.
-            val cubeA = composite.createComponentForModel(cube)
-            val cubeB = composite.createComponentForModel(cube)
-            val cubeC = composite.createComponentForModel(cube)
+            // Create three cube components.
+            val cubeA = Component(cube)
+            composite.components.add(cubeA)
+
+            val cubeB = Component(cube)
+            composite.components.add(cubeB)
+
+            val cubeC = Component(cube)
+            composite.components.add(cubeC)
 
             composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, Distance.ANY))
             composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, Distance.ANY))
@@ -222,10 +232,15 @@ class AbstractToConcreteTest {
 
             val composite = CompositeModel("Cube container.")
 
-            // Create two cube components.
-            val cubeA = composite.createComponentForModel(cube)
-            val cubeB = composite.createComponentForModel(cube)
-            val cubeC = composite.createComponentForModel(cube)
+            // Create three cube components.
+            val cubeA = Component(cube)
+            composite.components.add(cubeA)
+
+            val cubeB = Component(cube)
+            composite.components.add(cubeB)
+
+            val cubeC = Component(cube)
+            composite.components.add(cubeC)
 
             composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, FixedDistance(1.0)))
             composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, FixedDistance(2.0)))
