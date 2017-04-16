@@ -58,20 +58,20 @@ class PatternInterpreterTest {
 
         val testPhrase = PhraseTree("Bar", "TEST", "TEST")
 
-        val result = terp.interpret(testPhrase)
+        val result = terp.interpret<Any?>(testPhrase)
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
         testPhrase.addChild(PhraseTree("Troll", "TEST", "TEST"))
 
-        val result2 = terp.interpret(testPhrase)
+        val result2 = terp.interpret<Any?>(testPhrase)
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
         testPhrase.children.clear()
         testPhrase.addChild(PhraseTree("Baz", "TEST", "TEST"))
 
-        val result3 = terp.interpret(testPhrase)
+        val result3 = terp.interpret<Any?>(testPhrase)
         Assert.assertTrue(result3 is Bar)
         Assert.assertFalse(result3 is Baz)
 

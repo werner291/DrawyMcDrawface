@@ -19,7 +19,13 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.*
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
+import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
+import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
+import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
+import nl.wernerkroneman.Drawy.Modelling.combineLocations
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
@@ -32,33 +38,32 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = CreateEntityEditorCommand::class
+        get() = CreateCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): CreateEntityEditorCommand {
-        val what = interpreter.interpret(
+                           context: List<InterpretationContext>): CreateCommand {
+
+        val what = interpreter.interpret<Model>(
                 capturings["what"]!!,
-                SceneComponent::class,
                 context + CreateCommandContext()
-        ) as SceneComponent.NewComponent
+        )
 
         val where = capturings["where"]
 
-        val extraRelations = if (where != null)
-            setOf(interpreter.interpret(
+        if (where != null) {
+            what.location = combineLocations(what.location, interpreter.interpret<RelativeLocation>(
                     where,
-                    SceneComponent::class,
                     context + CreateCommandContext()
-            ) as SceneComponentRelation)
-        else emptySet()
+            ))
+        }
 
-        return CreateEntityEditorCommand(
+        return CreateCommand(
                 target = {
                     (context.findLast({ it is DescriptionSession.DescriptionSessionContext })
                             as DescriptionSession.DescriptionSessionContext).scene
                 },
                 previous = context.findLast { it is EditorCommand } as EditorCommand?,
-                what = SceneComponent.NewComponent(what.model, what.relations + extraRelations)
+                what = what
         )
     }
 

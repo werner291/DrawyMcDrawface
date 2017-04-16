@@ -19,22 +19,4 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import org.junit.Test
-
-class EditorCommandTest {
-
-
-    @Test(expected = RuntimeException::class)
-    fun creationDouble() {
-
-        val model = CompositeModel("Scene")
-
-        val stmt = CreateEntityEditorCommand(target = { model })
-
-        stmt.apply()
-        stmt.apply()
-
-    }
-
-}
+class EditorCommandTest

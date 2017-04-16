@@ -19,6 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 

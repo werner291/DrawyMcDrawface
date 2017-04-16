@@ -19,11 +19,13 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
+import nl.wernerkroneman.Drawy.Modelling.BIG
 import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BELOW
-import nl.wernerkroneman.Drawy.Modelling.RelativeSize
+import nl.wernerkroneman.Drawy.Modelling.SMALL
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
@@ -34,7 +36,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
 
     val interpreter = PatternInterpreter()
 
-    val modelInterpreter = ModelInterpreter(knowledge, interpreter)
+    val modelInterpreter = ModelInstanceInterpreter(knowledge, interpreter)
 
     val createCommandInterpreter = CreateCommandInterpreter(interpreter)
 
@@ -85,19 +87,19 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     ).create())
 
     interpreter.addPattern(RelativePositionInterpreter(ABOVE, interpreter),
-            PhrasePatternBuilder()
-                    .role("prep")
-                    .word("above")
-                    .children(
-                            buildPattern {
-                                role("npadvmod")
-                                name("distance")
-                                optional()},
-                            PhrasePatternBuilder()
-                                    .role("pobj")
-                                    .name("relative_to")
-                                    .create()
-                    ).create())
+            buildPattern {
+                role("prep")
+                word("above")
+                child {
+                    role("npadvmod")
+                    name("distance")
+                    optional()
+                }
+                child {
+                    role("pobj")
+                    name("relative_to")
+                }
+            })
 
     interpreter.addPattern(RelativePositionInterpreter(BELOW, interpreter),
             PhrasePatternBuilder()
@@ -113,30 +115,30 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
     interpreter.addPattern(distanceInterpreter,
             buildPattern {
                 nature("NN*")
-                child( buildPattern {
-                            nature("CD")
-                            role("num")
-                            name("amount")
+                child(buildPattern {
+                    nature("CD")
+                    role("num")
+                    name("amount")
                 })
             })
 
     interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("other")
-                child { word("each")}
+                child { word("each") }
             })
 
     interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("one")
-                child { word("another")}
+                child { word("another") }
             })
 
-    interpreter.addPattern(constantInterpreter(RelativeSize(1.5)),
-            buildPattern { word("big")})
+    interpreter.addPattern(constantInterpreter(BIG),
+            buildPattern { word("big") })
 
-    interpreter.addPattern(constantInterpreter(RelativeSize(1/1.5)),
-            buildPattern { word("small")})
+    interpreter.addPattern(constantInterpreter(SMALL),
+            buildPattern { word("small") })
 
     interpreter.addPattern(NumberInterpreter(),
             buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number") })
@@ -149,6 +151,20 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 role("pobj"); name("specifier"); child {
                 word("that"); role("det")
             }
+            })
+
+    interpreter.addPattern(RenameCommandInterpreter(interpreter),
+            buildPattern {
+                role("ROOT")
+                nature("NN")
+                name("new name")
+                child {
+                    role("nsubj")
+                    name("target")
+                }
+                child {
+                    word("is")
+                }
             })
 
     return interpreter

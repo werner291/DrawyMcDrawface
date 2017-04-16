@@ -17,7 +17,7 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor
+package nl.wernerkroneman.Drawy.ModelEditor.Commands
 
 /**
  * An action to be applied.
@@ -52,6 +52,10 @@ abstract class EditorCommand(// Whether this command has been applied or not.
 
     open internal fun onRevert() {
         throw UnsupportedOperationException("This command cannot be reverted.")
+    }
+
+    override fun toString(): String {
+        return "EditorCommand(applied=$applied, previous=$previous)"
     }
 }
 

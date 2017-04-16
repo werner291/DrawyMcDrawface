@@ -29,10 +29,10 @@ class ParseTreeTest {
 
         // Parse a tree
         val parserOutput = """
-        |Let VB ROOT\n"
-        | +-- be VB ccomp\n"
-        |     +-- there EX expl\n"
-        |     +-- cubes NNS nsubj\n"
+        |Let VB ROOT
+        | +-- be VB ccomp
+        |     +-- there EX expl
+        |     +-- cubes NNS nsubj
         |         +-- 15 CD num
         """.trimMargin()
 

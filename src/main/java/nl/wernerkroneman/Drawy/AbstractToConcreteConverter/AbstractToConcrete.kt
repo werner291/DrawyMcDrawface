@@ -26,12 +26,23 @@ import org.joml.Matrix4d
 import org.joml.Vector3d
 import java.util.*
 
-class AbstractToConcrete(internal var meshFactory: MeshFactory) {
+
+class AbstractToConcrete(meshFactory: MeshFactory) {
+
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
 
-    /**
-     * Compute a conrete, drawable scene based on the abstract model.
+    private val topLevelModelToNode = HashMap<Model, SceneNode>()
 
+    private val beingComputed = HashSet<Model>()
+
+    class ConcreteModel(var abstract: Model,
+                        val nodes: MutableSet<SceneNode> = HashSet<SceneNode>())
+
+    /**
+     * Compute a conrcete, drawable scene based on the abstract model.
+     *
+     * Note: not threadsafe
+     *
      * @param absModel An abstract model
      * *
      * @return A concrete, drawable scene
@@ -40,50 +51,80 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
 
         val result = Scene()
 
-        result.rootSceneNode = createSceneNodeForModel(absModel, Context())
+        clearCache()
+
+        createNodeForModel(absModel, ROOT_CONTEXT)
+
+        topLevelModelToNode.values.forEach {
+            result.rootSceneNode.addChild(it)
+        }
 
         return result
     }
 
-    /**
-     * Compute the contents of the scene node in accordance to the model.
+    fun clearCache() {
+        topLevelModelToNode.clear()
+        beingComputed.clear()
+    }
 
-     * @param absModel The model to base the scene node on.
-     * *
-     * @param node     The scene node that represents the model.
+    val ROOT_CONTEXT = SizeInfo()
+
+    /*
+     * Get the node for the model, or create it if it exists.
      */
-    fun createSceneNodeForModel(absModel: Model, context: Context): SceneNode {
-        return when (absModel) {
-            is CompositeModel -> exploreCompositeModel(absModel, context)
-            is GroupModel -> computeSceneNodeForGroupModel(absModel, context)
-            is PrimitiveModel -> computeSceneNodeForPrimitive(absModel, context)
-            is AnyModel -> createSceneNodeForModel(absModel.any, context)
-            is VariantModel -> createSceneNodeForVariantModel(absModel, context)
-            else -> throw UnsupportedOperationException("Unknown model type: " + absModel)
-        }
-    }
-
-    fun createSceneNodeForVariantModel(absModel: VariantModel, context: Context): SceneNode {
-
-        var sizeModifier = context.sizeModifier
-
-        for (mod in absModel.modifiers) {
-            when (mod) {
-                is RelativeSize -> sizeModifier *= mod.relativeSize
-                else -> throw UnsupportedOperationException("Unknown modifier " + mod)
-            }
+    fun getOrCreateTopLevelNodeForModel(model: Model): SceneNode {
+        if (model !in topLevelModelToNode) {
+            createNodeForModel(model, ROOT_CONTEXT)
         }
 
-        val context = Context(context.node,
-                sizeModifier,
-                context.size)
-
-        return createSceneNodeForModel(absModel.base, context)
+        return topLevelModelToNode[model]!!
     }
 
-    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, context: Context): SceneNode {
+    /**
+     * @pre {@code model !in beingComputed}
+     * @post {@code model !in beingComputed}
+     */
+    fun createNodeForModel(model: Model, sizeInfo: SizeInfo): SceneNode {
 
-        println(context.sizeModifier)
+        if (model in beingComputed) {
+            throw RuntimeException("Model contains a cycle!")
+        }
+
+        if (model in topLevelModelToNode) {
+            throw InvalidStateException("Model being re-topLevelModelToNode!")
+        }
+
+        // Add current to beingComputed for cycle detection
+        beingComputed.add(model)
+
+        val node: SceneNode = when (model) {
+            is CompositeModel ->
+                exploreCompositeModel(model, sizeInfo)
+            is GroupModel ->
+                computeSceneNodeForGroupModel(model, sizeInfo)
+            is PrimitiveModel ->
+                computeSceneNodeForPrimitive(model, sizeInfo)
+            is AnyModel ->
+                createSceneNodeForAnyModel(model, sizeInfo)
+            else ->
+                throw UnsupportedOperationException("Unknown model type: " + model)
+        }
+
+        // Undo for performance and cleanliness.
+        beingComputed.remove(model)
+
+        node.transform = computeObjectTransform(node, model)
+
+        return node
+
+    }
+
+    fun createSceneNodeForAnyModel(model: AnyModel, sizeInfo: SizeInfo): SceneNode {
+        val choice = model.pick()
+        return createNodeForModel(choice, sizeInfo)
+    }
+
+    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, sizeInfo: SizeInfo): SceneNode {
 
         val node = SceneNode()
 
@@ -91,10 +132,10 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
             PrimitiveModel.ShapeType.CUBE ->
                 Drawable(primitiveGenerator.generateUnitCube())
             PrimitiveModel.ShapeType.SPHERE ->
-                Drawable(primitiveGenerator.generateSphere((context.size ?: 0.5) * context.sizeModifier, 16, 8))
+                Drawable(primitiveGenerator.generateSphere((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier, 16, 8))
             PrimitiveModel.ShapeType.CYLINDER ->
-                Drawable(primitiveGenerator.generateCylinder((context.size ?: 0.5) * context.sizeModifier,
-                        (context.size ?: 1.0) * context.sizeModifier,
+                Drawable(primitiveGenerator.generateCylinder((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier,
+                        (sizeInfo.size ?: 1.0) * sizeInfo.sizeModifier,
                         16))
             else -> throw UnsupportedOperationException("Shape " + absModel.shape + " not implemented.")
         })
@@ -112,32 +153,16 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
      * but this should work for now.
      */
     private fun computeSceneNodeForGroupModel(absModel: GroupModel,
-                                              context: Context): SceneNode {
+                                              sizeInfo: SizeInfo): SceneNode {
 
         val node = SceneNode()
 
-        val childContext = Context(node)
-
-        val componentToNode = mutableListOf<SceneNode>()
+        val childContext = SizeInfo()
 
         // TODO implement identical models.
         0.until(absModel.number)
                 .forEach { index ->
-                    val childNode = createSceneNodeForModel(absModel.memberModelType, childContext)
-
-                    childNode.transform = computeChildTransform(childNode,
-                            GroupModel.ComponentDesignator.IndexComponent(index),
-                            {
-                                when {
-                                    it is GroupModel.ComponentDesignator.RelativeComponent ->
-                                        componentToNode[index + it.offset]
-                                    else -> throw UnsupportedOperationException("Unknown...")
-                                }
-                            },
-                            absModel)
-
-                    componentToNode.add(childNode)
-                    node.addChild(childNode)
+                    createNodeForModel(absModel.memberModelType, childContext)
                 }
 
         return node
@@ -153,24 +178,14 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
      * but this should work for now.
      */
     private fun exploreCompositeModel(absModel: CompositeModel,
-                                      context: Context): SceneNode {
+                                      sizeInfo: SizeInfo): SceneNode {
 
         val node = SceneNode()
 
-        val childContext = Context(node)
+        val childContext = SizeInfo()
 
-        val componentToNode = HashMap<CompositeModel.Component, SceneNode>()
-
-        for (component in absModel.componentsInTopoligicalOrder()) {
-            val childNode = createSceneNodeForModel(component.model, childContext)
-            componentToNode[component] = childNode
-
-            childNode.transform = computeChildTransform(childNode,
-                    component,
-                    { componentToNode[it]!! },
-                    absModel)
-
-            node.addChild(childNode)
+        for (component in absModel.components) {
+            createNodeForModel(component, childContext)
         }
 
         return node
@@ -182,87 +197,79 @@ class AbstractToConcrete(internal var meshFactory: MeshFactory) {
      * @param childNode The node of which to compute the transform
      * @param component The component corresponding to the node
      * @param componentToNode A function that, for every component,
-     *                  provides the corresponding SceneNode that was previously computed.
+     *                  provides the corresponding SceneNode that was previously topLevelModelToNode.
      * @param composite  The CompositeModel that is the context
-     *
-     * @pre componentToNode has an entry for each component that the current component
-     *      depends on according to {@code composite.applicableConstraints}.
      */
-    private fun computeChildTransform(
+    private fun computeObjectTransform(
             childNode: SceneNode,
-            component: RelativeConstraintContext.Positionable,
-            componentToNode: (RelativeConstraintContext.Positionable) -> SceneNode,
-            context: RelativeConstraintContext): Matrix4d {
+            absModel: Model): Matrix4d {
 
         // Get an AABB to estimate how big the component is and how the AABB fits around it.
         val componentAABB = childNode.computeParentContextAABB()
                 .translate(childNode.transform.getTranslation(Vector3d()))
 
         // Compute an AABB to restrict the AABB, start with one spanning space
-        val translationRestriction = AABB(Vector3d(Double.POSITIVE_INFINITY),
-                Vector3d(Double.NEGATIVE_INFINITY))
-
-        // For each constraint
-        for (constraint in context.getApplicableConstraintsFor(component)) {
-
-            // Handle RelativePositionConstraints for now only,
-            // and only that concern the current component
-            val other = componentToNode(constraint.b)
-
-            // Get the AABB of the other in the context
-            val parentContextAABB = other.computeParentContextAABB()
-
-            // Intersect
-            translationRestriction.intersection(
-                    other = constraintToTranslationRestriction(
-                            componentAABB,
-                            parentContextAABB,
-                            constraint
-                    ),
-                    dest = translationRestriction
-            )
-        }
+        val translationRestriction = locationToConcreteLocation(componentAABB,
+                absModel.location)
 
         return Matrix4d().identity()
                 .setTranslation(translationRestriction.centerIsh())
     }
-}
 
-/**
- * Convert the constraint to a restriction on the translation.
- */
-fun constraintToTranslationRestriction(selfAABB: AABB,
-                                       otherAABB: AABB,
-                                       constraint: RelativePositionConstraint): AABB {
-    val restrictTo = AABB(Vector3d(Double.POSITIVE_INFINITY),
-            Vector3d(Double.NEGATIVE_INFINITY))
+    private fun relativeLocationToConcreteLocation(location: RelativeLocation,
+                                                   selfAABB: AABB): AABB {
+        val otherAABB = getOrCreateTopLevelNodeForModel(location.right).computeParentContextAABB()
 
-    constraint.pos.rel.forEachIndexed { index, dimensionOrder ->
-        when (dimensionOrder) {
-        // S: |-------x-----|
-        // LastCreatedComponentInterpreter:                  |-----x------|
-            AFTER -> restrictTo.minExtent.setComponent(index,
-                    otherAABB.maxExtent[index] - selfAABB.minExtent[index])
-        // S: |-------x-----|
-        // LastCreatedComponentInterpreter:        |-----x------|
-        // or
-        // S:    |-------x-----|
-        // LastCreatedComponentInterpreter: |-----x------|
-            SAME -> {
-                restrictTo.minExtent.setComponent(index,
-                        otherAABB.minExtent[index] - selfAABB.maxExtent[index])
+        val restrictTo = AABB(Vector3d(Double.POSITIVE_INFINITY),
+                Vector3d(Double.NEGATIVE_INFINITY))
 
-                restrictTo.maxExtent.setComponent(index,
+        location.relPos.rel.forEachIndexed { index, dimensionOrder ->
+            when (dimensionOrder) {
+            // S: |-------x-----|
+            // LastCreatedComponentInterpreter:                  |-----x------|
+                AFTER -> restrictTo.minExtent.setComponent(index,
                         otherAABB.maxExtent[index] - selfAABB.minExtent[index])
+            // S: |-------x-----|
+            // LastCreatedComponentInterpreter:        |-----x------|
+            // or
+            // S:    |-------x-----|
+            // LastCreatedComponentInterpreter: |-----x------|
+                SAME -> {
+                    restrictTo.minExtent.setComponent(index,
+                            otherAABB.minExtent[index] - selfAABB.maxExtent[index])
+
+                    restrictTo.maxExtent.setComponent(index,
+                            otherAABB.maxExtent[index] - selfAABB.minExtent[index])
+                }
+                BEFORE -> restrictTo.maxExtent.setComponent(index,
+                        otherAABB.minExtent[index] - selfAABB.maxExtent[index])
             }
-            BEFORE -> restrictTo.maxExtent.setComponent(index,
-                    otherAABB.minExtent[index] - selfAABB.maxExtent[index])
+
+        }
+        return restrictTo
+    }
+
+    /**
+     * Convert the constraint to a restriction on the translation.
+     */
+    fun locationToConcreteLocation(selfAABB: AABB,
+                                   location: Location?): AABB {
+
+        return when (location) {
+            null -> AABB(Vector3d(Double.POSITIVE_INFINITY),
+                    Vector3d(Double.NEGATIVE_INFINITY))
+            is IntersectionLocation -> return location.intersectionOf
+                    .map { locationToConcreteLocation(selfAABB, it) }
+                    .reduce { a, b -> a.intersection(b, AABB()) }
+            is RelativeLocation ->
+                return relativeLocationToConcreteLocation(location, selfAABB)
+
+            else -> throw UnsupportedOperationException("Unknown location: $location")
+
         }
     }
 
-    return restrictTo
 }
 
-class Context(val node: SceneNode? = null,
-              val sizeModifier: Double = 1.0,
-              val size: Double? = null)
+class SizeInfo(val sizeModifier: Double = 1.0,
+               val size: Double? = null)

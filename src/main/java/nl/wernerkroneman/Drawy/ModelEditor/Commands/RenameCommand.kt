@@ -17,11 +17,27 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor
+package nl.wernerkroneman.Drawy.ModelEditor.Commands
 
-import nl.wernerkroneman.Drawy.Modelling.Distance
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.Model
 
-class SceneComponentRelation(val right: SceneComponent,
-                             val relPos: RelativePositionConstraint.RelativePosition,
-                             val dist: Distance)
+class RenameCommand(previous: EditorCommand?,
+        // TODO implement and use deep referencing.
+                    val target: Model,
+                    val newName: String) : EditorCommand(false, previous) {
+
+    var oldName = target.name
+
+    override fun onApply() {
+        oldName = target.name
+        target.name = newName
+    }
+
+    override fun onRevert() {
+        target.name = oldName
+    }
+
+    override fun toString(): String {
+        return "RenameCommand(target=$target, newName='$newName', oldName='$oldName') : " + super.toString()
+    }
+}

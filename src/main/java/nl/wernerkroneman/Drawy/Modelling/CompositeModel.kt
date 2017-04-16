@@ -19,6 +19,8 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
+import java.util.*
+
 /**
  * The CompositeModel represents everything that DrawyMcDrawface
  * knows about the scene described so far.
@@ -27,31 +29,23 @@ package nl.wernerkroneman.Drawy.Modelling
  * It describes the scene on a very high level, and deals
  * in constraints rather than realisations of those constraints.
  */
-class CompositeModel(name: String = "Anonymous composite",
-                     val components: MutableSet<Component> = mutableSetOf()) :
-        Model(name), RelativeConstraintContext {
+abstract class CompositeModel(name: String = "Anonymous composite") : Model(name) {
 
-    val constraints = mutableSetOf<RelativePositionConstraint>()
+    abstract val components: MutableSet<Model>
+}
 
-    override fun getApplicableConstraintsFor(component: RelativeConstraintContext.Positionable):
-            Iterable<RelativePositionConstraint> {
+class CompositeModelBase(name: String = "Anonymous composite",
+                         override val components: MutableSet<Model> = HashSet<Model>()) : CompositeModel() {
+    override fun derive(name: String): Model {
+        return DerivedCompositeModel(this)
+    }
+}
 
-        return constraints.filter { it.a == component }
+class DerivedCompositeModel(val base: CompositeModel) : CompositeModel() {
+
+    override fun derive(name: String): Model {
+        return DerivedCompositeModel(this)
     }
 
-    override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
-        return visitor.visit(this)
-    }
-
-    override fun toString(): String {
-        val builder = StringBuilder()
-
-        for (comp in components) {
-            builder.append(comp.toString())
-        }
-
-        return builder.toString()
-    }
-
-    class Component(var model: Model) : RelativeConstraintContext.Positionable
+    override val components = MutableRelativeSet(base.components)
 }

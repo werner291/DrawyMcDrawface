@@ -19,29 +19,31 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-class PrimitiveModel(shape: PrimitiveModel.ShapeType, name: String) : Model(name) {
+abstract class PrimitiveModel(name: String) : Model(name) {
 
-    // A bit unelegant right now, will eventually replace with something mesh-based
-    // where something class-based actually makes sense.
-
-    var shape: ShapeType
-        internal set
-
-    init {
-        this.shape = shape
-    }
-
-    override fun toString(): String {
-        return "Primitive " + shape
-    }
+    abstract var shape: ShapeType
 
     enum class ShapeType {
         CUBE, SPHERE, CYLINDER
     }
 
-    override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
-        return visitor.visit(this)
+    override fun derive(name: String): PrimitiveModel {
+        return PrimitiveDerivative(name, this)
     }
+}
 
+class PrimitiveModelBase(name: String,
+                         override var shape: PrimitiveModel.ShapeType)
+    : PrimitiveModel(name)
 
+class PrimitiveDerivative(name: String,
+                          var base: PrimitiveModel) : PrimitiveModel(name) {
+
+    var _ownShape: ShapeType? = null
+
+    override var shape: ShapeType
+        get() = _ownShape ?: base.shape
+        set(value) {
+            _ownShape = value
+        }
 }

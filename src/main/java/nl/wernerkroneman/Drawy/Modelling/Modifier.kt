@@ -17,21 +17,14 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor
+package nl.wernerkroneman.Drawy.Modelling;
 
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.Model
+abstract class SizeModifier
 
-/**
- * Scaffolding classes to make the transition from the Parsey-output
- * to the abstract modelling easier.
- */
-sealed class SceneComponent(val relations: Set<SceneComponentRelation>) {
+class RelativeSize(val relativeSize: Double) : SizeModifier()
 
-    class CompositeComponentReference(val component: CompositeModel.Component,
-                                      val context: CompositeModel,
-                                      relations: Set<SceneComponentRelation>) : SceneComponent(relations)
+val DEFAULT_SIZE = object : SizeModifier() {}
 
-    class NewComponent(val model: Model,
-                       relations: Set<SceneComponentRelation>) : SceneComponent(relations)
-}
+val BIG = nl.wernerkroneman.Drawy.Modelling.RelativeSize(1.5)
+
+val SMALL = nl.wernerkroneman.Drawy.Modelling.RelativeSize(1 / 1.5)

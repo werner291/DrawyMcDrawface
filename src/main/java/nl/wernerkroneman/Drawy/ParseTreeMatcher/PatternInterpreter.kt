@@ -65,6 +65,14 @@ open class PatternInterpreter {
         return null
     }
 
+    inline fun <reified T> interpret(phrase: PhraseTree,
+                                     context: List<InterpretationContext> = mutableListOf()): T {
+
+        val interpreted = interpret(phrase, T::class, context)
+
+        return interpreted as T
+    }
+
     /**
      * An interface for classes that take the capturings
      * from a [PhrasePattern.MatchResult] and returns

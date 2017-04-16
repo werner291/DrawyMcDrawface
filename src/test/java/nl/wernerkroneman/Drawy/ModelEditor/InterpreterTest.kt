@@ -19,49 +19,48 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
 import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Ignore
 import org.junit.Test
 
 class InterpreterTest {
 
-    private fun interpretCreateComponent(text: String): SceneComponent.NewComponent {
-        val scene = CompositeModel("Scene")
-        val result = MainInterpreter().interpret(text, scene)
+    private fun interpretCreateComponent(text: String): Model {
 
-        assertTrue(result is CreateEntityEditorCommand)
+        val result = MainInterpreter().interpreter.interpret<Any?>(
+                SyntaxNetLink.parse(text),
+                context = emptyList<InterpretationContext>())
 
-        val stmt = result as CreateEntityEditorCommand
+        assertTrue(result is CreateCommand)
 
-        val newComponent = stmt.what as SceneComponent.NewComponent
-        return newComponent
+        val stmt = result as CreateCommand
+
+        return stmt.what
     }
 
     @Test
     fun interpreterTest1() {
 
         val newComponent = interpretCreateComponent("Create a cube.")
-        val model = newComponent.model
+
+        val model = (newComponent as PrimitiveDerivative).base
 
         assertTrue(model is PrimitiveModel)
-        assertEquals("Cube", model.name)
+        assertEquals(PrimitiveModel.ShapeType.CUBE, model.shape)
+        assertEquals(PrimitiveModel.ShapeType.CUBE, newComponent.shape)
 
     }
 
     @Test
     fun interpreterSizeTest() {
 
-        val newComponent = interpretCreateComponent("Create a big cube.")
-        val model = newComponent.model
+        val instance = interpretCreateComponent("Create a big cube.")
 
-        assertTrue(model is VariantModel)
-        assertTrue((model as VariantModel).modifiers.any({ it is SizeModifier }))
-
-        val cube = model.base
-
-        assertEquals("Cube", cube.name)
+        assertEquals(BIG, instance.size)
 
     }
 
@@ -69,15 +68,15 @@ class InterpreterTest {
     @Ignore("Non-deterministic numbers not yet supported")
     fun interpreterTest2() {
 
-        val scene = CompositeModel("Scene")
+        val scene = CompositeModelBase("Scene")
 
         val result = MainInterpreter().interpret("Add a cylinder or two.", scene)
 
-        assertTrue(result is CreateEntityEditorCommand)
+        assertTrue(result is CreateCommand)
 
-        val stmt = result as CreateEntityEditorCommand
+        val stmt = result as CreateCommand
 
-        val model = (stmt.what as SceneComponent.NewComponent).model
+        val model = stmt.what
 
         assertTrue(model is GroupModel)
 
@@ -90,66 +89,60 @@ class InterpreterTest {
     @Test
     fun createCubeAboveSphere() {
 
-        val newComponent = interpretCreateComponent("A cube above a sphere")
-        val model = newComponent.model
+        val cube = interpretCreateComponent("A cube above a sphere")
 
-        assertTrue(model is PrimitiveModel)
-        assertTrue(model.name == "Cube")
+        assertTrue(cube is PrimitiveDerivative)
+        assertEquals(PrimitiveModel.ShapeType.CUBE,
+                (cube as PrimitiveModel).shape)
 
-        assertEquals(1, newComponent.relations.size)
+        assertTrue(cube.location is RelativeLocation)
 
-        val relation = newComponent.relations.first()
+        val loc = cube.location as RelativeLocation
 
-        assertEquals(ABOVE, relation.relPos)
+        assertEquals(ABOVE, loc.relPos)
 
-        assertTrue(relation.right is SceneComponent.NewComponent)
-        assertTrue((relation.right as SceneComponent.NewComponent).model is PrimitiveModel)
-        assertEquals("Sphere", (relation.right as SceneComponent.NewComponent).model.name)
+        assertEquals(PrimitiveModel.ShapeType.SPHERE, (loc.right as PrimitiveDerivative).shape)
 
     }
 
     @Test
     fun createSphereAboveSphereWithDistance() {
 
-        val newComponent = interpretCreateComponent("A cube 5 units above a sphere")
-        val model = newComponent.model
+        val cube = interpretCreateComponent("A cube 5 units above a sphere")
 
-        assertTrue(model is PrimitiveModel)
-        assertTrue(model.name == "Cube")
+        assertTrue(cube is PrimitiveDerivative)
+        assertEquals(PrimitiveModel.ShapeType.CUBE,
+                (cube as PrimitiveModel).shape)
 
-        assertEquals(1, newComponent.relations.size)
+        assertTrue(cube.location is RelativeLocation)
 
-        val relation = newComponent.relations.first()
+        val loc = cube.location as RelativeLocation
 
-        assertEquals(ABOVE, relation.relPos)
-
-        assertTrue(relation.right is SceneComponent.NewComponent)
-        assertTrue((relation.right as SceneComponent.NewComponent).model is PrimitiveModel)
-        assertEquals("Sphere", (relation.right as SceneComponent.NewComponent).model.name)
+        assertEquals(ABOVE, loc.relPos)
+        assertEquals(5.0, (loc.dist as FixedDistance).distance, 0.01)
 
     }
 
     @Test
     fun createSphereStack() {
 
-        val newComponent = interpretCreateComponent("500 cubes above each other")
-        val model = newComponent.model
+        val model = interpretCreateComponent("500 cubes above each other")
 
         assertTrue(model is GroupModel)
 
         assertTrue((model as GroupModel).memberModelType is PrimitiveModel)
 
-        assertEquals(500, model.number.toLong())
+        assertEquals(500, model.number)
 
     }
 
     @Test
     fun createSnowmanShape() {
 
-        val scene = CompositeModel("Scene")
+        //val scene = CompositeModel("Scene")
 
-        val result = MainInterpreter().interpret("a small sphere on top of a big sphere on top of a bigger sphere", scene)
+        //val result = MainInterpreter().interpret("a small sphere on top of a big sphere on top of a bigger sphere", scene)
 
-        assertNotNull(result)
+        //assertNotNull(result)
     }
 }

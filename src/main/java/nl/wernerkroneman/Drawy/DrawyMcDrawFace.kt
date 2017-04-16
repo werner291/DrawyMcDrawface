@@ -46,9 +46,9 @@ import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import nl.wernerkroneman.Drawy.ModelEditor.createDefaultModelInterpreter
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelBase
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import org.joml.Vector3d
 import java.awt.BorderLayout
@@ -96,11 +96,13 @@ fun main(args: Array<String>) {
 
     glcanvas.addGLEventListener(visualiser)
 
-    // Create a converter that uses meshes compatible with the Renderer
-    val converter = AbstractToConcrete(visualiser.meshFactory)
 
     // Every time changes are made to the scene
     session.addChangeListener {scene -> // Convert it to a concrete scene
+
+        // Create a converter that uses meshes compatible with the Renderer
+        val converter = AbstractToConcrete(visualiser.meshFactory)
+
         val concreteScene = converter.computeScene(scene)
 
         // Pass it to
@@ -128,15 +130,17 @@ fun main(args: Array<String>) {
 }
 
 private fun createSnowman(knowledge: Knowledge): CompositeModel {
-    val snowman = CompositeModel("snowman")
 
-    val comp = Component(knowledge.getObject("sphere")!!)
-    snowman.components.add(comp)
-    val head = comp
-    val comp1 = Component(knowledge.getObject("sphere")!!)
-    snowman.components.add(comp1)
-    val body = comp1
-    snowman.constraints.add(RelativePositionConstraint(head, body, ABOVE, FixedDistance(0.0)))
+    val snowman = CompositeModelBase("snowman")
+
+    val head = knowledge.getObject("sphere")!!.derive("Head")
+    snowman.components.add(head)
+
+    val body = knowledge.getObject("sphere")!!.derive("Body")
+    snowman.components.add(body)
+
+    head.location = RelativeLocation(body, ABOVE, FixedDistance(0.0))
+
     return snowman
 }
 

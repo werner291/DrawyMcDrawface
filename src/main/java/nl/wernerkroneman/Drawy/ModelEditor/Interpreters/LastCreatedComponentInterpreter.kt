@@ -19,34 +19,31 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
+import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
-import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.Model
-import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
 
-class RelativePositionInterpreter(val relPos: RelativePositionConstraint.RelativePosition,
-                                  val modelInterpreter: PatternInterpreter)
-    : PatternInterpreter.InterpretedObjectFactory {
-
+class LastCreatedComponentInterpreter : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = RelativeLocation::class
+        get() = Model::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): RelativeLocation =
-            RelativeLocation(
-                    right = modelInterpreter.interpret<Model>(
-                            phrase = capturings["relative_to"]!!,
-                            context = context),
-                    relPos = relPos,
-                    dist = when (capturings["distance"]) {
-                        null -> Distance.ANY
-                        else -> modelInterpreter.interpret<Distance>(
-                                phrase = capturings["distance"]!!,
-                                context = context
-                        )
-                    })
+                           context: List<InterpretationContext>): Model {
+
+        val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext }
+                as DescriptionSession.DescriptionSessionContext
+
+        val lastCreateCommand = descSession.pastCommands
+                .last { it is CreateCommand } as CreateCommand
+
+        val lastCreated = lastCreateCommand.what
+
+        return lastCreated
+
+    }
+
 }

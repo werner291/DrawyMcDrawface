@@ -19,17 +19,22 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-interface ModelVisitor<ReturnT : Any> {
+import java.util.*
 
-    fun visit(model: GroupModel): ReturnT
+interface Location
 
-    fun visit(model: AnyModel): ReturnT
+val NOT_INTERSECTING_SOLID = object : Location {}
 
-    fun visit(model: CompositeModel): ReturnT
+class IntersectionLocation(val intersectionOf: MutableSet<Location> = HashSet<Location>()) : Location
 
-    fun visit(model: PrimitiveModel): ReturnT
+class RelativeLocation(val right: Model,
+                       val relPos: RelativePositionConstraint.RelativePosition,
+                       val dist: Distance) : Location
 
-    fun visit(model: PlaceholderModel): ReturnT
-
-    fun visit(model: VariantModel): ReturnT
+fun combineLocations(location: Location?, location1: Location?): Location? {
+    return when {
+        location == null -> location1
+        location1 == null -> location
+        else -> IntersectionLocation(mutableSetOf(location, location1))
+    }
 }

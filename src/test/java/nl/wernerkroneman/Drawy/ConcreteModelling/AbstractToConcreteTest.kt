@@ -21,7 +21,6 @@ package nl.wernerkroneman.Drawy.ConcreteModelling
 
 import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete
 import nl.wernerkroneman.Drawy.Modelling.*
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel.Component
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import org.joml.Vector3d
 import org.junit.Assert
@@ -72,15 +71,16 @@ class AbstractToConcreteTest {
     fun computeSceneSingleCube() {
         // This should produce a single cube centered at (0,0,0) of edge length 1.
 
-        val cube = PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube")
+        val cube = PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE)
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
         val result = converter.computeScene(cube)
 
-        Assert.assertEquals(1, result.getRootSceneNode().getDrawables().size.toLong())
-
-        val cubemesh = result.getRootSceneNode().getDrawables()[0].getMesh()
+        val cubemesh = result.getRootSceneNode()
+                .getChildren().first()
+                .getDrawables().first()
+                .getMesh()
 
         val box = cubemesh.computeAABB()
 
@@ -99,20 +99,15 @@ class AbstractToConcreteTest {
     fun computeSceneSingleCubeInComposite() {
         // This should produce a single cube centered at (0,0,0) of edge length 1.
 
-        val cube = PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube")
+        val cube = PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE)
 
-        val composite = CompositeModel("Cube container.")
+        val composite = CompositeModelBase("Cube container.")
 
-        val comp = Component(cube)
-        composite.components.add(comp)
-        comp
+        composite.components.add(cube)
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
         val result = converter.computeScene(composite)
-
-        Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size.toLong())
-        Assert.assertEquals(1, result.getRootSceneNode().getChildren().size.toLong())
 
         val childNode = result.getRootSceneNode().getChildren()[0]
         Assert.assertEquals(1, childNode.getDrawables().size.toLong())
@@ -136,16 +131,14 @@ class AbstractToConcreteTest {
     fun computeSceneMultipleCubeInComposite() {
         // This should produce multiple, non-overlapping cubes.
         for (rep in 0..49) {
-            val cube = PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube")
+            val cube = PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE)
 
-            val composite = CompositeModel("Cube container.")
+            val composite = CompositeModelBase("Cube container.")
 
             val NUM_CUBES = 10
 
             for (i in 0..NUM_CUBES - 1) {
-                val comp = Component(cube)
-                composite.components.add(comp)
-                comp
+                composite.components.add(cube.derive("Cube ${i + 1}"))
             }
 
             val converter = AbstractToConcrete(DefaultMeshFactory())
@@ -176,22 +169,22 @@ class AbstractToConcreteTest {
     fun testRelativePositionConstraint() {
         for (rep in 0..99) {
             // Set up a simple scene with two cubes
-            val cube = PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube")
+            val cube = PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE)
 
-            val composite = CompositeModel("Cube container.")
+            val composite = CompositeModelBase("Cube container.")
 
             // Create three cube components.
-            val cubeA = Component(cube)
+            val cubeA = cube.derive("A")
             composite.components.add(cubeA)
 
-            val cubeB = Component(cube)
+            val cubeB = cube.derive("B")
             composite.components.add(cubeB)
 
-            val cubeC = Component(cube)
+            val cubeC = cube.derive("C")
             composite.components.add(cubeC)
 
-            composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, Distance.ANY))
-            composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, Distance.ANY))
+            cubeA.location = RelativeLocation(cubeB, ABOVE, Distance.ANY)
+            cubeB.location = RelativeLocation(cubeC, ABOVE, Distance.ANY)
 
             // Compute the concrete scene
             val converter = AbstractToConcrete(DefaultMeshFactory())
@@ -228,22 +221,22 @@ class AbstractToConcreteTest {
     fun testRelativePositionConstraintExactDistance() {
         for (rep in 0..49) {
             // Set up a simple scene with two cubes
-            val cube = PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube")
+            val cube = PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE)
 
-            val composite = CompositeModel("Cube container.")
+            val composite = CompositeModelBase("Cube container.")
 
             // Create three cube components.
-            val cubeA = Component(cube)
+            val cubeA = cube.derive("A")
             composite.components.add(cubeA)
 
-            val cubeB = Component(cube)
+            val cubeB = cube.derive("B")
             composite.components.add(cubeB)
 
-            val cubeC = Component(cube)
+            val cubeC = cube.derive("C")
             composite.components.add(cubeC)
 
-            composite.constraints.add(RelativePositionConstraint(cubeA, cubeB, ABOVE, FixedDistance(1.0)))
-            composite.constraints.add(RelativePositionConstraint(cubeB, cubeC, ABOVE, FixedDistance(2.0)))
+            cubeA.location = RelativeLocation(cubeB, ABOVE, FixedDistance(0.0))
+            cubeB.location = RelativeLocation(cubeC, ABOVE, FixedDistance(0.0))
 
             // Compute the concrete scene
             val converter = AbstractToConcrete(DefaultMeshFactory())

@@ -19,10 +19,13 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-import java.io.Serializable
+abstract class Model(var name: String,
+                     var location: Location? = null) : java.io.Serializable {
 
-abstract class Model(var name: String) : Serializable {
+    var locked: Boolean = false
 
-    abstract fun <V : Any> accept(visitor: ModelVisitor<V>): V
+    var size: SizeModifier = DEFAULT_SIZE
+
+    abstract fun derive(name: String): Model
 
 }

@@ -33,24 +33,29 @@ package nl.wernerkroneman.Drawy.Modelling
  * that you can specify a relation between different elements,
  * usually between one element and the next.
  */
-class GroupModel(var number: Int,
-                 var memberModelType: Model,
-                 name: String) : Model(name), RelativeConstraintContext {
+abstract class GroupModel(name: String) : Model(name) {
 
-    val constraints: MutableSet<RelativePositionConstraint> = mutableSetOf()
+    abstract var number: Int
+    abstract var memberModelType: nl.wernerkroneman.Drawy.Modelling.Model
 
-    override fun getApplicableConstraintsFor(component: RelativeConstraintContext.Positionable):
-            Iterable<RelativePositionConstraint> {
+    override fun derive(name: String): Model {
+        return GroupModelDerived(name, this)
+    }
 
-        if (component !is ComponentDesignator.IndexComponent) {
+    //val constraints: MutableSet<RelativePositionConstraint> = mutableSetOf()
+
+    /*override fun getApplicableConstraintsFor(component: nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext.Positionable):
+            Iterable<nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint> {
+
+        if (component !is nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator.IndexComponent) {
             throw IllegalArgumentException("Non-IndexComponent makes no sense out of context.")
         }
 
         return constraints.filter {
             val a = it.a
             when (a) {
-                is ComponentDesignator.IndexComponent -> a.index == component.index
-                is ComponentDesignator.IndexRangeComponent -> component in a
+                is nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator.IndexComponent -> a.index == component.index
+                is nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator.IndexRangeComponent -> component in a
                 else -> throw IllegalStateException("Constraint with invalid RelativeComponent as 'a'.")
             }
         }
@@ -62,22 +67,18 @@ class GroupModel(var number: Int,
                 ", memberType=" + memberModelType +
                 ", constraints=" + constraints +
                 '}'
-    }
+    }*/
 
-    override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
-        return visitor.visit(this)
-    }
-
-    sealed class ComponentDesignator : RelativeConstraintContext.Positionable {
+    sealed class ComponentDesignator : nl.wernerkroneman.Drawy.Modelling.RelativeConstraintContext.Positionable {
         // Object that designates one of the members of the group by index.
         // Note that this is rather abstract: there is no list of members,
         // this must be determined when interpreting the model.
-        class IndexComponent(val index: Int) : ComponentDesignator() {
+        class IndexComponent(val index: Int) : nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator() {
             override fun equals(other: Any?): Boolean {
                 if (this === other) return true
                 if (other?.javaClass != javaClass) return false
 
-                other as IndexComponent
+                other as nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator.IndexComponent
 
                 if (index != other.index) return false
 
@@ -90,8 +91,8 @@ class GroupModel(var number: Int,
         }
 
         class IndexRangeComponent(val indexAtLeast: Int?,
-                                  val indexAtMost: Int?) : ComponentDesignator() {
-            operator fun contains(component: IndexComponent): Boolean {
+                                  val indexAtMost: Int?) : nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator() {
+            operator fun contains(component: nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator.IndexComponent): Boolean {
                 return (indexAtLeast == null || component.index >= indexAtLeast) &&
                         (indexAtMost == null || component.index <= indexAtMost)
             }
@@ -99,6 +100,32 @@ class GroupModel(var number: Int,
 
         // Indicate a member of the group by relative index.
         // Note that "relative to what" must be understood from context.
-        class RelativeComponent(val offset: Int) : ComponentDesignator()
+        class RelativeComponent(val offset: Int) : nl.wernerkroneman.Drawy.Modelling.GroupModel.ComponentDesignator()
     }
+}
+
+class GroupModelBase(name: String,
+                     override var number: Int,
+                     override var memberModelType: Model) : GroupModel(name)
+
+class GroupModelDerived(name: String, val base: GroupModel) : GroupModel(name) {
+
+    var _number: Int? = null
+
+    //override var number: Int// by BaseOverridable(base)
+
+    override var number: Int
+        get() = _number ?: base.number
+        set(value) {
+            _number = value
+        }
+
+    var _memberModelType: Model? = null
+
+    override var memberModelType: Model
+        get() = _memberModelType ?: base.memberModelType
+        set(value) {
+            _memberModelType = value
+        }
+
 }

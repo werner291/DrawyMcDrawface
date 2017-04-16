@@ -22,7 +22,7 @@ package nl.wernerkroneman.Drawy.Modelling
 
 abstract class Distance {
     companion object {
-        val ANY: Distance = object : Distance() {
+        val ANY: nl.wernerkroneman.Drawy.Modelling.Distance = object : nl.wernerkroneman.Drawy.Modelling.Distance() {
 
         }
     }

@@ -17,31 +17,30 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor
+package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.RenameCommand
+import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
+import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
+import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
 
-class LastCreatedComponentInterpreter : PatternInterpreter.InterpretedObjectFactory {
+class RenameCommandInterpreter(private val interpreter: PatternInterpreter) : PatternInterpreter.InterpretedObjectFactory {
+
     override val interpretedTypePrediction: KClass<*>
-        get() = SceneComponent.CompositeComponentReference::class
+        get() = RenameCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): SceneComponent.CompositeComponentReference {
+                           context: List<InterpretationContext>) =
+            RenameCommand(
+                    previous = (context.findLast { it is DescriptionSession.DescriptionSessionContext }
+                            as DescriptionSession.DescriptionSessionContext)
+                            .pastCommands.lastOrNull(),
+                    newName = capturings["new name"]!!.rootWord,
+                    target = interpreter.interpret<Model>(capturings["target"]!!)
+            )
 
-        val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext }
-                as DescriptionSession.DescriptionSessionContext
-
-        val lastCreateCommand = descSession.pastCommands
-                .last { it is CreateEntityEditorCommand } as CreateEntityEditorCommand
-
-        val lastCreated = lastCreateCommand.created!!
-
-        val scene = lastCreateCommand.target()
-
-        return SceneComponent.CompositeComponentReference(lastCreated, scene, emptySet())
-
-    }
 
 }

@@ -17,20 +17,19 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor
+package nl.wernerkroneman.Drawy.ModelEditor.Commands
 
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.Model
 
 /**
  * Command that causes the creation of a component
  * in a CompositeModel.
  * A supplier that supplies the CompositeModel on which to execute this command.
  */
-class CreateEntityEditorCommand(
+class CreateCommand(
         internal var target: () -> CompositeModel,
-        var what: SceneComponent.NewComponent? = null,
-        var created: CompositeModel.Component? = null,
+        val what: Model,
         previous: EditorCommand?) : EditorCommand(previous = previous) {
 
     override fun toString(): String {
@@ -40,50 +39,15 @@ class CreateEntityEditorCommand(
     override fun onApply() {
         val scene = target()
 
-        addAllComponents(scene, what!!)
-    }
-
-    fun addAllComponents(scene: CompositeModel,
-                         scaffold: SceneComponent,
-                         scaffoldToComponent: MutableMap<SceneComponent,
-                                 CompositeModel.Component> = mutableMapOf()) {
-
-        if (scaffold is SceneComponent.NewComponent &&
-                scaffold !in scaffoldToComponent.keys) {
-            val component = CompositeModel.Component(scaffold.model)
-            scaffoldToComponent[scaffold] = component
-            scene.components.add(component)
-
-            created = component // TODO improve on composite objects
+        if (what in scene.components) {
+            throw IllegalStateException("Component already in target.")
         }
 
-        if (scaffold is SceneComponent.CompositeComponentReference) {
-            if (scaffold.context != scene) {
-                throw UnsupportedOperationException("Deep referencing not supported yet.")
-            } else {
-                scaffoldToComponent[scaffold] = scaffold.component
-            }
-        }
-
-        for (rel in scaffold.relations) {
-            addAllComponents(scene, rel.right, scaffoldToComponent)
-        }
-
-        // Do this last to ensure all depensent components have been created.
-        for (rel in scaffold.relations) {
-
-            scene.constraints.add(
-                    RelativePositionConstraint(scaffoldToComponent[scaffold]!!,
-                            scaffoldToComponent[rel.right]!!,
-                            rel.relPos,
-                            rel.dist))
-        }
+        scene.components.add(what)
     }
 
     override fun onRevert() {
-        target().components.remove(created)
-
-        created = null
+        target().components.remove(what)
     }
 
     /**
@@ -105,7 +69,7 @@ class CreateEntityEditorCommand(
             }
 
             override fun toString(): String {
-                return "(Created by " + this@CreateEntityEditorCommand + ")"
+                return "(Created by " + this@CreateCommand + ")"
             }
         }*/
 }

@@ -19,35 +19,37 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-import java.util.*
+abstract class AnyModel(name: String) : Model(name) {
 
-class AnyModel(name: String) : Model(name) {
+    abstract val options: MutableSet<Model>
 
-    internal var options: MutableList<Model> = ArrayList()
-
-    override fun <V : Any> accept(visitor: ModelVisitor<V>): V {
-        return visitor.visit(this)
-    }
-
-    val any: Model
-        get() = options[random.nextInt(options.size)]
-
-    override fun toString(): String {
-        return "AnyModel{" +
-                "options=" + options +
-                '}'
-    }
-
-    fun addOption(newSubjectDef: Model) {
-        options.add(newSubjectDef)
-    }
-
-    fun getOptions(): Collection<Model> {
-        return options
+    fun pick(): Model {
+        return options.toList()[random.nextInt(options.size)]
     }
 
     companion object {
-
-        internal var random = Random()
+        internal var random = java.util.Random()
     }
 }
+
+class AnyModelBasis(name: String,
+                    override val options: MutableSet<Model>) : AnyModel(name) {
+
+    override fun derive(name: String): Model {
+        return AnyModelDerivative(name, this)
+    }
+
+
+}
+
+class AnyModelDerivative(name: String,
+                         var base: AnyModel) : AnyModel(name) {
+
+    override val options = MutableRelativeSet<Model>(base.options)
+
+    override fun derive(name: String): Model {
+        return AnyModelDerivative(name, this)
+    }
+
+}
+

@@ -21,6 +21,7 @@ package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel
+import nl.wernerkroneman.Drawy.Modelling.PrimitiveModelBase
 import java.util.*
 
 class Knowledge {
@@ -48,9 +49,12 @@ class Knowledge {
         fun knowledgeWithPrimitives(): Knowledge {
             val knowledge = Knowledge()
 
-            knowledge.remember(PrimitiveModel(PrimitiveModel.ShapeType.CUBE, "Cube"))
-            knowledge.remember(PrimitiveModel(PrimitiveModel.ShapeType.CYLINDER, "Cylinder"))
-            knowledge.remember(PrimitiveModel(PrimitiveModel.ShapeType.SPHERE, "Sphere"))
+            knowledge.remember(
+                    PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE))
+            knowledge.remember(
+                    PrimitiveModelBase("Cylinder", PrimitiveModel.ShapeType.CYLINDER))
+            knowledge.remember(
+                    PrimitiveModelBase("Sphere", PrimitiveModel.ShapeType.SPHERE))
 
             return knowledge
         }
