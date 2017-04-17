@@ -21,6 +21,7 @@ package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
 import java.util.*
 import java.util.regex.Pattern
+import java.util.regex.Pattern.CASE_INSENSITIVE
 
 /**
  * Convenient PhraseTreePatternNode builder facilitating
@@ -52,7 +53,7 @@ class PhrasePatternBuilder {
 
 
     fun word(word: String): PhrasePatternBuilder {
-        this.word = Pattern.compile(word)
+        this.word = Pattern.compile(word, CASE_INSENSITIVE)
         return this
     }
 

@@ -270,4 +270,52 @@ class PhrasePatternTest {
 
     }
 
+    @Test
+    fun matchWithConsumeAny() {
+        val pattern = buildPattern {
+            child {
+                repeatAny()
+            }
+        }
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root", "ROOT", "root", mutableListOf(
+                PhraseTree("a", "test", "test")
+        ))).matches)
+
+    }
+
+    @Test
+    fun matchWithConsumeAnyAbsent() {
+        val pattern = buildPattern {
+            child {
+                word("a")
+            }
+            child {
+                repeat(0, null)
+            }
+        }
+
+        assertTrue(pattern.matchAgainst(PhraseTree("root", "ROOT", "root", mutableListOf(
+                PhraseTree("a", "test", "test")
+        ))).matches)
+
+    }
+
+    @Test
+    fun matchWithConsumeAnyAbsentRequiredChild() {
+        val pattern = buildPattern {
+            child {
+                word("a")
+            }
+            child {
+                repeat(0, null)
+            }
+        }
+
+        assertFalse(pattern.matchAgainst(PhraseTree("root", "ROOT", "root", mutableListOf(
+                PhraseTree("b", "test", "test")
+        ))).matches)
+
+    }
+
 }

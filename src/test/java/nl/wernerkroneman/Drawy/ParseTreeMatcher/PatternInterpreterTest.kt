@@ -73,7 +73,7 @@ class PatternInterpreterTest {
 
         val result3 = terp.interpret<Any?>(testPhrase)
         Assert.assertTrue(result3 is Bar)
-        Assert.assertFalse(result3 is Baz)
+        Assert.assertTrue(result3 is Baz)
 
     }
 }

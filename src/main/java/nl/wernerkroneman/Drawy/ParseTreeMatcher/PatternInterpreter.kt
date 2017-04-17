@@ -19,7 +19,6 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSuperclassOf
@@ -52,17 +51,11 @@ open class PatternInterpreter {
                   type: KClass<*> = Any::class,
                   context: List<InterpretationContext> = mutableListOf()): Any? {
 
-        for (entry in patterns) {
-            if (type.isSuperclassOf(entry.objectFactory.interpretedTypePrediction)) {
-                val result = entry.pattern.matchAgainst(phrase)
-
-                if (result.matches) {
-                    val interpretation = entry.objectFactory.interpret(result.capturings, context)
-                    return interpretation
-                }
-            }
-        }
-        return null
+        return patterns.filter { type.isSuperclassOf(it.objectFactory.interpretedTypePrediction) }
+                .map { Pair(it, it.pattern.matchAgainst(phrase)) }
+                .filter { it.second.matches }
+                .maxBy { it.second.matchScore }
+                ?.run { first.objectFactory.interpret(second.capturings, context) }
     }
 
     inline fun <reified T> interpret(phrase: PhraseTree,
@@ -115,3 +108,10 @@ open class PatternInterpreter {
                 pattern))
     }
 }
+
+class InvalidContextException(message: String) : RuntimeException(message)
+
+/**
+ * Marker interface for interpretation contexts
+ */
+interface InterpretationContext

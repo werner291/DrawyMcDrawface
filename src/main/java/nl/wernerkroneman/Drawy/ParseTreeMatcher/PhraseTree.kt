@@ -77,4 +77,8 @@ class PhraseTree(var rootWord: String,
 
         return copy
     }
+
+    override fun toString(): String {
+        return "PhraseTree(rootWord='$rootWord', nature='$nature', role='$role', children=$children)"
+    }
 }

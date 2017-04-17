@@ -69,7 +69,7 @@ class PhrasePattern(// Regexes for the word, nature and role
 
         // First, verify that the word, nature and role match the regexes
         if (word != null) {
-            if (!word!!.matcher(phrase.rootWord).find()) {
+            if (!word!!.matcher(phrase.rootWord).matches()) {
                 return result
             } else {
                 // For each matching pattern,
@@ -78,7 +78,7 @@ class PhrasePattern(// Regexes for the word, nature and role
         }
 
         if (nature != null) {
-            if (!nature!!.matcher(phrase.nature).find()) {
+            if (!nature!!.matcher(phrase.nature).matches()) {
                 return result
             } else {
                 result.matchScore += 1.0
@@ -86,7 +86,7 @@ class PhrasePattern(// Regexes for the word, nature and role
         }
 
         if (role != null) {
-            if (!role!!.matcher(phrase.role).find()) {
+            if (!role!!.matcher(phrase.role).matches()) {
                 return result
             } else {
                 result.matchScore += 1.0
