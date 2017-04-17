@@ -73,7 +73,7 @@ class PhrasePattern(// Regexes for the word, nature and role
                 return result
             } else {
                 // For each matching pattern,
-                result.matchScore += 1.0;
+                result.matchScore += 1.0
             }
         }
 
@@ -81,7 +81,7 @@ class PhrasePattern(// Regexes for the word, nature and role
             if (!nature!!.matcher(phrase.nature).find()) {
                 return result
             } else {
-                result.matchScore += 1.0;
+                result.matchScore += 1.0
             }
         }
 
@@ -89,7 +89,7 @@ class PhrasePattern(// Regexes for the word, nature and role
             if (!role!!.matcher(phrase.role).find()) {
                 return result
             } else {
-                result.matchScore += 1.0;
+                result.matchScore += 1.0
             }
         }
 
@@ -115,7 +115,7 @@ class PhrasePattern(// Regexes for the word, nature and role
 
         // If necessary, capture
         if (name != null) {
-            result.capturings[name as String] = phrase;
+            result.capturings[name as String] = phrase
         }
 
         return result
@@ -125,7 +125,7 @@ class PhrasePattern(// Regexes for the word, nature and role
     // Match the children with each other
     private fun matchChildren(phrase: PhraseTree): MatchResult {
 
-        val phraseChildren = phrase.children!!
+        val phraseChildren = phrase.children
         val patternChildren = this.children!!
 
         // If no children are allowed, check if this is the case
@@ -192,7 +192,7 @@ class PhrasePattern(// Regexes for the word, nature and role
                              resultTable: Array<Array<MatchResult?>>): MatchResult {
 
         // Reference to current pattern child, which is tha last pattern
-        // in "patterns" truncated to length numPatterns
+        // in "patterns" truncated to x numPatterns
         var pattern = patterns.last()
 
         /*
@@ -204,7 +204,7 @@ class PhrasePattern(// Regexes for the word, nature and role
          * (ie: previous pattern ik OK with basing from that cell)
          */
         val consumeAtLeast = pattern.repeatMin
-        val consumeAtMost = if (pattern.repeatMax == null) 0
+        val consumeAtMost = if (pattern.repeatMax == null) phrases.size
         else (pattern.repeatMax!!).coerceAtMost(phrases.size)
 
         // Range of all possible match start positions
