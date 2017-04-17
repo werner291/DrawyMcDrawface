@@ -17,18 +17,6 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ConcreteModelling;
-
-import org.junit.Test;
-
-public class BfsIteratorTest {
-
-    @Test
-    public void bfsTest() {
-
-        SceneNode node = new SceneNode();
+package nl.wernerkroneman.Drawy
 
 
-    }
-
-}

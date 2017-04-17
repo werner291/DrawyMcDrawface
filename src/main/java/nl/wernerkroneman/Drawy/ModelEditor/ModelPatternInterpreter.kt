@@ -21,11 +21,11 @@ package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
-import nl.wernerkroneman.Drawy.Modelling.BIG
+import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
+import nl.wernerkroneman.Drawy.Modelling.Distance
+import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.BELOW
-import nl.wernerkroneman.Drawy.Modelling.SMALL
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
@@ -47,12 +47,16 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     .role("ROOT")
                     .nature("NN")
                     .name("what")
+                    .child { word("a"); role("det") }
+                    .child { repeat(0, null) }
                     .create())
 
     interpreter.addPattern(modelInterpreter,
             PhrasePatternBuilder()
                     .nature("NN")
                     .name("name")
+                    .child { word("a"); role("det") }
+                    .child { repeat(0, null) }
                     .create())
 
     interpreter.addPattern(createCommandInterpreter,
@@ -71,7 +75,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
 
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
-                    .word("Create")
+                    .word("(?:Create)|(?:Put)")
                     .child(PhrasePatternBuilder()
                             .name("what")
                             .create())
@@ -86,7 +90,25 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                             .create()
                     ).create())
 
-    interpreter.addPattern(RelativePositionInterpreter(ABOVE, interpreter),
+    interpreter.addPattern(createCommandInterpreter,
+            buildPattern {
+                word("Stick")
+                child {
+                    nature("NN")
+                    name("what")
+                }
+                child {
+                    word("into")
+                    role("prep")
+                    name("where")
+                }
+                child {
+                    role("punct")
+                    optional()
+                }
+            })
+
+    interpreter.addPattern(RelativePositionInterpreter(ABOVE, Distance.ANY, interpreter),
             buildPattern {
                 role("prep")
                 word("above")
@@ -101,16 +123,38 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 }
             })
 
-    interpreter.addPattern(RelativePositionInterpreter(BELOW, interpreter),
-            PhrasePatternBuilder()
-                    .role("prep")
-                    .word("below")
-                    .children(
-                            PhrasePatternBuilder()
-                                    .role("pobj")
-                                    .name("relative_to")
-                                    .create()
-                    ).create())
+    interpreter.addPattern(RelativePositionInterpreter(ABOVE, FixedDistance(0.0), interpreter),
+            buildPattern {
+                role("prep")
+                word("on")
+                child {
+                    word("top")
+                    child {
+                        word("of")
+                        child {
+                            role("pobj")
+                            name("relative_to")
+                        }
+                    }
+                }
+            })
+
+    interpreter.addPattern(RelativePositionInterpreter(ABOVE, FixedDistance(-0.1), interpreter),
+            buildPattern {
+                role("prep")
+                word("into")
+                child {
+                    word("front")
+                    child { word("the") }
+                    child {
+                        word("of")
+                        child {
+                            nature("NN")
+                            name("relative_to")
+                        }
+                    }
+                }
+            })
 
     interpreter.addPattern(distanceInterpreter,
             buildPattern {
@@ -134,23 +178,29 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 child { word("another") }
             })
 
-    interpreter.addPattern(constantInterpreter(BIG),
+    interpreter.addPattern(RelativeSizeInterpreter(AbsoluteScalar(1.5)),
             buildPattern { word("big") })
 
-    interpreter.addPattern(constantInterpreter(SMALL),
+    interpreter.addPattern(RelativeSizeInterpreter(AbsoluteScalar(0.5)),
             buildPattern { word("small") })
+
+    interpreter.addPattern(SizeRelativeToLastCreatedInterpreter(), buildPattern { word("smaller") })
 
     interpreter.addPattern(NumberInterpreter(),
             buildPattern { word("[0-9]+"); nature("CD"); role("num"); name("number") })
 
     interpreter.addPattern(LastCreatedComponentInterpreter(),
-            buildPattern { word("that"); role("pobj") })
+            buildPattern { word("(?:that)|(?:it)"); role("pobj") })
 
     interpreter.addPattern(LastCreatedComponentInterpreter(),
+            buildPattern { word("this"); role("nsubj") })
+
+    interpreter.addPattern(FindModelInterpreter(),
             buildPattern {
-                role("pobj"); name("specifier"); child {
-                word("that"); role("det")
-            }
+                nature("NN")
+                name("name")
+                child { word("(?:that)|(?:the)"); role("det") }
+                child { repeat(0, null) }
             })
 
     interpreter.addPattern(RenameCommandInterpreter(interpreter),
@@ -165,16 +215,15 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 child {
                     word("is")
                 }
+                child {
+                    repeatAny()
+                }
             })
 
     return interpreter
 
 }
 
-/**
- * Marker interface for interpretation contexts
- */
-interface InterpretationContext
 
 /**
  * Get an Iterable describing all previous commands, last-to-first

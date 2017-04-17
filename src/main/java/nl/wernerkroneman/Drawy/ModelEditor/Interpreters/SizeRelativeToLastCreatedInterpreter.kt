@@ -19,24 +19,34 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.Modelling.Distance
-import nl.wernerkroneman.Drawy.Modelling.FixedDistance
+import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
+import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
+import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
+import nl.wernerkroneman.Drawy.Modelling.DerivedSize
+import nl.wernerkroneman.Drawy.Modelling.Size
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
 
-class DistanceInterpreter : InterpretedObjectFactory {
-
+class SizeRelativeToLastCreatedInterpreter : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = Distance::class
+        get() = Size::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Any? {
+                           context: List<InterpretationContext>): Size {
 
-        // TODO deal with written-out numers
-        return FixedDistance(distance = capturings["amount"]!!.rootWord.toDouble())
+        val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext }
+                as DescriptionSession.DescriptionSessionContext
 
+        /* TODO code duplication with LastCreatedComponentInterpreter(),
+         * need to do better
+         */
+        val lastCreateCommand = descSession.pastCommands
+                .last { it is CreateCommand } as CreateCommand
+
+        val lastCreated = lastCreateCommand.what
+
+        return DerivedSize(lastCreated) * AbsoluteScalar(0.5)
     }
-
 }

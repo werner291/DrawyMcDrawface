@@ -87,7 +87,7 @@ fun toString(phrase: PhraseTree): String {
     printStack.push((rootWord, 0))
 
     while (!printStack.empty()) {
-        if (strstr.length > 0) {
+        if (strstr.x > 0) {
             // Not the first line, prepend a newline
             strstr.append('\n')
         }

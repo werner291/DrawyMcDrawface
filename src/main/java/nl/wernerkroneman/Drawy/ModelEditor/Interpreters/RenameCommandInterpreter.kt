@@ -21,8 +21,8 @@ package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.RenameCommand
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
@@ -39,7 +39,7 @@ class RenameCommandInterpreter(private val interpreter: PatternInterpreter) : Pa
                             as DescriptionSession.DescriptionSessionContext)
                             .pastCommands.lastOrNull(),
                     newName = capturings["new name"]!!.rootWord,
-                    target = interpreter.interpret<Model>(capturings["target"]!!)
+                    target = interpreter.interpret<Model>(capturings["target"]!!, context)
             )
 
 

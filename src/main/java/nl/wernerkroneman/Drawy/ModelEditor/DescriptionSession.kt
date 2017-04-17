@@ -24,6 +24,7 @@ import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.Modelling.CompositeModel
 import nl.wernerkroneman.Drawy.Modelling.CompositeModelBase
 import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 
 /**
@@ -45,7 +46,7 @@ class DescriptionSession(private val interpreter: PatternInterpreter = createDef
     }
 
     fun runSession(): Model {
-        val scene = CompositeModelBase("Scene")
+        val scene = CompositeModelBase(name = "Scene")
         while (true) {
 
             val line = interactorIface.askUserString("Say something:")
@@ -57,7 +58,7 @@ class DescriptionSession(private val interpreter: PatternInterpreter = createDef
 
             val result = interpreter.interpret<EditorCommand>(
                     SyntaxNetLink.parse(line),
-                    context = listOf(DescriptionSessionContext(commandHistory,
+                    context = listOf<InterpretationContext>(DescriptionSessionContext(commandHistory,
                             scene)))
 
             commandHistory.add(result)

@@ -110,11 +110,11 @@ class AABB {
      * Get a finite AABB inside this AABB that is roughly centered inside this one,
      * or sticking to an edge if half-infinite.
 
-     * @param xSize  The width of the AABB (x)
+     * @param xSize  The lateral of the AABB (x)
      * *
      * @param ySize The height (y)
      * *
-     * @param zSize The length of the AABB (z)
+     * @param zSize The x of the AABB (z)
      * *
      * @param dest      Where to store the result
      * *
@@ -283,5 +283,15 @@ class AABB {
         dest.minExtent.set(this.minExtent).add(width / 2, height / 2, depth / 2)
 
         return dest
+    }
+
+    fun cover(other: AABB): AABB {
+        return AABB(
+                Vector3d(Math.max(maxExtent.x, other.maxExtent.x),
+                        Math.max(maxExtent.y, other.maxExtent.y),
+                        Math.max(maxExtent.z, other.maxExtent.z)),
+                Vector3d(Math.min(minExtent.x, other.minExtent.x),
+                        Math.min(minExtent.y, other.minExtent.y),
+                        Math.min(minExtent.z, other.minExtent.z)))
     }
 }

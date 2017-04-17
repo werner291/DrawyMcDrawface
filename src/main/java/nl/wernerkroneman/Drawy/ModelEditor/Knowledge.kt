@@ -50,11 +50,13 @@ class Knowledge {
             val knowledge = Knowledge()
 
             knowledge.remember(
-                    PrimitiveModelBase("Cube", PrimitiveModel.ShapeType.CUBE))
+                    PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE))
             knowledge.remember(
-                    PrimitiveModelBase("Cylinder", PrimitiveModel.ShapeType.CYLINDER))
+                    PrimitiveModelBase(name = "Cylinder", shape = PrimitiveModel.ShapeType.CYLINDER))
             knowledge.remember(
-                    PrimitiveModelBase("Sphere", PrimitiveModel.ShapeType.SPHERE))
+                    PrimitiveModelBase(name = "Sphere", shape = PrimitiveModel.ShapeType.SPHERE))
+            knowledge.remember(
+                    PrimitiveModelBase(name = "Cone", shape = PrimitiveModel.ShapeType.CONE))
 
             return knowledge
         }

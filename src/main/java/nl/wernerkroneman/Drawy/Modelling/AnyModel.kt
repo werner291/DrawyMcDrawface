@@ -19,7 +19,10 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-abstract class AnyModel(name: String) : Model(name) {
+import java.util.*
+
+abstract class AnyModel(id: UUID = UUID.randomUUID(),
+                        name: String) : Model(id, name) {
 
     abstract val options: MutableSet<Model>
 
@@ -32,23 +35,25 @@ abstract class AnyModel(name: String) : Model(name) {
     }
 }
 
-class AnyModelBasis(name: String,
-                    override val options: MutableSet<Model>) : AnyModel(name) {
+class AnyModelBasis(id: UUID = UUID.randomUUID(),
+                    name: String,
+                    override val options: MutableSet<Model>) : AnyModel(id, name) {
 
     override fun derive(name: String): Model {
-        return AnyModelDerivative(name, this)
+        return AnyModelDerivative(UUID.randomUUID(), name, this)
     }
 
 
 }
 
-class AnyModelDerivative(name: String,
-                         var base: AnyModel) : AnyModel(name) {
+class AnyModelDerivative(id: UUID = UUID.randomUUID(),
+                         name: String,
+                         var base: AnyModel) : AnyModel(id, name) {
 
     override val options = MutableRelativeSet<Model>(base.options)
 
     override fun derive(name: String): Model {
-        return AnyModelDerivative(name, this)
+        return AnyModelDerivative(UUID.randomUUID(), name, this)
     }
 
 }

@@ -131,7 +131,7 @@ fun main(args: Array<String>) {
 
 private fun createSnowman(knowledge: Knowledge): CompositeModel {
 
-    val snowman = CompositeModelBase("snowman")
+    val snowman = CompositeModelBase(name = "snowman")
 
     val head = knowledge.getObject("sphere")!!.derive("Head")
     snowman.components.add(head)

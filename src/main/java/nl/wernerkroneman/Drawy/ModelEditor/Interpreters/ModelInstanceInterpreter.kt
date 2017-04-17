@@ -20,12 +20,12 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
-import nl.wernerkroneman.Drawy.ModelEditor.InterpretationContext
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
-import nl.wernerkroneman.Drawy.Modelling.SizeModifier
+import nl.wernerkroneman.Drawy.Modelling.Size
 import nl.wernerkroneman.Drawy.Modelling.combineLocations
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import java.util.*
@@ -34,6 +34,8 @@ import kotlin.reflect.KClass
 class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                                internal val interpreter: PatternInterpreter) :
         PatternInterpreter.InterpretedObjectFactory {
+
+    class ModelInterpretationContext(val modelSoFar: Model) : InterpretationContext
 
     override val interpretedTypePrediction: KClass<*>
         get() = Model::class
@@ -51,9 +53,10 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                 throw NoSuchElementException("No known model named " + phrase.rootWord)
 
 
+
         for (child in phrase.children) {
 
-            val interpreted = interpreter.interpret<Any?>(child, context = context)
+            val interpreted = interpreter.interpret<Any?>(child, context = context + ModelInterpretationContext(result))
 
             when (interpreted) {
 
@@ -95,7 +98,7 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                 }
             }*/
 
-                is SizeModifier -> {
+                is Size -> {
                     result.size = interpreted
                 }
 

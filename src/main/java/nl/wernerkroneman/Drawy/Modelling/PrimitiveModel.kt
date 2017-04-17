@@ -19,25 +19,30 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-abstract class PrimitiveModel(name: String) : Model(name) {
+import java.util.*
+
+abstract class PrimitiveModel(id: UUID = UUID.randomUUID(),
+                              name: String) : Model(id, name) {
 
     abstract var shape: ShapeType
 
     enum class ShapeType {
-        CUBE, SPHERE, CYLINDER
+        CUBE, SPHERE, CYLINDER, CONE
     }
 
     override fun derive(name: String): PrimitiveModel {
-        return PrimitiveDerivative(name, this)
+        return PrimitiveDerivative(UUID.randomUUID(), name, this)
     }
 }
 
-class PrimitiveModelBase(name: String,
+class PrimitiveModelBase(id: UUID = UUID.randomUUID(),
+                         name: String,
                          override var shape: PrimitiveModel.ShapeType)
-    : PrimitiveModel(name)
+    : PrimitiveModel(id, name)
 
-class PrimitiveDerivative(name: String,
-                          var base: PrimitiveModel) : PrimitiveModel(name) {
+class PrimitiveDerivative(id: UUID = UUID.randomUUID(),
+                          name: String,
+                          var base: PrimitiveModel) : PrimitiveModel(id, name) {
 
     var _ownShape: ShapeType? = null
 

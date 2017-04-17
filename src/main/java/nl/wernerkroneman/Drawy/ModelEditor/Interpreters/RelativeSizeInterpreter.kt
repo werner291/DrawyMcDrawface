@@ -19,24 +19,25 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.Modelling.Distance
-import nl.wernerkroneman.Drawy.Modelling.FixedDistance
+import nl.wernerkroneman.Drawy.Modelling.Scalar
+import nl.wernerkroneman.Drawy.Modelling.Size
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.InvalidContextException
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
 
-class DistanceInterpreter : InterpretedObjectFactory {
+class RelativeSizeInterpreter(val ratio: Scalar) : PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = Distance::class
+        get() = Size::class
 
-    override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Any? {
+    override fun interpret(capturings: Map<String, PhraseTree>, context: List<InterpretationContext>): Any? {
+        val modelContext = context.findLast { it is ModelInstanceInterpreter.ModelInterpretationContext }
+                as? ModelInstanceInterpreter.ModelInterpretationContext ?:
+                throw InvalidContextException("Context must contain ModelInterpretationContext")
 
-        // TODO deal with written-out numers
-        return FixedDistance(distance = capturings["amount"]!!.rootWord.toDouble())
-
+        return modelContext.modelSoFar.size * ratio
     }
 
 }

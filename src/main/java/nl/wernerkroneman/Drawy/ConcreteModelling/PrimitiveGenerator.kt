@@ -25,7 +25,7 @@ class PrimitiveGenerator(internal var meshFactory: MeshFactory) {
 
     /**
      * Generate a simple cube, it will be centered on (0,0,0),
-     * have edges 1 unit in length and have normals.
+     * have edges 1 unit in x and have normals.
 
      * @return A Mesh representing a cube
      */

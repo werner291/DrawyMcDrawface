@@ -21,5 +21,7 @@
  * Package dedicated to modelling on a very abstract level.
  * <p>
  * This model may be non-deterministic.
+ *
+ * Note: Many of the types in this package may not behave as you would expect.
  */
 package nl.wernerkroneman.Drawy.Modelling;

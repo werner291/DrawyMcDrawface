@@ -17,19 +17,5 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
+package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import kotlin.reflect.KClass
-
-class NumberInterpreter : PatternInterpreter.InterpretedObjectFactory {
-    override val interpretedTypePrediction: KClass<*>
-        get() = Int::class
-
-    override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Any? {
-        return capturings["number"]!!.rootWord.toInt()
-    }
-}

@@ -127,7 +127,7 @@ public class Renderer {
     /**
      * Recopute the current projection matrix for a given window size.
      *
-     * @param width  Window width in pixels
+     * @param width  Window lateral in pixels
      * @param height Window height in pixels
      */
     public void computeProjection(int width, int height) {

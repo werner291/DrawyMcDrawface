@@ -19,6 +19,8 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
+import java.util.*
+
 /**
  * Represents a group (usually understood as a cluster)
  * of a certain number of copies of a certain model.
@@ -33,13 +35,20 @@ package nl.wernerkroneman.Drawy.Modelling
  * that you can specify a relation between different elements,
  * usually between one element and the next.
  */
-abstract class GroupModel(name: String) : Model(name) {
+abstract class GroupModel(id: UUID = UUID.randomUUID(),
+                          name: String) : Model(id, name) {
 
     abstract var number: Int
     abstract var memberModelType: nl.wernerkroneman.Drawy.Modelling.Model
 
     override fun derive(name: String): Model {
-        return GroupModelDerived(name, this)
+        return GroupModelDerived(UUID.randomUUID(), name, this)
+    }
+
+    fun deriveComposite(number: Int) {
+
+
+
     }
 
     //val constraints: MutableSet<RelativePositionConstraint> = mutableSetOf()
@@ -104,11 +113,14 @@ abstract class GroupModel(name: String) : Model(name) {
     }
 }
 
-class GroupModelBase(name: String,
+class GroupModelBase(id: UUID = UUID.randomUUID(),
+                     name: String,
                      override var number: Int,
-                     override var memberModelType: Model) : GroupModel(name)
+                     override var memberModelType: Model) : GroupModel(id, name)
 
-class GroupModelDerived(name: String, val base: GroupModel) : GroupModel(name) {
+class GroupModelDerived(id: UUID = UUID.randomUUID(),
+                        name: String,
+                        val base: GroupModel) : GroupModel(id, name) {
 
     var _number: Int? = null
 

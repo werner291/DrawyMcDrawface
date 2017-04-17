@@ -29,22 +29,26 @@ import java.util.*
  * It describes the scene on a very high level, and deals
  * in constraints rather than realisations of those constraints.
  */
-abstract class CompositeModel(name: String = "Anonymous composite") : Model(name) {
+abstract class CompositeModel(id: UUID = UUID.randomUUID(),
+                              name: String = "Anonymous composite") : Model(id, name) {
 
     abstract val components: MutableSet<Model>
 }
 
-class CompositeModelBase(name: String = "Anonymous composite",
-                         override val components: MutableSet<Model> = HashSet<Model>()) : CompositeModel() {
+class CompositeModelBase(id: UUID = UUID.randomUUID(),
+                         name: String = "Anonymous composite",
+                         override val components: MutableSet<Model> = HashSet<Model>()) : CompositeModel(id, name) {
     override fun derive(name: String): Model {
-        return DerivedCompositeModel(this)
+        return DerivedCompositeModel(UUID.randomUUID(), name, this)
     }
 }
 
-class DerivedCompositeModel(val base: CompositeModel) : CompositeModel() {
+class DerivedCompositeModel(id: UUID = UUID.randomUUID(),
+                            name: String = "Anonymous composite derivative",
+                            val base: CompositeModel) : CompositeModel(id, name) {
 
     override fun derive(name: String): Model {
-        return DerivedCompositeModel(this)
+        return DerivedCompositeModel(UUID.randomUUID(), name, this)
     }
 
     override val components = MutableRelativeSet(base.components)

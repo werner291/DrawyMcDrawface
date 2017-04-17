@@ -159,4 +159,12 @@ class SceneNode {
     fun setTranslation(sub: Vector3d) {
         transform.setTranslation(sub)
     }
+
+    fun createChildNode(): SceneNode {
+        val node = SceneNode()
+
+        addChild(node)
+
+        return node
+    }
 }

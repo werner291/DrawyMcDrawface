@@ -27,17 +27,22 @@ import org.joml.Vector3d
 import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 
-
 class AbstractToConcrete(meshFactory: MeshFactory) {
 
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
 
-    private val topLevelModelToNode = HashMap<Model, SceneNode>()
+    private val absToConcrete = HashMap<Model, ConcreteModel>()
 
     private val beingComputed = HashSet<Model>()
 
+    private val scene = Scene()
+
     class ConcreteModel(var abstract: Model,
-                        val nodes: MutableSet<SceneNode> = HashSet<SceneNode>())
+                        val nodes: MutableSet<SceneNode> = HashSet<SceneNode>()) {
+        val aabb: AABB
+            get() = nodes.map { it.computeWorldAABB() }
+                    .reduce { acc, aabb -> acc.cover(aabb) }
+    }
 
     /**
      * Compute a conrcete, drawable scene based on the abstract model.
@@ -50,21 +55,13 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      */
     fun computeScene(absModel: Model): Scene {
 
-        val result = Scene()
+        createConcreteForModel(absModel, ROOT_CONTEXT)
 
-        clearCache()
-
-        createNodeForModel(absModel, ROOT_CONTEXT)
-
-        topLevelModelToNode.values.forEach {
-            result.rootSceneNode.addChild(it)
-        }
-
-        return result
+        return scene
     }
 
     fun clearCache() {
-        topLevelModelToNode.clear()
+        absToConcrete.clear()
         beingComputed.clear()
     }
 
@@ -73,34 +70,35 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
     /*
      * Get the node for the model, or create it if it exists.
      */
-    fun getOrCreateTopLevelNodeForModel(model: Model): SceneNode {
-        if (model !in topLevelModelToNode) {
-            createNodeForModel(model, ROOT_CONTEXT)
+    fun getOrCreateConcreteForModel(model: Model): ConcreteModel {
+
+        if (model !in absToConcrete) {
+            createConcreteForModel(model, ROOT_CONTEXT)
         }
 
-        return topLevelModelToNode[model]!!
+        return absToConcrete[model]!!
     }
 
     /**
      * @pre {@code model !in beingComputed}
      * @post {@code model !in beingComputed}
      */
-    fun createNodeForModel(model: Model, sizeInfo: SizeInfo): SceneNode {
+    fun createConcreteForModel(model: Model, sizeInfo: SizeInfo): ConcreteModel {
 
         if (model in beingComputed) {
             throw RuntimeException("Model contains a cycle!")
         }
 
-        if (model in topLevelModelToNode) {
-            throw InvalidStateException("Model being re-topLevelModelToNode!")
+        if (model in absToConcrete) {
+            throw InvalidStateException("Model being re-absToConcrete!")
         }
 
         // Add current to beingComputed for cycle detection
         beingComputed.add(model)
 
-        val node: SceneNode = when (model) {
+        val concrete: ConcreteModel = when (model) {
             is CompositeModel ->
-                exploreCompositeModel(model, sizeInfo)
+                concreteForCompositeModel(model, sizeInfo)
             is GroupModel ->
                 computeSceneNodeForGroupModel(model, sizeInfo)
             is PrimitiveModel ->
@@ -114,20 +112,20 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
         // Undo for performance and cleanliness.
         beingComputed.remove(model)
 
-        node.transform = computeObjectTransform(node, model)
+        absToConcrete[model] = concrete
 
-        return node
+        return concrete
 
     }
 
-    fun createSceneNodeForAnyModel(model: AnyModel, sizeInfo: SizeInfo): SceneNode {
+    fun createSceneNodeForAnyModel(model: AnyModel, sizeInfo: SizeInfo): ConcreteModel {
         val choice = model.pick()
-        return createNodeForModel(choice, sizeInfo)
+        return getOrCreateConcreteForModel(choice)
     }
 
-    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, sizeInfo: SizeInfo): SceneNode {
+    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, sizeInfo: SizeInfo): ConcreteModel {
 
-        val node = SceneNode()
+        val node = scene.rootSceneNode.createChildNode()
 
         node.addDrawable(when (absModel.shape) {
             PrimitiveModel.ShapeType.CUBE ->
@@ -141,7 +139,9 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
             else -> throw UnsupportedOperationException("Shape " + absModel.shape + " not implemented.")
         })
 
-        return node
+        node.transform = computeObjectTransform(node, absModel)
+
+        return ConcreteModel(absModel, mutableSetOf(node))
     }
 
     /**
@@ -154,19 +154,15 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * but this should work for now.
      */
     private fun computeSceneNodeForGroupModel(absModel: GroupModel,
-                                              sizeInfo: SizeInfo): SceneNode {
-
-        val node = SceneNode()
-
-        val childContext = SizeInfo()
+                                              sizeInfo: SizeInfo): ConcreteModel {
 
         // TODO implement identical models.
-        0.until(absModel.number)
-                .forEach { index ->
-                    createNodeForModel(absModel.memberModelType, childContext)
-                }
-
-        return node
+        return ConcreteModel(absModel, 0.until(absModel.number)
+                .map { absModel.memberModelType.derive("${absModel.memberModelType.name} $it}") }
+                .map { getOrCreateConcreteForModel(it) }
+                .map { it.nodes }
+                .flatten()
+                .toMutableSet())
     }
 
     /**
@@ -178,18 +174,16 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * Taking this higher up in the tree into account is planned later on,
      * but this should work for now.
      */
-    private fun exploreCompositeModel(absModel: CompositeModel,
-                                      sizeInfo: SizeInfo): SceneNode {
-
-        val node = SceneNode()
-
+    private fun concreteForCompositeModel(absModel: CompositeModel,
+                                          sizeInfo: SizeInfo): ConcreteModel {
+        
         val childContext = SizeInfo()
 
-        for (component in absModel.components) {
-            createNodeForModel(component, childContext)
-        }
-
-        return node
+        return ConcreteModel(absModel, absModel.components
+                .map { getOrCreateConcreteForModel(it) }
+                .map { it.nodes }
+                .flatten()
+                .toMutableSet())
     }
 
     /**
@@ -198,7 +192,7 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * @param childNode The node of which to compute the transform
      * @param component The component corresponding to the node
      * @param componentToNode A function that, for every component,
-     *                  provides the corresponding SceneNode that was previously topLevelModelToNode.
+     *                  provides the corresponding SceneNode that was previously absToConcrete.
      * @param composite  The CompositeModel that is the context
      */
     private fun computeObjectTransform(
@@ -219,7 +213,8 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
     private fun relativeLocationToConcreteLocation(location: RelativeLocation,
                                                    selfAABB: AABB): AABB {
-        val otherAABB = getOrCreateTopLevelNodeForModel(location.right).computeParentContextAABB()
+
+        val otherAABB = getOrCreateConcreteForModel(location.right).aabb
 
         val restrictTo = AABB(Vector3d(Double.POSITIVE_INFINITY),
                 Vector3d(Double.NEGATIVE_INFINITY))

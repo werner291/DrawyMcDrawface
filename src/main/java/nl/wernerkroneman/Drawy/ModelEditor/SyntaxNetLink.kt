@@ -33,9 +33,7 @@ internal object SyntaxNetLink {
             it in 'a'..'z' ||
                     it in 'A'..'Z' ||
                     it in '0'..'9' ||
-                    it == '.' ||
-                    it == ',' ||
-                    it == ' '
+                    it in ".,- "
         })) {
             throw RuntimeException("String contains illegal or unsafe characters: " + english)
         }

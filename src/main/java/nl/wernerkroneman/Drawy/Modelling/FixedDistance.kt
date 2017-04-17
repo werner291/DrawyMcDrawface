@@ -19,4 +19,5 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
+@Deprecated("Use Length instead.")
 class FixedDistance(var distance: Double) : Distance()

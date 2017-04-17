@@ -19,13 +19,19 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-abstract class Model(var name: String,
+import java.awt.Color
+import java.util.*
+
+abstract class Model(val id: UUID = UUID.randomUUID(),
+                     var name: String,
                      var location: Location? = null) : java.io.Serializable {
+
 
     var locked: Boolean = false
 
-    var size: SizeModifier = DEFAULT_SIZE
+    var size: Size = DEFAULT_SIZE
 
     abstract fun derive(name: String): Model
+    var color: Color = Color.GRAY
 
 }
