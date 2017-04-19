@@ -73,7 +73,8 @@ class PhrasePattern(// Regexes for the word, nature and role
                 return result
             } else {
                 // For each matching pattern,
-                result.matchScore += 1.0
+                // Exact word match is important, weigh higher
+                result.matchScore += 2.0
             }
         }
 

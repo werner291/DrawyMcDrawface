@@ -23,11 +23,24 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import java.io.StringReader
 import java.util.*
 
+class PhraseTreeBuilder(var word: String,
+                        var nature: String,
+                        var role: String,
+                        var children: MutableList<PhraseTreeBuilder>) {
+
+    fun compile(): PhraseTree {
+
+        return PhraseTree(word, nature, role,
+                children.map { it.compile() })
+
+    }
+}
+
 fun parsePhraseTree(parserOutput: String) : PhraseTree {
 
-    var rootWord :PhraseTree? = null
+    var rootWord: PhraseTreeBuilder? = null
 
-    val parseStack = Stack<PhraseTree>()
+    val parseStack = Stack<PhraseTreeBuilder>()
 
     val strstr = Scanner(StringReader(parserOutput))
 
@@ -48,7 +61,7 @@ fun parsePhraseTree(parserOutput: String) : PhraseTree {
         // Split up the remainder into word/nature/role
         val tokens = line.split(" ".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
 
-        val part = PhraseTree(tokens[0], tokens[1], tokens[2])
+        val part = PhraseTreeBuilder(tokens[0], tokens[1], tokens[2], mutableListOf())
 
         if (depth == 0) {
             // This is the root
@@ -63,7 +76,7 @@ fun parsePhraseTree(parserOutput: String) : PhraseTree {
             assert(!parseStack.empty())
 
             // Sentence part at the top is now parent
-            parseStack.peek().addChild(part)
+            parseStack.peek().children.add(part)
         }
 
         // Push it onto the stack so we may attach children to it if necessary
@@ -74,7 +87,7 @@ fun parsePhraseTree(parserOutput: String) : PhraseTree {
     if (rootWord == null) {
         throw RuntimeException("Parse error")
     } else {
-        return rootWord
+        return rootWord.compile()
     }
 
 }

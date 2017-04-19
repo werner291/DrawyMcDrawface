@@ -19,30 +19,35 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
+import com.cesarferreira.pluralize.singularize
+import nl.wernerkroneman.Drawy.Modelling.GroupModel
+import nl.wernerkroneman.Drawy.Modelling.GroupModelBase
 import nl.wernerkroneman.Drawy.Modelling.Model
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import java.util.*
 import kotlin.reflect.KClass
 
-class FindModelInterpreter : InterpretedObjectFactory {
-
+class GroupModelInterpreter(val number: Int,
+                            val interpreter: PatternInterpreter) : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = GroupModel::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Model {
+                           context: List<InterpretationContext>) =
+            GroupModelBase(
+                    name = "Unnamed Group Model",
+                    number = if (capturings["number"] == null) number
+                    else interpreter.interpret<Int>(capturings["number"]!!, context),
+                    memberModelType = interpreter.interpret<Model>(singularize(capturings["member_type"]!!), context)
+            )
 
-        val query = capturings["name"]!!.rootWord
-
-        val descrSess = context.last { it is DescriptionSession.DescriptionSessionContext }
-                as DescriptionSession.DescriptionSessionContext
-
-        return descrSess.scene.components.find { it.name.contains(query) } ?:
-                throw NoSuchElementException("Cannot find any $query")
-
+    private fun singularize(phraseTree: PhraseTree): PhraseTree {
+        return PhraseTree(phraseTree.rootWord.singularize(), when (phraseTree.nature) {
+            "NNS" -> "NN"
+            else -> phraseTree.nature
+        }, phraseTree.role, phraseTree.children)
     }
+
 
 }

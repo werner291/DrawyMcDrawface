@@ -19,17 +19,16 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
 import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
 import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.INSIDE
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
-import java.util.*
 
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
         PatternInterpreter {
@@ -45,9 +44,9 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
                     .role("ROOT")
-                    .nature("NN")
+                    .nature("NNS?")
                     .name("what")
-                    .child { word("a"); role("det") }
+                    .child { word("a"); role("det"); optional() }
                     .child { repeat(0, null) }
                     .create())
 
@@ -55,9 +54,31 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
             PhrasePatternBuilder()
                     .nature("NN")
                     .name("name")
-                    .child { word("a"); role("det") }
+                    .child { word("a"); role("det"); optional() }
                     .child { repeat(0, null) }
                     .create())
+
+    interpreter.addPattern(GroupModelInterpreter(number = 2, interpreter = interpreter),
+            buildPattern {
+                word("pair")
+                nature("NN")
+                child { word("a"); role("det") }
+                child {
+                    word("of")
+                    child {
+                        nature("NNS")
+                        name("member_type")
+                    }
+                }
+                child { repeat(0, null) }
+            })
+
+    interpreter.addPattern(GroupModelInterpreter(number = 2, interpreter = interpreter),
+            buildPattern {
+                nature("NNS")
+                name("member_type")
+                child { repeat(0, null) }
+            })
 
     interpreter.addPattern(createCommandInterpreter,
             PhrasePatternBuilder()
@@ -102,6 +123,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     role("prep")
                     name("where")
                 }
+                child { repeat(0, null) }
                 child {
                     role("punct")
                     optional()
@@ -139,12 +161,53 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 }
             })
 
+    interpreter.addPattern(RelativePositionInterpreter(INSIDE, FixedDistance(-0.1), interpreter),
+            buildPattern {
+                role("prep")
+                word("into")
+                child { name("relative_to") }
+            })
+
     interpreter.addPattern(RelativePositionInterpreter(ABOVE, FixedDistance(-0.1), interpreter),
             buildPattern {
                 role("prep")
                 word("into")
                 child {
                     word("front")
+                    child { word("the") }
+                    child {
+                        word("of")
+                        child {
+                            nature("NN")
+                            name("relative_to")
+                        }
+                    }
+                }
+            })
+
+    interpreter.addPattern(RelativePositionInterpreter(ABOVE, FixedDistance(-0.1), interpreter),
+            buildPattern {
+                role("prep")
+                word("into")
+                child {
+                    word("front")
+                    child { word("the") }
+                    child {
+                        word("of")
+                        child {
+                            nature("NN")
+                            name("relative_to")
+                        }
+                    }
+                }
+            })
+
+    interpreter.addPattern(SidesLocationInterpreter(interpreter),
+            buildPattern {
+                role("prep")
+                word("into")
+                child {
+                    word("sides")
                     child { word("the") }
                     child {
                         word("of")
@@ -224,33 +287,3 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
 
 }
 
-
-/**
- * Get an Iterable describing all previous commands, last-to-first
- */
-private val EditorCommand.previousCommands: Iterable<EditorCommand>
-    get() {
-        val firstInHistory = this
-
-        return object : Iterable<EditorCommand> {
-
-            override fun iterator(): Iterator<EditorCommand> {
-                return object : Iterator<EditorCommand> {
-
-                    var current = firstInHistory
-
-                    override fun hasNext(): Boolean {
-                        return current.previous != null
-                    }
-
-                    override fun next(): EditorCommand {
-                        current = current.previous ?:
-                                throw NoSuchElementException("No more history.")
-                        return current
-                    }
-
-                }
-            }
-
-        }
-    }

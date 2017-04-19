@@ -28,11 +28,10 @@ import java.util.function.Predicate
  * - A root word with a corresponding grammatical nature and role
  * - A list of sub-parts.
  */
-class PhraseTree(var rootWord: String,
-                 var nature: String,
-                 var role: String,
-                 var children: MutableList<PhraseTree> = mutableListOf(),
-                 var parent: PhraseTree? = null) {
+class PhraseTree(val rootWord: String,
+                 val nature: String,
+                 val role: String,
+                 val children: List<PhraseTree> = emptyList()) {
 
     fun dfsFind(predicate: Predicate<PhraseTree>): PhraseTree? {
 
@@ -58,24 +57,6 @@ class PhraseTree(var rootWord: String,
         }
 
         return null
-    }
-
-    fun addChild(part: PhraseTree) {
-        if (part.parent != null) {
-            throw IllegalStateException("PhraseTree may not be a child to more than one parent.")
-        }
-        part.parent = this
-        children.add(part)
-    }
-
-    fun deepCopy(): PhraseTree {
-        val copy = PhraseTree(this.rootWord, this.nature, this.role)
-
-        for (child in children) {
-            copy.addChild(child.deepCopy())
-        }
-
-        return copy
     }
 
     override fun toString(): String {

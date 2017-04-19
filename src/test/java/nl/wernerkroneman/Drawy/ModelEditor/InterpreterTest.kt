@@ -185,25 +185,25 @@ class InterpreterTest {
                 components = mutableSetOf(sphere, cube, bigCube))
 
         assertEquals(bigCube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the blockyest")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("the blockyest"), emptyList()))
 
         assertEquals(bigCube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the big cube")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("the big cube"), emptyList()))
 
         assertEquals(cube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the small cube")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("the small cube"), emptyList()))
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("that sphere")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("that sphere"), emptyList()))
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("that spherical object")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("that spherical object"), emptyList()))
 
         bigCube.location = RelativeLocation(cube, ABOVE, Distance.ANY)
         cube.location = RelativeLocation(sphere, ABOVE, Distance.ANY)
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the topmost object")))
+                interpreter.interpret<Model>(SyntaxNetLink.parse("the topmost object"), emptyList()))
 
 
     }
@@ -245,8 +245,8 @@ class InterpreterTest {
                 "That last snowball is the head.",
                 "Stick a carrot into the front of the head.",
                 "This is the nose.",
-                "Stick a pair of small pebbles into the head above the nose as the eyes.",
-                "Insert two wooden sticks into the sides of the middle snowball as the arms.")
+                "Stick a pair of small pebbles into the head above the nose for the eyes.",
+                "Insert two wooden sticks into the sides of the middle snowball for the arms.")
 
         val result = runScript(script, knowledge)
 

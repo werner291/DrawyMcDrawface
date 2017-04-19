@@ -19,6 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
+import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSuperclassOf
@@ -49,7 +50,7 @@ open class PatternInterpreter {
      */
     fun interpret(phrase: PhraseTree,
                   type: KClass<*> = Any::class,
-                  context: List<InterpretationContext> = mutableListOf()): Any? {
+                  context: List<InterpretationContext>): Any? {
 
         return patterns.filter { type.isSuperclassOf(it.objectFactory.interpretedTypePrediction) }
                 .map { Pair(it, it.pattern.matchAgainst(phrase)) }
@@ -59,11 +60,15 @@ open class PatternInterpreter {
     }
 
     inline fun <reified T> interpret(phrase: PhraseTree,
-                                     context: List<InterpretationContext> = mutableListOf()): T {
+                                     context: List<InterpretationContext>): T {
 
         val interpreted = interpret(phrase, T::class, context)
 
-        return interpreted as T
+        if (interpreted !is T) {
+            throw InvalidStateException("Cannot interpret $phrase as a ${T::class}.")
+        }
+
+        return interpreted
     }
 
     /**

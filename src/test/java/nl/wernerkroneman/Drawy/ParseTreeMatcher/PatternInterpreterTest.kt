@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
 import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.constantInterpreter
+import nl.wernerkroneman.Drawy.ModelEditor.PhraseTreeBuilder
 import org.junit.Assert
 import org.junit.Test
 
@@ -56,22 +57,22 @@ class PatternInterpreterTest {
                                 .create())
                         .create()))
 
-        val testPhrase = PhraseTree("Bar", "TEST", "TEST")
+        val testPhrase = PhraseTreeBuilder("Bar", "TEST", "TEST", mutableListOf())
 
-        val result = terp.interpret<Any?>(testPhrase)
+        val result = terp.interpret<Any?>(testPhrase.compile(), emptyList())
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
-        testPhrase.addChild(PhraseTree("Troll", "TEST", "TEST"))
+        testPhrase.children.add(PhraseTreeBuilder("Troll", "TEST", "TEST", mutableListOf()))
 
-        val result2 = terp.interpret<Any?>(testPhrase)
+        val result2 = terp.interpret<Any?>(testPhrase.compile(), emptyList())
         Assert.assertTrue(result is Bar)
         Assert.assertFalse(result is Baz)
 
         testPhrase.children.clear()
-        testPhrase.addChild(PhraseTree("Baz", "TEST", "TEST"))
+        testPhrase.children.add(PhraseTreeBuilder("Baz", "TEST", "TEST", mutableListOf()))
 
-        val result3 = terp.interpret<Any?>(testPhrase)
+        val result3 = terp.interpret<Any?>(testPhrase.compile(), emptyList())
         Assert.assertTrue(result3 is Bar)
         Assert.assertTrue(result3 is Baz)
 

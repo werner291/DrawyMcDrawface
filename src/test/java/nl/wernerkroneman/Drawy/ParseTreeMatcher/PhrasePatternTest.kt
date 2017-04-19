@@ -40,9 +40,11 @@ class PhrasePatternTest {
 
         assertTrue(pattern.matchAgainst(phrase).matches)
 
-        phrase.addChild(PhraseTree("world", "NN", "nobj"))
+        val phrase2 = PhraseTree("Hello", "NN", "root", listOf(
+                PhraseTree("world", "NN", "nobj")
+        ))
 
-        assertFalse(pattern.matchAgainst(phrase).matches)
+        assertFalse(pattern.matchAgainst(phrase2).matches)
 
     }
 
@@ -58,8 +60,9 @@ class PhrasePatternTest {
                                 .create()
                 ).create()
 
-        val phrase = PhraseTree("Hello", "NN", "root")
-        phrase.addChild(PhraseTree("world", "NN", "nobj"))
+        val phrase = PhraseTree("Hello", "NN", "root", listOf(
+                PhraseTree("world", "NN", "nobj")
+        ))
 
         assertTrue(pattern.matchAgainst(phrase).matches)
     }
@@ -79,9 +82,10 @@ class PhrasePatternTest {
                                 .create()
                 ).create()
 
-        val phrase = PhraseTree("Hello", "NN", "root")
-        phrase.addChild(PhraseTree("world", "NN", "nobj"))
-        phrase.addChild(PhraseTree("bar", "NN", "nobj"))
+        val phrase = PhraseTree("Hello", "NN", "root", listOf(
+                PhraseTree("world", "NN", "nobj"),
+                PhraseTree("bar", "NN", "nobj")
+        ))
 
         val matchResult = pattern.matchAgainst(phrase)
         assertTrue(matchResult.matches)
@@ -104,8 +108,9 @@ class PhrasePatternTest {
                 .noChildren()
                 .create()
 
-        val phrase = PhraseTree("Hello", "NN", "root")
-        phrase.addChild(PhraseTree("world", "NN", "nobj"))
+        val phrase = PhraseTree("Hello", "NN", "root", listOf(
+                PhraseTree("world", "NN", "nobj")
+        ))
 
         val matchResult = anychild.matchAgainst(phrase)
         assertTrue(matchResult.matches)

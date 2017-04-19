@@ -25,6 +25,8 @@ interface Location
 
 val NOT_INTERSECTING_SOLID = object : Location {}
 
+class UnionLocation(val unionOf: MutableSet<Location> = HashSet<Location>())
+
 class IntersectionLocation(val intersectionOf: MutableSet<Location> = HashSet<Location>()) : Location
 
 class RelativeLocation(val right: Model,

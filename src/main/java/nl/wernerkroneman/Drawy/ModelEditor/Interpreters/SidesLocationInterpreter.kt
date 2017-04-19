@@ -19,30 +19,26 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import java.util.*
 import kotlin.reflect.KClass
 
-class FindModelInterpreter : InterpretedObjectFactory {
-
+class SidesLocationInterpreter(private val interpreter: PatternInterpreter) : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = UnionLocation::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Model {
+                           context: List<InterpretationContext>): UnionLocation {
 
-        val query = capturings["name"]!!.rootWord
+        val sidesOf = interpreter.interpret<Model>(capturings["relative_to"]!!,
+                context)
 
-        val descrSess = context.last { it is DescriptionSession.DescriptionSessionContext }
-                as DescriptionSession.DescriptionSessionContext
-
-        return descrSess.scene.components.find { it.name.contains(query) } ?:
-                throw NoSuchElementException("Cannot find any $query")
-
+        return UnionLocation(mutableSetOf(
+                RelativeLocation(sidesOf, RelativePositionConstraint.RIGHT, FixedDistance(-0.1)),
+                RelativeLocation(sidesOf, RelativePositionConstraint.LEFT, FixedDistance(-0.1))
+        ))
     }
 
 }

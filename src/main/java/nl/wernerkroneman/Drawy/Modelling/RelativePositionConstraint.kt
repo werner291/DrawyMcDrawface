@@ -38,7 +38,9 @@ class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable,
                            zRel: RelativePosition.DimensionOrder) {
 
         enum class DimensionOrder {
-            BEFORE, AFTER, SAME
+            BEFORE, // Must be completely before, offset by distance (negative goes inside)
+            SAME, // Centered and overlapping
+            AFTER // Completely after, offset by distance (negative goes inside)
         }
 
         var rel: Array<DimensionOrder>
@@ -57,5 +59,6 @@ class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable,
         var BEHIND = RelativePosition(SAME, SAME, BEFORE)
         var LEFT = RelativePosition(BEFORE, SAME, SAME)
         var RIGHT = RelativePosition(AFTER, SAME, SAME)
+        var INSIDE = RelativePosition(SAME, SAME, SAME)
     }
 }
