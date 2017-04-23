@@ -25,6 +25,7 @@ import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.GroupModel
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
+import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.FRONT
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.INSIDE
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
@@ -40,15 +41,6 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
     val createCommandInterpreter = CreateCommandInterpreter(interpreter)
 
     val distanceInterpreter = DistanceInterpreter()
-
-    interpreter.addPattern(createCommandInterpreter,
-            PhrasePatternBuilder()
-                    .role("ROOT")
-                    .nature("NNS?")
-                    .name("what")
-                    .child { word("a"); role("det"); optional() }
-                    .child { repeat(0, null) }
-                    .create())
 
     interpreter.addPattern(modelInterpreter,
             PhrasePatternBuilder()
@@ -168,7 +160,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 child { name("relative_to") }
             })
 
-    interpreter.addPattern(RelativePositionInterpreter(ABOVE, FixedDistance(-0.1), interpreter),
+    interpreter.addPattern(RelativePositionInterpreter(FRONT, FixedDistance(-0.1), interpreter),
             buildPattern {
                 role("prep")
                 word("into")
