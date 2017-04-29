@@ -20,7 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
@@ -30,17 +30,17 @@ import kotlin.reflect.KClass
 class FindModelInterpreter : InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = ModelSpecification::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Model {
+                           context: List<InterpretationContext>): ModelSpecification {
 
         val query = capturings["name"]!!.rootWord
 
         val descrSess = context.last { it is DescriptionSession.DescriptionSessionContext }
                 as DescriptionSession.DescriptionSessionContext
 
-        return descrSess.scene.components.find { it.name.contains(query) } ?:
+        return descrSess.scene.directComponents.find { it.name.contains(query) } ?:
                 throw NoSuchElementException("Cannot find any $query")
 
     }

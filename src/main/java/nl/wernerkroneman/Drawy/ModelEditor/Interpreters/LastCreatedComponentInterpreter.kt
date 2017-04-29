@@ -21,7 +21,7 @@ package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
@@ -29,10 +29,10 @@ import kotlin.reflect.KClass
 
 class LastCreatedComponentInterpreter : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = ModelSpecification::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Model {
+                           context: List<InterpretationContext>): ModelSpecification {
 
         val descSession = context.findLast { it is DescriptionSession.DescriptionSessionContext }
                 as DescriptionSession.DescriptionSessionContext

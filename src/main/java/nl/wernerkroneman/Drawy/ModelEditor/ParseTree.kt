@@ -36,6 +36,9 @@ class PhraseTreeBuilder(var word: String,
     }
 }
 
+/**
+ * Turn the output of Parsey into a PhraseTree object.
+ */
 fun parsePhraseTree(parserOutput: String) : PhraseTree {
 
     var rootWord: PhraseTreeBuilder? = null

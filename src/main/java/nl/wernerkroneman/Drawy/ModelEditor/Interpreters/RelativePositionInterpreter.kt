@@ -20,15 +20,15 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import nl.wernerkroneman.Drawy.Modelling.Distance
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.RelativePosition
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
 import kotlin.reflect.KClass
 
-class RelativePositionInterpreter(val relPos: RelativePositionConstraint.RelativePosition,
+class RelativePositionInterpreter(val relPos: RelativePosition,
                                   val defaultDistance: Distance = Distance.ANY,
                                   val modelInterpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
@@ -39,7 +39,7 @@ class RelativePositionInterpreter(val relPos: RelativePositionConstraint.Relativ
     override fun interpret(capturings: Map<String, PhraseTree>,
                            context: List<InterpretationContext>): RelativeLocation =
             RelativeLocation(
-                    right = modelInterpreter.interpret<Model>(
+                    right = modelInterpreter.interpret<ModelSpecification>(
                             phrase = capturings["relative_to"]!!,
                             context = context),
                     relPos = relPos,

@@ -21,23 +21,23 @@ package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
 import nl.wernerkroneman.Drawy.ConcreteModelling.AABB
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.RelativePosition
 import org.joml.Vector3d
 
 /**
  * Created by werner on 5-2-17.
  */
 object AABBAllowedSpaceComputations {
-    fun computeAllowedAABBForAnyDistance(size: Vector3d, allowedSpace: AABB, relatedBBounds: AABB, pos: RelativePositionConstraint.RelativePosition): AABB {
+    fun computeAllowedAABBForAnyDistance(size: Vector3d, allowedSpace: AABB, relatedBBounds: AABB, pos: RelativePosition): AABB {
         val constraintRestrictedSpace = AABB()
 
         for (dim in 0..2) {
             when (pos.rel[dim]) {
-                RelativePositionConstraint.RelativePosition.DimensionOrder.BEFORE -> constraintRestrictedSpace.maxExtent.setComponent(dim,
+                RelativePosition.DimensionOrder.BEFORE -> constraintRestrictedSpace.maxExtent.setComponent(dim,
                         Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.minExtent.get(dim)))
-                RelativePositionConstraint.RelativePosition.DimensionOrder.AFTER -> constraintRestrictedSpace.minExtent.setComponent(dim,
+                RelativePosition.DimensionOrder.AFTER -> constraintRestrictedSpace.minExtent.setComponent(dim,
                         Math.max(allowedSpace.minExtent.get(dim), relatedBBounds.maxExtent.get(dim)))
-                RelativePositionConstraint.RelativePosition.DimensionOrder.SAME -> {
+                RelativePosition.DimensionOrder.SAME -> {
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             Math.min(allowedSpace.maxExtent.get(dim), relatedBBounds.maxExtent.get(dim) + size.get(dim)))
                     constraintRestrictedSpace.minExtent.setComponent(dim,
@@ -66,7 +66,7 @@ object AABBAllowedSpaceComputations {
     fun computeAllowedAABBForFixedDistance(size: Vector3d,
                                            relatedBBounds: AABB,
                                            distance: FixedDistance,
-                                           pos: RelativePositionConstraint.RelativePosition): AABB {
+                                           pos: RelativePosition): AABB {
         val constraintRestrictedSpace = AABB()
 
         val dist = distance.distance
@@ -74,7 +74,7 @@ object AABBAllowedSpaceComputations {
         // Iterate over all dimensions (X,Y,Z)
         for (dim in 0..2) {
             when (pos.rel[dim]) {
-                RelativePositionConstraint.RelativePosition.DimensionOrder.BEFORE // Extent has to end before the other object
+                RelativePosition.DimensionOrder.BEFORE // Extent has to end before the other object
                 -> {
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             relatedBBounds.minExtent.get(dim) - dist)
@@ -82,7 +82,7 @@ object AABBAllowedSpaceComputations {
                     constraintRestrictedSpace.minExtent.setComponent(dim,
                             constraintRestrictedSpace.maxExtent.get(dim) - (size.get(dim) + 0.01))
                 }
-                RelativePositionConstraint.RelativePosition.DimensionOrder.AFTER // Extent has to begin after the other object
+                RelativePosition.DimensionOrder.AFTER // Extent has to begin after the other object
                 -> {
                     constraintRestrictedSpace.minExtent.setComponent(dim,
                             relatedBBounds.maxExtent.get(dim) + dist)
@@ -90,7 +90,7 @@ object AABBAllowedSpaceComputations {
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             constraintRestrictedSpace.minExtent.get(dim) + (size.get(dim) + 0.01))
                 }
-                RelativePositionConstraint.RelativePosition.DimensionOrder.SAME // Extent has to overlap
+                RelativePosition.DimensionOrder.SAME // Extent has to overlap
                 -> {
                     constraintRestrictedSpace.maxExtent.setComponent(dim,
                             constraintRestrictedSpace.maxExtent.get(dim) + size.get(dim))

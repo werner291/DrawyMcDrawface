@@ -19,36 +19,38 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
+import java.awt.Color
 import java.util.*
 
-abstract class PrimitiveModel(id: UUID = UUID.randomUUID(),
-                              name: String) : Model(id, name) {
+/**
+ * A specification designating an indivisible shape.
+ */
+abstract class PrimitiveModelSpecification(id: UUID = UUID.randomUUID(),
+                                           name: String) : ModelSpecification(id, name) {
 
     abstract var shape: ShapeType
+    abstract var color: Color
 
     enum class ShapeType {
         CUBE, SPHERE, CYLINDER, CONE
     }
 
-    override fun derive(name: String): PrimitiveModel {
+    override fun derive(name: String): PrimitiveModelSpecification {
         return PrimitiveDerivative(UUID.randomUUID(), name, this)
     }
 }
 
-class PrimitiveModelBase(id: UUID = UUID.randomUUID(),
-                         name: String,
-                         override var shape: PrimitiveModel.ShapeType)
-    : PrimitiveModel(id, name)
+class PrimitiveModelSpecificationBase(id: UUID = UUID.randomUUID(),
+                                      name: String,
+                                      override var shape: PrimitiveModelSpecification.ShapeType,
+                                      override var color: Color = Color.LIGHT_GRAY)
+    : PrimitiveModelSpecification(id, name)
 
 class PrimitiveDerivative(id: UUID = UUID.randomUUID(),
                           name: String,
-                          var base: PrimitiveModel) : PrimitiveModel(id, name) {
+                          var base: PrimitiveModelSpecification) : PrimitiveModelSpecification(id, name) {
 
-    var _ownShape: ShapeType? = null
+    override var color: Color by DelegatedUntilSet { base.color }
 
-    override var shape: ShapeType
-        get() = _ownShape ?: base.shape
-        set(value) {
-            _ownShape = value
-        }
+    override var shape: ShapeType by DelegatedUntilSet { base.shape }
 }

@@ -18,7 +18,7 @@
  */
 
 /**
- * Primary package containing the components that tie evrything together.
+ * Primary package containing the directComponents that tie evrything together.
  *
  * @author Werner Kroneman
  */

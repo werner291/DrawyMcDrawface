@@ -19,17 +19,17 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Commands
 
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 
 /**
  * Command that causes the creation of a component
- * in a CompositeModel.
- * A supplier that supplies the CompositeModel on which to execute this command.
+ * in a CompositeModelSpecification.
+ * A supplier that supplies the CompositeModelSpecification on which to execute this command.
  */
 class CreateCommand(
-        internal var target: () -> CompositeModel,
-        val what: Model,
+        internal var target: () -> CompositeModelSpecification,
+        val what: ModelSpecification,
         previous: EditorCommand?) : EditorCommand(previous = previous) {
 
     override fun toString(): String {
@@ -39,15 +39,15 @@ class CreateCommand(
     override fun onApply() {
         val scene = target()
 
-        if (what in scene.components) {
+        if (what in scene.directComponents) {
             throw IllegalStateException("Component already in target.")
         }
 
-        scene.components.add(what)
+        scene.directComponents.add(what)
     }
 
     override fun onRevert() {
-        target().components.remove(what)
+        target().directComponents.remove(what)
     }
 
     /**
@@ -59,9 +59,9 @@ class CreateCommand(
 
      * @return the supplier.
      */
-    /*val resultSupplier: Supplier<CompositeModel.Component>
-        get() = object : Supplier<CompositeModel.Component> {
-            override fun get(): CompositeModel.Component {
+    /*val resultSupplier: Supplier<CompositeModelSpecification.Component>
+        get() = object : Supplier<CompositeModelSpecification.Component> {
+            override fun get(): CompositeModelSpecification.Component {
                 if (!applied) {
                     throw IllegalStateException("Statement not applied")
                 }

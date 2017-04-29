@@ -39,24 +39,18 @@ class PhraseTree(val rootWord: String,
             return this
         }
 
-        for (part in children) {
-            val result = part.dfsFind(predicate)
-            if (result != null)
-                return result
-        }
-
-        return null
+        return children
+                .asSequence()
+                .map { it.dfsFind(predicate) }
+                .firstOrNull { it != null }
     }
 
     fun findFirstChild(predicate: Predicate<PhraseTree>): PhraseTree? {
 
-        for (part in children) {
-            val result = part.dfsFind(predicate)
-            if (result != null)
-                return result
-        }
-
-        return null
+        return children
+                .asSequence()
+                .map { it.dfsFind(predicate) }
+                .firstOrNull { it != null }
     }
 
     override fun toString(): String {

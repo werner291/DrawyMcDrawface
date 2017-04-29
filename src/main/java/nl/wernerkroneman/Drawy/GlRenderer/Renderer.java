@@ -33,11 +33,10 @@ import static com.jogamp.opengl.GL.*;
  */
 public class Renderer {
 
+    private final MatrixStackd matrixStack = new MatrixStackd(100);
+    private final Matrix4d view = new Matrix4d();
+    private final Matrix4d proj = new Matrix4d();
     private ShaderProgram shaderProgram;
-
-    private MatrixStackd matrixStack = new MatrixStackd(100);
-    private Matrix4d view = new Matrix4d();
-    private Matrix4d proj = new Matrix4d();
 
     /**
      * Render the shape (triangle)

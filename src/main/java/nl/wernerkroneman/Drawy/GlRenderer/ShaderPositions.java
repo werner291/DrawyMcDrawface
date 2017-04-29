@@ -22,7 +22,7 @@ package nl.wernerkroneman.Drawy.GlRenderer;
 /**
  * Created by werner on 29-12-16.
  */
-public class ShaderPositions {
+class ShaderPositions {
 
     public static final int POSITION = 0;
     public static final int NORMAL = 1;

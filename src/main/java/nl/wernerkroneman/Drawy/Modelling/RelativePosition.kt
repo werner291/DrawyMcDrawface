@@ -19,19 +19,20 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-import java.awt.Color
-import java.util.*
+class RelativePosition(xRel: DimensionOrder,
+                       yRel: DimensionOrder,
+                       zRel: DimensionOrder) {
 
-abstract class Model(val id: UUID = UUID.randomUUID(),
-                     var name: String,
-                     var location: Location? = null) : java.io.Serializable {
+    enum class DimensionOrder {
+        BEFORE, // Must be completely before, offset by distance (negative goes inside)
+        SAME, // Centered and overlapping
+        AFTER // Completely after, offset by distance (negative goes inside)
+    }
 
+    var rel: Array<DimensionOrder>
 
-    var locked: Boolean = false
-
-    var size: Size = DEFAULT_SIZE
-
-    abstract fun derive(name: String): Model
-    var color: Color = Color.GRAY
+    init {
+        this.rel = arrayOf(xRel, yRel, zRel)
+    }
 
 }

@@ -21,6 +21,14 @@ package nl.wernerkroneman.Drawy.Modelling
 
 import java.util.*
 
+/**
+ * Mutable (view of a) set specified relative to and
+ * reflecting changes in [base], with some explicitly-defined
+ * additions and removals.
+ *
+ * If there is an element in [base], it is present in this,
+ * unless it was explicitly removed from this.
+ */
 class MutableRelativeSet<T>(val base: Set<T>) : MutableSet<T> {
 
     val additions = HashSet<T>()

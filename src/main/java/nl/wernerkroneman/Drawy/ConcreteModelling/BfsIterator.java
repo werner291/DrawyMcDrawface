@@ -31,7 +31,7 @@ import java.util.Queue;
  */
 class BfsIterator implements Iterator<SceneNode> {
 
-    Queue<SceneNode> queue = new ArrayDeque<>();
+    private final Queue<SceneNode> queue = new ArrayDeque<>();
 
     public BfsIterator(SceneNode root) {
         queue.add(root);

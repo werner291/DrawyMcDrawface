@@ -22,7 +22,7 @@ package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
 import nl.wernerkroneman.Drawy.Modelling.combineLocations
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
@@ -32,7 +32,7 @@ import kotlin.reflect.KClass
 
 /**
  * Generate a creation command for the object(s) described in this sentence part.
- * @param scene A supplier that provides a scene when executed in which to create the object
+ * @param interpreter The interpreter used to interpret dependencies.
  */
 class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
@@ -43,7 +43,7 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
     override fun interpret(capturings: Map<String, PhraseTree>,
                            context: List<InterpretationContext>): CreateCommand {
 
-        val what = interpreter.interpret<Model>(
+        val what = interpreter.interpret<ModelSpecification>(
                 capturings["what"]!!,
                 context + CreateCommandContext()
         )

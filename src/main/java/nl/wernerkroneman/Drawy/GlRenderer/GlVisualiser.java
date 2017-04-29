@@ -30,10 +30,9 @@ public class GlVisualiser implements GLEventListener {
     private static final int WINDOW_WIDTH = 640;  // width of the drawable
     private static final int WINDOW_HEIGHT = 480; // height of the drawable
     private static String TITLE = "Drawy!";  // window's title
+    private final Renderer renderer = new Renderer();
     private Scene scene = new Scene(); // Empty scene
     private MeshFactory meshFactory;
-
-    private Renderer renderer = new Renderer();
 
     /**
      * Called back by the drawable to render OpenGL graphics

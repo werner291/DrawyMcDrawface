@@ -19,7 +19,6 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
-import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.isSuperclassOf
@@ -36,9 +35,7 @@ open class PatternInterpreter {
      *
      * Rule that matches and has highest matching score is used.
      *
-     * @param phrase
-     * *
-     * @param filter
+     * @param phrase the phrase to interpret
      *
      * @param context Mutable list representing the context.
      *                If interpretation requires a certain kind of context,
@@ -46,7 +43,7 @@ open class PatternInterpreter {
      *
      * @throws InvalidInterpretationContextException if context is not sufficient for interpetation
      *
-     * @return
+     * @return The interpretation result, or null on failure
      */
     fun interpret(phrase: PhraseTree,
                   type: KClass<*> = Any::class,
@@ -64,11 +61,13 @@ open class PatternInterpreter {
 
         val interpreted = interpret(phrase, T::class, context)
 
-        if (interpreted !is T) {
-            throw InvalidStateException("Cannot interpret $phrase as a ${T::class}.")
+        // Note that T can be nullable. IntellJ wrongly suggests
+        // as? followed by ?: operator, that's a bug.
+        if (interpreted == null && null !is T) {
+            throw IllegalStateException("Cannot interpret $phrase as a ${T::class}.")
         }
 
-        return interpreted
+        return interpreted as T
     }
 
     /**
@@ -77,8 +76,6 @@ open class PatternInterpreter {
      * the interpretation of it.
      *
      * It may return null if the interpretation fails.
-     *
-     * @param The type of object that results from interpretation.
      */
     interface InterpretedObjectFactory {
 

@@ -141,7 +141,7 @@ class PhrasePattern(// Regexes for the word, nature and role
         /**
          * A 2-dimensional array of MatchResult objects.
          *
-         * For some MatchResult r, resultTable[i][j] == r
+         * For some MatchResult r and integers i,j, resultTable[i][j] == r
          * means that with pattern children up to and excluding
          * this.children[j], r represents the best-possible way
          * to match the phrase children up to and excluding
@@ -182,11 +182,16 @@ class PhrasePattern(// Regexes for the word, nature and role
     }
 
     /**
-     * Compute the best possible match, given phrases
-     * up to and including phrases[numPhrases], and
-     * patterns up to and including patterns[numPatterns]
+     * Compute the best possible match,
+     * given phrases and patterns must be justified.
      *
-     * @pre numPatterns >= 1
+     * @param phrases List of phrases to be matched
+     * @param patterns List of patterns to be matched against phrases
+     * @param resultTable 2D array that gives result of computations with
+     *                      smaller input lists.
+     *
+     * @pre {@code !patterns.isEmpty()}
+     *
      */
     fun computeOptimalResult(phrases: List<PhraseTree>,
                              patterns: List<PhrasePattern>,
@@ -194,7 +199,7 @@ class PhrasePattern(// Regexes for the word, nature and role
 
         // Reference to current pattern child, which is tha last pattern
         // in "patterns" truncated to x numPatterns
-        var pattern = patterns.last()
+        val pattern = patterns.last()
 
         /*
          * Pattern "pattern" must match every phrase from a certain index

@@ -23,7 +23,7 @@ import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
 import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
 import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
-import nl.wernerkroneman.Drawy.Modelling.GroupModel
+import nl.wernerkroneman.Drawy.Modelling.GroupModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.FRONT
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.INSIDE
@@ -31,6 +31,10 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
 
+/**
+ * Create a pattern interpreter loaded with a set of default patterns
+ * to serve as a starting point for a data-driven interpreter.
+ */
 fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
         PatternInterpreter {
 
@@ -221,13 +225,13 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 })
             })
 
-    interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
+    interpreter.addPattern(constantInterpreter(GroupModelSpecification.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("other")
                 child { word("each") }
             })
 
-    interpreter.addPattern(constantInterpreter(GroupModel.ComponentDesignator.RelativeComponent(-1)),
+    interpreter.addPattern(constantInterpreter(GroupModelSpecification.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("one")
                 child { word("another") }

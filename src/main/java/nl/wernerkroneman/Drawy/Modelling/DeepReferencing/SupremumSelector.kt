@@ -19,20 +19,20 @@
 
 package nl.wernerkroneman.Drawy.Modelling.DeepReferencing
 
-/*abstract class CompositeModelSelector(val context: CompositeModel) {
-    abstract val component: CompositeModel.Component
+/*abstract class CompositeModelSelector(val context: CompositeModelSpecification) {
+    abstract val component: CompositeModelSpecification.Component
 }
 
-class DirectComponentSelector(context: CompositeModel,
-                              override val component: CompositeModel.Component) :
+class DirectComponentSelector(context: CompositeModelSpecification,
+                              override val component: CompositeModelSpecification.Component) :
         CompositeModelSelector(context)
 
-class MaximumSelector(context: CompositeModel,
-                      val comparator: Comparator<CompositeModel.Component>,
+class MaximumSelector(context: CompositeModelSpecification,
+                      val comparator: Comparator<CompositeModelSpecification.Component>,
                       val preferDirection: Int) : CompositeModelSelector(context = context) {
 
-    override val component: CompositeModel.Component
-        get() = context.components.maxWith(comparator) ?:
+    override val component: CompositeModelSpecification.Component
+        get() = context.directComponents.maxWith(comparator) ?:
                 throw NoSuchElementException("$context has no maximum.")
 
 

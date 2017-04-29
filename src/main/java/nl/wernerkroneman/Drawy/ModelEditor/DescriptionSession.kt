@@ -21,9 +21,9 @@ package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.CompositeModelBase
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecificationBase
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 
@@ -37,7 +37,7 @@ import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 class DescriptionSession(private val interpreter: PatternInterpreter = createDefaultModelInterpreter(),
                          private val interactorIface: BlockingInteractor) {
 
-    private val changeListeners = mutableListOf<(Model) -> Unit>()
+    private val changeListeners = mutableListOf<(ModelSpecification) -> Unit>()
 
     private val commandHistory = mutableListOf<EditorCommand>()
 
@@ -45,8 +45,8 @@ class DescriptionSession(private val interpreter: PatternInterpreter = createDef
         Thread(Runnable { this.runSession() }).start()
     }
 
-    fun runSession(): Model {
-        val scene = CompositeModelBase(name = "Scene")
+    fun runSession(): ModelSpecification {
+        val scene = CompositeModelSpecificationBase(name = "Scene")
         while (true) {
 
             val line = interactorIface.askUserString("Say something:")
@@ -80,13 +80,13 @@ class DescriptionSession(private val interpreter: PatternInterpreter = createDef
         return scene
     }
 
-    private fun notifyChanged(scene: CompositeModel) {
+    private fun notifyChanged(scene: CompositeModelSpecification) {
         for (list in changeListeners.reversed()) {
             list(scene)
         }
     }
 
-    fun addChangeListener(listener: (Model) -> Unit) {
+    fun addChangeListener(listener: (ModelSpecification) -> Unit) {
         changeListeners.add(listener)
     }
 
@@ -100,5 +100,5 @@ class DescriptionSession(private val interpreter: PatternInterpreter = createDef
      * @param scene The scene. Do not modify during interpretation.
      */
     class DescriptionSessionContext(val pastCommands: List<EditorCommand>,
-                                    val scene: CompositeModel) : InterpretationContext
+                                    val scene: CompositeModelSpecification) : InterpretationContext
 }

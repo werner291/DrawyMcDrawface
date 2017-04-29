@@ -45,8 +45,8 @@ import nl.wernerkroneman.Drawy.Interface.UserInteractor
 import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import nl.wernerkroneman.Drawy.ModelEditor.createDefaultModelInterpreter
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
-import nl.wernerkroneman.Drawy.Modelling.CompositeModelBase
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecificationBase
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
 import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
@@ -129,15 +129,15 @@ fun main(args: Array<String>) {
     session.start()
 }
 
-private fun createSnowman(knowledge: Knowledge): CompositeModel {
+private fun createSnowman(knowledge: Knowledge): CompositeModelSpecification {
 
-    val snowman = CompositeModelBase(name = "snowman")
+    val snowman = CompositeModelSpecificationBase(name = "snowman")
 
     val head = knowledge.getObject("sphere")!!.derive("Head")
-    snowman.components.add(head)
+    snowman.directComponents.add(head)
 
     val body = knowledge.getObject("sphere")!!.derive("Body")
-    snowman.components.add(body)
+    snowman.directComponents.add(body)
 
     head.location = RelativeLocation(body, ABOVE, FixedDistance(0.0))
 
@@ -156,7 +156,7 @@ private fun createSnowman(knowledge: Knowledge): CompositeModel {
     }
 
     @Override
-    public void modelChanged(Model scene) {
+    public void modelChanged(ModelSpecification scene) {
         // Convert it to a concrete scene
         Scene concreteScene = converter.computeScene(scene);
 

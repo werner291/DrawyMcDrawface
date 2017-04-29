@@ -29,8 +29,8 @@ class UnionLocation(val unionOf: MutableSet<Location> = HashSet<Location>())
 
 class IntersectionLocation(val intersectionOf: MutableSet<Location> = HashSet<Location>()) : Location
 
-class RelativeLocation(val right: Model,
-                       val relPos: RelativePositionConstraint.RelativePosition,
+class RelativeLocation(val right: ModelSpecification,
+                       val relPos: RelativePosition,
                        val dist: Distance) : Location
 
 fun combineLocations(location: Location?, location1: Location?): Location? {

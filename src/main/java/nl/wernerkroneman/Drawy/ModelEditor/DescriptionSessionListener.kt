@@ -19,7 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 
 interface DescriptionSessionListener {
 
@@ -31,7 +31,7 @@ interface DescriptionSessionListener {
 
      * @param scene
      */
-    fun modelChanged(scene: Model)
+    fun modelChanged(scene: ModelSpecification)
 
     /**
      * Called when the sessionis ended and the target will no longer change.

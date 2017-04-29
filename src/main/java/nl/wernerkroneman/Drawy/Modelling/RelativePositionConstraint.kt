@@ -19,8 +19,9 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosition.DimensionOrder.*
+import nl.wernerkroneman.Drawy.Modelling.RelativePosition.DimensionOrder.*
 
+@Deprecated
 class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable,
                                  var b: RelativeConstraintContext.Positionable,
                                  var pos: RelativePosition,
@@ -31,24 +32,6 @@ class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable,
                 ", b=" + b +
                 ", pos=" + pos +
                 '}'
-    }
-
-    class RelativePosition(xRel: RelativePosition.DimensionOrder,
-                           yRel: RelativePosition.DimensionOrder,
-                           zRel: RelativePosition.DimensionOrder) {
-
-        enum class DimensionOrder {
-            BEFORE, // Must be completely before, offset by distance (negative goes inside)
-            SAME, // Centered and overlapping
-            AFTER // Completely after, offset by distance (negative goes inside)
-        }
-
-        var rel: Array<DimensionOrder>
-
-        init {
-            this.rel = arrayOf(xRel, yRel, zRel)
-        }
-
     }
 
     companion object {

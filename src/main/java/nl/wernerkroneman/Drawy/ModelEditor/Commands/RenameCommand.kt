@@ -19,11 +19,11 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Commands
 
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 
 class RenameCommand(previous: EditorCommand?,
         // TODO implement and use deep referencing.
-                    val target: Model,
+                    val target: ModelSpecification,
                     val newName: String) : EditorCommand(false, previous) {
 
     var oldName = target.name

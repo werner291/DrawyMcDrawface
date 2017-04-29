@@ -37,9 +37,9 @@ import java.util.stream.Collectors;
 
 public class Thesaurus {
 
-    final String API_KEY = "TODO: PUT THIS SOMEWHERE YOU CANNOT READ THIS";
+    private final String API_KEY = "TODO: PUT THIS SOMEWHERE YOU CANNOT READ THIS";
 
-    Map<String,Collection<String> > cache = new HashMap<>();
+    private final Map<String, Collection<String>> cache = new HashMap<>();
 
     boolean isSynonimOf(String word, String synonimOf) {
         return getSynonimsOf(word).contains(synonimOf);
@@ -73,11 +73,9 @@ public class Thesaurus {
 
             return synonims;
 
-        } catch (MalformedURLException e) {
+        } catch (MalformedURLException | ParseException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParseException e) {
             e.printStackTrace();
         }
 

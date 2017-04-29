@@ -39,7 +39,7 @@ val BROWN = Color(165, 42, 42)
 
 class InterpreterTest {
 
-    private fun interpretCreateComponent(text: String): Model {
+    private fun interpretCreateComponent(text: String): ModelSpecification {
 
         val interpreter = createDefaultModelInterpreter()
         val knowledge = Knowledge.knowledgeWithPrimitives()
@@ -62,9 +62,9 @@ class InterpreterTest {
 
         val model = (newComponent as PrimitiveDerivative).base
 
-        assertTrue(model is PrimitiveModel)
-        assertEquals(PrimitiveModel.ShapeType.CUBE, model.shape)
-        assertEquals(PrimitiveModel.ShapeType.CUBE, newComponent.shape)
+        assertTrue(model is PrimitiveModelSpecification)
+        assertEquals(PrimitiveModelSpecification.ShapeType.CUBE, model.shape)
+        assertEquals(PrimitiveModelSpecification.ShapeType.CUBE, newComponent.shape)
 
     }
 
@@ -83,7 +83,7 @@ class InterpreterTest {
     @Ignore("Non-deterministic numbers not yet supported")
     fun interpreterTest2() {
 
-        val scene = CompositeModelBase(name = "Scene")
+        val scene = CompositeModelSpecificationBase(name = "Scene")
 
         val result = MainInterpreter().interpret("Add a cylinder or two.", scene)
 
@@ -93,9 +93,9 @@ class InterpreterTest {
 
         val model = stmt.what
 
-        assertTrue(model is GroupModel)
+        assertTrue(model is GroupModelSpecification)
 
-        assertEquals(1, (model as GroupModel).number.toLong())
+        assertEquals(1, (model as GroupModelSpecification).number.toLong())
 
         assertEquals("Cylinder", model.memberModelType.name)
 
@@ -110,8 +110,8 @@ class InterpreterTest {
             val cube = interpretCreateComponent(phrase)
 
             assertTrue(cube is PrimitiveDerivative)
-            assertEquals(PrimitiveModel.ShapeType.CUBE,
-                    (cube as PrimitiveModel).shape)
+            assertEquals(PrimitiveModelSpecification.ShapeType.CUBE,
+                    (cube as PrimitiveModelSpecification).shape)
 
             assertTrue(cube.location is RelativeLocation)
 
@@ -119,7 +119,7 @@ class InterpreterTest {
 
             assertEquals(ABOVE, loc.relPos)
 
-            assertEquals(PrimitiveModel.ShapeType.SPHERE, (loc.right as PrimitiveDerivative).shape)
+            assertEquals(PrimitiveModelSpecification.ShapeType.SPHERE, (loc.right as PrimitiveDerivative).shape)
         }
     }
 
@@ -129,8 +129,8 @@ class InterpreterTest {
         val cube = interpretCreateComponent("A cube 5 units above a sphere")
 
         assertTrue(cube is PrimitiveDerivative)
-        assertEquals(PrimitiveModel.ShapeType.CUBE,
-                (cube as PrimitiveModel).shape)
+        assertEquals(PrimitiveModelSpecification.ShapeType.CUBE,
+                (cube as PrimitiveModelSpecification).shape)
 
         assertTrue(cube.location is RelativeLocation)
 
@@ -146,9 +146,9 @@ class InterpreterTest {
 
         val model = interpretCreateComponent("500 cubes above each other")
 
-        assertTrue(model is GroupModel)
+        assertTrue(model is GroupModelSpecification)
 
-        assertTrue((model as GroupModel).memberModelType is PrimitiveModel)
+        assertTrue((model as GroupModelSpecification).memberModelType is PrimitiveModelSpecification)
 
         assertEquals(500, model.number)
 
@@ -159,7 +159,7 @@ class InterpreterTest {
 
         val model = interpretCreateComponent("a long cube")
 
-        assertTrue(model is PrimitiveModel)
+        assertTrue(model is PrimitiveModelSpecification)
 
         assertTrue(model.size.x > Length(AbsoluteScalar(1.0), LengthUnit.METER))
         assertTrue(model.size.y == Length(AbsoluteScalar(1.0), LengthUnit.METER))
@@ -181,31 +181,69 @@ class InterpreterTest {
             size *= AbsoluteScalar(2.0)
         }
 
-        val model = CompositeModelBase(name = "scene",
-                components = mutableSetOf(sphere, cube, bigCube))
+        val model = CompositeModelSpecificationBase(name = "scene",
+                directComponents = mutableSetOf(sphere, cube, bigCube))
 
         assertEquals(bigCube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the blockyest"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("the blockyest"), emptyList()))
 
         assertEquals(bigCube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the big cube"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("the big cube"), emptyList()))
 
         assertEquals(cube,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the small cube"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("the small cube"), emptyList()))
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("that sphere"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("that sphere"), emptyList()))
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("that spherical object"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("that spherical object"), emptyList()))
 
         bigCube.location = RelativeLocation(cube, ABOVE, Distance.ANY)
         cube.location = RelativeLocation(sphere, ABOVE, Distance.ANY)
 
         assertEquals(sphere,
-                interpreter.interpret<Model>(SyntaxNetLink.parse("the topmost object"), emptyList()))
+                interpreter.interpret<ModelSpecification>(SyntaxNetLink.parse("the topmost object"), emptyList()))
 
 
+    }
+
+    @Test
+    fun onEachTest() {
+
+        // Init knowledge
+        val knowledge = Knowledge.knowledgeWithPrimitives()
+
+        val scene = CompositeModelSpecificationBase()
+
+        scene.directComponents.add(
+                GroupModelSpecificationBase(name = "spheres",
+                        memberModelType = knowledge.getObject("sphere"),
+                        number = 15)
+        )
+
+        val result = interpreter.interpret<CreateCommand>(
+                SyntaxNetLink.parse("Put a small cube on top of each sphere."),
+                context = listOf<InterpretationContext>(
+                        DescriptionSession.DescriptionSessionContext(commands, result)
+                )
+        )
+
+        val forEachGroup = result.what
+
+        assertTrue(forEachGroup is GroupModelSpecification)
+
+        assertEquals(15, (forEachGroup as GroupModelSpecification).number)
+
+        assertEquals(15, (forEachGroup as GroupModelSpecification).number)
+
+        assertTrue(
+                0.until(15).map { forEachGroup.modifiersApplicableToIndex(it) }
+                        .all {
+                            it.any { it == ModelSpecification::location }
+                        }
+
+        )
     }
 
     @Test
@@ -216,14 +254,15 @@ class InterpreterTest {
 
         knowledge.remember(knowledge.getObject("sphere")!!
                 .derive("snowball")
-                .apply { color = WHITE })
+                .apply { (this as PrimitiveModelSpecification).color = WHITE })
 
         knowledge.remember(knowledge.getObject("cone")!!
                 .derive("carrot")
-                .apply { color = ORANGE })
+                .apply { (this as PrimitiveModelSpecification).color = ORANGE })
 
         knowledge.remember(knowledge.getObject("sphere")!!
-                .derive("rock").apply { color = DARK_GRAY })
+                .derive("rock")
+                .apply { (this as PrimitiveModelSpecification).color = DARK_GRAY })
 
         knowledge.remember(knowledge.getObject("rock")!!
                 .derive("pebble")
@@ -246,61 +285,61 @@ class InterpreterTest {
                 "Stick a carrot into the front of the head.",
                 "This is the nose.",
                 "Stick a pair of small pebbles into the head above the nose for the eyes.",
-                "Insert two wooden sticks into the sides of the middle snowball for the arms.")
+                "Insert a wooden stick into each side of the middle snowball for the arms.")
 
         val result = runScript(script, knowledge)
 
-        fun isSnowball(it: Model): Boolean {
-            return it is PrimitiveModel
-                    && it.shape == PrimitiveModel.ShapeType.SPHERE
+        // At least 3 snowballs
+        val _isSnowball = { it: ModelSpecification ->
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.SPHERE
                     && it.color == WHITE
         }
 
-        // At least 3 snowballs
-        assertTrue(result.components.count(::isSnowball) >= 3)
+        assertTrue(result.directComponents.count(_isSnowball) >= 3)
 
         // Has a carrot as a nose
-        assertTrue(result.components.any {
-            it is PrimitiveModel
-                    && it.shape == PrimitiveModel.ShapeType.CONE
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.CONE
                     && it.color == ORANGE
                     && it.location is RelativeLocation
                     && it.name.contains("nose")
                     && (it.location as RelativeLocation).relPos == FRONT
-                    && isSnowball((it.location as RelativeLocation).right)
+                    && _isSnowball((it.location as RelativeLocation).right)
         })
 
-        val arms = result.components.filter {
-            it is PrimitiveModel
-                    && it.shape == PrimitiveModel.ShapeType.CYLINDER
+        val arms = result.components.filter({
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.CYLINDER
                     && it.color == BROWN
                     && it.location is RelativeLocation
-                    && isSnowball((it.location as RelativeLocation).right)
-        }
+                    && _isSnowball((it.location as RelativeLocation).right)
+        })
 
         // Has a carrot as a nose
         assertEquals(2, arms.count())
         assertTrue(arms.any { (it.location as RelativeLocation).relPos == RIGHT })
         assertTrue(arms.any { (it.location as RelativeLocation).relPos == LEFT })
 
-        val eyes = result.components.first { it is GroupModel } as GroupModel
+        val eyes = result.directComponents.first { it is GroupModelSpecification } as GroupModelSpecification
 
         // Has a carrot as a nose
         assertEquals(2, eyes.number)
         assertEquals(FRONT, (eyes.location as RelativeLocation).relPos)
         assertTrue((eyes.location as RelativeLocation).right.run {
-            isSnowball(this) && name.contains("head")
+            _isSnowball(this) && name.contains("head")
         })
 
     }
 
-    private fun runScript(script: List<String>, knowledge: Knowledge): CompositeModel {
+    private fun runScript(script: List<String>, knowledge: Knowledge): CompositeModelSpecification {
 
         val interpreter = createDefaultModelInterpreter(knowledge)
 
         val commands = mutableListOf<EditorCommand>()
 
-        val result = CompositeModelBase(name = "Scene")
+        val result = CompositeModelSpecificationBase(name = "Scene")
 
         for (line in script) {
             println("Interpreting: $line")
@@ -331,14 +370,14 @@ class InterpreterTest {
 
         val result = runScript(script, Knowledge.knowledgeWithPrimitives())
 
-        assertTrue(result.components.any {
-            it is PrimitiveModel &&
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification &&
                     it.color == BROWN &&
                     it.size.x == Length(AbsoluteScalar(3.0), LengthUnit.METER)
         })
 
-        assertTrue(result.components.any {
-            it is PrimitiveModel &&
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification &&
                     it.color == BROWN &&
                     it.size.z == Length(AbsoluteScalar(2.0), LengthUnit.METER) &&
                     it.location is RelativeLocation &&

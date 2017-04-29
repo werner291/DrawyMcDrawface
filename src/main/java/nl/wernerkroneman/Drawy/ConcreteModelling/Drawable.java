@@ -27,9 +27,9 @@ import org.joml.Matrix4d;
  */
 public class Drawable {
 
-    Mesh mesh;
+    private final Mesh mesh;
 
-    SceneNode attached;
+    private SceneNode attached;
 
     public Drawable(Mesh mesh) {
         this.mesh = mesh;
@@ -47,7 +47,7 @@ public class Drawable {
      */
     void _notifyAttached(SceneNode attached) {
 
-        assert attached != null || attached == null;
+        assert attached != null;
 
         this.attached = attached;
     }

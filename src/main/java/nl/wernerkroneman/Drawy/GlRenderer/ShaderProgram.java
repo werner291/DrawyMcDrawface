@@ -25,17 +25,17 @@ import org.joml.Vector3f;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.jogamp.opengl.GL.GL_FALSE;
 import static com.jogamp.opengl.GL2ES2.*;
 
 /**
  * Class representing a fully-compiled GLSL shader program.
  */
-public class ShaderProgram {
+class ShaderProgram {
 
     private int glShaderProgram;
 
@@ -71,7 +71,7 @@ public class ShaderProgram {
 
             gl3.glGetProgramInfoLog(ProgramID, 1000, length, 0, buffer, 0);
 
-            final String errorString = "linking error for shader. Reason: " + buffer;
+            final String errorString = "linking error for shader. Reason: " + Arrays.toString(buffer);
             throw new IllegalStateException(errorString);
         }
 
@@ -85,7 +85,7 @@ public class ShaderProgram {
      * @param type     The type of the shader  (such as GL_VERTEX_SHADER)
      * @return The OpenGL id of the shader.
      */
-    static int loadAndCompileShader(String filepath, int type, GL3 gl3) {
+    private static int loadAndCompileShader(String filepath, int type, GL3 gl3) {
         int shaderID = 0;
 
         try {

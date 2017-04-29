@@ -32,7 +32,7 @@ class SidesLocationInterpreter(private val interpreter: PatternInterpreter) : Pa
     override fun interpret(capturings: Map<String, PhraseTree>,
                            context: List<InterpretationContext>): UnionLocation {
 
-        val sidesOf = interpreter.interpret<Model>(capturings["relative_to"]!!,
+        val sidesOf = interpreter.interpret<ModelSpecification>(capturings["relative_to"]!!,
                 context)
 
         return UnionLocation(mutableSetOf(

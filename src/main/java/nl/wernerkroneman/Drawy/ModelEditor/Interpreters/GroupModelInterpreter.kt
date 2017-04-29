@@ -20,9 +20,9 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
-import nl.wernerkroneman.Drawy.Modelling.GroupModel
-import nl.wernerkroneman.Drawy.Modelling.GroupModelBase
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.GroupModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.GroupModelSpecificationBase
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
@@ -31,15 +31,15 @@ import kotlin.reflect.KClass
 class GroupModelInterpreter(val number: Int,
                             val interpreter: PatternInterpreter) : PatternInterpreter.InterpretedObjectFactory {
     override val interpretedTypePrediction: KClass<*>
-        get() = GroupModel::class
+        get() = GroupModelSpecification::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
                            context: List<InterpretationContext>) =
-            GroupModelBase(
-                    name = "Unnamed Group Model",
+            GroupModelSpecificationBase(
+                    name = "Unnamed Group ModelSpecification",
                     number = if (capturings["number"] == null) number
                     else interpreter.interpret<Int>(capturings["number"]!!, context),
-                    memberModelType = interpreter.interpret<Model>(singularize(capturings["member_type"]!!), context)
+                    memberModelType = interpreter.interpret<ModelSpecification>(singularize(capturings["member_type"]!!), context)
             )
 
     private fun singularize(phraseTree: PhraseTree): PhraseTree {

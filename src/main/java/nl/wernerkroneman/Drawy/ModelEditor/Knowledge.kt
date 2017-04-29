@@ -19,28 +19,28 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.Modelling.Model
-import nl.wernerkroneman.Drawy.Modelling.PrimitiveModel
-import nl.wernerkroneman.Drawy.Modelling.PrimitiveModelBase
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.PrimitiveModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.PrimitiveModelSpecificationBase
 import java.util.*
 
 class Knowledge {
 
     // @inv For each entry: model name matches key
-    var knownObjects: MutableMap<String, Model> = TreeMap(String.CASE_INSENSITIVE_ORDER)
+    var knownObjects: MutableMap<String, ModelSpecification> = TreeMap(String.CASE_INSENSITIVE_ORDER)
 
-    fun getObject(name: String): Model? {
+    fun getObject(name: String): ModelSpecification? {
         return knownObjects[name]
     }
 
-    fun remember(model: Model) {
+    fun remember(model: ModelSpecification) {
         knownObjects.put(model.name, model)
     }
 
     val numberOfObjects: Int
         get() = knownObjects.size
 
-    fun isKnownObject(model: Model): Boolean {
+    fun isKnownObject(model: ModelSpecification): Boolean {
         return knownObjects.values.any({ it == model })
     }
 
@@ -50,13 +50,13 @@ class Knowledge {
             val knowledge = Knowledge()
 
             knowledge.remember(
-                    PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE))
+                    PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE))
             knowledge.remember(
-                    PrimitiveModelBase(name = "Cylinder", shape = PrimitiveModel.ShapeType.CYLINDER))
+                    PrimitiveModelSpecificationBase(name = "Cylinder", shape = PrimitiveModelSpecification.ShapeType.CYLINDER))
             knowledge.remember(
-                    PrimitiveModelBase(name = "Sphere", shape = PrimitiveModel.ShapeType.SPHERE))
+                    PrimitiveModelSpecificationBase(name = "Sphere", shape = PrimitiveModelSpecification.ShapeType.SPHERE))
             knowledge.remember(
-                    PrimitiveModelBase(name = "Cone", shape = PrimitiveModel.ShapeType.CONE))
+                    PrimitiveModelSpecificationBase(name = "Cone", shape = PrimitiveModelSpecification.ShapeType.CONE))
 
             return knowledge
         }

@@ -20,7 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
-import nl.wernerkroneman.Drawy.Modelling.CompositeModel
+import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 
 /**
@@ -46,7 +46,7 @@ class MainInterpreter(val interpreter: PatternInterpreter = createDefaultModelIn
      * @param rootContext The context that the user can currently see.
      */
     fun interpret(toInterpret: String,
-                  rootContext: CompositeModel): EditorCommand {
+                  rootContext: CompositeModelSpecification): EditorCommand {
 
         val tree = SyntaxNetLink.parse(toInterpret)
 

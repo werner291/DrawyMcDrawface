@@ -21,7 +21,7 @@ package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
 import nl.wernerkroneman.Drawy.Modelling.Size
 import nl.wernerkroneman.Drawy.Modelling.combineLocations
@@ -35,76 +35,75 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                                internal val interpreter: PatternInterpreter) :
         PatternInterpreter.InterpretedObjectFactory {
 
-    class ModelInterpretationContext(val modelSoFar: Model) : InterpretationContext
+    class ModelInterpretationContext(val modelSoFar: ModelSpecification) : InterpretationContext
 
     override val interpretedTypePrediction: KClass<*>
-        get() = Model::class
+        get() = ModelSpecification::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): Model {
+                           context: List<InterpretationContext>): ModelSpecification {
 
-        var phrase = capturings.get("name") ?:
+        val phrase = capturings["name"] ?:
                 throw IllegalStateException("No name capturing")
 
         val modelName = if (phrase.nature == "NN") phrase.rootWord
                         else phrase.rootWord.singularize()
 
-        var result = knowledge.getObject(modelName)?.derive("a $modelName") ?:
+        val result = knowledge.getObject(modelName)?.derive("a $modelName") ?:
                 throw NoSuchElementException("No known model named " + phrase.rootWord)
 
 
 
-        for (child in phrase.children) {
+        phrase.children
+                .asSequence()
+                .map { interpreter.interpret<Any?>(it, context = context + ModelInterpretationContext(result)) }
+                .forEach {
+                    when (it) {
 
-            val interpreted = interpreter.interpret<Any?>(child, context = context + ModelInterpretationContext(result))
+                        is RelativeLocation -> {
+                            result.location = combineLocations(result.location, it)
+                        }
 
-            when (interpreted) {
-
-                is RelativeLocation -> {
-                    result.location = combineLocations(result.location, interpreted)
-                }
-
-            /*is RelativePositionConstraint -> {
-                when {
-                    interpreted.b is CompositeModel.Component -> {
-                        if (model !is CompositeModel) {
-                            model = CompositeModel().apply {
-                                val comp = Component(model)
-                                components.add(comp)
-                                comp
+                    /*is RelativePositionConstraint -> {
+                    when {
+                        interpreted.b is CompositeModelSpecification.Component -> {
+                            if (model !is CompositeModelSpecification) {
+                                model = CompositeModelSpecification().apply {
+                                    val comp = Component(model)
+                                    directComponents.add(comp)
+                                    comp
+                                }
                             }
-                        }
-                        if (interpreted.a == null)
-                            interpreted.a = model.components.first()
+                            if (interpreted.a == null)
+                                interpreted.a = model.directComponents.first()
 
-                        model.constraints.add(interpreted)
+                            model.constraints.add(interpreted)
+                        }
+                        interpreted.b is GroupModelSpecification.ComponentDesignator -> {
+                            if (model !is GroupModelSpecification) {
+                                throw IllegalStateException("Cannot use GroupModelSpecification placeholder without GroupModelSpecification context.")
+                            }
+
+                            val a = interpreted.a
+                            val b = interpreted.b
+
+                            if (a == null && b is GroupModelSpecification.ComponentDesignator.RelativeComponent) {
+                                interpreted.a = if (b.offset < 0)
+                                    GroupModelSpecification.ComponentDesignator.IndexRangeComponent(-b.offset, null)
+                                else TODO()
+                            }
+
+                            model.constraints.add(interpreted)
+                        }
                     }
-                    interpreted.b is GroupModel.ComponentDesignator -> {
-                        if (model !is GroupModel) {
-                            throw IllegalStateException("Cannot use GroupModel placeholder without GroupModel context.")
+                }*/
+
+                        is Size -> {
+                            result.size = it
                         }
 
-                        val a = interpreted.a
-                        val b = interpreted.b
-
-                        if (a == null && b is GroupModel.ComponentDesignator.RelativeComponent) {
-                            interpreted.a = if (b.offset < 0)
-                                GroupModel.ComponentDesignator.IndexRangeComponent(-b.offset, null)
-                            else TODO()
-                        }
-
-                        model.constraints.add(interpreted)
                     }
                 }
-            }*/
-
-                is Size -> {
-                    result.size = interpreted
-                }
-
-            }
-
-        }
 
         return result
 

@@ -20,7 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -43,9 +43,9 @@ class KnowledgeResolver(private val knowledge: Knowledge,
         this.fallback = fallback
     }
 
-    override fun resolveObject(name: String): Model {
+    override fun resolveObject(name: String): ModelSpecification {
 
-        var toCreate: Model? = knowledge.getObject(name)
+        var toCreate: ModelSpecification? = knowledge.getObject(name)
 
         if (toCreate == null) {
 

@@ -21,7 +21,7 @@ package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
 import nl.wernerkroneman.Drawy.ConcreteModelling.*
 import nl.wernerkroneman.Drawy.Modelling.*
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.RelativePosition.DimensionOrder.*
+import nl.wernerkroneman.Drawy.Modelling.RelativePosition.DimensionOrder.*
 import org.joml.Matrix4d
 import org.joml.Vector3d
 import sun.plugin.dom.exception.InvalidStateException
@@ -31,13 +31,13 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
 
-    private val absToConcrete = HashMap<Model, ConcreteModel>()
+    private val absToConcrete = HashMap<ModelSpecification, ConcreteModel>()
 
-    private val beingComputed = HashSet<Model>()
+    private val beingComputed = HashSet<ModelSpecification>()
 
     private val scene = Scene()
 
-    class ConcreteModel(var abstract: Model,
+    class ConcreteModel(var abstract: ModelSpecification,
                         val nodes: MutableSet<SceneNode> = HashSet<SceneNode>()) {
         val aabb: AABB
             get() = nodes.map { it.computeWorldAABB() }
@@ -53,7 +53,7 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * *
      * @return A concrete, drawable scene
      */
-    fun computeScene(absModel: Model): Scene {
+    fun computeScene(absModel: ModelSpecification): Scene {
 
         createConcreteForModel(absModel, ROOT_CONTEXT)
 
@@ -70,7 +70,7 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
     /*
      * Get the node for the model, or create it if it exists.
      */
-    fun getOrCreateConcreteForModel(model: Model): ConcreteModel {
+    fun getOrCreateConcreteForModel(model: ModelSpecification): ConcreteModel {
 
         if (model !in absToConcrete) {
             createConcreteForModel(model, ROOT_CONTEXT)
@@ -83,27 +83,27 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * @pre {@code model !in beingComputed}
      * @post {@code model !in beingComputed}
      */
-    fun createConcreteForModel(model: Model, sizeInfo: SizeInfo): ConcreteModel {
+    fun createConcreteForModel(model: ModelSpecification, sizeInfo: SizeInfo): ConcreteModel {
 
         if (model in beingComputed) {
-            throw RuntimeException("Model contains a cycle!")
+            throw RuntimeException("ModelSpecification contains a cycle!")
         }
 
         if (model in absToConcrete) {
-            throw InvalidStateException("Model being re-absToConcrete!")
+            throw InvalidStateException("ModelSpecification being re-absToConcrete!")
         }
 
         // Add current to beingComputed for cycle detection
         beingComputed.add(model)
 
         val concrete: ConcreteModel = when (model) {
-            is CompositeModel ->
+            is CompositeModelSpecification ->
                 concreteForCompositeModel(model, sizeInfo)
-            is GroupModel ->
+            is GroupModelSpecification ->
                 computeSceneNodeForGroupModel(model, sizeInfo)
-            is PrimitiveModel ->
+            is PrimitiveModelSpecification ->
                 computeSceneNodeForPrimitive(model, sizeInfo)
-            is AnyModel ->
+            is AnyModelSpecification ->
                 createSceneNodeForAnyModel(model, sizeInfo)
             else ->
                 throw UnsupportedOperationException("Unknown model type: " + model)
@@ -118,21 +118,21 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
     }
 
-    fun createSceneNodeForAnyModel(model: AnyModel, sizeInfo: SizeInfo): ConcreteModel {
+    fun createSceneNodeForAnyModel(model: AnyModelSpecification, sizeInfo: SizeInfo): ConcreteModel {
         val choice = model.pick()
         return getOrCreateConcreteForModel(choice)
     }
 
-    fun computeSceneNodeForPrimitive(absModel: PrimitiveModel, sizeInfo: SizeInfo): ConcreteModel {
+    fun computeSceneNodeForPrimitive(absModel: PrimitiveModelSpecification, sizeInfo: SizeInfo): ConcreteModel {
 
         val node = scene.rootSceneNode.createChildNode()
 
         node.addDrawable(when (absModel.shape) {
-            PrimitiveModel.ShapeType.CUBE ->
+            PrimitiveModelSpecification.ShapeType.CUBE ->
                 Drawable(primitiveGenerator.generateUnitCube())
-            PrimitiveModel.ShapeType.SPHERE ->
+            PrimitiveModelSpecification.ShapeType.SPHERE ->
                 Drawable(primitiveGenerator.generateSphere((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier, 16, 8))
-            PrimitiveModel.ShapeType.CYLINDER ->
+            PrimitiveModelSpecification.ShapeType.CYLINDER ->
                 Drawable(primitiveGenerator.generateCylinder((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier,
                         (sizeInfo.size ?: 1.0) * sizeInfo.sizeModifier,
                         16))
@@ -145,15 +145,15 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
     }
 
     /**
-     * In case of a CompositeModel, every model instance
+     * In case of a CompositeModelSpecification, every model instance
      * in the model will be given a SceneNode.
      *
      *
-     * In positioning the components, only those in the CompositeModel are taken into account.
+     * In positioning the directComponents, only those in the CompositeModelSpecification are taken into account.
      * Taking this higher up in the tree into account is planned later on,
      * but this should work for now.
      */
-    private fun computeSceneNodeForGroupModel(absModel: GroupModel,
+    private fun computeSceneNodeForGroupModel(absModel: GroupModelSpecification,
                                               sizeInfo: SizeInfo): ConcreteModel {
 
         // TODO implement identical models.
@@ -166,20 +166,20 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
     }
 
     /**
-     * In case of a CompositeModel, every model instance
+     * In case of a CompositeModelSpecification, every model instance
      * in the model will be given a SceneNode.
      *
      *
-     * In positioning the components, only those in the CompositeModel are taken into account.
+     * In positioning the directComponents, only those in the CompositeModelSpecification are taken into account.
      * Taking this higher up in the tree into account is planned later on,
      * but this should work for now.
      */
-    private fun concreteForCompositeModel(absModel: CompositeModel,
+    private fun concreteForCompositeModel(absModel: CompositeModelSpecification,
                                           sizeInfo: SizeInfo): ConcreteModel {
         
         val childContext = SizeInfo()
 
-        return ConcreteModel(absModel, absModel.components
+        return ConcreteModel(absModel, absModel.directComponents
                 .map { getOrCreateConcreteForModel(it) }
                 .map { it.nodes }
                 .flatten()
@@ -190,14 +190,11 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
      * Compute the translation of the child SceneNode corresponding to a given component.
      *
      * @param childNode The node of which to compute the transform
-     * @param component The component corresponding to the node
-     * @param componentToNode A function that, for every component,
-     *                  provides the corresponding SceneNode that was previously absToConcrete.
-     * @param composite  The CompositeModel that is the context
+     * @param absModel The model that the node corresponds to.
      */
     private fun computeObjectTransform(
             childNode: SceneNode,
-            absModel: Model): Matrix4d {
+            absModel: ModelSpecification): Matrix4d {
 
         // Get an AABB to estimate how big the component is and how the AABB fits around it.
         val componentAABB = childNode.computeParentContextAABB()

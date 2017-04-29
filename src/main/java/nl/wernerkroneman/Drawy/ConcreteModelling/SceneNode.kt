@@ -44,7 +44,7 @@ class SceneNode {
      * @param parent
      */
     var parent: SceneNode? = null
-        protected set
+        private set
     var transform = Matrix4d()
         internal set
     private val children = ArrayList<SceneNode>()
@@ -96,7 +96,7 @@ class SceneNode {
     }
 
     fun addDrawable(drawable: Drawable) {
-        assert(drawable.getAttached() == null)
+        assert(drawable.attached == null)
         drawables.add(drawable)
         drawable._notifyAttached(this)
     }

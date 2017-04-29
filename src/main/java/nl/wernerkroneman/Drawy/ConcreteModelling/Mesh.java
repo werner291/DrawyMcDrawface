@@ -32,10 +32,10 @@ import java.util.List;
  */
 public class Mesh {
 
-    protected List<Vector3d> vertices = new ArrayList<>();
-    protected List<Vector3d> normals = new ArrayList<>();
+    protected final List<Vector3d> vertices = new ArrayList<>();
+    protected final List<Vector3d> normals = new ArrayList<>();
+    protected final List<Vector2d> texCoords = new ArrayList<>();
     protected List<Vector3d> colors = new ArrayList<>();
-    protected List<Vector2d> texCoords = new ArrayList<>();
 
     /**
      * Add a triangle with the specified vertices, computes normals automatically
@@ -50,7 +50,7 @@ public class Mesh {
     /**
      * Add a triangle and the specified surface normal
      */
-    public void addTriangle(Vector3d a, Vector3d b, Vector3d c, Vector3d normal) {
+    private void addTriangle(Vector3d a, Vector3d b, Vector3d c, Vector3d normal) {
 
         addTriangle(a, b, c, normal, normal, normal);
     }
@@ -58,8 +58,8 @@ public class Mesh {
     /**
      * Add a triangle with the specified vertices and one normal for each vertex.
      */
-    public void addTriangle(Vector3d a, Vector3d b, Vector3d c,
-                            Vector3d aN, Vector3d bN, Vector3d cN) {
+    protected void addTriangle(Vector3d a, Vector3d b, Vector3d c,
+                               Vector3d aN, Vector3d bN, Vector3d cN) {
         vertices.add(a);
         vertices.add(b);
         vertices.add(c);
@@ -79,7 +79,7 @@ public class Mesh {
      * to it won't modify the one associated with this mesh.
      *
      * @return the AABB
-     * @pre !vertices.isEmpty()
+     * @pre {@code !vertices.isEmpty()}
      */
     public AABB computeAABB() {
 

@@ -20,7 +20,7 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
-import nl.wernerkroneman.Drawy.Modelling.Model
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 
 /**
  * Resolver that starts a description session.
@@ -44,7 +44,7 @@ class RecursiveSessionResolver(private val interactor: BlockingInteractor) : Mod
      * *
      * @pre sessionContext != null
      */
-    override fun resolveObject(name: String): Model {
+    override fun resolveObject(name: String): ModelSpecification {
 
         if (sessionContext == null) {
             throw IllegalStateException("Session context not initialized.")

@@ -96,7 +96,7 @@ class AbsoluteSize(override var x: Length,
     constructor(all: Length) : this(all, all, all)
 }
 
-class DerivedSize(val model: Model) : Size() {
+class DerivedSize(val model: ModelSpecification) : Size() {
     override var x: Length by DelegatedUntilSet({ model.size.x })
     override var y: Length by DelegatedUntilSet({ model.size.y })
     override var z: Length by DelegatedUntilSet({ model.size.z })

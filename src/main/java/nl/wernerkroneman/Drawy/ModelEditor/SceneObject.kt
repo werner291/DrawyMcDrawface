@@ -19,11 +19,11 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.Modelling.Model
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.RelativePosition
 
-class SceneObject(val model: Model,
+class SceneObject(val model: ModelSpecification,
                   val relations: MutableSet<SceneRelation>)
 
-class SceneRelation(val relPos: RelativePositionConstraint.RelativePosition,
+class SceneRelation(val relPos: RelativePosition,
                     val relationTo: SceneObject)

@@ -36,17 +36,17 @@ class AbstractToConcreteTest {
     fun computeSceneSingleCube() {
 
         // This should produce a single cube centered at (0,0,0) of edge x 1.
-        val cube = PrimitiveModelBase(name = "Cube",
-                shape = PrimitiveModel.ShapeType.CUBE)
+        val cube = PrimitiveModelSpecificationBase(name = "Cube",
+                shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
         val result = converter.computeScene(cube)
 
-        val cubemesh = result.getRootSceneNode()
+        val cubemesh = result.rootSceneNode
                 .getChildren().first()
                 .getDrawables().first()
-                .getMesh()
+                .mesh
 
         val box = cubemesh.computeAABB()
 
@@ -65,20 +65,20 @@ class AbstractToConcreteTest {
     fun computeSceneSingleCubeInComposite() {
         // This should produce a single cube centered at (0,0,0) of edge x 1.
 
-        val cube = PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE)
+        val cube = PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
-        val composite = CompositeModelBase(name = "Cube container.")
+        val composite = CompositeModelSpecificationBase(name = "Cube container.")
 
-        composite.components.add(cube)
+        composite.directComponents.add(cube)
 
         val converter = AbstractToConcrete(DefaultMeshFactory())
 
         val result = converter.computeScene(composite)
 
-        val childNode = result.getRootSceneNode().getChildren()[0]
+        val childNode = result.rootSceneNode.getChildren()[0]
         Assert.assertEquals(1, childNode.getDrawables().size.toLong())
 
-        val cubemesh = childNode.getDrawables()[0].getMesh()
+        val cubemesh = childNode.getDrawables()[0].mesh
 
         val box = cubemesh.computeAABB()
 
@@ -97,28 +97,28 @@ class AbstractToConcreteTest {
     fun computeSceneMultipleCubeInComposite() {
         // This should produce multiple, non-overlapping cubes.
         for (rep in 0..49) {
-            val cube = PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE)
+            val cube = PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
-            val composite = CompositeModelBase(name = "Cube container.")
+            val composite = CompositeModelSpecificationBase(name = "Cube container.")
 
             val NUM_CUBES = 10
 
             for (i in 0..NUM_CUBES - 1) {
-                composite.components.add(cube.derive("Cube ${i + 1}"))
+                composite.directComponents.add(cube.derive("Cube ${i + 1}"))
             }
 
             val converter = AbstractToConcrete(DefaultMeshFactory())
 
             val result = converter.computeScene(composite)
 
-            Assert.assertEquals(0, result.getRootSceneNode().getDrawables().size.toLong())
-            Assert.assertEquals(NUM_CUBES.toLong(), result.getRootSceneNode().getChildren().size.toLong())
+            Assert.assertEquals(0, result.rootSceneNode.getDrawables().size.toLong())
+            Assert.assertEquals(NUM_CUBES.toLong(), result.rootSceneNode.getChildren().size.toLong())
 
             (0..NUM_CUBES - 1).forEach { i ->
                 (0..NUM_CUBES - 1).forEach { j ->
                     if (i != j) {
-                        val a = result.getRootSceneNode().getChildren()[i].getDrawables()[0].worldAABB
-                        val b = result.getRootSceneNode().getChildren()[j].getDrawables()[0].worldAABB
+                        val a = result.rootSceneNode.getChildren()[i].getDrawables()[0].worldAABB
+                        val b = result.rootSceneNode.getChildren()[j].getDrawables()[0].worldAABB
 
                         Assert.assertFalse(a.intersects(b, 0.01))
                     }
@@ -134,19 +134,19 @@ class AbstractToConcreteTest {
     fun testRelativePositionConstraint() {
         for (rep in 0..99) {
             // Set up a simple scene with two cubes
-            val cube = PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE)
+            val cube = PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
-            val composite = CompositeModelBase(name = "Cube container.")
+            val composite = CompositeModelSpecificationBase(name = "Cube container.")
 
-            // Create three cube components.
+            // Create three cube directComponents.
             val cubeA = cube.derive("A")
-            composite.components.add(cubeA)
+            composite.directComponents.add(cubeA)
 
             val cubeB = cube.derive("B")
-            composite.components.add(cubeB)
+            composite.directComponents.add(cubeB)
 
             val cubeC = cube.derive("C")
-            composite.components.add(cubeC)
+            composite.directComponents.add(cubeC)
 
             cubeA.location = RelativeLocation(cubeB, ABOVE, Distance.ANY)
             cubeB.location = RelativeLocation(cubeC, ABOVE, Distance.ANY)
@@ -157,7 +157,7 @@ class AbstractToConcreteTest {
             val scene = converter.computeScene(composite)
 
             // Should be three children
-            val children = scene.getRootSceneNode().getChildren()
+            val children = scene.rootSceneNode.getChildren()
             Assert.assertEquals(3, children.size.toLong())
 
             // Check for intersecting pairs
@@ -172,7 +172,7 @@ class AbstractToConcreteTest {
             }
 
             // Check whether the bounding box is consistent with a stack of 3 cubes.
-            val totalBox = scene.getRootSceneNode().computeWorldAABB()
+            val totalBox = scene.rootSceneNode.computeWorldAABB()
             Assert.assertEquals(3.0, totalBox.sizeY, 0.5)
             Assert.assertEquals(1.0, totalBox.sizeX, 0.1)
             Assert.assertEquals(1.0, totalBox.sizeZ, 0.1)
@@ -186,19 +186,19 @@ class AbstractToConcreteTest {
     fun testRelativePositionConstraintExactDistance() {
         for (rep in 0..49) {
             // Set up a simple scene with two cubes
-            val cube = PrimitiveModelBase(name = "Cube", shape = PrimitiveModel.ShapeType.CUBE)
+            val cube = PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
-            val composite = CompositeModelBase(name = "Cube container.")
+            val composite = CompositeModelSpecificationBase(name = "Cube container.")
 
-            // Create three cube components.
+            // Create three cube directComponents.
             val cubeA = cube.derive("A")
-            composite.components.add(cubeA)
+            composite.directComponents.add(cubeA)
 
             val cubeB = cube.derive("B")
-            composite.components.add(cubeB)
+            composite.directComponents.add(cubeB)
 
             val cubeC = cube.derive("C")
-            composite.components.add(cubeC)
+            composite.directComponents.add(cubeC)
 
             cubeA.location = RelativeLocation(cubeB, ABOVE, FixedDistance(0.0))
             cubeB.location = RelativeLocation(cubeC, ABOVE, FixedDistance(0.0))
@@ -209,7 +209,7 @@ class AbstractToConcreteTest {
             val scene = converter.computeScene(composite)
 
             // Should be three children
-            val children = scene.getRootSceneNode().getChildren()
+            val children = scene.rootSceneNode.getChildren()
             Assert.assertEquals(3, children.size.toLong())
 
             // Check for intersecting pairs
@@ -224,7 +224,7 @@ class AbstractToConcreteTest {
             }
 
             // Check whether the bounding box is consistent with a stack of 3 cubes.
-            val totalBox = scene.getRootSceneNode().computeWorldAABB()
+            val totalBox = scene.rootSceneNode.computeWorldAABB()
             Assert.assertEquals(3.0, totalBox.sizeY, 0.5)
             Assert.assertEquals(1.0, totalBox.sizeX, 0.1)
             Assert.assertEquals(1.0, totalBox.sizeZ, 0.1)
