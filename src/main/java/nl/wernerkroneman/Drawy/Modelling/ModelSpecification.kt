@@ -33,7 +33,7 @@ import java.util.*
  */
 abstract class ModelSpecification(val id: UUID = UUID.randomUUID(),
                                   var name: String,
-                                  var location: Location? = null) : java.io.Serializable {
+                                  var location: Location? = null) {
 
     /**
      * Whether to allow modifications.

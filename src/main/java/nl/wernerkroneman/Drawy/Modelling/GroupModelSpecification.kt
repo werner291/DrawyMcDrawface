@@ -104,21 +104,33 @@ abstract class GroupModelSpecification(id: UUID = UUID.randomUUID(),
         // Note that "relative to what" must be understood from context.
         class RelativeComponent(val offset: Int) : nl.wernerkroneman.Drawy.Modelling.GroupModelSpecification.ComponentDesignator()
     }
+
+    fun totalSpecificationForMemberWithIndex(index: Int): ModelSpecification {
+        return TODO("Not implemented")
+    }
 }
 
 class GroupModelSpecificationBase(id: UUID = UUID.randomUUID(),
                                   name: String,
                                   override var number: Int,
-                                  override var memberModelType: ModelSpecification) : GroupModelSpecification(id, name)
+                                  override var memberModelType: ModelSpecification) : GroupModelSpecification(id, name) {
+
+    override fun strongerThan(other: ModelSpecification): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
 
 class GroupModelSpecificationDerived(id: UUID = UUID.randomUUID(),
                                      name: String,
                                      val base: GroupModelSpecification) : GroupModelSpecification(id, name) {
+    override fun strongerThan(other: ModelSpecification): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    override var number: Int as DelegatedUntilSet
-    { base.number }
+    override var number: Int
+            by DelegatedUntilSet { base.number }
 
-    override var memberModelType: ModelSpecification as DelegatedUntilSet
-    { base.memberModelType }
+    override var memberModelType: ModelSpecification
+            by DelegatedUntilSet { base.memberModelType }
 
 }

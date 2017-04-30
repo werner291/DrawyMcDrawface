@@ -29,8 +29,9 @@ class Knowledge {
     // @inv For each entry: model name matches key
     var knownObjects: MutableMap<String, ModelSpecification> = TreeMap(String.CASE_INSENSITIVE_ORDER)
 
-    fun getObject(name: String): ModelSpecification? {
-        return knownObjects[name]
+    fun getObject(name: String): ModelSpecification {
+        return knownObjects[name] ?:
+                throw NoSuchElementException("I don't know any model by the name of $name.")
     }
 
     fun remember(model: ModelSpecification) {

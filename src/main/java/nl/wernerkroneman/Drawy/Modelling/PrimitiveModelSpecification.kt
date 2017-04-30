@@ -44,11 +44,18 @@ class PrimitiveModelSpecificationBase(id: UUID = UUID.randomUUID(),
                                       name: String,
                                       override var shape: PrimitiveModelSpecification.ShapeType,
                                       override var color: Color = Color.LIGHT_GRAY)
-    : PrimitiveModelSpecification(id, name)
+    : PrimitiveModelSpecification(id, name) {
+    override fun strongerThan(other: ModelSpecification): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+}
 
 class PrimitiveDerivative(id: UUID = UUID.randomUUID(),
                           name: String,
                           var base: PrimitiveModelSpecification) : PrimitiveModelSpecification(id, name) {
+    override fun strongerThan(other: ModelSpecification): Boolean {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override var color: Color by DelegatedUntilSet { base.color }
 

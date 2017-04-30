@@ -170,14 +170,15 @@ class InterpreterTest {
     @Test
     fun searchModel() {
 
-        val interpreter = createDefaultModelInterpreter()
         val knowledge = Knowledge.knowledgeWithPrimitives()
+        val interpreter = createDefaultModelInterpreter(knowledge)
 
-        val sphere = knowledge.getObject("sphere")!!
+        val sphere = knowledge.getObject("sphere")
 
-        val cube = knowledge.getObject("cube")!!
+        val cube = knowledge.getObject("cube")
 
-        val bigCube = knowledge.getObject("cube")!!.derive("The Block").apply {
+        val bigCube = knowledge.getObject("cube")
+                .derive("The Block").apply {
             size *= AbsoluteScalar(2.0)
         }
 
@@ -211,21 +212,21 @@ class InterpreterTest {
     @Test
     fun onEachTest() {
 
-        // Init knowledge
         val knowledge = Knowledge.knowledgeWithPrimitives()
+        val interpreter = createDefaultModelInterpreter(knowledge)
 
         val scene = CompositeModelSpecificationBase()
 
-        scene.directComponents.add(
-                GroupModelSpecificationBase(name = "spheres",
-                        memberModelType = knowledge.getObject("sphere"),
-                        number = 15)
-        )
+        val spheres = GroupModelSpecificationBase(name = "spheres",
+                memberModelType = knowledge.getObject("sphere"),
+                number = 15)
+
+        scene.directComponents.add(spheres)
 
         val result = interpreter.interpret<CreateCommand>(
                 SyntaxNetLink.parse("Put a small cube on top of each sphere."),
                 context = listOf<InterpretationContext>(
-                        DescriptionSession.DescriptionSessionContext(commands, result)
+                        DescriptionSession.DescriptionSessionContext(listOf(), scene)
                 )
         )
 
@@ -235,15 +236,13 @@ class InterpreterTest {
 
         assertEquals(15, (forEachGroup as GroupModelSpecification).number)
 
-        assertEquals(15, (forEachGroup as GroupModelSpecification).number)
-
-        assertTrue(
-                0.until(15).map { forEachGroup.modifiersApplicableToIndex(it) }
+        /*assertTrue(
+                0.until(1).map { forEachGroup.totalSpecificationForMemberWithIndex(it) }
                         .all {
-                            it.any { it == ModelSpecification::location }
+                            it.location.right == spheres.
                         }
 
-        )
+        )*/
     }
 
     @Test
@@ -252,23 +251,23 @@ class InterpreterTest {
         // Init knowledge
         val knowledge = Knowledge.knowledgeWithPrimitives()
 
-        knowledge.remember(knowledge.getObject("sphere")!!
+        knowledge.remember(knowledge.getObject("sphere")
                 .derive("snowball")
                 .apply { (this as PrimitiveModelSpecification).color = WHITE })
 
-        knowledge.remember(knowledge.getObject("cone")!!
+        knowledge.remember(knowledge.getObject("cone")
                 .derive("carrot")
                 .apply { (this as PrimitiveModelSpecification).color = ORANGE })
 
-        knowledge.remember(knowledge.getObject("sphere")!!
+        knowledge.remember(knowledge.getObject("sphere")
                 .derive("rock")
                 .apply { (this as PrimitiveModelSpecification).color = DARK_GRAY })
 
-        knowledge.remember(knowledge.getObject("rock")!!
+        knowledge.remember(knowledge.getObject("rock")
                 .derive("pebble")
                 .apply { size = AbsoluteSize(Length(AbsoluteScalar(0.1), LengthUnit.METER)) })
 
-        knowledge.remember(knowledge.getObject("cylinder")!!
+        knowledge.remember(knowledge.getObject("cylinder")
                 .derive("stick")
                 .apply {
                     size = AbsoluteSize(
