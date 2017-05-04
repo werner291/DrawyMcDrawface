@@ -27,6 +27,8 @@ import org.joml.Vector3d
 import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 
+typealias ColorSpec = java.awt.Color
+
 class AbstractToConcrete(meshFactory: MeshFactory) {
 
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
@@ -127,15 +129,17 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
         val node = scene.rootSceneNode.createChildNode()
 
+        val mat = colorToMaterial(absModel.color)
+
         node.addDrawable(when (absModel.shape) {
             PrimitiveModelSpecification.ShapeType.CUBE ->
-                Drawable(primitiveGenerator.generateUnitCube())
+                Drawable(primitiveGenerator.generateUnitCube(), mat)
             PrimitiveModelSpecification.ShapeType.SPHERE ->
-                Drawable(primitiveGenerator.generateSphere((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier, 16, 8))
+                Drawable(primitiveGenerator.generateSphere((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier, 16, 8), mat)
             PrimitiveModelSpecification.ShapeType.CYLINDER ->
                 Drawable(primitiveGenerator.generateCylinder((sizeInfo.size ?: 0.5) * sizeInfo.sizeModifier,
                         (sizeInfo.size ?: 1.0) * sizeInfo.sizeModifier,
-                        16))
+                        16), mat)
             else -> throw UnsupportedOperationException("Shape " + absModel.shape + " not implemented.")
         })
 
@@ -143,6 +147,19 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
         return ConcreteModel(absModel, mutableSetOf(node))
     }
+
+    fun colorSpecToColor(color: ColorSpec) =
+            nl.wernerkroneman.Drawy.ConcreteModelling.Color(
+                    color.red.toFloat().remapRange(0f, 255f, 0f, 1f),
+                    color.green.toFloat().remapRange(0f, 255f, 0f, 1f),
+                    color.blue.toFloat().remapRange(0f, 255f, 0f, 1f),
+                    color.alpha.toFloat().remapRange(0f, 255f, 0f, 1f))
+
+    fun colorToMaterial(color: ColorSpec) =
+            Material(ambient = colorSpecToColor(color),
+                    diffuse = colorSpecToColor(color),
+                    emissive = BLACK,
+                    specular = BLACK)
 
     /**
      * In case of a CompositeModelSpecification, every model instance
@@ -261,6 +278,16 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
         }
     }
+
+}
+
+private fun Float.remapRange(rangeAmin: Float, rangeAmax: Float,
+                             rangeBmin: Float, rangeBmax: Float): Float {
+
+    val sizeA = rangeAmax - rangeAmin
+    val sizeB = rangeBmax - rangeBmin
+
+    return rangeBmin + (this - rangeAmin) * (sizeB / sizeA)
 
 }
 

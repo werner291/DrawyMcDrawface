@@ -21,6 +21,7 @@ package nl.wernerkroneman.Drawy.GlRenderer;
 
 import com.jogamp.opengl.GL3;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Drawable;
+import nl.wernerkroneman.Drawy.ConcreteModelling.Material;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
 import nl.wernerkroneman.Drawy.ConcreteModelling.SceneNode;
 import org.joml.Matrix4d;
@@ -95,6 +96,8 @@ public class Renderer {
 
         useTopMatrix(gl3);
 
+        useMaterial(ent.getMaterial(), gl3);
+
         assert ent.getMesh() instanceof GlMesh;
 
         GlMesh mesh = (GlMesh) ent.getMesh();
@@ -108,6 +111,15 @@ public class Renderer {
         gl3.glDrawArrays(GL_TRIANGLES, 0, mesh.getVerticesInBuffer());
 
         gl3.glBindVertexArray(0);
+    }
+
+    private void useMaterial(Material material, GL3 gl) {
+
+        shaderProgram.setUniform("mat_ambient", material.getAmbient(), gl);
+        shaderProgram.setUniform("mat_diffuse", material.getDiffuse(), gl);
+        shaderProgram.setUniform("mat_specular", material.getSpecular(), gl);
+        shaderProgram.setUniform("mat_emissive", material.getEmissive(), gl);
+
     }
 
     /**

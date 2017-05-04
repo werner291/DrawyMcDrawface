@@ -30,6 +30,7 @@ import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.IN
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
+import java.awt.Color
 
 /**
  * Create a pattern interpreter loaded with a set of default patterns
@@ -278,6 +279,15 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     repeatAny()
                 }
             })
+
+    interpreter.addPattern(constantInterpreter(Color.RED),
+            buildPattern { word("red") })
+    interpreter.addPattern(constantInterpreter(Color.GREEN),
+            buildPattern { word("green") })
+    interpreter.addPattern(constantInterpreter(Color.BLUE),
+            buildPattern { word("blue") })
+    interpreter.addPattern(constantInterpreter(Color.YELLOW),
+            buildPattern { word("yellow") })
 
     return interpreter
 

@@ -17,51 +17,38 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.ConcreteModelling;
-
-import org.joml.Matrix4d;
+package nl.wernerkroneman.Drawy.ConcreteModelling
 
 /**
  * Represents an instance of a Mesh in the scene.
  * Can be attached to a SceneNode.
  */
-public class Drawable {
+class Drawable(val mesh: Mesh,
+               val material: Material = DEFAULT_GRAY) {
 
-    private final Mesh mesh;
-
-    private SceneNode attached;
-
-    public Drawable(Mesh mesh) {
-        this.mesh = mesh;
-    }
-
-    public SceneNode getAttached() {
-        return attached;
-    }
+    var attached: SceneNode? = null
+        private set
 
     /**
      * Change the reference that the Drawable has to its' parent.
      * Must not already have a parent, set to null to change parent.
-     *
+
      * @param attached The SceneNode to which this one is attached.
      */
-    void _notifyAttached(SceneNode attached) {
+    internal fun _notifyAttached(attached: SceneNode?) {
 
-        assert attached != null;
+        assert(attached != null)
 
-        this.attached = attached;
+        this.attached = attached
     }
 
-    public Mesh getMesh() {
-        return mesh;
-    }
+    internal val worldAABB: AABB
+        get() {
+            val mat = attached!!.computeWorldTransform()
+            return computeAABB().transform(mat, AABB())
+        }
 
-    AABB getWorldAABB() {
-        Matrix4d mat = attached.computeWorldTransform();
-        return computeAABB().transform(mat, new AABB());
-    }
-
-    public AABB computeAABB() {
-        return mesh.computeAABB();
+    fun computeAABB(): AABB {
+        return mesh.computeAABB()
     }
 }

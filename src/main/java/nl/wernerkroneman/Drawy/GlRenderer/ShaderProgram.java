@@ -20,6 +20,7 @@
 package nl.wernerkroneman.Drawy.GlRenderer;
 
 import com.jogamp.opengl.GL3;
+import nl.wernerkroneman.Drawy.ConcreteModelling.Color;
 import org.joml.Matrix4d;
 import org.joml.Vector3f;
 
@@ -186,6 +187,22 @@ class ShaderProgram {
 
         // Send the matrix to OpenGL
         gl3.glUniform3fv(loc, 1, floats, 0);
+
+        return loc != -1;
+    }
+
+    public boolean setUniform(String name, Color vec4, GL3 gl3) {
+
+        float[] floats = new float[]{vec4.getRed(),
+                vec4.getGreen(),
+                vec4.getBlue(),
+                vec4.getAlpha()};
+
+        // Retrieve modelviewproj uniform location
+        int loc = gl3.glGetUniformLocation(glShaderProgram, name);
+
+        // Send the matrix to OpenGL
+        gl3.glUniform4fv(loc, 1, floats, 0);
 
         return loc != -1;
     }

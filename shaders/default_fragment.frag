@@ -7,10 +7,10 @@ uniform vec3 lightDir;
 
 uniform sampler2D texture;
 
-uniform vec3 mat_ambient;
-uniform vec3 mat_diffuse;
-uniform vec3 mat_specular;
-uniform vec3 mat_emissive;
+uniform vec4 mat_ambient;
+uniform vec4 mat_diffuse;
+uniform vec4 mat_specular;
+uniform vec4 mat_emissive;
 
 void main(){
 
@@ -23,9 +23,6 @@ void main(){
     // Sample the texture
     vec4 color = texture2D(texture, vtexCoord);
 
-    // Combine the lighting intensity with the material colors
-    vec4 materialColor = vec4(mat_ambient + mat_diffuse * diffuseBrightness,1);
-
     // Combine the material with the texture
-    gl_FragColor = vec4(diffuseBrightness,diffuseBrightness,diffuseBrightness,1);
+    gl_FragColor = mat_ambient + mat_diffuse * diffuseBrightness;
 }

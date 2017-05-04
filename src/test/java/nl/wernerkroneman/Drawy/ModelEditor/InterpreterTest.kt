@@ -41,8 +41,8 @@ class InterpreterTest {
 
     private fun interpretCreateComponent(text: String): ModelSpecification {
 
-        val interpreter = createDefaultModelInterpreter()
         val knowledge = Knowledge.knowledgeWithPrimitives()
+        val interpreter = createDefaultModelInterpreter(knowledge)
 
         val result = interpreter.interpret<Any?>(
                 SyntaxNetLink.parse(text),
@@ -99,6 +99,19 @@ class InterpreterTest {
 
         assertEquals("Cylinder", model.memberModelType.name)
 
+    }
+
+    @Test
+    fun coloredCube() {
+
+        val cube = interpretCreateComponent("Create a red cube.")
+
+        assertTrue(cube is PrimitiveDerivative)
+        assertEquals(PrimitiveModelSpecification.ShapeType.CUBE,
+                (cube as PrimitiveModelSpecification).shape)
+
+        assertEquals(Color.RED,
+                cube.color)
     }
 
     @Test

@@ -21,14 +21,11 @@ package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
-import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
-import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
-import nl.wernerkroneman.Drawy.Modelling.Size
-import nl.wernerkroneman.Drawy.Modelling.combineLocations
+import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import java.util.*
+import java.awt.Color
 import kotlin.reflect.KClass
 
 class ModelInstanceInterpreter(internal val knowledge: Knowledge,
@@ -49,8 +46,7 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
         val modelName = if (phrase.nature == "NN") phrase.rootWord
                         else phrase.rootWord.singularize()
 
-        val result = knowledge.getObject(modelName)?.derive("a $modelName") ?:
-                throw NoSuchElementException("No known model named " + phrase.rootWord)
+        val result = knowledge.getObject(modelName).derive("a $modelName")
 
 
 
@@ -64,39 +60,13 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                             result.location = combineLocations(result.location, it)
                         }
 
-                    /*is RelativePositionConstraint -> {
-                    when {
-                        interpreted.b is CompositeModelSpecification.Component -> {
-                            if (model !is CompositeModelSpecification) {
-                                model = CompositeModelSpecification().apply {
-                                    val comp = Component(model)
-                                    directComponents.add(comp)
-                                    comp
-                                }
+                        is Color -> {
+                            if (result is PrimitiveModelSpecification) {
+                                result.color = it
+                            } else {
+                                TODO("Color not supported on nonprimitive models yet.")
                             }
-                            if (interpreted.a == null)
-                                interpreted.a = model.directComponents.first()
-
-                            model.constraints.add(interpreted)
                         }
-                        interpreted.b is GroupModelSpecification.ComponentDesignator -> {
-                            if (model !is GroupModelSpecification) {
-                                throw IllegalStateException("Cannot use GroupModelSpecification placeholder without GroupModelSpecification context.")
-                            }
-
-                            val a = interpreted.a
-                            val b = interpreted.b
-
-                            if (a == null && b is GroupModelSpecification.ComponentDesignator.RelativeComponent) {
-                                interpreted.a = if (b.offset < 0)
-                                    GroupModelSpecification.ComponentDesignator.IndexRangeComponent(-b.offset, null)
-                                else TODO()
-                            }
-
-                            model.constraints.add(interpreted)
-                        }
-                    }
-                }*/
 
                         is Size -> {
                             result.size = it
