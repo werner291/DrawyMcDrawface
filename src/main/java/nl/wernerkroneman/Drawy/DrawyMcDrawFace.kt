@@ -26,14 +26,6 @@ package nl.wernerkroneman.Drawy
  *      Author: werner
  */
 
-//import nl.wernerkroneman.Drawy.Interface.BlockingInteractor;
-//import nl.wernerkroneman.Drawy.Interface.UserInteractor;
-//import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSessionListener;
-//import nl.wernerkroneman.Drawy.ModelEditor.Knowledge;
-//import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession;
-
-//import static nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.ABOVE;
-
 import com.jogamp.opengl.GLCapabilities
 import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLCanvas
@@ -133,10 +125,10 @@ private fun createSnowman(knowledge: Knowledge): CompositeModelSpecification {
 
     val snowman = CompositeModelSpecificationBase(name = "snowman")
 
-    val head = knowledge.getObject("sphere")!!.derive("Head")
+    val head = knowledge.getObject("sphere").derive("Head")
     snowman.directComponents.add(head)
 
-    val body = knowledge.getObject("sphere")!!.derive("Body")
+    val body = knowledge.getObject("sphere").derive("Body")
     snowman.directComponents.add(body)
 
     head.location = RelativeLocation(body, ABOVE, FixedDistance(0.0))
