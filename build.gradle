@@ -45,7 +45,7 @@ sourceSets {
 
 repositories {
     jcenter()
-    maven { url "https://jitpack.io" }
+    maven { url "http://jitpack.io" }
 }
 
 dependencies {
