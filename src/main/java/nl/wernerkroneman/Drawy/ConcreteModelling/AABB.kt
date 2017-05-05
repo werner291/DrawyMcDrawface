@@ -110,11 +110,11 @@ class AABB {
      * Get a finite AABB inside this AABB that is roughly centered inside this one,
      * or sticking to an edge if half-infinite.
 
-     * @param xSize  The lateral of the AABB (x)
+     * @param xSize  The lateral of the AABB (lateral)
      * *
-     * @param ySize The height (y)
+     * @param ySize The height (vertical)
      * *
-     * @param zSize The x of the AABB (z)
+     * @param zSize The lateral of the AABB (longitudinal)
      * *
      * @param dest      Where to store the result
      * *

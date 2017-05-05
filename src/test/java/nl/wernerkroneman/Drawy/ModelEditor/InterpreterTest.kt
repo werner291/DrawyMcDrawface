@@ -66,9 +66,9 @@ fun interpreterSizeTest() {
 
     val instance = interpretCreateComponent("Create a big cube.")
 
-    assertTrue(instance.size.y > Length(AbsoluteScalar(1.0), LengthUnit.METER))
-    assertTrue(instance.size.z > Length(AbsoluteScalar(1.0), LengthUnit.METER))
-    assertTrue(instance.size.x > Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(instance.size.vertical > Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(instance.size.longitudinal > Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(instance.size.lateral > Length(AbsoluteScalar(1.0), LengthUnit.METER))
 
 }
 
@@ -167,9 +167,9 @@ fun createLongBeam() {
 
     assertTrue(model is PrimitiveModelSpecification)
 
-    assertTrue(model.size.x > Length(AbsoluteScalar(1.0), LengthUnit.METER))
-    assertTrue(model.size.y == Length(AbsoluteScalar(1.0), LengthUnit.METER))
-    assertTrue(model.size.z == Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(model.size.lateral > Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(model.size.vertical == Length(AbsoluteScalar(1.0), LengthUnit.METER))
+    assertTrue(model.size.longitudinal == Length(AbsoluteScalar(1.0), LengthUnit.METER))
 
 }
 

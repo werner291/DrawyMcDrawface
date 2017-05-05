@@ -40,13 +40,13 @@ fun createSwingset() {
     assertTrue(result.directComponents.any {
         it is PrimitiveModelSpecification &&
                 it.color == BROWN &&
-                it.size.x == Length(AbsoluteScalar(3.0), LengthUnit.METER)
+                it.size.lateral == Length(AbsoluteScalar(3.0), LengthUnit.METER)
     })
 
     assertTrue(result.directComponents.any {
         it is PrimitiveModelSpecification &&
                 it.color == BROWN &&
-                it.size.z == Length(AbsoluteScalar(2.0), LengthUnit.METER) &&
+                it.size.longitudinal == Length(AbsoluteScalar(2.0), LengthUnit.METER) &&
                 it.location is RelativeLocation &&
                 (it.location as RelativeLocation).relPos == RelativePositionConstraint.BELOW &&
                 (it.location as RelativeLocation).dist == FixedDistance(0.0)

@@ -25,7 +25,8 @@ import nl.wernerkroneman.Drawy.Modelling.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
-import java.awt.Color.*
+import java.awt.Color.ORANGE
+import java.awt.Color.WHITE
 
 @Test
 fun createSnowman() {
@@ -33,32 +34,12 @@ fun createSnowman() {
     // Init knowledge
     val knowledge = Knowledge.knowledgeWithPrimitives()
 
-    knowledge.remember(knowledge.getObject("sphere")
-            .derive("snowball")
-            .apply { (this as PrimitiveModelSpecification).color = WHITE })
-
-    knowledge.remember(knowledge.getObject("cone")
-            .derive("carrot")
-            .apply { (this as PrimitiveModelSpecification).color = ORANGE })
-
-    knowledge.remember(knowledge.getObject("sphere")
-            .derive("rock")
-            .apply { (this as PrimitiveModelSpecification).color = DARK_GRAY })
-
-    knowledge.remember(knowledge.getObject("rock")
-            .derive("pebble")
-            .apply { size = AbsoluteSize(Length(AbsoluteScalar(0.1), LengthUnit.METER)) })
-
-    knowledge.remember(knowledge.getObject("cylinder")
-            .derive("stick")
-            .apply {
-                size = AbsoluteSize(
-                        x = Length(AbsoluteScalar(0.1), LengthUnit.METER),
-                        y = Length(AbsoluteScalar(0.1), LengthUnit.METER),
-                        z = Length(AbsoluteScalar(1.0), LengthUnit.METER))
-            })
-
     val script = listOf(
+            "A snowball is a white sphere.",
+            "A carror is an elongated orange cone.",
+            "A rock is a dark gray sphere.",
+            "A pebble is a small rock.",
+            "A stick is a cylinder 1 meter long and 10 cm in diameter.",
             "Create a big snowball.",
             "Put a smaller snowball on top of it.",
             "Put a smaller snowball on top of that.",

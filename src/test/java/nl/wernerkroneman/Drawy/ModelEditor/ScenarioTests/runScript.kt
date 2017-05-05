@@ -27,7 +27,8 @@ import nl.wernerkroneman.Drawy.ModelEditor.createDefaultModelInterpreter
 import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.CompositeModelSpecificationBase
 
-fun runScript(script: List<String>, knowledge: Knowledge): CompositeModelSpecification {
+fun runScript(script: List<String>,
+              knowledge: Knowledge): CompositeModelSpecification {
 
     val interpreter = createDefaultModelInterpreter(knowledge)
 

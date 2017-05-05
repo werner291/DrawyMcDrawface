@@ -77,32 +77,32 @@ class Length(val scalar: Scalar, val unit: LengthUnit = LengthUnit.METER) {
 // TODO: This is too simple. Need to do parameters properly
 abstract class Size {
 
-    abstract var x: Length
-    abstract var y: Length
-    abstract var z: Length
+    abstract var lateral: Length
+    abstract var vertical: Length
+    abstract var longitudinal: Length
 
     abstract operator fun times(scalar: Scalar): Size
 
 }
 
-class AbsoluteSize(override var x: Length,
-                   override var y: Length,
-                   override var z: Length) : Size() {
+class AbsoluteSize(override var lateral: Length,
+                   override var vertical: Length,
+                   override var longitudinal: Length) : Size() {
 
     override fun times(scalar: Scalar): Size {
-        return AbsoluteSize(x * scalar, y * scalar, z * scalar)
+        return AbsoluteSize(lateral * scalar, vertical * scalar, longitudinal * scalar)
     }
 
     constructor(all: Length) : this(all, all, all)
 }
 
 class DerivedSize(val model: ModelSpecification) : Size() {
-    override var x: Length by DelegatedUntilSet({ model.size.x })
-    override var y: Length by DelegatedUntilSet({ model.size.y })
-    override var z: Length by DelegatedUntilSet({ model.size.z })
+    override var lateral: Length by DelegatedUntilSet({ model.size.lateral })
+    override var vertical: Length by DelegatedUntilSet({ model.size.vertical })
+    override var longitudinal: Length by DelegatedUntilSet({ model.size.longitudinal })
 
     override fun times(scalar: Scalar): Size {
-        return AbsoluteSize(x * scalar, y * scalar, z * scalar)
+        return AbsoluteSize(lateral * scalar, vertical * scalar, longitudinal * scalar)
     }
 }
 

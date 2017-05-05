@@ -35,7 +35,7 @@ class AbstractToConcreteTest {
     @Throws(Exception::class)
     fun computeSceneSingleCube() {
 
-        // This should produce a single cube centered at (0,0,0) of edge x 1.
+        // This should produce a single cube centered at (0,0,0) of edge lateral 1.
         val cube = PrimitiveModelSpecificationBase(name = "Cube",
                 shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
@@ -63,7 +63,7 @@ class AbstractToConcreteTest {
     @Test
     @Throws(Exception::class)
     fun computeSceneSingleCubeInComposite() {
-        // This should produce a single cube centered at (0,0,0) of edge x 1.
+        // This should produce a single cube centered at (0,0,0) of edge lateral 1.
 
         val cube = PrimitiveModelSpecificationBase(name = "Cube", shape = PrimitiveModelSpecification.ShapeType.CUBE)
 
