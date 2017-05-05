@@ -20,7 +20,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor
 
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -29,22 +28,19 @@ internal object SyntaxNetLink {
 
     fun parse(english: String): PhraseTree {
 
-        if (!english.all({
-            it in 'a'..'z' ||
-                    it in 'A'..'Z' ||
-                    it in '0'..'9' ||
-                    it in ".,- "
-        })) {
-            throw RuntimeException("String contains illegal or unsafe characters: " + english)
-        }
-// echo 'Hello world!' | docker run --rm -i brianlow/syntaxnet
         // TODO isn't it beautiful?
         try {
 
-            val processBuilder = ProcessBuilder("/bin/sh", "-c", "echo '" + english + "' | docker run " +
-                    "--rm -i brianlow/syntaxnet")
+            val processBuilder = ProcessBuilder("docker",
+                    "run", "--rm", "-i", "brianlow/syntaxnet")
 
             val p = processBuilder.start()
+
+            p.outputStream.use {
+                it.write(english.toByteArray())
+                it.flush()
+            }
+
 
             p.waitFor()
 
@@ -70,6 +66,7 @@ internal object SyntaxNetLink {
 
                 return parsePhraseTree(parserOutput)
             }
+
 
         } catch (e: IOException) {
             e.printStackTrace()

@@ -37,7 +37,9 @@ fun runScript(script: List<String>,
     val result = CompositeModelSpecificationBase(name = "Scene")
 
     for (line in script) {
+
         println("Interpreting: $line")
+
         val interpreted = interpreter.interpret<EditorCommand>(
                 SyntaxNetLink.parse(line),
                 listOf(
@@ -46,6 +48,8 @@ fun runScript(script: List<String>,
                         )
                 )
         )
+
+        println("Interpreted as: $interpreted")
 
         interpreted.apply()
 

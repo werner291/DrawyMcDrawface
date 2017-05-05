@@ -28,69 +28,72 @@ import org.junit.Test
 import java.awt.Color.ORANGE
 import java.awt.Color.WHITE
 
-@Test
-fun createSnowman() {
+class SnowmanScript {
 
-    // Init knowledge
-    val knowledge = Knowledge.knowledgeWithPrimitives()
+    @Test
+    fun createSnowman() {
 
-    val script = listOf(
-            "A snowball is a white sphere.",
-            "A carror is an elongated orange cone.",
-            "A rock is a dark gray sphere.",
-            "A pebble is a small rock.",
-            "A stick is a cylinder 1 meter long and 10 cm in diameter.",
-            "Create a big snowball.",
-            "Put a smaller snowball on top of it.",
-            "Put a smaller snowball on top of that.",
-            "That last snowball is the head.",
-            "Stick a carrot into the front of the head.",
-            "This is the nose.",
-            "Stick a pair of small pebbles into the head above the nose for the eyes.",
-            "Insert a wooden stick into each side of the middle snowball for the arms.")
+        // Init knowledge
+        val knowledge = Knowledge.knowledgeWithPrimitives()
 
-    val result = runScript(script, knowledge)
+        val script = listOf(
+                "A snowball is a white sphere.",
+                "A carror is an elongated orange cone.",
+                "A rock is a dark gray sphere.",
+                "A pebble is a small rock.",
+                "A stick is a cylinder 1 meter long and 10 cm in diameter.",
+                "Create a big snowball.",
+                "Put a smaller snowball on top of it.",
+                "Put a smaller snowball on top of that.",
+                "That last snowball is the head.",
+                "Stick a carrot into the front of the head.",
+                "This is the nose.",
+                "Stick a pair of small pebbles into the head above the nose for the eyes.",
+                "Insert a wooden stick into each side of the middle snowball for the arms.")
 
-    // At least 3 snowballs
-    val _isSnowball = { it: ModelSpecification ->
-        it is PrimitiveModelSpecification
-                && it.shape == PrimitiveModelSpecification.ShapeType.SPHERE
-                && it.color == WHITE
+        val result = runScript(script, knowledge)
+
+        // At least 3 snowballs
+        val _isSnowball = { it: ModelSpecification ->
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.SPHERE
+                    && it.color == WHITE
+        }
+
+        assertTrue(result.directComponents.count(_isSnowball) >= 3)
+
+        // Has a carrot as a nose
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.CONE
+                    && it.color == ORANGE
+                    && it.location is RelativeLocation
+                    && it.name.contains("nose")
+                    && (it.location as RelativeLocation).relPos == RelativePositionConstraint.FRONT
+                    && _isSnowball((it.location as RelativeLocation).right)
+        })
+
+        val arms = result.components.filter({
+            it is PrimitiveModelSpecification
+                    && it.shape == PrimitiveModelSpecification.ShapeType.CYLINDER
+                    && it.color == BROWN
+                    && it.location is RelativeLocation
+                    && _isSnowball((it.location as RelativeLocation).right)
+        })
+
+        // Has a carrot as a nose
+        assertEquals(2, arms.count())
+        assertTrue(arms.any { (it.location as RelativeLocation).relPos == RelativePositionConstraint.RIGHT })
+        assertTrue(arms.any { (it.location as RelativeLocation).relPos == RelativePositionConstraint.LEFT })
+
+        val eyes = result.directComponents.first { it is GroupModelSpecification } as GroupModelSpecification
+
+        // Has a carrot as a nose
+        assertEquals(2, eyes.number)
+        assertEquals(RelativePositionConstraint.FRONT, (eyes.location as RelativeLocation).relPos)
+        assertTrue((eyes.location as RelativeLocation).right.run {
+            _isSnowball(this) && name.contains("head")
+        })
+
     }
-
-    assertTrue(result.directComponents.count(_isSnowball) >= 3)
-
-    // Has a carrot as a nose
-    assertTrue(result.directComponents.any {
-        it is PrimitiveModelSpecification
-                && it.shape == PrimitiveModelSpecification.ShapeType.CONE
-                && it.color == ORANGE
-                && it.location is RelativeLocation
-                && it.name.contains("nose")
-                && (it.location as RelativeLocation).relPos == RelativePositionConstraint.FRONT
-                && _isSnowball((it.location as RelativeLocation).right)
-    })
-
-    val arms = result.components.filter({
-        it is PrimitiveModelSpecification
-                && it.shape == PrimitiveModelSpecification.ShapeType.CYLINDER
-                && it.color == BROWN
-                && it.location is RelativeLocation
-                && _isSnowball((it.location as RelativeLocation).right)
-    })
-
-    // Has a carrot as a nose
-    assertEquals(2, arms.count())
-    assertTrue(arms.any { (it.location as RelativeLocation).relPos == RelativePositionConstraint.RIGHT })
-    assertTrue(arms.any { (it.location as RelativeLocation).relPos == RelativePositionConstraint.LEFT })
-
-    val eyes = result.directComponents.first { it is GroupModelSpecification } as GroupModelSpecification
-
-    // Has a carrot as a nose
-    assertEquals(2, eyes.number)
-    assertEquals(RelativePositionConstraint.FRONT, (eyes.location as RelativeLocation).relPos)
-    assertTrue((eyes.location as RelativeLocation).right.run {
-        _isSnowball(this) && name.contains("head")
-    })
-
 }
