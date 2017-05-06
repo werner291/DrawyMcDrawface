@@ -24,7 +24,6 @@ import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.Modelling.RelativePosition.DimensionOrder.*
 import org.joml.Matrix4d
 import org.joml.Vector3d
-import sun.plugin.dom.exception.InvalidStateException
 import java.util.*
 
 typealias ColorSpec = java.awt.Color
@@ -92,7 +91,7 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
         }
 
         if (model in absToConcrete) {
-            throw InvalidStateException("ModelSpecification being re-absToConcrete!")
+            throw IllegalStateException("ModelSpecification being re-absToConcrete!")
         }
 
         // Add current to beingComputed for cycle detection
