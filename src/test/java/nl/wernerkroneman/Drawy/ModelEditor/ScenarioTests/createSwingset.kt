@@ -26,31 +26,33 @@ import org.junit.Assert.assertTrue
 import org.junit.Ignore
 import org.junit.Test
 
-@Test @Ignore("Linear objects not yet supported.")
-fun createSwingset() {
+class Swingset {
+    @Test @Ignore("Linear objects not yet supported.")
+    fun createSwingset() {
 
-    val script = listOf(
-            "Create a 3-meter-long wooden beam 2 meters above the ground supported by a 2-meter-tall wooden posts.",
-            "Attach a two pieces of rope to the horizontal wooden beam 0.5 meters apart.",
-            "Create a small wooden plank, and attach the loose ends of the rope to both ends of the plank.")
+        val script = listOf(
+                "Create a 3-meter-long wooden beam 2 meters above the ground supported by a 2-meter-tall wooden posts.",
+                "Attach a two pieces of rope to the horizontal wooden beam 0.5 meters apart.",
+                "Create a small wooden plank, and attach the loose ends of the rope to both ends of the plank.")
 
 
-    val result = runScript(script, Knowledge.knowledgeWithPrimitives())
+        val result = runScript(script, Knowledge.knowledgeWithPrimitives())
 
-    assertTrue(result.directComponents.any {
-        it is PrimitiveModelSpecification &&
-                it.color == BROWN &&
-                it.size.lateral == Length(AbsoluteScalar(3.0), LengthUnit.METER)
-    })
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification &&
+                    it.color == BROWN &&
+                    it.size.lateral == Length(AbsoluteScalar(3.0), LengthUnit.METER)
+        })
 
-    assertTrue(result.directComponents.any {
-        it is PrimitiveModelSpecification &&
-                it.color == BROWN &&
-                it.size.longitudinal == Length(AbsoluteScalar(2.0), LengthUnit.METER) &&
-                it.location is RelativeLocation &&
-                (it.location as RelativeLocation).relPos == RelativePositionConstraint.BELOW &&
-                (it.location as RelativeLocation).dist == FixedDistance(0.0)
-    })
+        assertTrue(result.directComponents.any {
+            it is PrimitiveModelSpecification &&
+                    it.color == BROWN &&
+                    it.size.longitudinal == Length(AbsoluteScalar(2.0), LengthUnit.METER) &&
+                    it.location is RelativeLocation &&
+                    (it.location as RelativeLocation).relPos == RelativePositionConstraint.BELOW &&
+                    (it.location as RelativeLocation).dist == FixedDistance(0.0)
+        })
 
-    TODO("Cannot model ropes yet.")
+        TODO("Cannot model ropes yet.")
+    }
 }

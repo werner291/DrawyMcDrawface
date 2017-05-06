@@ -22,15 +22,17 @@ package nl.wernerkroneman.Drawy.ModelEditor.ScenarioTests
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import org.junit.Test
 
-@Test
-fun createHouse() {
+class CreateHouseTest {
+    @Test
+    fun createHouse() {
 
-    val script = listOf(
-            "Create a slab of concrete which is 3 meters long and 2 meters wide.",
-            "Put a wall on the slab along the edge.",
-            "Cover the top in planks.",
-            "Cut a doorway into the front.")
+        val script = listOf(
+                "Create a slab of concrete which is 3 meters long and 2 meters wide.",
+                "Put a wall on the slab along the edge.",
+                "Cover the top in planks.",
+                "Cut a doorway into the front.")
 
-    val result = runScript(script, Knowledge.knowledgeWithPrimitives())
+        val result = runScript(script, Knowledge.knowledgeWithPrimitives())
 
+    }
 }

@@ -22,19 +22,21 @@ package nl.wernerkroneman.Drawy.ModelEditor.ScenarioTests
 import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import org.junit.Test
 
-@Test
-fun createVillage() {
+class Village {
+    @Test
+    fun createVillage() {
 
-    val script = listOf(
-            "Let there be a valley.",
-            "There is a river flowing along the valley.",
-            "There is a road running along the river.",
-            "There is a group of houses along the road.",
-            "Add a church near the houses, also along the road.",
-            "Build a narrow wooden bridge over the river near the buildings.",
-            "Put some cows in the fields near the buildings.",
-            "Add some woods along the edges of the valley.")
+        val script = listOf(
+                "Let there be a valley.",
+                "There is a river flowing along the valley.",
+                "There is a road running along the river.",
+                "There is a group of houses along the road.",
+                "Add a church near the houses, also along the road.",
+                "Build a narrow wooden bridge over the river near the buildings.",
+                "Put some cows in the fields near the buildings.",
+                "Add some woods along the edges of the valley.")
 
-    val result = runScript(script, Knowledge.knowledgeWithPrimitives())
+        val result = runScript(script, Knowledge.knowledgeWithPrimitives())
 
+    }
 }

@@ -26,25 +26,27 @@ import nl.wernerkroneman.Drawy.Modelling.LengthUnit
 import nl.wernerkroneman.Drawy.Modelling.PrimitiveModelSpecification
 import org.junit.Test
 
-@Test
-fun human() {
+class Human {
+    @Test
+    fun human() {
 
-    val result = runScript(listOf(
-            "For the torso, create a rectangular cuboid which is 1 m high, about half a meter wide and 20 cm front-to-back.",
-            "Attach a pair of long cylinders to the bottom, one on either side, to make the legs.",
-            "Attach a pair of long cylinders towards the top on the left and right side of the torso.",
-            "These are the arms.",
-            "Attach an elongated sphere to the top of the torso in the middle.",
-            "That sphere is the head."
-    ), Knowledge.knowledgeWithPrimitives())
+        val result = runScript(listOf(
+                "For the torso, create a rectangular cuboid which is 1 m high, about half a meter wide and 20 cm front-to-back.",
+                "Attach a pair of long cylinders to the bottom, one on either side, to make the legs.",
+                "Attach a pair of long cylinders towards the top on the left and right side of the torso.",
+                "These are the arms.",
+                "Attach an elongated sphere to the top of the torso in the middle.",
+                "That sphere is the head."
+        ), Knowledge.knowledgeWithPrimitives())
 
-    result.components.any {
-        it.name == "torso"
-        it is PrimitiveModelSpecification
-        it.size.vertical == Length(AbsoluteScalar(1.0), LengthUnit.METER)
-        it.size.longitudinal == Length(AbsoluteScalar(0.2), LengthUnit.METER)
-        it.size.lateral == Length(AbsoluteScalar(0.5), LengthUnit.METER)
+        result.components.any {
+            it.name == "torso"
+            it is PrimitiveModelSpecification
+            it.size.vertical == Length(AbsoluteScalar(1.0), LengthUnit.METER)
+            it.size.longitudinal == Length(AbsoluteScalar(0.2), LengthUnit.METER)
+            it.size.lateral == Length(AbsoluteScalar(0.5), LengthUnit.METER)
+        }
+
+
     }
-
-
 }
