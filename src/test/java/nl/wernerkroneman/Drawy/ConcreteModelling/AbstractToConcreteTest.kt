@@ -104,7 +104,9 @@ class AbstractToConcreteTest {
             val NUM_CUBES = 10
 
             for (i in 0..NUM_CUBES - 1) {
-                composite.directComponents.add(cube.derive("Cube ${i + 1}"))
+                composite.directComponents.add(cube.derive("Cube ${i + 1}").apply {
+                    this.location = NOT_INTERSECTING_SOLID
+                })
             }
 
             val converter = AbstractToConcrete(DefaultMeshFactory())
