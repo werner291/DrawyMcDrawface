@@ -24,11 +24,14 @@ import org.joml.Matrix4d
 /**
  * A node in the scene graph.
  */
-data class SceneNode(val drawables: List<Drawable>,
-                     val children: List<Pair<SceneNode, Matrix4d>>) {
+data class SceneNode(val transform: Matrix4d = Matrix4d().identity(),
+                     val drawables: List<Drawable> = emptyList(),
+                     val children: List<SceneNode> = emptyList()) {
 
-    val aabb: AABB = children.fold(AABB_REVERSE_INFINITY)
-    { acc: AABB, childTransf: Pair<SceneNode, Matrix4d> ->
-        acc.extendToCover(childTransf.first.aabb.transform(childTransf.second))
+    val aabb: AABB by lazy {
+        children.map { it.aabb }
+                .plus(drawables.map { it.mesh.computeAABB() })
+                .fold(AABB_REVERSE_INFINITY) { acc: AABB, next: AABB -> acc.extendToCover(next) }
+                .transform(transform)
     }
 }

@@ -34,16 +34,14 @@ import io.reactivex.Single
 import io.reactivex.Single.just
 import nl.wernerkroneman.Drawy.AbstractToConcreteConverter.AbstractToConcrete
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene
+import nl.wernerkroneman.Drawy.ConcreteModelling.SceneNode
 import nl.wernerkroneman.Drawy.GlRenderer.GlVisualiser
 import nl.wernerkroneman.Drawy.Interface.BlockingInteractor
 import nl.wernerkroneman.Drawy.Interface.UserInteractor
-import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
+import nl.wernerkroneman.Drawy.Modelling.*
 import java.awt.BorderLayout
-import java.awt.event.ActionEvent
-import java.awt.event.ActionListener
 import java.util.concurrent.TimeUnit
 import javax.swing.JFrame
-import javax.swing.Timer
 import javax.swing.WindowConstants
 
 fun main(args: Array<String>) {
@@ -67,7 +65,13 @@ fun main(args: Array<String>) {
 
     frame.pack()
 
-    val utilityPole = ModelSpecification()
+    val pole = ModelSpecification(shape = Shape.CYLINDER,
+            orientation = VERTICAL,
+            height = Length(AbsoluteScalar(12.0), LengthUnit.METER))
+    , Size $ Diameter $ 0.30 *~ meter
+    , Material Wood]
+
+    val utilityPole = ModelSpecification(shape = Shape.CUBE)
 
     val abstractScene = just(utilityPole)
 
@@ -86,7 +90,7 @@ fun main(args: Array<String>) {
 
     // Every time changes are made to the scene
     abstractScene
-            .map({ Scene(AbstractToConcrete(visualiser.meshFactory).concreteForModel(it)) })
+            .map({ Scene(SceneNode(children = listOf(AbstractToConcrete(visualiser.meshFactory).concreteForModel(it)))) })
             .subscribe { scene -> visualiser.scene = scene; glcanvas.display() }
 
 

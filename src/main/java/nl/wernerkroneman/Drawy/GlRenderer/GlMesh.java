@@ -48,19 +48,19 @@ public class GlMesh extends Mesh {
 
         // Normal or texCoords arrays being empty means it has no texture or normals, but cannot
         // have different number of texture/normls as vertices.
-        assert (normals.isEmpty() || normals.size() == vertices.size());
-        assert (texCoords.isEmpty() || texCoords.size() == vertices.size());
+        assert (getNormals().isEmpty() || getNormals().size() == getVertices().size());
+        assert (getTexCoords().isEmpty() || getTexCoords().size() == getVertices().size());
 
         // ---------------------------------------
         // Compute the number of floats per vertex
         // ---------------------------------------
         int floatsPerVertex = 3;
 
-        if (!normals.isEmpty()) {
+        if (!getNormals().isEmpty()) {
             floatsPerVertex += 3;
         }
 
-        if (!texCoords.isEmpty()) {
+        if (!getTexCoords().isEmpty()) {
             floatsPerVertex += 2;
         }
 
@@ -76,13 +76,13 @@ public class GlMesh extends Mesh {
             vertexBufferID = vertexbufferArray[0];
         }
 
-        float[] bufData = new float[vertices.size() * floatsPerVertex];
+        float[] bufData = new float[getVertices().size() * floatsPerVertex];
 
         int bufPos = 0;
 
-        for (int i = 0; i < vertices.size(); i++) {
+        for (int i = 0; i < getVertices().size(); i++) {
 
-            Vector3d vertex = vertices.get(i);
+            Vector3d vertex = getVertices().get(i);
 
             // Write position, normal and texcoord data in interleaved format
 
@@ -90,17 +90,17 @@ public class GlMesh extends Mesh {
             bufData[bufPos++] = (float) vertex.y;
             bufData[bufPos++] = (float) vertex.z;
 
-            if (!normals.isEmpty()) {
+            if (!getNormals().isEmpty()) {
 
-                Vector3d normal = normals.get(i);
+                Vector3d normal = getNormals().get(i);
 
                 bufData[bufPos++] = (float) normal.x;
                 bufData[bufPos++] = (float) normal.y;
                 bufData[bufPos++] = (float) normal.z;
             }
 
-            if (!texCoords.isEmpty()) {
-                Vector2d texCoord = texCoords.get(i);
+            if (!getTexCoords().isEmpty()) {
+                Vector2d texCoord = getTexCoords().get(i);
 
                 bufData[bufPos++] = (float) texCoord.x;
                 bufData[bufPos++] = (float) texCoord.y;
@@ -155,7 +155,7 @@ public class GlMesh extends Mesh {
             offset += 3 * Float.BYTES;
         }*/
 
-        verticesInBuffer = vertices.size();
+        verticesInBuffer = getVertices().size();
 
         gl.glBindVertexArray(0);
 

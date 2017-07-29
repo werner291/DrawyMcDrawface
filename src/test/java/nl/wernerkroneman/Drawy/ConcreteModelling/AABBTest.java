@@ -24,14 +24,11 @@ import org.joml.Vector3d;
 import org.junit.Assert;
 import org.junit.Test;
 
-/**
- * Created by werner on 28-12-16.
- */
 public class AABBTest {
 
     @Test
     public void inside() throws Exception {
-        AABB aabb = new AABB(new Vector3d(1), new Vector3d(-1));
+        AABB aabb = new AABB(-1, -1, -1, 1, 1, 1);
 
         Assert.assertTrue(aabb.inside(new Vector3d(0, 0, 0)));
         Assert.assertTrue(aabb.inside(new Vector3d(1, 1, 1)));
@@ -50,12 +47,12 @@ public class AABBTest {
     @Test
     public void extendToCover() throws Exception {
 
-        AABB aabb = new AABB(new Vector3d(1), new Vector3d(-1));
+        AABB aabb = new AABB(-1, -1, -1, 1, 1, 1);
 
         Vector3d pos = new Vector3d(1.1, 0, 0);
         Assert.assertFalse(aabb.inside(pos));
 
-        aabb.extendToCover(pos);
+        aabb = aabb.extendToCover(pos);
 
         Assert.assertTrue(aabb.inside(pos));
 
@@ -64,35 +61,35 @@ public class AABBTest {
         pos = new Vector3d(0, -5, -33);
         Assert.assertFalse(aabb.inside(pos));
 
-        aabb.extendToCover(pos);
+        aabb = aabb.extendToCover(pos);
 
         Assert.assertTrue(aabb.inside(pos));
     }
 
     @Test
     public void getCenter() throws Exception {
-        AABB aabb = new AABB(new Vector3d(42, 11, -18), new Vector3d(22, -1, -19));
+        AABB aabb = new AABB(22, -1, -19, 42, 11, -18);
 
-        Assert.assertEquals(aabb.getCenter(new Vector3d()).x, 32, 0.001);
-        Assert.assertEquals(aabb.getCenter(new Vector3d()).y, 5, 0.001);
-        Assert.assertEquals(aabb.getCenter(new Vector3d()).z, -18.5, 0.001);
+        Assert.assertEquals(aabb.getCenter().x, 32, 0.001);
+        Assert.assertEquals(aabb.getCenter().y, 5, 0.001);
+        Assert.assertEquals(aabb.getCenter().z, -18.5, 0.001);
     }
 
     @Test
     public void transform() throws Exception {
-        AABB aabb = new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9));
+        AABB aabb = new AABB(0, 5, 9, 10, 6, 10);
 
         Matrix4d mat = new Matrix4d().identity().translate(-9, -8, 50);
 
-        AABB result = aabb.transform(mat, new AABB());
+        AABB result = aabb.transform(mat);
 
-        Assert.assertEquals(1, aabb.getMaxExtent().x, 0.001);
-        Assert.assertEquals(-2, aabb.getMaxExtent().y, 0.001);
-        Assert.assertEquals(60, aabb.getMaxExtent().z, 0.001);
+        Assert.assertEquals(1, result.getXMax(), 0.001);
+        Assert.assertEquals(-2, result.getYMax(), 0.001);
+        Assert.assertEquals(60, result.getZMax(), 0.001);
 
-        Assert.assertEquals(-9, aabb.getMinExtent().x, 0.001);
-        Assert.assertEquals(-3, aabb.getMinExtent().y, 0.001);
-        Assert.assertEquals(59, aabb.getMinExtent().z, 0.001);
+        Assert.assertEquals(-9, result.getXMin(), 0.001);
+        Assert.assertEquals(-3, result.getYMin(), 0.001);
+        Assert.assertEquals(59, result.getZMin(), 0.001);
 
     }
 
@@ -117,7 +114,7 @@ public class AABBTest {
     public void translate() throws Exception {
         AABB box = new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, 9));
 
-        AABB result = box.translate(new Vector3d(5, 1, -50), new AABB());
+        AABB result = box.translate(new Vector3d(5, 1, -50));
 
         Assert.assertEquals(15, result.getMaxExtent().x, 0.01);
         Assert.assertEquals(7, result.getMaxExtent().y, 0.01);
@@ -126,51 +123,6 @@ public class AABBTest {
         Assert.assertEquals(5, result.getMinExtent().x, 0.01);
         Assert.assertEquals(6, result.getMinExtent().y, 0.01);
         Assert.assertEquals(-41, result.getMinExtent().z, 0.01);
-    }
-
-    @Test
-    public void testFiniteInBounds() throws Exception {
-
-        AABB box = new AABB(new Vector3d(10, 6, 10), new Vector3d(0, 5, -8));
-
-        AABB result = box.getFiniteWithBounds(1,1,1, new AABB());
-
-        Assert.assertEquals(1,result.getSizeX(),0.001);
-        Assert.assertEquals(1,result.getSizeY(),0.001);
-        Assert.assertEquals(1,result.getSizeZ(),0.001);
-
-        Assert.assertEquals(4.5, result.getMinExtent().x, 0.001);
-        Assert.assertEquals(5.5, result.getMaxExtent().x, 0.001);
-
-        Assert.assertEquals(5, result.getMinExtent().y, 0.001);
-        Assert.assertEquals(6, result.getMaxExtent().y, 0.001);
-
-        Assert.assertEquals(0.5, result.getMinExtent().z, 0.001);
-        Assert.assertEquals(1.5, result.getMaxExtent().z, 0.001);
-
-    }
-
-    @Test
-    public void testFiniteInBoundsWithInfinite() throws Exception {
-
-        AABB box = new AABB(new Vector3d(Double.POSITIVE_INFINITY),
-                new Vector3d(Double.NEGATIVE_INFINITY));
-
-        AABB result = box.getFiniteWithBounds(1,1,1, new AABB());
-
-        Assert.assertEquals(1,result.getSizeX(),0.001);
-        Assert.assertEquals(1,result.getSizeY(),0.001);
-        Assert.assertEquals(1,result.getSizeZ(),0.001);
-
-        Assert.assertEquals(-0.5, result.getMinExtent().x, 0.001);
-        Assert.assertEquals(0.5, result.getMaxExtent().x, 0.001);
-
-        Assert.assertEquals(-0.5, result.getMinExtent().y, 0.001);
-        Assert.assertEquals(0.5, result.getMaxExtent().y, 0.001);
-
-        Assert.assertEquals(-0.5, result.getMinExtent().z, 0.001);
-        Assert.assertEquals(0.5, result.getMaxExtent().z, 0.001);
-
     }
 
 }

@@ -19,14 +19,13 @@
 
 package nl.wernerkroneman.Drawy.ParseTreeMatcher
 
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.constantInterpreter
 import nl.wernerkroneman.Drawy.ModelEditor.PhraseTreeBuilder
 import org.junit.Assert
 import org.junit.Test
 
 /**
  * Created by werner on 24-2-17.
- */
+
 class PatternInterpreterTest {
 
     class Foo
@@ -77,4 +76,4 @@ class PatternInterpreterTest {
         Assert.assertTrue(result3 is Baz)
 
     }
-}
+}*/

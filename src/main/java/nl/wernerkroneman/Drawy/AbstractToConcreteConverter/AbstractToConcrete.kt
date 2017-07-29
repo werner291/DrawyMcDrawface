@@ -19,8 +19,11 @@
 
 package nl.wernerkroneman.Drawy.AbstractToConcreteConverter
 
+import io.reactivex.rxkotlin.toMaybe
+import io.reactivex.rxkotlin.toSingle
 import nl.wernerkroneman.Drawy.ConcreteModelling.*
 import nl.wernerkroneman.Drawy.Modelling.*
+import org.joml.Matrix4d
 import org.joml.Vector3d
 import java.util.*
 
@@ -30,8 +33,8 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
 
     val primitiveGenerator = PrimitiveGenerator(meshFactory)
 
-    val UNIT_CUBE = primitiveGenerator.generateUnitCube()
-    val UNIT_CYLINDER = primitiveGenerator.generateCylinder(0.5, 1.0, 16)
+    val UNIT_CUBE = Drawable(primitiveGenerator.generateUnitCube())
+    val UNIT_CYLINDER = Drawable(primitiveGenerator.generateCylinder(0.5, 1.0, 16))
 
     private val absToConcrete = HashMap<ModelSpecification, SceneNode>()
 
@@ -42,8 +45,20 @@ class AbstractToConcrete(meshFactory: MeshFactory) {
     /*
      * Get the node for the model, or create it if it exists.
      */
-    fun concreteForModel(model: ModelSpecification) =
-            absToConcrete.getOrPut(model, { SceneNode(listOf(), listOf()) })
+    fun concreteForModel(model: ModelSpecification): SceneNode =
+            absToConcrete.getOrPut(model) {
+                SceneNode(
+                        // TODO transform
+                        drawables = when (model.shape) {
+                            Shape.CUBE -> listOf(UNIT_CUBE)
+                            Shape.SPHERE -> TODO()
+                            Shape.CYLINDER -> listOf(UNIT_CYLINDER)
+                            null -> listOf()
+                        },
+                        children = model.has.map { concreteForModel(it) }
+                )
+            }
+
 
 
     private fun relativeLocationToConcreteLocation(location: RelativeLocation) =

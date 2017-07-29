@@ -19,6 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ConcreteModelling
 
+import org.joml.Matrix4d
 import org.joml.Vector3d
 import org.junit.Assert
 import org.junit.Test
@@ -31,63 +32,30 @@ class SceneNodeTest {
         val meshFactory = DefaultMeshFactory()
         val primitiveGenerator = PrimitiveGenerator(meshFactory)
 
-        val root = SceneNode()
+        val cubeDrawable = Drawable(primitiveGenerator.generateUnitCube())
 
-        val child = SceneNode()
-        root.addChild(child)
+        val translation = Matrix4d().translate(5.0, 9.0, 1.0)
 
-        child.addDrawable(Drawable(primitiveGenerator.generateUnitCube()))
+        val childNode = SceneNode(drawables = listOf(cubeDrawable))
 
-        // Translation shouldn't affect, localAAB is in local coordinates
-        child.setTranslation(Vector3d(5.0, 9.0, 1.0))
+        val root = SceneNode(children = listOf(childNode), transform = translation)
 
-        val box = child.computeLocalAABB()
+        Assert.assertEquals(-0.5, childNode.aabb.xMin, 0.01)
+        Assert.assertEquals(-0.5, childNode.aabb.yMin, 0.01)
+        Assert.assertEquals(-0.5, childNode.aabb.zMin, 0.01)
 
-        Assert.assertEquals(-0.5, box.minExtent.x, 0.01)
-        Assert.assertEquals(-0.5, box.minExtent.y, 0.01)
-        Assert.assertEquals(-0.5, box.minExtent.z, 0.01)
+        Assert.assertEquals(0.5, childNode.aabb.xMax, 0.01)
+        Assert.assertEquals(0.5, childNode.aabb.yMax, 0.01)
+        Assert.assertEquals(0.5, childNode.aabb.zMax, 0.01)
 
-        Assert.assertEquals(0.5, box.maxExtent.x, 0.01)
-        Assert.assertEquals(0.5, box.maxExtent.y, 0.01)
-        Assert.assertEquals(0.5, box.maxExtent.z, 0.01)
+        Assert.assertEquals(4.5, root.aabb.xMin, 0.01)
+        Assert.assertEquals(8.5, root.aabb.yMin, 0.01)
+        Assert.assertEquals(0.5, root.aabb.zMin, 0.01)
 
-        val rootBox = root.computeLocalAABB()
+        Assert.assertEquals(5.5, root.aabb.xMax, 0.01)
+        Assert.assertEquals(9.5, root.aabb.yMax, 0.01)
+        Assert.assertEquals(1.5, root.aabb.zMax, 0.01)
 
-        Assert.assertEquals(4.5, rootBox.minExtent.x, 0.01)
-        Assert.assertEquals(8.5, rootBox.minExtent.y, 0.01)
-        Assert.assertEquals(0.5, rootBox.minExtent.z, 0.01)
-
-        Assert.assertEquals(5.5, rootBox.maxExtent.x, 0.01)
-        Assert.assertEquals(9.5, rootBox.maxExtent.y, 0.01)
-        Assert.assertEquals(1.5, rootBox.maxExtent.z, 0.01)
-
-    }
-
-    @Test
-    @Throws(Exception::class)
-    fun computeWorldAABB() {
-        val meshFactory = DefaultMeshFactory()
-        val primitiveGenerator = PrimitiveGenerator(meshFactory)
-
-        val root = SceneNode()
-
-        val child = SceneNode()
-        root.addChild(child)
-
-        child.addDrawable(Drawable(primitiveGenerator.generateUnitCube()))
-
-        // Translation shouldn't affect, localAAB is in local coordinates
-        child.setTranslation(Vector3d(5.0, 9.0, 1.0))
-
-        val box = child.computeWorldAABB()
-
-        Assert.assertEquals(4.5, box.minExtent.x, 0.01)
-        Assert.assertEquals(8.5, box.minExtent.y, 0.01)
-        Assert.assertEquals(0.5, box.minExtent.z, 0.01)
-
-        Assert.assertEquals(5.5, box.maxExtent.x, 0.01)
-        Assert.assertEquals(9.5, box.maxExtent.y, 0.01)
-        Assert.assertEquals(1.5, box.maxExtent.z, 0.01)
     }
 
 }

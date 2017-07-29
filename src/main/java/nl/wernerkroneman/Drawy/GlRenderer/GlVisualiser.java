@@ -25,13 +25,16 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import nl.wernerkroneman.Drawy.ConcreteModelling.MeshFactory;
 import nl.wernerkroneman.Drawy.ConcreteModelling.Scene;
+import nl.wernerkroneman.Drawy.ConcreteModelling.SceneNode;
+
+import java.util.Collections;
 
 public class GlVisualiser implements GLEventListener {
     private static final int WINDOW_WIDTH = 640;  // width of the drawable
     private static final int WINDOW_HEIGHT = 480; // height of the drawable
     private static String TITLE = "Drawy!";  // window's title
     private final Renderer renderer = new Renderer();
-    private Scene scene = new Scene(); // Empty scene
+    private Scene scene = new Scene(new SceneNode()); // Empty scene
     private MeshFactory meshFactory;
 
     /**

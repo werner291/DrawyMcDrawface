@@ -19,7 +19,7 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor
 
-import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
+
 import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
 import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance

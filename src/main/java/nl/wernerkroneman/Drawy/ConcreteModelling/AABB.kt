@@ -26,6 +26,11 @@ import java.util.*
 data class AABB(val xMin: Double, val yMin: Double, val zMin: Double,
                 val xMax: Double, val yMax: Double, val zMax: Double) {
 
+    constructor(maxExtent: Vector3d, minExtent: Vector3d) : this(
+            xMin = minExtent.x, xMax = maxExtent.x,
+            yMin = minExtent.y, yMax = maxExtent.y,
+            zMin = minExtent.z, zMax = maxExtent.z)
+
     /**
      * Get a point that can subjectively be considered the "most important point" in a range.
 
@@ -75,9 +80,9 @@ data class AABB(val xMin: Double, val yMin: Double, val zMin: Double,
             xMin = Math.min(box.xMin, xMin),
             yMin = Math.min(box.yMin, yMin),
             zMin = Math.min(box.zMin, zMin),
-            xMax = Math.max(box.xMin, xMax),
-            yMax = Math.max(box.yMin, yMax),
-            zMax = Math.max(box.zMin, zMax))
+            xMax = Math.max(box.xMax, xMax),
+            yMax = Math.max(box.yMax, yMax),
+            zMax = Math.max(box.zMax, zMax))
 
     /**
      * Center of the box.
@@ -134,9 +139,9 @@ data class AABB(val xMin: Double, val yMin: Double, val zMin: Double,
         return centerIsh
     }
 
-    val sizeX = xMax - xMax
-    val sizeY = yMax - yMax
-    val sizeZ = zMax - zMax
+    val sizeX = xMax - xMin
+    val sizeY = yMax - yMin
+    val sizeZ = zMax - zMin
 
     /**
      * Compute the bounding box of a transformed version of this AABB
@@ -225,19 +230,23 @@ data class AABB(val xMin: Double, val yMin: Double, val zMin: Double,
             yMax = yMax + translation.y,
             zMax = zMax + translation.z)
 
+    val minExtent = Vector3d(xMin, yMin, zMin)
+    val maxExtent = Vector3d(xMax, yMax, zMax)
+
 }
 
 val AABB_INFINITY = AABB(
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY)
+
+val AABB_REVERSE_INFINITY = AABB(
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
         Double.POSITIVE_INFINITY,
         Double.NEGATIVE_INFINITY,
         Double.NEGATIVE_INFINITY,
         Double.NEGATIVE_INFINITY)
-
-val AABB_REVERSE_INFINITY = AABB(Double.NEGATIVE_INFINITY,
-        Double.NEGATIVE_INFINITY,
-        Double.NEGATIVE_INFINITY,
-        Double.POSITIVE_INFINITY,
-        Double.POSITIVE_INFINITY,
-        Double.POSITIVE_INFINITY)

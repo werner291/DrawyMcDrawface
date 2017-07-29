@@ -48,11 +48,11 @@ class PatternInterpreter(val patterns: Collection<InterpreterEntry>) {
                   type: KClass<*> = Any::class,
                   context: List<InterpretationContext>): Any? {
 
-        return patterns.filter { type.isSuperclassOf(it.objectFactory.interpretedTypePrediction) }
+        return TODO()/*patterns.filter { type.isSuperclassOf(it.objectFactory.interpretedTypePrediction) }
                 .map { Pair(it, it.pattern.matchAgainst(phrase)) }
                 .filter { it.second.matches }
                 .maxBy { it.second.matchScore }
-                ?.run { first.objectFactory.interpret(second.capturings, context) }
+                ?.run { first.objectFactory.interpret(second.capturings, context) }*/
     }
 
     inline fun <reified T> interpret(phrase: PhraseTree,
@@ -100,7 +100,7 @@ class PatternInterpreter(val patterns: Collection<InterpreterEntry>) {
      * [InterpretedObjectFactory] that serves to get the
      * final object.
      */
-    data class InterpreterEntry(val objectFactory: (Matching),
+    data class InterpreterEntry(val objectFactory: (MatchResult) -> Any,
                                 val pattern: PhrasePattern)
 }
 

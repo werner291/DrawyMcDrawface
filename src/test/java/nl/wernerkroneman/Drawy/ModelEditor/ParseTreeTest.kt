@@ -56,8 +56,6 @@ class ParseTreeTest {
         Assert.assertEquals("nsubj", phrase.children[0].children[1].role)
 
         Assert.assertEquals("NNS", phrase.children[0].children[1].nature)
-
-        Assert.assertEquals(parserOutput, phrase.toString())
     }
 
     @Test
