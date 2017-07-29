@@ -19,29 +19,16 @@
 
 package nl.wernerkroneman.Drawy.Modelling
 
-import nl.wernerkroneman.Drawy.Modelling.RelativePosition.DimensionOrder.*
-
 @Deprecated("Replaced with Location property")
 class RelativePositionConstraint(var a: RelativeConstraintContext.Positionable,
                                  var b: RelativeConstraintContext.Positionable,
                                  var pos: RelativePosition,
-                                 var dist: Distance) : Constraint {
+                                 var dist: Distance) {
 
     override fun toString(): String {
         return "RelativePositionConstraint{" +
                 ", b=" + b +
                 ", pos=" + pos +
                 '}'
-    }
-
-    companion object {
-
-        var ABOVE = RelativePosition(SAME, AFTER, SAME)
-        var BELOW = RelativePosition(SAME, BEFORE, SAME)
-        var FRONT = RelativePosition(SAME, SAME, AFTER)
-        var BEHIND = RelativePosition(SAME, SAME, BEFORE)
-        var LEFT = RelativePosition(BEFORE, SAME, SAME)
-        var RIGHT = RelativePosition(AFTER, SAME, SAME)
-        var INSIDE = RelativePosition(SAME, SAME, SAME)
     }
 }

@@ -36,8 +36,8 @@ class SidesLocationInterpreter(private val interpreter: PatternInterpreter) : Pa
                 context)
 
         return UnionLocation(mutableSetOf(
-                RelativeLocation(sidesOf, RelativePositionConstraint.RIGHT, FixedDistance(-0.1)),
-                RelativeLocation(sidesOf, RelativePositionConstraint.LEFT, FixedDistance(-0.1))
+                RelativeLocation(sidesOf, RelativePosition.LEFT_OF, Length(-0.1)),
+                RelativeLocation(sidesOf, RelativePosition.RIGHT_OF, Length(-0.1))
         ))
     }
 

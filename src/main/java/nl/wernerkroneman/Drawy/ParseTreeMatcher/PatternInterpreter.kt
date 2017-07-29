@@ -27,8 +27,7 @@ import kotlin.reflect.full.isSuperclassOf
  * Framework interpreter that allows one to map
  * {@link PhrasePattern}s to functions that return objects.
  */
-open class PatternInterpreter {
-    internal var patterns: MutableCollection<PatternInterpreter.InterpreterEntry> = ArrayList()
+class PatternInterpreter(val patterns: Collection<InterpreterEntry>) {
 
     /**
      * Attempt to interpret the phrase according to the interpretation rules.
@@ -101,14 +100,8 @@ open class PatternInterpreter {
      * [InterpretedObjectFactory] that serves to get the
      * final object.
      */
-    class InterpreterEntry(internal var objectFactory: PatternInterpreter.InterpretedObjectFactory,
-                           internal var pattern: PhrasePattern)
-
-    fun addPattern(factory: InterpretedObjectFactory,
-                   pattern: PhrasePattern) {
-        patterns.add(InterpreterEntry(factory,
-                pattern))
-    }
+    data class InterpreterEntry(val objectFactory: (Matching),
+                                val pattern: PhrasePattern)
 }
 
 class InvalidContextException(message: String) : RuntimeException(message)

@@ -41,14 +41,4 @@ class Drawable(val mesh: Mesh,
 
         this.attached = attached
     }
-
-    internal val worldAABB: AABB
-        get() {
-            val mat = attached!!.computeWorldTransform()
-            return computeAABB().transform(mat, AABB())
-        }
-
-    fun computeAABB(): AABB {
-        return mesh.computeAABB()
-    }
 }

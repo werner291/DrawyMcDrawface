@@ -19,9 +19,6 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
-import nl.wernerkroneman.Drawy.ModelEditor.Commands.EditorCommand
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.Modelling.RelativeLocation
 import nl.wernerkroneman.Drawy.Modelling.combineLocations
@@ -38,10 +35,10 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
     : PatternInterpreter.InterpretedObjectFactory {
 
     override val interpretedTypePrediction: KClass<*>
-        get() = CreateCommand::class
+        get() = AddComponentCommand::class
 
     override fun interpret(capturings: Map<String, PhraseTree>,
-                           context: List<InterpretationContext>): CreateCommand {
+                           context: List<InterpretationContext>): AddComponentCommand {
 
         val what = interpreter.interpret<ModelSpecification>(
                 capturings["what"]!!,
@@ -57,7 +54,7 @@ class CreateCommandInterpreter(private val interpreter: PatternInterpreter)
             ))
         }
 
-        return CreateCommand(
+        return AddComponentCommand(
                 target = {
                     (context.findLast({ it is DescriptionSession.DescriptionSessionContext })
                             as DescriptionSession.DescriptionSessionContext).scene

@@ -19,8 +19,6 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
@@ -38,7 +36,7 @@ class LastCreatedComponentInterpreter : PatternInterpreter.InterpretedObjectFact
                 as DescriptionSession.DescriptionSessionContext
 
         val lastCreateCommand = descSession.pastCommands
-                .last { it is CreateCommand } as CreateCommand
+                .last { it is AddComponentCommand } as AddComponentCommand
 
         val lastCreated = lastCreateCommand.what
 

@@ -29,6 +29,12 @@ class UnionLocation(val unionOf: MutableSet<Location> = HashSet<Location>())
 
 class IntersectionLocation(val intersectionOf: MutableSet<Location> = HashSet<Location>()) : Location
 
+enum class RelativePosition {
+
+    ABOVE, UNDER, IN_FRONT_OF, BEHIND, LEFT_OF, RIGHT_OF
+
+}
+
 class RelativeLocation(val right: ModelSpecification,
                        val relPos: RelativePosition,
                        val dist: Distance) : Location

@@ -21,33 +21,10 @@ package nl.wernerkroneman.Drawy.ConcreteModelling
 
 import org.joml.Matrix4d
 import org.joml.Vector3d
+import java.util.*
 
-class AABB {
-
-    var maxExtent = Vector3d()
-    var minExtent = Vector3d()
-
-    /**
-     * Initialize with 0-extent.
-     */
-    constructor()
-
-    /**
-     * Initialize
-
-     * @param maxExtent The corner of the AABB with the highest x,y,z
-     * *
-     * @param minExtent The corner of the AABB with the loewst x,y,z
-     */
-    constructor(maxExtent: Vector3d, minExtent: Vector3d) {
-        this.maxExtent.set(maxExtent)
-        this.minExtent.set(minExtent)
-    }
-
-    constructor(toCopy: AABB) {
-        this.maxExtent.set(toCopy.maxExtent)
-        this.minExtent.set(toCopy.minExtent)
-    }
+data class AABB(val xMin: Double, val yMin: Double, val zMin: Double,
+                val xMax: Double, val yMax: Double, val zMax: Double) {
 
     /**
      * Get a point that can subjectively be considered the "most important point" in a range.
@@ -62,9 +39,9 @@ class AABB {
      * *
      * @return See description
      */
-    private fun getExtentMean(a: Double, b: Double): Double {
-        if (java.lang.Double.isFinite(a)) {
-            if (java.lang.Double.isFinite(b)) {
+    private fun extentMean(a: Double, b: Double): Double {
+        if (a.isFinite()) {
+            if (b.isFinite()) {
                 return (a + b) / 2.0
             } else {
                 return a
@@ -83,28 +60,35 @@ class AABB {
 
      * @param vec The vector to be covered.
      */
-    fun extendToCover(vec: Vector3d) {
-        maxExtent.x = Math.max(maxExtent.x, vec.x)
-        maxExtent.y = Math.max(maxExtent.y, vec.y)
-        maxExtent.z = Math.max(maxExtent.z, vec.z)
-
-        minExtent.x = Math.min(minExtent.x, vec.x)
-        minExtent.y = Math.min(minExtent.y, vec.y)
-        minExtent.z = Math.min(minExtent.z, vec.z)
-    }
+    fun extendToCover(vec: Vector3d): AABB = this.copy(
+            xMin = Math.min(vec.x, xMin),
+            yMin = Math.min(vec.y, yMin),
+            zMin = Math.min(vec.z, zMin),
+            xMax = Math.max(vec.x, xMax),
+            yMax = Math.max(vec.y, yMax),
+            zMax = Math.max(vec.z, zMax))
 
     /**
-     * Compute the center of the box.
+     * Extend the box such that it contains the other AABB
+     */
+    fun extendToCover(box: AABB): AABB = this.copy(
+            xMin = Math.min(box.xMin, xMin),
+            yMin = Math.min(box.yMin, yMin),
+            zMin = Math.min(box.zMin, zMin),
+            xMax = Math.max(box.xMin, xMax),
+            yMax = Math.max(box.yMin, yMax),
+            zMax = Math.max(box.zMin, zMax))
 
-     * @param dest Where to store the result (this is also returned)
+    /**
+     * Center of the box.
      *
      * @pre AABB must be finite
      *
      * @return The center
      */
-    fun getCenter(dest: Vector3d = Vector3d()): Vector3d {
-        return maxExtent.add(minExtent, dest).div(2.0)
-    }
+    val center = Vector3d((xMin + xMax) / 2.0,
+            (yMin + yMax) / 2.0,
+            (zMin + zMax) / 2.0)
 
     /**
      * Get a finite AABB inside this AABB that is roughly centered inside this one,
@@ -119,8 +103,8 @@ class AABB {
      * @param dest      Where to store the result
      * *
      * @return The result (same as dest)
-     */
-    fun getFiniteWithBounds(xSize: Double, ySize: Double, zSize: Double, dest: AABB): AABB {
+
+    fun getFiniteWithBounds(xSize: Double, ySize: Double, zSize: Double): AABB {
 
         // Can an AABB of the specified size actually fit inside?
         if (this.sizeX < xSize || this.sizeY < ySize || this.sizeZ < zSize) {
@@ -134,34 +118,25 @@ class AABB {
         // Compute the minExtent while keepng it as centered as possible.
         // As a mental model, imagine the bounds of {@code this} "pushing"
         // the result around.
-        dest.minExtent.x = Math.min(Math.max(this.minExtent.x, centerIsh.x - xSize / 2), this.maxExtent.x - xSize)
-        dest.minExtent.y = Math.min(Math.max(this.minExtent.y, centerIsh.y - ySize / 2), this.maxExtent.y - ySize)
-        dest.minExtent.z = Math.min(Math.max(this.minExtent.z, centerIsh.z - zSize / 2), this.maxExtent.z - zSize)
-
-        dest.maxExtent.x = dest.minExtent.x + xSize
-        dest.maxExtent.y = dest.minExtent.y + ySize
-        dest.maxExtent.z = dest.minExtent.z + zSize
-
-        return dest
-    }
+    return AABB(
+    xMin = (centerIsh.x - xSize / 2).coerceIn(xMin, xMax),
+    yMin = (centerIsh.y - xSize / 2).coerceIn(yMin, yMax),
+    zMin = (centerIsh.x - xSize / 2).coerceIn(zMin, zMax)
+    )
+    }*/
 
     fun centerIsh(): Vector3d {
         val centerIsh = Vector3d(
-                getExtentMean(minExtent.x, maxExtent.x),
-                getExtentMean(minExtent.y, maxExtent.y),
-                getExtentMean(minExtent.z, maxExtent.z)
+                extentMean(xMin, xMax),
+                extentMean(yMin, yMax),
+                extentMean(zMin, zMax)
         )
         return centerIsh
     }
 
-    val sizeY: Double
-        get() = maxExtent.y - minExtent.y
-
-    val sizeX: Double
-        get() = maxExtent.x - minExtent.x
-
-    val sizeZ: Double
-        get() = maxExtent.z - minExtent.z
+    val sizeX = xMax - xMax
+    val sizeY = yMax - yMax
+    val sizeZ = zMax - zMax
 
     /**
      * Compute the bounding box of a transformed version of this AABB
@@ -180,18 +155,7 @@ class AABB {
      * *
      * @return The bounding box.
      */
-    fun transform(mat: Matrix4d, dest: AABB): AABB {
-
-        assert(dest !== this) // Let's not go too crazy, shall we?
-
-        dest.minExtent.set(java.lang.Double.POSITIVE_INFINITY)
-        dest.maxExtent.set(java.lang.Double.NEGATIVE_INFINITY)
-
-        dest.extendToCover(minExtent.mulPosition(mat))
-        dest.extendToCover(maxExtent.mulPosition(mat))
-
-        return dest
-    }
+    fun transform(mat: Matrix4d): AABB = this.translate(mat.getTranslation(Vector3d()))
 
     /**
      * Test whether any point inside this AABB is also inside the other AABB.
@@ -204,12 +168,12 @@ class AABB {
      * @return Whether there is an intersection.
      */
     fun intersects(b: AABB, tolerance: Double): Boolean {
-        return !(minExtent.x + tolerance > b.maxExtent.x ||
-                minExtent.y + tolerance > b.maxExtent.y ||
-                minExtent.z + tolerance > b.maxExtent.z ||
-                b.minExtent.x + tolerance > maxExtent.x ||
-                b.minExtent.y + tolerance > maxExtent.y ||
-                b.minExtent.z + tolerance > maxExtent.z)
+        return !(this.xMin + tolerance > b.xMax ||
+                this.yMin + tolerance > b.yMax ||
+                this.zMin + tolerance > b.zMax ||
+                b.xMin + tolerance > this.xMax ||
+                b.yMin + tolerance > this.yMax ||
+                b.zMin + tolerance > this.zMax)
     }
 
     /**
@@ -223,18 +187,13 @@ class AABB {
      * *
      * @modifies dest
      */
-    fun intersection(other: AABB, dest: AABB): AABB {
-
-        dest.maxExtent.set(Math.min(other.maxExtent.x, maxExtent.x),
-                Math.min(other.maxExtent.y, maxExtent.y),
-                Math.min(other.maxExtent.z, maxExtent.z))
-
-        dest.minExtent.set(Math.max(other.minExtent.x, minExtent.x),
-                Math.max(other.minExtent.y, minExtent.y),
-                Math.max(other.minExtent.z, minExtent.z))
-
-        return dest
-    }
+    fun intersection(other: AABB) = AABB(
+            xMax = Math.min(other.xMax, this.xMax),
+            yMax = Math.min(other.yMax, this.yMax),
+            zMax = Math.min(other.zMax, this.zMax),
+            xMin = Math.max(other.xMin, this.xMin),
+            yMin = Math.max(other.yMin, this.yMin),
+            zMin = Math.max(other.zMin, this.zMin))
 
     /**
      * Test whether the given position is insde the box
@@ -244,54 +203,41 @@ class AABB {
      * @return Whether the position is inside (or on the boundary)
      */
     fun inside(pos: Vector3d): Boolean {
-        return minExtent.x <= pos.x && pos.x <= maxExtent.x &&
-                minExtent.y <= pos.y && pos.y <= maxExtent.y &&
-                minExtent.z <= pos.z && pos.z <= maxExtent.z
+        return xMin <= pos.x && pos.x <= xMax &&
+                yMin <= pos.y && pos.y <= yMax &&
+                zMin <= pos.z && pos.z <= zMax
     }
 
     /**
      * Compute the translation of this AABB
-
+     *
      * @param translation The translation
      * *
      * @param aabb        Where to store the result (will be overwritten)
      * *
      * @return aabb after is has been modified to represent the translation.
      */
-    fun translate(translation: Vector3d, aabb: AABB = this): AABB {
-        minExtent.add(translation, aabb.minExtent)
-        maxExtent.add(translation, aabb.maxExtent)
+    fun translate(translation: Vector3d) = AABB(
+            xMin = xMin + translation.x,
+            yMin = yMin + translation.y,
+            zMin = zMin + translation.z,
+            xMax = xMax + translation.x,
+            yMax = yMax + translation.y,
+            zMax = zMax + translation.z)
 
-        return aabb
-    }
-
-    /**
-     * Shrink the AABB towards the center.
-
-     * @param width
-     * *
-     * @param height
-     * *
-     * @param depth
-     * *
-     * @param dest
-     * *
-     * @return
-     */
-    fun shrinkTowardsCenter(width: Double, height: Double, depth: Double, dest: AABB): AABB {
-        dest.maxExtent.set(this.maxExtent).sub(width / 2, height / 2, depth / 2)
-        dest.minExtent.set(this.minExtent).add(width / 2, height / 2, depth / 2)
-
-        return dest
-    }
-
-    fun cover(other: AABB): AABB {
-        return AABB(
-                Vector3d(Math.max(maxExtent.x, other.maxExtent.x),
-                        Math.max(maxExtent.y, other.maxExtent.y),
-                        Math.max(maxExtent.z, other.maxExtent.z)),
-                Vector3d(Math.min(minExtent.x, other.minExtent.x),
-                        Math.min(minExtent.y, other.minExtent.y),
-                        Math.min(minExtent.z, other.minExtent.z)))
-    }
 }
+
+val AABB_INFINITY = AABB(
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY)
+
+val AABB_REVERSE_INFINITY = AABB(Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.NEGATIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY,
+        Double.POSITIVE_INFINITY)

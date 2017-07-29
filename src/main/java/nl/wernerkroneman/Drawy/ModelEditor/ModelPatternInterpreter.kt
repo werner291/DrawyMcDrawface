@@ -23,29 +23,18 @@ import nl.wernerkroneman.Drawy.ModelEditor.Interpreters.*
 import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
 import nl.wernerkroneman.Drawy.Modelling.Distance
 import nl.wernerkroneman.Drawy.Modelling.FixedDistance
-import nl.wernerkroneman.Drawy.Modelling.GroupModelSpecification
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.ABOVE
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.FRONT
-import nl.wernerkroneman.Drawy.Modelling.RelativePositionConstraint.Companion.INSIDE
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhrasePatternBuilder
-import nl.wernerkroneman.Drawy.ParseTreeMatcher.buildPattern
+import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
+import nl.wernerkroneman.Drawy.ParseTreeMatcher.*
 import java.awt.Color
+import kotlin.reflect.KClass
 
 /**
  * Create a pattern interpreter loaded with a set of default patterns
  * to serve as a starting point for a data-driven interpreter.
- */
-fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWithPrimitives()):
-        PatternInterpreter {
 
-    val interpreter = PatternInterpreter()
+val defaultModelInterpreter = PatternInterpreter(
 
-    val modelInterpreter = ModelInstanceInterpreter(knowledge, interpreter)
-
-    val createCommandInterpreter = CreateCommandInterpreter(interpreter)
-
-    val distanceInterpreter = DistanceInterpreter()
+)
 
     interpreter.addPattern(modelInterpreter,
             PhrasePatternBuilder()
@@ -55,7 +44,24 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                     .child { repeat(0, null) }
                     .create())
 
-    interpreter.addPattern(GroupModelInterpreter(number = 2, interpreter = interpreter),
+interpreter.addPattern(
+object : PatternInterpreter.InterpretedObjectFactory {
+override val interpretedTypePrediction: KClass<*>
+get() = ModelSpecification::class
+
+override fun interpret(capturings: Map<String, PhraseTree>,
+context: List<InterpretationContext>): Any? {
+val spec = ModelSpecification()
+
+spec.composition.add(ModelSpecification.ComponentRelation(
+interpreter.interpret<ModelSpecification>(capturings["member_type"]!!, context),
+2
+))
+
+return spec
+}
+
+},
             buildPattern {
                 word("pair")
                 nature("NN")
@@ -226,7 +232,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
                 })
             })
 
-    interpreter.addPattern(constantInterpreter(GroupModelSpecification.ComponentDesignator.RelativeComponent(-1)),
+/*    interpreter.addPattern(constantInterpreter(GroupModelSpecification.ComponentDesignator.RelativeComponent(-1)),
             buildPattern {
                 word("other")
                 child { word("each") }
@@ -236,7 +242,7 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
             buildPattern {
                 word("one")
                 child { word("another") }
-            })
+})*/
 
     interpreter.addPattern(RelativeSizeInterpreter(AbsoluteScalar(1.5)),
             buildPattern { word("big") })
@@ -293,3 +299,4 @@ fun createDefaultModelInterpreter(knowledge: Knowledge = Knowledge.knowledgeWith
 
 }
 
+ */

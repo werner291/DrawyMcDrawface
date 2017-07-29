@@ -20,7 +20,6 @@
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
 import com.cesarferreira.pluralize.singularize
-import nl.wernerkroneman.Drawy.ModelEditor.Knowledge
 import nl.wernerkroneman.Drawy.Modelling.*
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter
@@ -61,11 +60,7 @@ class ModelInstanceInterpreter(internal val knowledge: Knowledge,
                         }
 
                         is Color -> {
-                            if (result is PrimitiveModelSpecification) {
-                                result.color = it
-                            } else {
-                                TODO("Color not supported on nonprimitive models yet.")
-                            }
+                            result.color = it
                         }
 
                         is Size -> {

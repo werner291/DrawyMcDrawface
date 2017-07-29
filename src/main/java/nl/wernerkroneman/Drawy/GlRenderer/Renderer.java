@@ -59,7 +59,7 @@ public class Renderer {
         matrixStack.pushMatrix();
 
         // Compute the view matrix
-        view.identity().lookAt(Scene.EYE, Scene.LOOKAT_CENTER, Scene.UP);
+        view.identity().lookAt(Scene.Companion.getEYE(), Scene.Companion.getLOOKAT_CENTER(), Scene.Companion.getUP());
 
         // Apply camera transform
         matrixStack.mul(view);

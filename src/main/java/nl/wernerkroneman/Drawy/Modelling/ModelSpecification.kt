@@ -21,60 +21,16 @@ package nl.wernerkroneman.Drawy.Modelling
 
 import java.util.*
 
+enum class Shape {
+    CUBE, SPHERE, CYLINDER
+}
+
 /**
  * An abstract basis for an object creation specification.
  *
- * Note: represents both type AND identity. Think of a blueprint
- * featuring a pair of rectangles: from those drawings, you know
- * both that there are two distinct objects, and that those objects
- * are rectangular.
- *
  * To distinguish between identical objects, simply use [derive].
  */
-abstract class ModelSpecification(val id: UUID = UUID.randomUUID(),
-                                  var name: String,
-                                  var location: Location? = null) {
-
-    /**
-     * Whether to allow modifications.
-     */
-    var locked: Boolean = false
-
-    /**
-     * Specification for the size of this object.
-     */
-    var size: Size = DEFAULT_SIZE
-
-    /**
-     * Create another model that specifies exactly
-     * the same as this model.
-     *
-     * Note: by default, changes made to the original
-     * are reflected in the derivative!
-     */
-    abstract fun derive(name: String): ModelSpecification
-
-    /**
-     * Whether the requirements of this model
-     * are the same or stricter than the other
-     * model without contradicting it.
-     */
-    abstract fun strongerThan(other: ModelSpecification): Boolean
-
-    /**
-     * Opposite of [strongerThan]
-     */
-    fun weakerThan(other: ModelSpecification): Boolean {
-        return other.strongerThan(this)
-    }
-
-    /**
-     * Whether there is a chance that objects made
-     * according to this model will not comply with
-     * the other model.
-     */
-    fun contradicts(other: ModelSpecification): Boolean {
-        return !(strongerThan(other) || weakerThan(other))
-    }
-
-}
+data class ModelSpecification(val shape: Shape? = null,
+                              val location: Location? = null,
+                              val has: List<ModelSpecification> = emptyList(),
+                              val size: Size = DEFAULT_SIZE)

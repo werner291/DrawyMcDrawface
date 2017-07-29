@@ -17,7 +17,18 @@
  * along with DrawyMcDrawface.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package nl.wernerkroneman.Drawy.Modelling
+package nl.wernerkroneman.Drawy.ConcreteModelling
 
-interface Constraint
+import org.joml.Vector3d
 
+class Scene(val rootSceneNode: SceneNode) {
+
+    companion object {
+
+        val EYE = Vector3d(10.0, 20.0, 5.0)
+        val LOOKAT_CENTER = Vector3d(0.0)
+        val UP = Vector3d(0.0, 1.0, 0.0)
+    }
+
+
+}

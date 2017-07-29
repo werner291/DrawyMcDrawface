@@ -19,12 +19,10 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.Modelling.ModelSpecification
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.InterpretationContext
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PatternInterpreter.InterpretedObjectFactory
 import nl.wernerkroneman.Drawy.ParseTreeMatcher.PhraseTree
-import java.util.*
 import kotlin.reflect.KClass
 
 class FindModelInterpreter : InterpretedObjectFactory {
@@ -40,8 +38,9 @@ class FindModelInterpreter : InterpretedObjectFactory {
         val descrSess = context.last { it is DescriptionSession.DescriptionSessionContext }
                 as DescriptionSession.DescriptionSessionContext
 
-        return descrSess.scene.directComponents.find { it.name.contains(query) } ?:
-                throw NoSuchElementException("Cannot find any $query")
+        return TODO("Not yet implemented for new compositional model.")
+        //return descrSess.scene.directComponents.find { it.name.contains(query) } ?:
+        //      throw NoSuchElementException("Cannot find any $query")
 
     }
 

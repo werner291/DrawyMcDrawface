@@ -19,8 +19,6 @@
 
 package nl.wernerkroneman.Drawy.ModelEditor.Interpreters
 
-import nl.wernerkroneman.Drawy.ModelEditor.Commands.CreateCommand
-import nl.wernerkroneman.Drawy.ModelEditor.DescriptionSession
 import nl.wernerkroneman.Drawy.Modelling.AbsoluteScalar
 import nl.wernerkroneman.Drawy.Modelling.DerivedSize
 import nl.wernerkroneman.Drawy.Modelling.Size
@@ -43,7 +41,7 @@ class SizeRelativeToLastCreatedInterpreter : PatternInterpreter.InterpretedObjec
          * need to do better
          */
         val lastCreateCommand = descSession.pastCommands
-                .last { it is CreateCommand } as CreateCommand
+                .last { it is AddComponentCommand } as AddComponentCommand
 
         val lastCreated = lastCreateCommand.what
 
