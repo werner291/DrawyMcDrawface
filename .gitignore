@@ -3,3 +3,6 @@ doc/.
 .idea/
 lib
 .gradle/
+gradle/
+gradlew
+gradlew.bat
