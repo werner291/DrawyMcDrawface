@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

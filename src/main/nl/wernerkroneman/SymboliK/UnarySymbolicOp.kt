@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 interface UnarySymbolicOp<InType : Any, OutType : Any> : Symbolic<OutType> {
 

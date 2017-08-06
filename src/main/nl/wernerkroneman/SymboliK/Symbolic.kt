@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 /**
  * Interface for arg Symbolic wrapper around some type T.

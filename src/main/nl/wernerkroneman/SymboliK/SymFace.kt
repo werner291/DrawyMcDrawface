@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 import org.joml.Vector3f
 import rendering.Edge

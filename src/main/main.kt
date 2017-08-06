@@ -1,4 +1,5 @@
 import io.reactivex.Observable.interval
+import nl.wernerkroneman.SymboliK.*
 import org.joml.Matrix4f
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.glfw.GLFWErrorCallback
@@ -11,7 +12,6 @@ import org.lwjgl.opengl.GL30.glGenVertexArrays
 import org.lwjgl.system.MemoryUtil.NULL
 import rendering.Mesh
 import rendering.Scalar
-import symbolic.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 

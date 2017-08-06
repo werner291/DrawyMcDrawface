@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 data class GetSize<T>(val sizeOf: Symbolic<Iterable<T>>) : Symbolic<Int> {
 	override fun eval(): Int {

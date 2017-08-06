@@ -1,4 +1,4 @@
-package symbolic
+package nl.wernerkroneman.SymboliK
 
 interface BinarySymbolicOp<InTypeA : Any,
 		InTypeB : Any,
