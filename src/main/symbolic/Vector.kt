@@ -4,9 +4,10 @@ import org.joml.Vector3f
 import rendering.Scalar
 import rendering.Vector3
 
-typealias SymScalar = Symbolic<Scalar>
 
-// TODO generalize to non-doubles
+/**
+ *
+ */
 data class CSymVector3(val x: SymScalar,
 					   val y: SymScalar,
 					   val z: SymScalar) : Symbolic<Vector3> {

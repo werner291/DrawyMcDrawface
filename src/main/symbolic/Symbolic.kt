@@ -45,32 +45,17 @@ interface Symbolic<out T : Any> {
 /**
  * Symbolic representing arg constant value of type T.
  */
-abstract class Const<T : Any>(val value: T) : Symbolic<T> {
+interface Const<T : Any> : Symbolic<T> {
+
+	val value: T
 
 	override fun <V : Any> substituteInside(find: Symbolic<V>,
 											replace: Symbolic<V>) = this
 
 	override fun eval() = value
 
-	override fun equals(other: Any?): Boolean {
-		if (this === other) return true
-		if (other?.javaClass != javaClass) return false
-
-		other as Const<*>
-
-		if (value != other.value) return false
-		if (variables != other.variables) return false
-
-		return true
-	}
-
-	override fun hashCode(): Int {
-		var result = value.hashCode()
-		result = 31 * result + variables.hashCode()
-		return result
-	}
-
-	override val variables: Set<Variable<out Any>> = emptySet()
+	override val variables: Set<Variable<out Any>>
+		get() = emptySet()
 }
 
 /**

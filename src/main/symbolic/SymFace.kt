@@ -4,6 +4,9 @@ import org.joml.Vector3f
 import rendering.Edge
 import rendering.Face
 
+/**
+ * Symbolic Face
+ */
 typealias SymFace = Symbolic<Face>
 
 data class CSymFace(val vertices: SymIterable<out Vector3f>) : Symbolic<Face> {

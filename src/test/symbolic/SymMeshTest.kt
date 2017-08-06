@@ -4,7 +4,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import rendering.Scalar
 
-typealias VarScalar = Variable<Scalar>
 
 class SymMeshTest {
 

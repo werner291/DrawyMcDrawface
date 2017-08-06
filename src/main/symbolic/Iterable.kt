@@ -1,5 +1,13 @@
 package symbolic
 
+/**
+ * A Symbolic Iterable.
+ *
+ * This is different than an Iterable<Symbolic<T>>
+ * since the iterable itself is symbolic here,
+ * yielding for example a variable number of items
+ * based on a variable.
+ */
 typealias SymIterable<T> = Symbolic<Iterable<T>>
 
 val <T>SymIterable<T>.size
@@ -8,6 +16,9 @@ val <T>SymIterable<T>.size
 fun <T : Any> SymIterable<T>.first() =
 		Getter<Iterable<T>, T>("size", this, { it.first() })
 
+/**
+ * SymIterable constructor that wraps a non-symbolic Iterable of symbolics.
+ */
 data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable<T> {
 	override fun eval(): Iterable<T> {
 		return items.map { it.eval() }
@@ -22,6 +33,13 @@ data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable
 	}
 }
 
+/**
+ * Represents a mapping of an iterable.
+ *
+ * @param iterable The symbolic iterable to operate on
+ * @param op The symboli cin which to replace the items from the iterable
+ * @param varToReplace The variable in [op] to substitute.
+ */
 data class MappedIterable<T : Any, R : Any>(val iterable: SymIterable<T>,
 											val op: Symbolic<R>,
 											val varToReplace: Variable<T>) :
@@ -37,12 +55,21 @@ data class MappedIterable<T : Any, R : Any>(val iterable: SymIterable<T>,
 	override fun eval() = iterable.eval().map { TODO("Figure this out.") }
 }
 
-
+/**
+ * Construct a [MappedIterable]
+ */
 fun <T : Any, R : Any, Op : Symbolic<R>> SymIterable<T>.map(op: Op,
 															varToReplace: Variable<T> = Variable<T>("it")): Symbolic<Iterable<R>> {
 	return MappedIterable<T, R>(this, op, varToReplace)
 }
 
+/**
+ * Class representing a unary operation on a symbolic.
+ *
+ * TODO: not sure if this is the best approach, cannot do
+ * type inspections to, for example, implement simplification
+ * operations.
+ */
 data class SymUnaryOp<A : Any, R : Any>(val a: Symbolic<A>,
 										val op: (A) -> R) : Symbolic<R> {
 	override fun eval(): R {
@@ -58,6 +85,9 @@ data class SymUnaryOp<A : Any, R : Any>(val a: Symbolic<A>,
 	}
 }
 
+/**
+ * Class representing a binary operation on two symbolics.
+ */
 data class SymBinaryOp<A : Any, B : Any, R : Any>(val a: Symbolic<A>,
 												  val b: Symbolic<B>,
 												  val op: (A, B) -> R) : Symbolic<R> {
@@ -74,9 +104,15 @@ data class SymBinaryOp<A : Any, B : Any, R : Any>(val a: Symbolic<A>,
 	}
 }
 
+/**
+ * Concatenate two symbolic iterators
+ */
 fun <T : Any> SymIterable<out T>.concat(other: SymIterable<out T>) =
 		SymBinaryOp(this, other, { a, b -> a + b })
 
+/**
+ * Append an element to the symbolic iterable
+ */
 fun <T : Any> SymIterable<out T>.append(other: Symbolic<out T>) =
 		SymBinaryOp(this, other, { a, b -> a + b })
 

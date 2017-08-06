@@ -2,7 +2,11 @@ package symbolic
 
 import rendering.Scalar
 
-class ScalarC(value: Scalar) : Const<Scalar>(value) {
+typealias VarScalar = Variable<Scalar>
+
+typealias SymScalar = Symbolic<Scalar>
+
+data class ScalarC(override val value: Scalar) : Const<Scalar> {
 	// TODO: implicit conversion to float is bad.
 	constructor(value: Double) : this(value.toFloat())
 
