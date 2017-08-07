@@ -2,11 +2,7 @@ package nl.wernerkroneman.SymboliK
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import rendering.Scalar
 
-/**
- * Created by werner on 3-8-17.
- */
 class SymVector3dTest {
 	@Test
 	fun eval() {

@@ -11,8 +11,15 @@ package nl.wernerkroneman.SymboliK
  */
 interface Symbolic<out T : Any> {
 
-	// Possibly replace with arg simplify() call that reduces to arg single Const
-	fun eval(): T
+	fun eval(): T {
+		val sim = this.simplifyFully()
+
+		if (sim.variables.isEmpty())
+			return sim.eval()
+		else
+			throw UnsupportedOperationException(
+					"Unsatisfied variables: ${sim.variables}. If the problem persists, make sure that simplification happens correctly.")
+	}
 
 	/**
 	 * Set of all variables present in this expression.
@@ -36,9 +43,9 @@ interface Symbolic<out T : Any> {
 
 	fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>): Symbolic<T>
 
-	fun simplify(): Symbolic<T> {
-		return this
-	}
+	fun simplify(depth: Int): Symbolic<T>
+
+	fun simplifyFully(): Symbolic<T> = simplify(Int.MAX_VALUE)
 
 }
 
@@ -46,6 +53,9 @@ interface Symbolic<out T : Any> {
  * Symbolic representing arg constant value of type T.
  */
 interface Const<T : Any> : Symbolic<T> {
+	override fun simplify(depth: Int): Symbolic<T> {
+		return this // Cannot simplifyFully a constant.
+	}
 
 	val value: T
 
@@ -66,6 +76,10 @@ interface Const<T : Any> : Symbolic<T> {
  */
 data class Variable<T : Any>(val name: String) : Symbolic<T> {
 
+	override fun simplify(depth: Int): Symbolic<T> {
+		return this // Cannot simplifyFully a variable
+	}
+
 	override fun <V : Any> substituteInside(find: Symbolic<V>,
 											replace: Symbolic<V>) = this
 
@@ -75,18 +89,6 @@ data class Variable<T : Any>(val name: String) : Symbolic<T> {
 	}
 
 	override val variables: Set<Variable<out Any>> = setOf(this)
-}
 
-data class Getter<T : Any, R : Any>(val name: String,
-									val getFrom: Symbolic<T>,
-									val fromEval: (T) -> R) : UnarySymbolicOp<T, R> {
-	override val arg = getFrom
 
-	override fun createOp(arg: Symbolic<T>): Symbolic<R> {
-		return Getter<T, R>(name, arg, fromEval)
-	}
-
-	override fun eval(): R {
-		return fromEval(getFrom.eval())
-	}
 }

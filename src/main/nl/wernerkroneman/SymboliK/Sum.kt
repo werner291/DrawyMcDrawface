@@ -1,7 +1,5 @@
 package nl.wernerkroneman.SymboliK
 
-import rendering.Scalar
-
 /**
  * A symbolic sum on arg Double and some other number.
  */
@@ -20,8 +18,12 @@ data class Sum(val terms: List<SymScalar>) : SymScalar {
 		get() = terms.map { it.variables }
 			.fold(emptySet<Variable<out Any>>(), { a, b -> a + b })
 
-	override fun simplify(): Symbolic<Scalar> {
-		return this.flatten().collectTerms().simplifyTerms().unwrapIfSingle()
+	override fun simplify(depth: Int): Symbolic<Scalar> {
+		return this.flatten()
+				.collectTerms()
+				.simplifyTerms()
+				.removeZeros()
+				.unwrapIfSingle()
 	}
 
 	fun flatten(): Sum = Sum(terms.flatMap {
@@ -39,25 +41,31 @@ data class Sum(val terms: List<SymScalar>) : SymScalar {
 				Product(it.factors.filterNot { it.variables.isEmpty() }).unwrapIfSingle()
 			else it
 		}.map {
-			it.value.fold(ScalarC(0.0f)) {
-				acc: ScalarC, sym ->
-				ScalarC(acc.eval() +
-								if (sym is Product) {
+			val coeff: Scalar = it.value.fold(0.0f) {
+				acc: Scalar, sym: SymScalar ->
+				acc + if (sym is Product)
 									sym.combinedCoefficients()
-								} else
+				else
 									1.0f
-				)
-			} * it.key
-		}.filterNot {
-			it.zeroIfHasZeroFactor() == ScalarC(0.0f)
-		}
 
-		return Sum(groupedTerms)
+			}
+
+			when (coeff) {
+				0.0f -> null
+				1.0f -> it.key
+				else -> ScalarC(coeff) * it.key
+			}
+		}.filterNotNull()
+
+		return if (groupedTerms.isEmpty()) Sum(ScalarC(0))
+		else Sum(groupedTerms)
 
 	}
 
+	fun simplifyTerms() = Sum(terms.map { it.simplifyFully() })
 
-	fun simplifyTerms() = Sum(terms.map { it.simplify() })
+	fun removeZeros() = Sum(terms.filterNot { it == ScalarC(0) }
+									.takeIf { !it.isEmpty() } ?: listOf(ScalarC(0)))
 
 	fun unwrapIfSingle() =
 			if (terms.size == 1) terms[0] else this

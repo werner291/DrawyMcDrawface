@@ -1,5 +1,6 @@
-package nl.wernerkroneman.SymboliK
+package nl.wernerkroneman.DrawyMcDrawface
 
+import nl.wernerkroneman.SymboliK.*
 import org.joml.Vector3f
 import rendering.Edge
 import rendering.Face
@@ -10,6 +11,9 @@ import rendering.Face
 typealias SymFace = Symbolic<Face>
 
 data class CSymFace(val vertices: SymIterable<out Vector3f>) : Symbolic<Face> {
+	override fun simplify(depth: Int): Symbolic<Face> {
+		return CSymFace(vertices.simplify(depth - 1))
+	}
 
 	constructor(vararg vertices: Symbolic<out Vector3f>) :
 			this(CSymIterable(vertices.toList()))

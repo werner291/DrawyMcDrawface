@@ -1,7 +1,5 @@
 package nl.wernerkroneman.SymboliK
 
-import rendering.Scalar
-
 /**
  * Represents raising a symbolic scalar to a symbolic scalar power.
  */
@@ -19,8 +17,8 @@ data class Power(val base: SymScalar, val exp: SymScalar) : SymScalar {
 
 	override val variables = base.variables + exp.variables
 
-	override fun simplify(): Symbolic<Scalar> {
+	override fun simplify(depth: Int): Symbolic<Scalar> {
 		// Simplify the base and exponent only.
-		return Power(base.simplify(), exp.simplify())
+		return Power(base.simplify(depth - 1), exp.simplify(depth - 1))
 	}
 }

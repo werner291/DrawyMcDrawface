@@ -42,7 +42,7 @@ class ProductTest {
 	@Test
 	fun likeFactorsToExponents() {
 
-		assertEquals(Power(x, ScalarC(3)), (x * x * x).simplify())
+		assertEquals(Power(x, ScalarC(3)), (x * x * x).simplifyFully())
 
 	}
 

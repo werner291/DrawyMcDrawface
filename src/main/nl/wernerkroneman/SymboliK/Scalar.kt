@@ -1,4 +1,4 @@
-package rendering
+package nl.wernerkroneman.SymboliK
 
 import org.joml.Vector3f
 

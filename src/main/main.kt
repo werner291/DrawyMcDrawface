@@ -1,4 +1,6 @@
 import io.reactivex.Observable.interval
+import nl.wernerkroneman.DrawyMcDrawface.CSymFace
+import nl.wernerkroneman.DrawyMcDrawface.CSymMesh
 import nl.wernerkroneman.SymboliK.*
 import org.joml.Matrix4f
 import org.lwjgl.glfw.GLFW.*
@@ -11,12 +13,11 @@ import org.lwjgl.opengl.GL30.glBindVertexArray
 import org.lwjgl.opengl.GL30.glGenVertexArrays
 import org.lwjgl.system.MemoryUtil.NULL
 import rendering.Mesh
-import rendering.Scalar
 import java.io.File
 import java.util.concurrent.TimeUnit
 
 val foo = Variable<Scalar>("foo")
-val triangle = SymMesh(CSymIterable(
+val triangle = CSymMesh(CSymIterable(
 		listOf(
 				CSymFace(
 						CSymVector3(foo, ScalarC(0.0f), ScalarC(0.0f)),

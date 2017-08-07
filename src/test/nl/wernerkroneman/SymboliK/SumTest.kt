@@ -2,7 +2,6 @@ package nl.wernerkroneman.SymboliK
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import rendering.Scalar
 
 class SumTest {
 
@@ -58,12 +57,13 @@ class SumTest {
 	}
 
 	@Test
-	fun testCollectTerms() {
+	fun testSimplify() {
 
 		val x = VarScalar("x")
 
-		assertEquals(ScalarC(3) * x, (x + x + x).simplify())
-		assertEquals(9.0f, (x - x + 9.0f).simplify().eval(), 0.01f)
+		assertEquals(ScalarC(3) * x, (x + x + x).simplifyFully())
+		assertEquals(9.0f, (x - x + 9.0f).simplifyFully().eval(), 0.01f)
+		assertEquals(x + 1.0f, (x + 1.0f).simplifyFully())
 
 	}
 }

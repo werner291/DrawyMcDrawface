@@ -1,7 +1,5 @@
 package nl.wernerkroneman.SymboliK
 
-import rendering.Scalar
-
 
 /**
  * A symbolic product on a list of [SymScalar] factors.
@@ -28,7 +26,7 @@ data class Product(val factors: List<SymScalar>) : SymScalar {
 	 * - applying zero-absorption
 	 * - unwrapping single-factor products
 	 */
-	override fun simplify(): SymScalar {
+	override fun simplify(depth: Int): SymScalar {
 		return flatten()
 				.combineCoefficients()
 				.likeFactorsToExponents()
@@ -109,7 +107,7 @@ data class Product(val factors: List<SymScalar>) : SymScalar {
 	/**
 	 * Simplify the individual factors.
 	 */
-	fun simplifyFactors() = Product(factors.map { it.simplify() })
+	fun simplifyFactors() = Product(factors.map { it.simplifyFully() })
 
 }
 

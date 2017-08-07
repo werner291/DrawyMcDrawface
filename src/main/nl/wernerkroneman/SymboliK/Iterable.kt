@@ -10,16 +10,19 @@ package nl.wernerkroneman.SymboliK
  */
 typealias SymIterable<T> = Symbolic<Iterable<T>>
 
-val <T>SymIterable<T>.size
-	get() = Getter<Iterable<T>, Int>("size", this, { it.count() })
+val <T : Any>SymIterable<T>.size: Symbolic<Int>
+	get() = getter(CSymIterable<T>::size, this)
 
 fun <T : Any> SymIterable<T>.first() =
-		Getter<Iterable<T>, T>("size", this, { it.first() })
+		getter<T, CSymIterable<T>, Iterable<T>>({ it.items.first() }, this)
 
 /**
  * SymIterable constructor that wraps a non-symbolic Iterable of symbolics.
  */
 data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable<T> {
+
+	constructor(vararg items: Symbolic<T>) : this(items.toList())
+
 	override fun eval(): Iterable<T> {
 		return items.map { it.eval() }
 	}
@@ -31,7 +34,16 @@ data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable
 	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>): Symbolic<Iterable<T>> {
 		return CSymIterable<T>(items.map { it.substitute(find, replace) })
 	}
+
+	override fun simplify(depth: Int): Symbolic<Iterable<T>> {
+		return CSymIterable<T>(items.map { it.simplify(depth - 1) })
+	}
 }
+
+val <T : Any> CSymIterable<T>.size: Symbolic<Int>
+	get() = getter<Int, CSymIterable<T>, Iterable<T>>({
+														  IntC(it.items.count())
+													  }, this)
 
 /**
  * Represents a mapping of an iterable.
@@ -43,16 +55,30 @@ data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable
 data class MappedIterable<T : Any, R : Any>(val iterable: SymIterable<T>,
 											val op: Symbolic<R>,
 											val varToReplace: Variable<T>) :
-		BinarySymbolicOp<Iterable<T>, R, Iterable<R>> {
+		SymIterable<R> {
+	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>): Symbolic<Iterable<R>> {
+		return MappedIterable(iterable.substituteInside(find, replace),
+				// TODO: op is not a free variable, is this OK?
+							  op.substitute(find, replace),
+							  varToReplace)
+	}
 
-	override fun createOp(argA: SymIterable<T>, argB: Symbolic<R>) =
-			MappedIterable<T, R>(argA, argB, varToReplace)
+	override val variables: Set<Variable<out Any>>
+		get() = iterable.variables + (op.variables - varToReplace)
 
+	override fun simplify(depth: Int): Symbolic<Iterable<R>> {
 
-	override val argA = iterable
-	override val argB = op
+		val simpleItr = iterable.simplify(depth - 1)
 
-	override fun eval() = iterable.eval().map { TODO("Figure this out.") }
+		return if (simpleItr is CSymIterable)
+			CSymIterable(simpleItr.items.map {
+				op.substitute(varToReplace, it)
+			}).simplify(depth - 1)
+		else {
+			MappedIterable<T, R>(simpleItr, op.simplify(depth - 1), varToReplace)
+		}
+
+	}
 }
 
 /**
@@ -64,65 +90,61 @@ fun <T : Any, R : Any, Op : Symbolic<R>> SymIterable<T>.map(op: Op,
 }
 
 /**
- * Class representing a unary operation on a symbolic.
- *
- * TODO: not sure if this is the best approach, cannot do
- * type inspections to, for example, implement simplification
- * operations.
- */
-data class SymUnaryOp<A : Any, R : Any>(val a: Symbolic<A>,
-										val op: (A) -> R) : Symbolic<R> {
-	override fun eval(): R {
-		return op(a.eval())
-	}
-
-	override val variables: Set<Variable<out Any>>
-		get() = a.variables
-
-	override fun <V : Any> substituteInside(find: Symbolic<V>,
-											replace: Symbolic<V>): Symbolic<R> {
-		return SymUnaryOp<A, R>(a.substitute(find, replace), op)
-	}
-}
-
-/**
- * Class representing a binary operation on two symbolics.
- */
-data class SymBinaryOp<A : Any, B : Any, R : Any>(val a: Symbolic<A>,
-												  val b: Symbolic<B>,
-												  val op: (A, B) -> R) : Symbolic<R> {
-	override fun eval(): R {
-		return op(a.eval(), b.eval())
-	}
-
-	override val variables: Set<Variable<out Any>>
-		get() = a.variables + b.variables
-
-	override fun <V : Any> substituteInside(find: Symbolic<V>,
-											replace: Symbolic<V>): Symbolic<R> {
-		return SymBinaryOp<A, B, R>(a.substitute(find, replace), b.substitute(find, replace), op)
-	}
-}
-
-/**
  * Concatenate two symbolic iterators
  */
-fun <T : Any> SymIterable<out T>.concat(other: SymIterable<out T>) =
-		SymBinaryOp(this, other, { a, b -> a + b })
+fun <T : Any> SymIterable<out T>.concat(other: SymIterable<out T>): SymIterable<T> =
+		SymbolicBinaryOp<Iterable<T>, Iterable<T>, Iterable<T>>(
+				this, other, { a, b, depth ->
+			if (a is CSymIterable<T> && b is CSymIterable<T>)
+				CSymIterable(a.items + b.items).simplify(depth - 1)
+			else
+				a.concat(b)
+		})
+
 
 /**
  * Append an element to the symbolic iterable
  */
-fun <T : Any> SymIterable<out T>.append(other: Symbolic<out T>) =
-		SymBinaryOp(this, other, { a, b -> a + b })
+fun <T : Any> SymIterable<out T>.append(other: Symbolic<out T>): SymIterable<T> =
+		SymbolicBinaryOp<Iterable<T>, T, Iterable<T>>(
+				this, other, { a, b, depth ->
+			if (a is CSymIterable<T>)
+				CSymIterable(a.items + b).simplify(depth - 1)
+			else
+				a.append(b)
+		})
 
-fun <T : Any> SymIterable<out T>.pairwise() =
-		SymUnaryOp(this, { it.pairwise() })
+fun <T : Any> SymIterable<out T>.pairwise(): SymIterable<Pair<T, T>> =
+		SymbolicUnaryOp<Iterable<T>, Iterable<Pair<T, T>>>(this, { a, depth ->
+			if (a is CSymIterable<T>)
+				CSymIterable<Pair<T, T>>(a.items.pairwise { a, b -> CSymPair(a, b) }).simplify(depth - 1)
+			else
+				a.pairwise()
+		})
 
 fun <T : Any> SymIterable<Iterable<T>>.flatten(): SymIterable<T> =
-		SymUnaryOp(this, { it.flatten() })
+		SymbolicUnaryOp<Iterable<Iterable<T>>, Iterable<T>>(this, { itr, depth ->
+			if (itr is CSymIterable<Iterable<T>>)
+				itr.items.reduce { acc, symbolic -> acc.concat(symbolic) }.simplify(depth - 1)
+			else
+				itr.flatten()
+		})
 
-fun <T : Any> SymIterable<out T>.drop(n: Int) =
-		SymUnaryOp(this, { it.drop(n) })
+fun <T : Any> SymIterable<out T>.drop(n: Int): SymIterable<T> =
+		SymbolicUnaryOp<Iterable<T>, Iterable<T>>(this, { itr, depth ->
+			if (itr is CSymIterable<T>)
+				CSymIterable(itr.items.drop(n)).simplify(depth - 1)
+			else
+				itr.drop(n)
+		})
+
+
+fun <T : Any> SymIterable<out T>.distinct(): SymIterable<T> =
+		SymbolicUnaryOp<Iterable<T>, Iterable<T>>(this, { itr, depth ->
+			if (itr is CSymIterable<T>)
+				CSymIterable(itr.items.distinct()).simplify(depth - 1)
+			else
+				itr.distinct()
+		})
 
 fun <T : Any> symListOf(vararg t: Symbolic<T>) = CSymIterable(t.toList())

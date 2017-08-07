@@ -1,8 +1,9 @@
 package nl.wernerkroneman.SymboliK
 
+import nl.wernerkroneman.DrawyMcDrawface.CSymFace
+import nl.wernerkroneman.DrawyMcDrawface.CSymMesh
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import rendering.Scalar
 
 
 class SymMeshTest {
@@ -11,12 +12,12 @@ class SymMeshTest {
 	val bar = Variable<Scalar>("bar")
 	val baz = Variable<Scalar>("baz")
 
-	val symMesh = SymMesh(symListOf(CSymFace(
+	val symMesh = CSymMesh(symListOf(CSymFace(
 			CSymVector3(ScalarC(0.0), ScalarC(0.0), ScalarC(0.0)),
 			CSymVector3(ScalarC(0.0), ScalarC(1.0), ScalarC(0.0)),
 			CSymVector3(ScalarC(3.0), ScalarC(9.0), foo))))
 
-	val symMesh2 = SymMesh(symListOf(CSymFace(
+	val symMesh2 = CSymMesh(symListOf(CSymFace(
 			CSymVector3(baz, ScalarC(0.0) + foo, ScalarC(0.0)),
 			CSymVector3(ScalarC(0.0), ScalarC(1.0), ScalarC(0.0)),
 			CSymVector3(foo + bar, ScalarC(9.0), foo))))

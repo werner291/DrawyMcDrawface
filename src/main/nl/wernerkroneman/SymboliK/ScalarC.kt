@@ -1,7 +1,5 @@
 package nl.wernerkroneman.SymboliK
 
-import rendering.Scalar
-
 typealias VarScalar = Variable<Scalar>
 
 typealias SymScalar = Symbolic<Scalar>
@@ -12,3 +10,5 @@ data class ScalarC(override val value: Scalar) : Const<Scalar> {
 
 	constructor(value: Int) : this(value.toFloat())
 }
+
+data class IntC(override val value: Int) : Const<Int>
