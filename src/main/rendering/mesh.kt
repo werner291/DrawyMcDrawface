@@ -36,6 +36,6 @@ fun autocomputeNormals(vertices: List<Vector3f>) =
 		vertices.chunked(3)
 				.map {
 					it[0].sub(it[1], Vector3f())
-							.cross(it[2].sub(it[1], Vector3f()))
+							.cross(it[2].sub(it[1], Vector3f())).normalize()
 				}
 				.flatMap { listOf(it, it, it) }
