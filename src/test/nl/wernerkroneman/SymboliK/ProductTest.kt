@@ -32,10 +32,10 @@ class ProductTest {
 	@Test
 	fun combineCoefficients() {
 
-		assertEquals(135.0f, (3.0f * x * 9.0f * 5.0f * y)
+		assertEquals(ScalarC(135.0f), (3.0f * x * 9.0f * 5.0f * y)
 				.flatten()
 				.combineCoefficients()
-				.factors[0].eval(), 0.01f)
+				.factors[0])
 
 	}
 

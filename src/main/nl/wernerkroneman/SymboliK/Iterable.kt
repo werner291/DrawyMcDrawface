@@ -8,18 +8,31 @@ package nl.wernerkroneman.SymboliK
  * yielding for example a variable number of items
  * based on a variable.
  */
-typealias SymIterable<T> = Symbolic<Iterable<T>>
+interface SymIterable<T : Symbolic<T>> : Symbolic<SymIterable<T>> {
 
-val <T : Any>SymIterable<T>.size: Symbolic<Int>
-	get() = getter(CSymIterable<T>::size, this)
+	val size: SymScalar
+		get() = ScalarGetter({ it.size }, this)
 
-fun <T : Any> SymIterable<T>.first() =
-		getter<T, CSymIterable<T>, Iterable<T>>({ it.items.first() }, this)
+	fun <T : Symbolic<T>> first() = object : Symbolic<T> {
+		override val variables: Set<Variable>
+			get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+
+		override fun <V : Symbolic<V>> substituteInside(find: V, replace: V): T {
+			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		}
+
+		override fun simplify(depth: Int): T {
+			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+		}
+
+	}
+
+}
 
 /**
  * SymIterable constructor that wraps a non-symbolic Iterable of symbolics.
  */
-data class CSymIterable<T : Any>(val items: Iterable<Symbolic<T>>) : SymIterable<T> {
+data class CSymIterable<T : Symbolic<T>>(val items: Iterable<T>) : SymIterable<T> {
 
 	constructor(vararg items: Symbolic<T>) : this(items.toList())
 

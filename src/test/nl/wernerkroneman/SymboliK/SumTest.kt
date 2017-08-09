@@ -16,22 +16,20 @@ class SumTest {
 
 		val a = (ScalarC(1.0) + 3.5) + Variable<Scalar>("foo")
 
-		assertEquals(9.0f, a.substitute(Variable<Scalar>("foo"), ScalarC(4.5)).eval(), 0.01f)
+		assertEquals(ScalarC(9), a.substitute(Variable<Scalar>("foo"), ScalarC(4.5)).simplifyFully())
 
 		val b = Sum(Sum(ScalarC(1.0), ScalarC(3.5)), ScalarC(4.5))
 
 		assertEquals(
-				4.5f,
-				b.substitute<Number>(Sum(ScalarC(1.0), ScalarC(3.5)), ScalarC(0.0)).eval(),
-				0.01f
+				ScalarC(4.5),
+				b.substitute<Number>(Sum(ScalarC(1.0), ScalarC(3.5)), ScalarC(0.0)).simplifyFully()
 		)
 
 	}
 
 	@Test
 	fun testEval() {
-
-		assertEquals(5.0f, (ScalarC(1.0) + ScalarC(3.0) + ScalarC(1.0)).eval(), 0.01f)
+		assertEquals(ScalarC(5), (ScalarC(1.0) + ScalarC(3.0) + ScalarC(1.0)).simplifyFully())
 	}
 
 	@Test
@@ -62,7 +60,7 @@ class SumTest {
 		val x = VarScalar("x")
 
 		assertEquals(ScalarC(3) * x, (x + x + x).simplifyFully())
-		assertEquals(9.0f, (x - x + 9.0f).simplifyFully().eval(), 0.01f)
+		assertEquals(ScalarC(9.0f), (x - x + 9.0f).simplifyFully())
 		assertEquals(x + 1.0f, (x + 1.0f).simplifyFully())
 
 	}

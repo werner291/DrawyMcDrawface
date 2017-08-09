@@ -3,9 +3,6 @@ import io.reactivex.Observable.interval
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.toObservable
 import io.reactivex.subjects.PublishSubject
-import nl.wernerkroneman.DrawyMcDrawface.zAxisAlignedCylinder
-import nl.wernerkroneman.SymboliK.Scalar
-import nl.wernerkroneman.SymboliK.ScalarC
 import nl.wernerkroneman.SymboliK.Symbolic
 import nl.wernerkroneman.SymboliK.Variable
 import org.joml.Matrix4f
@@ -61,7 +58,7 @@ fun main(args: Array<String>) {
 
 	// Firstly we need to create frame component for window.
 	val frame = Frame(WIDTH.toFloat(), HEIGHT.toFloat())
-	val modelToShow = zAxisAlignedCylinder
+	val modelToShow = zAxisAligned16SegmentCylinder
 	val (paramsGuiForSymbolic, varStream) = paramsGuiForSymbolic(modelToShow)
 	frame.container.add(paramsGuiForSymbolic)
 
@@ -98,10 +95,13 @@ fun main(args: Array<String>) {
 
 	val finalMeshStream = varStream.map {
 		it.entries.fold(modelToShow, { symbolic, (variable, setting) ->
-			symbolic.substitute(variable, ScalarC(setting))
+			symbolic.substitute(variable, Const(setting))
 		})
+	}.map {
+		val simple = it.simplifyFully()
+		if (simple is Const) simple.value
+		else throw IllegalStateException("Unsatisfied variables: " + simple.variables)
 	}
-			.map { it.eval() }
 
 	val lookatStream = timer.map { time ->
 
@@ -326,8 +326,8 @@ private fun paramsGuiForSymbolic(symbolic: Symbolic<Any>): Pair<Panel<Component>
 				.startWith(Pair(variable, 0f))
 
 	}.scan(variablesToInitialValues,
-		   { old: Map<Variable<out Any>, Scalar>,
-			 update: Pair<Variable<out Any>, Scalar> ->
+		   { old: Map<Variable<out Any>, Float>,
+			 update: Pair<Variable<out Any>, Float> ->
 			   old.plus(update)
 		   })
 

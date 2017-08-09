@@ -4,6 +4,7 @@ import nl.wernerkroneman.DrawyMcDrawface.CSymFace
 import nl.wernerkroneman.DrawyMcDrawface.CSymMesh
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import rendering.Mesh
 
 
 class SymMeshTest {
@@ -25,7 +26,8 @@ class SymMeshTest {
 	@Test
 	fun eval() {
 
-		val mesh = symMesh.substitute(Variable<Scalar>("foo"), ScalarC(9.0)).eval()
+		val mesh = (symMesh.substitute(Variable<Scalar>("foo"), ScalarC(9.0))
+				.simplifyFully() as Const<Mesh>).value
 
 		assertEquals(0.0f, mesh.vertices[0].x, 0.01f)
 		assertEquals(0.0f, mesh.vertices[0].y, 0.01f)

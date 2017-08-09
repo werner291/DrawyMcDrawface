@@ -3,22 +3,20 @@ package nl.wernerkroneman.SymboliK
 /**
  * A symbolic sum on arg Double and some other number.
  */
-data class Sum(val terms: List<SymScalar>) : SymScalar {
+data class Sum(val terms: List<SymScalar>) : Symbolic<SymScalar> {
+
+	override fun <V : Symbolic<V>> substituteInside(find: V,
+													replace: V): SymScalar {
+		return Sum(terms.map { it.substitute(find, replace) })
+	}
 
 	constructor(vararg terms: SymScalar) : this(terms.toList())
 
-	// Should be safe since we do an equality check that includes arg type equality check
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>) =
-			Sum(terms.map { it.substitute(find, replace) })
-
-	// Eval of the sum is just the sum of the evals
-	override fun eval() = terms.map { it.eval() }.sum()
-
 	override val variables
 		get() = terms.map { it.variables }
-			.fold(emptySet<Variable<out Any>>(), { a, b -> a + b })
+				.fold(emptySet<Variable>(), { a, b -> a + b })
 
-	override fun simplify(depth: Int): Symbolic<Scalar> {
+	override fun simplify(depth: Int): SymScalar {
 		return this.flatten()
 				.collectTerms()
 				.simplifyTerms()
@@ -41,31 +39,31 @@ data class Sum(val terms: List<SymScalar>) : SymScalar {
 				Product(it.factors.filterNot { it.variables.isEmpty() }).unwrapIfSingle()
 			else it
 		}.map {
-			val coeff: Scalar = it.value.fold(0.0f) {
-				acc: Scalar, sym: SymScalar ->
+			val coeff: SymScalar = it.value.fold(ScalarC(0.0)) {
+				acc: SymScalar, sym: SymScalar ->
 				acc + if (sym is Product)
 									sym.combinedCoefficients()
 				else
-									1.0f
+					ScalarC(1.0)
 
 			}
 
 			when (coeff) {
-				0.0f -> null
-				1.0f -> it.key
-				else -> ScalarC(coeff) * it.key
+				ScalarC(0.0) -> null
+				ScalarC(1.0) -> it.key
+				else -> coeff * it.key
 			}
 		}.filterNotNull()
 
-		return if (groupedTerms.isEmpty()) Sum(ScalarC(0))
+		return if (groupedTerms.isEmpty()) Sum(ScalarC(0.0))
 		else Sum(groupedTerms)
 
 	}
 
 	fun simplifyTerms() = Sum(terms.map { it.simplifyFully() })
 
-	fun removeZeros() = Sum(terms.filterNot { it == ScalarC(0) }
-									.takeIf { !it.isEmpty() } ?: listOf(ScalarC(0)))
+	fun removeZeros() = Sum(terms.filterNot { it == ScalarC(0.0) }
+									.takeIf { !it.isEmpty() } ?: listOf(ScalarC(0.0)))
 
 	fun unwrapIfSingle() =
 			if (terms.size == 1) terms[0] else this
@@ -73,13 +71,3 @@ data class Sum(val terms: List<SymScalar>) : SymScalar {
 
 operator fun Sum.plus(other: SymScalar) = Sum(this.terms + other)
 operator fun SymScalar.plus(other: Sum) = Sum(listOf(this) + other.terms)
-
-operator fun SymScalar.plus(other: SymScalar) = Sum(this, other)
-
-operator fun SymScalar.plus(other: Scalar) = this + ScalarC(other)
-operator fun SymScalar.plus(d: Double) = this + ScalarC(d)
-
-operator fun SymScalar.minus(other: SymScalar) = this + (-other)
-operator fun SymScalar.minus(other: Scalar) = this + ScalarC(-other)
-
-private operator fun SymScalar.unaryMinus() = ScalarC(-1) * this

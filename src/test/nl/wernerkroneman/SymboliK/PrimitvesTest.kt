@@ -1,8 +1,6 @@
 package nl.wernerkroneman.SymboliK
 
 import nl.wernerkroneman.DrawyMcDrawface.axisAlignedUnitCube
-import nl.wernerkroneman.DrawyMcDrawface.faces
-import nl.wernerkroneman.DrawyMcDrawface.vertices
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -14,9 +12,9 @@ class PrimitivesTest {
 		// An AA cube has 3 degrees of freedom
 		assertEquals(3, axisAlignedUnitCube.variables.size)
 
-		assertEquals(6, axisAlignedUnitCube.faces.size.eval())
+		assertEquals(IntC(6), axisAlignedUnitCube.faces.size.simplifyFully())
 
-		assertEquals(8, axisAlignedUnitCube.vertices.size.eval())
+		assertEquals(IntC(8), axisAlignedUnitCube.vertices.size.simplifyFully())
 
 
 

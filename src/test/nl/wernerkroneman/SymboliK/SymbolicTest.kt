@@ -14,16 +14,8 @@ class SymbolicTest {
 
 		assertTrue(x.variables.first() == x)
 
-		assertEquals(42.0f, x.substitute(x, ScalarC(42.0f)).eval())
+		assertEquals(ScalarC(42.0f), x.substitute(x, ScalarC(42.0f)))
 
-	}
-
-	@Test(expected = RuntimeException::class)
-	fun badEvalTest() {
-
-		val x = Variable<Int>("foo")
-
-		x.eval()
 	}
 
 }

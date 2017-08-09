@@ -8,7 +8,6 @@ class ScalarTest {
 	@Test
 	fun getVariables() {
 		val a = ScalarC(1.0)
-		assertEquals(1.0f, a.eval(), 0.01f)
 		assertEquals(1.0f, a.value, 0.01f)
 		assertEquals(emptySet<Variable<out Any>>(), a.variables)
 	}

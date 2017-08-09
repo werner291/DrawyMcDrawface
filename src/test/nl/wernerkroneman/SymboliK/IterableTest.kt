@@ -12,7 +12,7 @@ class IterableTest {
 	@Test
 	fun sizeTest() {
 
-		assertEquals(5, CSymIterable(x, x, x, z, y).size.eval())
+		assertEquals(5, (CSymIterable(x, x, x, z, y).size.simplifyFully() as Const<Int>).value)
 
 	}
 

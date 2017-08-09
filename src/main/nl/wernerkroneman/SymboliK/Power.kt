@@ -5,11 +5,8 @@ package nl.wernerkroneman.SymboliK
  */
 data class Power(val base: SymScalar, val exp: SymScalar) : SymScalar {
 
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>) =
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V) =
 			Power(base.substitute(find, replace), exp.substitute(find, replace))
-
-	override fun eval() = Math.pow(base.eval().toDouble(),
-								   exp.eval().toDouble()).toFloat()
 
 	override fun toString(): String {
 		return "$base^$exp"
@@ -17,7 +14,7 @@ data class Power(val base: SymScalar, val exp: SymScalar) : SymScalar {
 
 	override val variables = base.variables + exp.variables
 
-	override fun simplify(depth: Int): Symbolic<Scalar> {
+	override fun simplify(depth: Int): SymScalar {
 		// Simplify the base and exponent only.
 		return Power(base.simplify(depth - 1), exp.simplify(depth - 1))
 	}

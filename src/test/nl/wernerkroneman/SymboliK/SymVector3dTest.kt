@@ -9,7 +9,7 @@ class SymVector3dTest {
 
 		val a = CSymVector3(ScalarC(1.0), ScalarC(2.0), ScalarC(1.5))
 
-		val b = a.eval()
+		val b = (a.simplifyFully() as Const<Vector3>).value
 
 		assertEquals(1.0f, b.x, 0.01f)
 		assertEquals(2.0f, b.y, 0.01f)
@@ -46,8 +46,8 @@ class SymVector3dTest {
 
 		assertEquals(VectorSum(opA, opB), result)
 
-		val evalResult = result.substitute(x, ScalarC(0.5))
-				.substitute(y, ScalarC(2.0)).eval()
+		val evalResult = (result.substitute(x, ScalarC(0.5))
+				.substitute(y, ScalarC(2.0)).simplifyFully() as Const<Vector3>).value
 
 		assertEquals(2.5f, evalResult.x, 0.01f)
 		assertEquals(2.5f, evalResult.y, 0.01f)

@@ -1,30 +1,74 @@
 package nl.wernerkroneman.SymboliK
 
-import org.joml.Vector3f
+interface SymVector3 : Symbolic<SymVector3> {
 
+	operator fun plus(other: SymVector3) = VectorSum(this, other)
 
-/**
- *
- */
-data class CSymVector3(val x: SymScalar,
-					   val y: SymScalar,
-					   val z: SymScalar) : Symbolic<Vector3> {
-	override fun simplify(depth: Int): Symbolic<Vector3> {
+	operator fun times(other: SymScalar) = ScalarProduct(this, other)
+	operator fun times(other: Double) = this * ScalarC(other)
+	operator fun times(other: Number) = this * ScalarC(other.toDouble())
+
+	operator fun minus(other: SymVector3) = this + (-other)
+
+	operator fun unaryMinus() = this * ScalarC(-1.0)
+
+	val x: SymScalar get() = ScalarGetter<SymVector3>({ it.x }, this)
+	val y: SymScalar get() = ScalarGetter<SymVector3>({ it.y }, this)
+	val z: SymScalar get() = ScalarGetter<SymVector3>({ it.z }, this)
+
+	fun SymVector3.norm(): SymScalar {
+		// TODO use some unary op data class, optionally, simplifying?
+		return Sqrt(this.x * this.x + this.y * this.y + this.z * this.z)
+	}
+
+}
+
+data class CSymVector3(override val x: SymScalar,
+					   override val y: SymScalar,
+					   override val z: SymScalar) : SymVector3 {
+
+	override fun simplify(depth: Int): SymVector3 {
 		return CSymVector3(x.simplify(depth - 1), y.simplify(depth - 1), z.simplify(depth - 1))
 	}
 
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>) =
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V) =
 			CSymVector3(x.substitute(find, replace),
 						y.substitute(find, replace),
 						z.substitute(find, replace))
 
-	override fun eval() = Vector3f(x.eval(), y.eval(), z.eval())
-
 	override val variables = x.variables + y.variables + z.variables
 }
 
-data class VectorSum(val a: Symbolic<Vector3f>, val b: Symbolic<Vector3f>) : Symbolic<Vector3f> {
-	override fun simplify(depth: Int): Symbolic<Vector3f> {
+data class ScalarProduct(val vector: SymVector3, val scalar: SymScalar) : SymVector3 {
+	override val variables: Set<Variable>
+		get() = vector.variables + scalar.variables
+
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V): SymVector3 {
+		return ScalarProduct(vector.substitute(find, replace),
+							 scalar.substitute(find, replace))
+	}
+
+	override fun simplify(depth: Int): SymVector3 {
+		return ScalarProduct(vector.simplify(depth), scalar.simplify(depth))
+	}
+}
+
+data class DotProduct(val a: SymVector3, val b: SymVector3) : SymScalar {
+	override val variables: Set<Variable>
+		get() = a.variables + b.variables
+
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V): SymScalar {
+		return DotProduct(a.substitute(find, replace),
+						  b.substitute(find, replace))
+	}
+
+	override fun simplify(depth: Int): SymScalar {
+		return DotProduct(a.simplify(depth), b.simplify(depth))
+	}
+}
+
+data class VectorSum(val a: SymVector3, val b: SymVector3) : SymVector3 {
+	override fun simplify(depth: Int): SymVector3 {
 
 		val simpleA = a.simplify(depth - 1)
 		val simpleB = b.simplify(depth - 1)
@@ -37,48 +81,10 @@ data class VectorSum(val a: Symbolic<Vector3f>, val b: Symbolic<Vector3f>) : Sym
 			VectorSum(a.simplify(depth - 1), b.simplify(depth - 1))
 	}
 
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>) =
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V) =
 			VectorSum(a.substitute(find, replace), b.substitute(find, replace))
-
-	override fun eval() = a.eval().add(b.eval())
 
 	override val variables
 		get() = a.variables + b.variables
 
 }
-
-data class VectorDifference(val a: Symbolic<Vector3f>, val b: Symbolic<Vector3f>) : Symbolic<Vector3f> {
-	override fun simplify(depth: Int): Symbolic<Vector3f> {
-		return VectorDifference(a.simplify(depth - 1), b.simplify(depth - 1))
-	}
-
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>) =
-			VectorSum(a.substitute(find, replace), b.substitute(find, replace))
-
-	override fun eval() = a.eval().sub(b.eval())
-
-	override val variables
-		get() = a.variables + b.variables
-
-}
-
-operator fun Symbolic<Vector3f>.minus(b: Symbolic<Vector3f>) =
-		VectorDifference(this, b)
-
-fun Symbolic<Vector3>.length(): SymScalar {
-	return Sqrt(this.x * this.x
-						+ this.y * this.y
-						+ this.z * this.z)
-}
-
-private val Symbolic<Vector3f>.x
-	get() = getter(CSymVector3::x, this)
-
-private val Symbolic<Vector3f>.y
-	get() = getter(CSymVector3::y, this)
-
-private val Symbolic<Vector3f>.z
-	get() = getter(CSymVector3::z, this)
-
-operator fun CSymVector3.plus(opB: CSymVector3) = VectorSum(this, opB)
-
