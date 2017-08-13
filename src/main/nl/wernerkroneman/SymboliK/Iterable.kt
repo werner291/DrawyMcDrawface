@@ -13,43 +13,33 @@ interface SymIterable<T : Symbolic<T>> : Symbolic<SymIterable<T>> {
 	val size: SymScalar
 		get() = ScalarGetter({ it.size }, this)
 
-	fun <T : Symbolic<T>> first() = object : Symbolic<T> {
-		override val variables: Set<Variable>
-			get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+	fun <T : Symbolic<T>> first() = getter { it.first() }
 
-		override fun <V : Symbolic<V>> substituteInside(find: V, replace: V): T {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-		}
-
-		override fun simplify(depth: Int): T {
-			TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-		}
-
-	}
+	fun getter(applyGetter: (Iterable<T>) -> T): T
 
 }
 
 /**
  * SymIterable constructor that wraps a non-symbolic Iterable of symbolics.
  */
-data class CSymIterable<T : Symbolic<T>>(val items: Iterable<T>) : SymIterable<T> {
+abstract class CSymIterable<T : Symbolic<T>> : SymIterable<T> {
+
+	abstract fun copy(items: Iterable<T>): CSymIterable<T>
 
 	constructor(vararg items: Symbolic<T>) : this(items.toList())
 
-	override fun eval(): Iterable<T> {
-		return items.map { it.eval() }
-	}
+	val items: Iterable<T>
 
-	override val variables: Set<Variable<out Any>>
+	override val variables: Set<Variable>
 		get() = items.map { it.variables }
 				.fold(emptySet(), { a, b -> a + b })
 
-	override fun <V : Any> substituteInside(find: Symbolic<V>, replace: Symbolic<V>): Symbolic<Iterable<T>> {
-		return CSymIterable<T>(items.map { it.substitute(find, replace) })
+	override fun <V : Symbolic<V>> substituteInside(find: V, replace: V): CSymIterable<T> {
+		return copy(items.map { it.substitute(find, replace) })
 	}
 
-	override fun simplify(depth: Int): Symbolic<Iterable<T>> {
-		return CSymIterable<T>(items.map { it.simplify(depth - 1) })
+	override fun simplify(depth: Int): CSymIterable {
+		return copy(items.map { it.simplify(depth - 1) })
 	}
 }
 

@@ -45,6 +45,7 @@ interface Symbolic<T : Symbolic<T>> {
 
 	fun simplifyFully(): T = simplify(Int.MAX_VALUE)
 
+	companion object
 }
 
 /**
