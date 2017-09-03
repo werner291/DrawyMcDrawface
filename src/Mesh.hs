@@ -5,6 +5,8 @@ import Linear
 
 import Control.Monad (liftM)
 
+import Math (pairwise, addHeadToEnd)
+
 data Triangle a = Triangle (V3 a) (V3 a) (V3 a) deriving (Show)
 
 newtype PolyLine a = PolyLine [V3 a]

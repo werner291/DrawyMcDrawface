@@ -9,10 +9,12 @@ import Path
 
 import Control.Monad.Random
 import Control.Monad.Supply
+import Data.Maybe
 
-import Geometry
+import HalfEdgeDS
+import MonotoneTriangulate
 
-seed = 1337
+{-seed = 1337
 
 curve = CubicBezierCurve (V3 0 0 0) (V3 10 0 0) (V3 (50) 0 10) (V3 60 10 0)
 
@@ -60,4 +62,15 @@ building = do
   floorPlan <- makeFloorplan 2
   let faces = Face <$> polygonVerts <$> floorShape <$> rooms floorPlan
   let floors = (flip extrude (V3 0 0 1)) <$> faces
-  return $ mergeAll floors
+  return $ mergeAll floors -}
+
+building :: Mesh Float
+building = let
+  (heds, polygon) = fromPolygon [V2 0 0, V2 1 0, V2 1 1, V2 0 1]
+  (hedsTri, triangles) = triangulate heds polygon
+  make3D (V2 x y) = V3 x y 0
+  trianglesByEdges = (fromJust . outerComponents hedsTri <$> triangles) :: [[HalfEdge]]
+  trianglesByVertices = (\tri -> (make3D . coordinates hedsTri) . origin hedsTri <$> tri) <$> trianglesByEdges
+
+  faces = Face <$> trianglesByVertices
+  in mergeAll $ flip extrude (V3 0 0 1) <$> faces

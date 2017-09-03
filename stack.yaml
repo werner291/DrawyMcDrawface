@@ -39,7 +39,7 @@ packages:
 - '.'
 # Dependency packages to be pulled from upstream that are not in the resolver
 # (e.g., acme-missiles-0.3)
-extra-deps: ['syb-0.6']
+extra-deps: ['syb-0.6','monad-supply-0.6','hgeometry-0.6.0.0']
 
 # Override default flag values for local packages and extra-deps
 flags: {}

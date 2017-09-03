@@ -25,3 +25,8 @@ executable HaskyMcDrawface
                      , lens
                      , linear
                      , mtl
+                     , dimensional
+                     , colour
+                     , containers
+                     , MonadRandom
+                     , monad-supply

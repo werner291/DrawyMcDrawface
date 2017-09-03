@@ -1,122 +1,175 @@
 
-module MonotoneTriangulate where
+module MonotoneTriangulate (triangulate) where
 
-  compareByXy (V2 x1 y1) (V2 x2 y2)
+  import HalfEdgeDS
+
+  import Data.Map.Lazy (Map)
+  import qualified Data.Map.Lazy as Map
+
+  import Control.Arrow (first,second)
+  import Control.Monad.State
+
+  import Control.Lens
+
+  import Math (clamp)
+
+  import Data.Maybe
+
+  import Linear
+
+  import Data.List (sortBy)
+
+  compareByXY :: Ord a => HalfEdgeDS a vT eT fT -> HalfEdge -> HalfEdge -> Ordering
+  compareByXY heds edgeA edgeB
       | x1 < x2 = LT
       | x1 > x2 = GT
       | y1 < y2 = LT
       | y1 > y2 = GT
       | otherwise = EQ
+      where (V2 x1 y1) = originCoordinates heds edgeA
+            (V2 x2 y2) = originCoordinates heds edgeA
 
-  newtype MSplitEdge a = (MSplitVertex a, MSplitVertex a)
+  originCoordinates = liftM2 (.) coordinates origin
 
-  yAtX :: (Floating a) -> Edge a -> a
-  yAtX atX (vA, vB) = let t = (atX - x vA) / (x vB - x vA)
-                        in t * (y vB - y vA) + y vA
+  yAtX :: Floating a => a -> (V2 a, V2 a) -> a
+  yAtX atX (vA, vB) = let t = (atX - (vA^._x)) / (vB^._x - (vA^._x))
+                       in t * (vB^._y - vA^._y) + vA^._y
 
-  instance (Ord a) => Ord MSplitVertex a where
-    compare (MSplitEdge (a,b)) (MSplitEdge (c,d)) =
-      let xA = x (vec a)
-          xB = x (vec b)
-          xC = x (vec c)
-          xD = x (vec d)
-          cdXMin = min xC xD
-          cdXMax = max xC xD
-          compareAtX = yAtX (clamp cdXMin cdXMax ((xA + xB) / 2))
-          in compare (yAtX (Edge (vert a, vert b))) (yAtX (Edge (vert c, vert d)))
+  interiorInsidePolygon heds v = crossZ
+    (originCoordinates heds (previous heds v) - originCoordinates heds v)
+    (originCoordinates heds (next heds v) - originCoordinates heds v) >= 0 -- TODO check if the sign on this is right
 
-  interiorInsidePolygon v = crossZ (prev v - v) (next v - v) >= 0 -- TODO check if the sign on this is right
+  data VertexType = Normal | Split | Merge | Start | End deriving (Eq)
 
-  data VertexType = Normal | Split | Merge | Start | End
-
-  vertexType v
-     | v > prev v && v > next v
-       | interiorInsidePolygon v = Start -- TODO check if the sign on this is right
-       | otherwise = Merge -- Mouth to the right
-     | v < prev v && v < next v
-       | !(interiorInsidePolygon v) = End -- TODO check the sign here
-       | otherwise = Split -- Mouth to the left
+  vertexType :: (Ord a, Num a) => HalfEdgeDS a vT eT fT -> HalfEdge -> VertexType
+  vertexType heds v
+     | compareByXY heds v (previous heds v) == GT
+        && compareByXY heds v (next heds v) == GT =
+         if interiorInsidePolygon heds v
+           then Start -- TODO check if the sign on this is right
+           else Merge -- Mouth to the right
+     | compareByXY heds v (previous heds v) == LT
+         && compareByXY heds v (next heds v) == LT =
+         if interiorInsidePolygon heds v
+           then Split -- TODO check the sign here
+           else End -- Mouth to the left
      | otherwise = Normal
 
-  monotoneSplit :: HalfEdgeDS a vT eT fT -> FacePointer -> (HalfEdgeDS a vT eT fT, [FacePointer])
-  monotoneSplit heds face =
-        sorted = sortBy (orderByXY) (outerEdges heds face) -- TODO deal with holes (should be easy enough)
-        diagonals = evalState (performSweep sorted) (Map.empty, [])
-        in splitFace heds face diagonals
+  monotoneSplit :: (Ord a, Num a, Floating a) => HalfEdgeDS a vT eT fT -> Face -> (HalfEdgeDS a vT eT fT, [Face])
+  monotoneSplit heds face = let
+        sorted = sortBy (compareByXY heds) (fromJust $ outerComponents heds face) -- TODO deal with holes (should be easy enough)
+        diagonals = evalState (performMonotoneSplitSweep heds sorted) (Map.empty, [])
+        in splitFace face diagonals heds
 
-  type SweepState = (Map (SplitStateEdge a) (HalfEdgeDS a), [(HalfEdgeDS, HalfEdgeDS)])
+  type SweepState a vT eT fT = (Map (YOrderedEdge a vT eT fT) HalfEdge, [(HalfEdge, HalfEdge)])
 
-  performMonotoneSplitSweep :: [HalfEdgeDS a] -> State SweepState [(HalfEdgeDS, HalfEdgeDS)]
+  data YOrderedEdge a vT eT fT = YOrderedEdge (HalfEdgeDS a vT eT fT) HalfEdge
 
-  performMonotoneSplitSweep [] = do
+  instance Eq (YOrderedEdge a vT eT fT) where
+    (YOrderedEdge _ a) == (YOrderedEdge _ b) = a == b
+
+  instance (Num a, Floating a, Ord a) => Ord (YOrderedEdge a vT eT fT) where
+    compare (YOrderedEdge heds edgeA) (YOrderedEdge hedsB edgeB) =
+      let va = coordinates heds (origin heds edgeA)
+          vb = coordinates heds (target heds edgeA)
+          vc = coordinates hedsB (origin heds edgeB)
+          vd = coordinates hedsB (target heds edgeB)
+          cdXMin = min (vc ^. _x) (vd ^. _x)
+          cdXMax = max (vc ^. _x) (vd ^. _x)
+          atX = yAtX (clamp cdXMin cdXMax ((va^._x + vb^._x) / 2))
+          in compare (atX (va, vb)) (atX (vc,vd))
+
+
+
+  performMonotoneSplitSweep :: (Floating a, Num a, Ord a)
+                            => HalfEdgeDS a vT eT fT
+                            -> [HalfEdge]
+                            -> State (SweepState a vT eT fT) [(HalfEdge, HalfEdge)]
+
+  performMonotoneSplitSweep heds [] = do
     (_, linesAdded) <- get
     return linesAdded
 
-  performMonotoneSplitSweep (vertex:vertices) = do
+  performMonotoneSplitSweep heds (current:halfEdges) = do
     (edgesAndHelpers, _) <- get
 
-    case (vertexType vertex) of
-      | Start -> do
-        setHelper (outgoingEdge vertex) vertex
+    let oldHelper = (Map.!) edgesAndHelpers (YOrderedEdge heds $ previous heds current)
 
-      | End -> do
-        let oldHelper = (edgesAndHelpers ! (incomingEdge vertex))
-        when (vertexType oldHelper == Merge)
-          insertDiagonal (Edge oldHelper vertex)
-        deleteHelper (incomingEdge vertex)
+    case vertexType heds current of
+      Start -> setHelper heds current current
 
-      | Split ->
-        let (edgeBelow, helper) = fromJust $ Map.lookupLE (outgoingEdge vertex)
-        insertDiagonal (Edge helper vertex)
-        setHelper (edgeBelow vertex) vertex
-        setHelper (outgoingEdge vertex) vertex
+      End -> do
+        when (vertexType heds oldHelper == Merge)
+          (insertDiagonal oldHelper current)
+        deleteHelper heds $ previous heds current
 
-      | Merge -> do
-        let oldHelper = (edgesAndHelpers ! (incomingEdge vertex))
-        when (vertexType oldHelper == Merge)
-          insertDiagonal (Edge oldHelper vertex)
-        deleteHelper (incomingEdge vertex)
-        let (edgeBelow, leftOldHelper) = fromJust $ Map.lookupLE (outgoingEdge vertex)
-        when (vertexType leftOldHelper == Merge)
-          insertDiagonal (Edge leftOldHelper vertex)
-        setHelper edgeBelow vertex
+      Split -> do
+        let (YOrderedEdge _ edgeBelow, helper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
+        insertDiagonal helper current
+        setHelper heds edgeBelow current
+        setHelper heds current current
 
-      | Normal ->
-        if (interiorInsidePolygon vertex)
-          then
-            when (vertexType oldHelper == Merge)
-              insertDiagonal (Edge oldHelper vertex)
-            deleteHelper (incomingEdge vertex)
-            setHelper (outgoingEdge vertex) vertex
-          else
-            let (edgeBelow, helper) = fromJust $ Map.lookupLE (outgoingEdge vertex)
-            setHelper edgeBelow vertex
+      Merge -> do
+        when (vertexType heds oldHelper == Merge)
+          (insertDiagonal oldHelper current)
+        deleteHelper heds (previous heds current)
+        let (YOrderedEdge _ edgeBelow, belowHelper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
+        when (vertexType heds belowHelper == Merge)
+          (insertDiagonal belowHelper current)
+        setHelper heds edgeBelow current
 
-    return (performSweep vertices)
+      Normal ->
+        if interiorInsidePolygon heds current
+          then do
+            when (vertexType heds oldHelper == Merge)
+              (insertDiagonal oldHelper current)
+            deleteHelper heds (previous heds current)
+            setHelper heds current current
+          else do
+            let (YOrderedEdge _ edgeBelow, helper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
+            setHelper heds edgeBelow current
 
-  -- Set the helper vertex for a certain edge
-  setHelper :: Edge a -> MSplitVertex a -> State (Map (Edge a) (MSplitVertex a), [Edge a])
-  setHelper edge helper = do
-    (edgesAndHelpers, linesAdded) <- get
-    put ( insert edge helper edgesAndHelpers , linesAdded )
+    performMonotoneSplitSweep heds halfEdges
 
   -- Set the helper vertex for a certain edge
-  deleteHelper :: Edge a -> MSplitVertex a -> State (Map (Edge a) (MSplitVertex a), [Edge a])
-  deleteHelper edge helper = do
-    (edgesAndHelpers, linesAdded) <- get
-    put ( delete edge edgesAndHelpers , linesAdded )
+  setHelper :: (Num a, Ord a, Floating a)
+            => HalfEdgeDS a vT eT fT
+            -> HalfEdge
+            -> HalfEdge
+            -> State (SweepState a vT eT fT) ()
+  setHelper heds edge helper =
+   state (\(map,diags) -> ((), (Map.insert (YOrderedEdge heds edge) helper map , diags)))
 
-  insertDiagonal :: Edge a -> State (Map (Edge a) (MSplitVertex a), [Edge])
-  insertDiagonal edge = do
-    (edgesAndHelpers, linesAdded) <- get
-    put (edgesAndHelpers, reverseEdge edge : edge : linesAdded)
+  -- Set the helper vertex for a certain edge
+  deleteHelper :: (Floating a, Num a, Ord a)
+               => HalfEdgeDS a vT eT fT
+               -> HalfEdge
+               -> State (SweepState a vT eT fT) ()
+  deleteHelper heds edge =
+    state (\(helpers, diags) -> ((),(Map.delete (YOrderedEdge heds edge) helpers, diags)))
 
-  triangulateMonotone :: HalfEdgeDS a vT eT fT -> FacePointer -> (HalfEdgeDS a vT eT fT, [FacePointer])
+  insertDiagonal :: HalfEdge -> HalfEdge -> State (SweepState a vT eT fT) ()
+  insertDiagonal from to =
+    state (\(map,list) -> ((),(map,(from, to):list)))
+
+  triangulateMonotone :: (Ord a) => HalfEdgeDS a vT eT fT -> Face -> (HalfEdgeDS a vT eT fT, [Face])
   triangulateMonotone heds fp = let
-    sortedEdges = sortBy compareByXy $ outerEdges heds fp
+    sortedEdges = sortBy (compareByXY heds) $ fromJust $ outerComponents heds fp
     triangulateFoldStep (above,below,diagonals) currentEdge =
-      if (above == previousId currentEdge)
+      if above == previous heds currentEdge
         then (currentEdge, below, (below, currentEdge) : diagonals)
         else (above, currentEdge, (currentEdge, above) : diagonals)
-    (_,_,diagonals) foldl triangulateFoldStep (sortedEdges ! 0, sortedEdges ! 1, []) sortedEdges
-    in splitFace heds fp diagonals
+    (_,_,diagonals) = foldl triangulateFoldStep (head sortedEdges, sortedEdges !! 1, []) sortedEdges
+    in splitFace fp diagonals heds
+
+
+  triangulate :: (Ord a, Num a, Floating a)
+              => HalfEdgeDS a vT eT fT
+              -> Face
+              -> (HalfEdgeDS a vT eT fT, [Face])
+  triangulate heds face = let
+    (hedsMonotone, monotoneFaces) = monotoneSplit heds face
+    triangulateFoldStep (heds,triangles) triangle = let
+      (newHeds,newTriangles) = triangulateMonotone heds triangle
+      in (newHeds,newTriangles ++ triangles) -- TODO check whether this gives O(n^2) running time...
+    in foldl triangulateFoldStep (hedsMonotone,[]) monotoneFaces

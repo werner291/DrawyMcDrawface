@@ -29,18 +29,20 @@ extendV3Position (V3 x y z) = V4 x y z 1
 normal (Triangle a b c) = signorm $ (a-b) `cross` (a-c)
 
 vertices :: Mesh Float -> [(V4 Float, V3 Float)]
-vertices (Mesh faces) = concat $ map (\(Triangle a b c) ->
-  [(extendV3Position a, normal (Triangle a b c)),
-   (extendV3Position b, normal (Triangle a b c)),
-   (extendV3Position c, normal (Triangle a b c))]) (concat (map triangulateFanFromFirst faces))
+vertices (Mesh faces) = concatMap
+  (\ (Triangle a b c) ->
+     [(extendV3Position a, normal (Triangle a b c)),
+      (extendV3Position b, normal (Triangle a b c)),
+      (extendV3Position c, normal (Triangle a b c))])
+  (concatMap triangulateFanFromFirst faces)
 
 main =
   runContextT GLFW.defaultHandleConfig $ do
     win <- newWindow (WindowFormatColorDepth RGB8 Depth16) (GLFW.defaultWindowConfig "Hello world!")
 
-    buildingMesh <- liftIO (evalRandIO (evalSupplyT building [0..]))
+    --buildingMesh <- liftIO (evalRandIO (evalSupplyT building [0..]))
 
-    let cubeVerts = Main.vertices buildingMesh
+    let cubeVerts = Main.vertices building
 
     vertexBuffer :: Buffer os (B4 Float, B3 Float) <- newBuffer (length cubeVerts)
     writeBuffer vertexBuffer 0 cubeVerts
