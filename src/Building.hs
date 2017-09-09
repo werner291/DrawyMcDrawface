@@ -66,7 +66,7 @@ building = do
 
 building :: Mesh Float
 building = let
-  (heds, polygon) = fromPolygon [V2 0 0, V2 1 0, V2 1 1, V2 0 1]
+  (heds, polygon) = fromPolygon [V2 0 0, V2 (-5) (-2), V2 10 0, V2 (-5) 2]
   (hedsTri, triangles) = triangulate heds polygon
   make3D (V2 x y) = V3 x y 0
   trianglesByEdges = (fromJust . outerComponents hedsTri <$> triangles) :: [[HalfEdge]]

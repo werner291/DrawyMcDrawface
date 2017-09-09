@@ -8,6 +8,15 @@ module HalfEdgeDS ( next
                   , fromPolygon
                   , coordinates
                   , splitFace
+                  , listVertices
+                  , listEdges
+                  , listFaces
+                  , prop_twinOfTwin
+                  , prop_previousOfNext
+                  , prop_nextOfPrevious
+                  , prop_fromPolygonMakesCorrectHEDS
+                  , prop_correctFacePointers
+                  , prop_hedsOk
                   , HalfEdgeDS
                   , HalfEdge
                   , Vertex
@@ -19,9 +28,11 @@ import qualified Data.IntMap.Lazy as IntMap
 import Data.IntSet (IntSet)
 import qualified Data.IntSet as IntSet
 
-import Data.Maybe (fromJust)
+import Data.Maybe (fromMaybe, fromJust)
 
 import Control.Monad (liftM2)
+
+import Debug.Trace
 
 import Linear
 
@@ -31,33 +42,36 @@ type Face = Int
 
 data VertexData a vT = VertexData { _coordinates :: V2 a
                                   , _userData :: vT
-                                  , _incidentEdgeId :: HalfEdge } deriving (Eq)
+                                  , _incidentEdgeId :: HalfEdge } deriving (Show)
 
 data HalfEdgeData a eT = HalfEdgeData { _origin :: Vertex
                                       , _twin :: HalfEdge
                                       , _incidentFace :: Face
                                       , _next :: HalfEdge
-                                      , _prev :: HalfEdge } deriving (Eq)
+                                      , _prev :: HalfEdge } deriving (Show)
 
 data FaceData a fT = FaceData { _outerComponent :: Maybe Int
-                              , _innerComponents :: IntSet } deriving (Eq)
+                              , _innerComponents :: IntSet } deriving (Show)
 
 data HalfEdgeDS a vT eT fT = HalfEdgeDS { vertices :: IntMap (VertexData a vT)
                                         , edges :: IntMap (HalfEdgeData a eT)
-                                        , faces :: IntMap (FaceData a fT) }
+                                        , faces :: IntMap (FaceData a fT) } deriving (Show)
 
 vertexData :: HalfEdgeDS a vT eT fT -> Vertex -> VertexData a vT
-vertexData = (IntMap.!) . vertices
+vertexData heds vertex = fromMaybe (error ("No vertex with ID: " ++ show vertex))
+                       $ IntMap.lookup vertex (vertices heds)
 
 coordinates :: HalfEdgeDS a vT eT fT -> Vertex -> V2 a
 coordinates = (_coordinates .) . vertexData
 
 -- | (Internal) Retrieve the edge data for a given node in a HEDS
 edgeData :: HalfEdgeDS a vT eT fT -> HalfEdge -> HalfEdgeData a eT
-edgeData = (IntMap.!) . edges
+edgeData heds he = fromMaybe (error ("No halfedge with ID: " ++ show he))
+                       $ IntMap.lookup he (edges heds)
 
 faceData :: HalfEdgeDS a vT eT fT -> HalfEdge -> FaceData a fT
-faceData = (IntMap.!) . faces
+faceData heds face = fromMaybe (error ("No face with ID: " ++ show face))
+                       $ IntMap.lookup face (faces heds)
 
 -- | Retrieve the origin Vertex of the halfedge
 origin :: HalfEdgeDS a vT eT fT -> HalfEdge -> Vertex
@@ -79,33 +93,71 @@ previous = (_prev .) . edgeData
 twin :: HalfEdgeDS a vT eT fT -> HalfEdge -> HalfEdge
 twin = (_twin .) . edgeData
 
+incidentFace :: HalfEdgeDS a vT eT fT -> HalfEdge -> Face
+incidentFace = (_incidentFace .) . edgeData
+
 exploreEdges :: HalfEdgeDS a vT eT fT -> HalfEdge -> [HalfEdge]
-exploreEdges = iterate . next -- TODO: check if this really works...
+exploreEdges = iterate . next
+
+exploreEdgesOnce :: HalfEdgeDS a vT eT fT -> HalfEdge -> [HalfEdge]
+exploreEdgesOnce heds he = let looping = exploreEdges heds he
+                             in he : takeWhile (/= he) (tail looping)
 
 outerComponent :: HalfEdgeDS a vT eT fT -> Face -> Maybe HalfEdge
 outerComponent = (_outerComponent .) . faceData
 
 outerComponents :: HalfEdgeDS a vT eT fT -> Face -> Maybe [HalfEdge]
-outerComponents heds face = exploreEdges heds <$> outerComponent heds face
+outerComponents heds face = exploreEdgesOnce heds <$> outerComponent heds face
+
+listEdges :: HalfEdgeDS a vT eT fT -> [HalfEdge]
+listEdges = IntMap.keys . edges
+listVertices = IntMap.keys . vertices
+listFaces = IntMap.keys . faces
 
 newVertex :: HalfEdgeDS a vT eT fT -> Vertex
 newVertex heds = if (null.vertices) heds
                       then 0
-                      else (fst.(IntMap.findMax).vertices) heds
+                      else succ $ (fst.(IntMap.findMax).vertices) heds
 
 newVertices heds = enumFrom.newVertex
 
 newEdge heds = if (null.edges) heds
                       then 0
-                      else (fst.(IntMap.findMax).edges) heds
+                      else succ $ (fst.(IntMap.findMax).edges) heds
 
 newEdges = enumFrom.newEdge
 
 newFace heds = if (null.faces) heds
                       then 0
-                      else (fst.(IntMap.findMax).faces) heds
+                      else succ $ (fst.(IntMap.findMax).faces) heds
 
 newFaces = enumFrom.newFace
+
+-- Invariants and properties --
+
+-- Mutual twinship
+prop_twinOfTwin heds edge = edge == twin heds (twin heds edge)
+
+-- Prev-next correctness
+prop_previousOfNext heds edge = edge == previous heds (next heds edge)
+prop_nextOfPrevious heds edge = edge == next heds (previous heds edge)
+
+listMaybeToList :: Maybe [a] -> [a]
+listMaybeToList (Just xs) = xs
+listMaybeToList Nothing = []
+
+prop_correctFacePointers heds face =
+ all (== face) $ incidentFace heds <$> listMaybeToList (outerComponents heds face)
+
+prop_allEdgesInFace heds edge =
+ and $ (\edge -> edge `elem` (exploreEdgesOnce heds . fromJust . outerComponent heds . incidentFace heds) edge) <$> listEdges heds
+
+prop_hedsOk heds = let
+  edgesOk =  all (prop_twinOfTwin heds) (listEdges heds)
+          && all (prop_previousOfNext heds) (listEdges heds)
+          && all (prop_nextOfPrevious heds) (listEdges heds)
+  facesOk = all (prop_correctFacePointers heds) (listFaces heds)
+  in edgesOk && facesOk
 
 -- Operations --
 
@@ -124,7 +176,7 @@ splitFace face toInsert oldHeds = let
 
   unsafe_insertEdgeBeforeEdges (heds,insertedEdges) (a, b) =
     let (newEdgeId : newTwinId : _) = newEdges heds
-        edgeExists = (next heds . next heds) a == b -- Check duplicates
+        edgeExists = (previous heds . previous heds) a == b -- Check duplicates
       -- We know this is not null since we start out with a face
         edgesWithDiagonal =
                    IntMap.adjust (\e -> e { _prev = newTwinId }) a
@@ -152,7 +204,7 @@ splitFace face toInsert oldHeds = let
       foldl unsafe_insertEdgeBeforeEdges (oldHeds,[]) toInsert
 
   -- List of all half-edges that need to change in this operation
-  allAffectedEdges = insertedEdges ++ fromJust (outerComponents oldHeds face)
+  allAffectedEdges = traceShow insertedEdges $ insertedEdges ++ fromMaybe (error "Splitting unbounded face...") (outerComponents oldHeds face)
 
   makeFaces :: HalfEdgeDS a vT eT fT -> [HalfEdge] -> (HalfEdgeDS a vT eT fT, IntMap Face, [Face])
   makeFaces heds (edge:todo) = let
@@ -163,12 +215,14 @@ splitFace face toInsert oldHeds = let
     setIncidentFace = IntMap.adjust (\e -> e { _incidentFace = newFace rHeds })
     in if IntMap.member edge edgesToFace
          then (rHeds, edgesToFace, facesSoFar)
-         else ( rHeds { edges = foldl (flip setIncidentFace) (edges rHeds) (exploreEdges rHeds edge)
+         else ( rHeds { edges = foldl (flip setIncidentFace) (edges rHeds) (exploreEdgesOnce rHeds edge)
                       , faces = IntMap.insert face faceData (faces rHeds) }
-              , foldl (\acc edge -> IntMap.insert edge face acc) edgesToFace (exploreEdges rHeds edge)
+              , foldl (\acc edge -> IntMap.insert edge face acc) edgesToFace (exploreEdgesOnce rHeds edge)
               , face:facesSoFar )
+  makeFaces heds [] = (heds {faces = IntMap.delete face $ faces heds }, IntMap.empty, [])
 
   (newHeds, _, newFaces) = makeFaces newHedsBrokenFaces allAffectedEdges
+   -- Start with no edges processed, the original heds and an empty list of created faces
 
   -- Top-level call to makeFaces
   in (newHeds, newFaces)
@@ -184,22 +238,24 @@ fromPolygon verts = let
                       return (i, VertexData { _coordinates = v
                                             , _userData = ()
                                             , _incidentEdgeId = 0 } )
-                  , edges = IntMap.fromList $ do
+                  , edges = IntMap.fromList $ concat $
                       -- List of vertex IDs in the same order as the polygon verts
-                      i <- [0..(numVerts - 1)]
+                      (\i ->
+                      [ ( i * 2 -- Even numbers of the interior
                       -- Generate interleaved of interior-exterior edges
-                      return ( i * 2 -- Even numbers of the interior
+
                              , HalfEdgeData { _origin = i
                                             , _twin = i * 2 + 1 -- Twin is the one jst after
                                             , _incidentFace = interiorFaceId
                                             , _next = ((i+1) `mod` numVerts)*2 -- next even number (modulo)
                                             , _prev = ((i-1) `mod` numVerts)*2 } ) -- previous even number (modulo) )
-                      return ( i * 2 + 1 -- Odd numbers ofr the unbounded face
-                             , HalfEdgeData { _origin = i + 1
+                      , ( i * 2 + 1 -- Odd numbers for the unbounded face
+                             , HalfEdgeData { _origin = (i + 1) `mod` numVerts
                                             , _twin = i * 2 -- Just before
                                             , _incidentFace = unboundedFaceId
                                             , _next = ((i+1)*2 + 1) `mod` (numVerts *2) -- next odd number
-                                            , _prev = ((i-1)*2 - 1) `mod` (numVerts *2) } ) -- previous odd number
+                                            , _prev = ((i-1)*2 + 1) `mod` (numVerts *2) } ) ] -- previous odd number
+                      )<$> [0..(numVerts - 1)]
                   , faces = IntMap.fromList [ ( interiorFaceId -- Interior
                                             , FaceData { _outerComponent = Just 0 -- The first inner edge
                                                        , _innerComponents = IntSet.empty } ) -- No holes
@@ -208,3 +264,4 @@ fromPolygon verts = let
                                                        , _innerComponents = IntSet.singleton 1 } ) ] } -- One hole: the polygon
      , interiorFaceId)
 
+prop_fromPolygonMakesCorrectHEDS polygon = prop_hedsOk (fst $ fromPolygon polygon)

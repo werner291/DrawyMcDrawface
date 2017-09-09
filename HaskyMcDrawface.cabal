@@ -30,3 +30,4 @@ executable HaskyMcDrawface
                      , containers
                      , MonadRandom
                      , monad-supply
+                     , QuickCheck

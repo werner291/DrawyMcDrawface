@@ -1,5 +1,5 @@
 
-module MonotoneTriangulate (triangulate) where
+module MonotoneTriangulate (triangulate, monotoneSplit, triangulateMonotone) where
 
   import HalfEdgeDS
 
@@ -17,17 +17,17 @@ module MonotoneTriangulate (triangulate) where
 
   import Linear
 
+  import Debug.Trace
+
   import Data.List (sortBy)
 
-  compareByXY :: Ord a => HalfEdgeDS a vT eT fT -> HalfEdge -> HalfEdge -> Ordering
-  compareByXY heds edgeA edgeB
-      | x1 < x2 = LT
-      | x1 > x2 = GT
-      | y1 < y2 = LT
-      | y1 > y2 = GT
-      | otherwise = EQ
-      where (V2 x1 y1) = originCoordinates heds edgeA
-            (V2 x2 y2) = originCoordinates heds edgeA
+  compareByXY :: Ord a
+              => HalfEdgeDS a vT eT fT
+              -> HalfEdge
+              -> HalfEdge
+              -> Ordering
+  compareByXY heds edgeA edgeB = compare (originCoordinates heds edgeA)
+                                         (originCoordinates heds edgeB)
 
   originCoordinates = liftM2 (.) coordinates origin
 
@@ -39,19 +39,19 @@ module MonotoneTriangulate (triangulate) where
     (originCoordinates heds (previous heds v) - originCoordinates heds v)
     (originCoordinates heds (next heds v) - originCoordinates heds v) >= 0 -- TODO check if the sign on this is right
 
-  data VertexType = Normal | Split | Merge | Start | End deriving (Eq)
+  data VertexType = Normal | Split | Merge | Start | End deriving (Eq, Show)
 
   vertexType :: (Ord a, Num a) => HalfEdgeDS a vT eT fT -> HalfEdge -> VertexType
   vertexType heds v
-     | compareByXY heds v (previous heds v) == GT
-        && compareByXY heds v (next heds v) == GT =
-         if interiorInsidePolygon heds v
-           then Start -- TODO check if the sign on this is right
-           else Merge -- Mouth to the right
      | compareByXY heds v (previous heds v) == LT
-         && compareByXY heds v (next heds v) == LT =
+        && compareByXY heds v (next heds v) == LT =
          if interiorInsidePolygon heds v
-           then Split -- TODO check the sign here
+           then Split -- TODO check if the sign on this is right
+           else Start -- Mouth to the right
+     | compareByXY heds v (previous heds v) == GT
+         && compareByXY heds v (next heds v) == GT =
+         if interiorInsidePolygon heds v
+           then Merge -- TODO check the sign here
            else End -- Mouth to the left
      | otherwise = Normal
 
@@ -79,8 +79,6 @@ module MonotoneTriangulate (triangulate) where
           atX = yAtX (clamp cdXMin cdXMax ((va^._x + vb^._x) / 2))
           in compare (atX (va, vb)) (atX (vc,vd))
 
-
-
   performMonotoneSplitSweep :: (Floating a, Num a, Ord a)
                             => HalfEdgeDS a vT eT fT
                             -> [HalfEdge]
@@ -93,9 +91,13 @@ module MonotoneTriangulate (triangulate) where
   performMonotoneSplitSweep heds (current:halfEdges) = do
     (edgesAndHelpers, _) <- get
 
-    let oldHelper = (Map.!) edgesAndHelpers (YOrderedEdge heds $ previous heds current)
+    let oldHelper = fromMaybe (error $ "Helper not found for edge: " ++ show current)
+                  $ Map.lookup (YOrderedEdge heds $ previous heds current) edgesAndHelpers
 
-    case vertexType heds current of
+    let (YOrderedEdge _ edgeBelow, belowHelper) = fromMaybe (error "Under-edge not found")
+                                                $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
+
+    case traceShowId $ vertexType heds current of
       Start -> setHelper heds current current
 
       End -> do
@@ -104,8 +106,7 @@ module MonotoneTriangulate (triangulate) where
         deleteHelper heds $ previous heds current
 
       Split -> do
-        let (YOrderedEdge _ edgeBelow, helper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
-        insertDiagonal helper current
+        insertDiagonal belowHelper current
         setHelper heds edgeBelow current
         setHelper heds current current
 
@@ -113,7 +114,6 @@ module MonotoneTriangulate (triangulate) where
         when (vertexType heds oldHelper == Merge)
           (insertDiagonal oldHelper current)
         deleteHelper heds (previous heds current)
-        let (YOrderedEdge _ edgeBelow, belowHelper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
         when (vertexType heds belowHelper == Merge)
           (insertDiagonal belowHelper current)
         setHelper heds edgeBelow current
@@ -125,8 +125,7 @@ module MonotoneTriangulate (triangulate) where
               (insertDiagonal oldHelper current)
             deleteHelper heds (previous heds current)
             setHelper heds current current
-          else do
-            let (YOrderedEdge _ edgeBelow, helper) = fromJust $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
+          else
             setHelper heds edgeBelow current
 
     performMonotoneSplitSweep heds halfEdges
@@ -154,12 +153,12 @@ module MonotoneTriangulate (triangulate) where
 
   triangulateMonotone :: (Ord a) => HalfEdgeDS a vT eT fT -> Face -> (HalfEdgeDS a vT eT fT, [Face])
   triangulateMonotone heds fp = let
-    sortedEdges = sortBy (compareByXY heds) $ fromJust $ outerComponents heds fp
+    sortedEdges = sortBy (compareByXY heds) $ fromMaybe (error "Outer components not found") $ outerComponents heds fp
     triangulateFoldStep (above,below,diagonals) currentEdge =
       if above == previous heds currentEdge
         then (currentEdge, below, (below, currentEdge) : diagonals)
         else (above, currentEdge, (currentEdge, above) : diagonals)
-    (_,_,diagonals) = foldl triangulateFoldStep (head sortedEdges, sortedEdges !! 1, []) sortedEdges
+    (_,_,diagonals) = foldl triangulateFoldStep (head sortedEdges, (head . tail) sortedEdges, []) $ init $ drop 2 sortedEdges
     in splitFace fp diagonals heds
 
 
