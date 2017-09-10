@@ -176,7 +176,7 @@ splitFace face toInsert oldHeds = let
 
   unsafe_insertEdgeBeforeEdges (heds,insertedEdges) (a, b) =
     let (newEdgeId : newTwinId : _) = newEdges heds
-        edgeExists = (previous heds . previous heds) a == b -- Check duplicates
+        edgeExists = (next heds . twin heds . previous heds) a == b -- Check duplicates
       -- We know this is not null since we start out with a face
         edgesWithDiagonal =
                    IntMap.adjust (\e -> e { _prev = newTwinId }) a
@@ -188,7 +188,7 @@ splitFace face toInsert oldHeds = let
                                                         , _prev = a }
                  $ IntMap.adjust (\e -> e { _prev = newEdgeId }) b
                  $ IntMap.adjust (\e -> e { _next = newTwinId }) (previous heds b)
-                 $ IntMap.insert newTwinId HalfEdgeData { _origin = origin heds a
+                 $ IntMap.insert newTwinId HalfEdgeData { _origin = origin heds b
                                                         , _twin = newEdgeId
                                                         , _incidentFace = undefined -- ?
                                                         , _next = a
@@ -204,7 +204,7 @@ splitFace face toInsert oldHeds = let
       foldl unsafe_insertEdgeBeforeEdges (oldHeds,[]) toInsert
 
   -- List of all half-edges that need to change in this operation
-  allAffectedEdges = traceShow insertedEdges $ insertedEdges ++ fromMaybe (error "Splitting unbounded face...") (outerComponents oldHeds face)
+  allAffectedEdges = insertedEdges ++ fromMaybe (error "Splitting unbounded face...") (outerComponents oldHeds face)
 
   makeFaces :: HalfEdgeDS a vT eT fT -> [HalfEdge] -> (HalfEdgeDS a vT eT fT, IntMap Face, [Face])
   makeFaces heds (edge:todo) = let
@@ -243,7 +243,6 @@ fromPolygon verts = let
                       (\i ->
                       [ ( i * 2 -- Even numbers of the interior
                       -- Generate interleaved of interior-exterior edges
-
                              , HalfEdgeData { _origin = i
                                             , _twin = i * 2 + 1 -- Twin is the one jst after
                                             , _incidentFace = interiorFaceId

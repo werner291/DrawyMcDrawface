@@ -97,7 +97,7 @@ module MonotoneTriangulate (triangulate, monotoneSplit, triangulateMonotone) whe
     let (YOrderedEdge _ edgeBelow, belowHelper) = fromMaybe (error "Under-edge not found")
                                                 $ Map.lookupLE (YOrderedEdge heds current) edgesAndHelpers
 
-    case traceShowId $ vertexType heds current of
+    case vertexType heds current of
       Start -> setHelper heds current current
 
       End -> do
@@ -153,12 +153,14 @@ module MonotoneTriangulate (triangulate, monotoneSplit, triangulateMonotone) whe
 
   triangulateMonotone :: (Ord a) => HalfEdgeDS a vT eT fT -> Face -> (HalfEdgeDS a vT eT fT, [Face])
   triangulateMonotone heds fp = let
-    sortedEdges = sortBy (compareByXY heds) $ fromMaybe (error "Outer components not found") $ outerComponents heds fp
+    sortedEdges = sortBy (compareByXY heds)
+                $ fromMaybe (error "Outer components not found")
+                $ outerComponents heds fp
     triangulateFoldStep (above,below,diagonals) currentEdge =
       if above == previous heds currentEdge
         then (currentEdge, below, (below, currentEdge) : diagonals)
         else (above, currentEdge, (currentEdge, above) : diagonals)
-    (_,_,diagonals) = foldl triangulateFoldStep (head sortedEdges, (head . tail) sortedEdges, []) $ init $ drop 2 sortedEdges
+    (_,_,diagonals) = foldl triangulateFoldStep (head sortedEdges, (head . tail) sortedEdges, []) $ (init . drop 2 . traceShowId) sortedEdges
     in splitFace fp diagonals heds
 
 
